@@ -2,6 +2,7 @@
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 import sys
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
 import matplotlib.gridspec as gridspec
@@ -44,13 +45,17 @@ def main_spec(ax, wl, flam):
 def panels(ax, wl_range, wl, flam):
     """ Smaller panels with zoom-ins """
     choose = np.logical_and(wl>wl_range[0], wl<wl_range[1])
-    ax.step(wl[choose], flam[choose]/1E-16, where='mid', c='k', lw=0.5)
+    x = wl[choose]
+    y = flam[choose]/1E-16
+    ax.step(x, y, where='mid', c='k', lw=0.5)
     plt.yticks([])
+    ax.set_ylim(min(y), max(y)+0.15)
+    ax.set_xlim(min(x), max(x))
 
 
-def plot_lines(ax, species):
+def plot_lines(ax, species, col, lw=1):
     for l in wl_lines[species]:
-        ax.axvline(l, lw=0.5, ls=':')
+        ax.axvline(l, lw=lw, ymin=0.9, ymax=1, color=col)
 
 
 if __name__=="__main__":
@@ -65,32 +70,41 @@ if __name__=="__main__":
 
     ax = fig.add_subplot(gs[1, :])
     main_spec(ax, wl, flam)
+    ax.axvspan(3700, 3760, alpha=0.2, color='grey', lw=0)
+    ax.axvspan(4800, 5050, alpha=0.2, color='grey', lw=0)
+    ax.axvspan(6510, 6770, alpha=0.2, color='grey', lw=0)
 
-    # Zoom-in of the OII (left-most) line
+    # Zoom-in of the OII (left-most) doublet
     ax = fig.add_subplot(gs[0, 0])
     panels(ax, [3700, 3760], wl, flam)
-    plot_lines(ax, 'oii')
+    plot_lines(ax, 'oii', vals.gc)
+    ax.text(0.05, 0.95, '[O II]', ha='left', va='top', transform=ax.transAxes,
+            color=vals.gc)
 
     # Zoom-in of the middle lines
     ax = fig.add_subplot(gs[0, 1])
     panels(ax, [4800, 5050], wl, flam)
-    plot_lines(ax, 'oiii')
+    plot_lines(ax, 'oiii', vals.gc)
+    ax.text(0.35, 0.95, '[O III]', ha='left', va='top', transform=ax.transAxes,
+            color=vals.gc)
+    plot_lines(ax, 'hb', vals.rc, lw=2)
+    ax.text(0.00, 0.95, r'[H$\beta$]', ha='left', va='top', 
+            transform=ax.transAxes, color=vals.rc)
 
     # Zoom-in of the right lines
     ax = fig.add_subplot(gs[0, 2])
-    panels(ax, [6530, 6770], wl, flam)
+    panels(ax, [6510, 6770], wl, flam)
+    plot_lines(ax, 'ha', vals.rc, lw=2)
+    ax.text(0.01, 0.9, r'[H$\alpha$]', ha='left', va='top', 
+            transform=ax.transAxes, color=vals.rc)
+    plot_lines(ax, 'nii', vals.gc)
+    ax.text(0.3, 0.95, r'[N II]', ha='left', va='top', 
+            transform=ax.transAxes, color=vals.gc)
+    plot_lines(ax, 'sii', 'grey', lw=3)
+    ax.text(0.8, 0.85, r'[S II]', ha='center', va='top', 
+            transform=ax.transAxes, color='grey')
 
-    # Mark lines
-    #for key,line in lines.items():
-    #    for l in line:
-    #        ax.axvline(x=l, lw=1, alpha=0.3, c='grey')
-
-    # wl_lines['ha'] = [6562.819]
-    # wl_lines['hb'] = [4861.333]
-    # wl_lines['nii'] = [6548.050, 6583.460]
-    # # only fit the first line...the second one has nans in it
-    # wl_lines['sii'] = [6716.440]#, 6730.810]
-
-
-    plt.tight_layout()
-    plt.show()
+    #plt.tight_layout()
+    #plt.show()
+    plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
+    plt.close()

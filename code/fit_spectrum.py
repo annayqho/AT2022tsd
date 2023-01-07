@@ -130,8 +130,7 @@ def get_rest_wl():
     wl_lines['oii'] = [3726.032, 3728.815]
     wl_lines['oiii'] = [4958.911, 5006.843]
     wl_lines['nii'] = [6548.050, 6583.460]
-    # only fit the first line...the second one has nans in it
-    wl_lines['sii'] = [6716.440]#, 6730.810]
+    wl_lines['sii'] = [6716.440, 6730.810]
     #hgamma = 4340.471
     return wl_lines
 
@@ -268,7 +267,13 @@ def fit_z():
     zall = []
     ezall = []
     for key,val in wl_lines.items():
-        for line in val:
+        if key=='sii':
+            use = val[0:-1] # only fit the first SII line
+        elif key=='oii':
+            use = [] # doublet, makes things confusing
+        else:
+            use = val
+        for line in use:
             #plt.axvline(x=line*(1+z0), c='red', lw=0.5)
             z, ez = fit_redshift(wl, f, ef, line, z0, window)
             zall.append(z)
