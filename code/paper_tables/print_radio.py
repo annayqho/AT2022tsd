@@ -4,20 +4,20 @@ import sys
 from astropy.time import Time
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
 from get_opt import get_ipac
-import values
+from get_radio_at2022tsd import *
+import vals
 
 def print_table():
     """ Print the table """
 
     # Headings
     headings = np.array(
-            ['Date', '$\Delta t$\\footnote{Rest frame}', 'Filter', 
-             'Mag\\footnote{Not corrected for Galactic extinction. Upper limits are 5-$\sigma$.}', 
-             'eMag', 'Instrument'])
+            ['Date', '$\Delta t$\\footnote{Rest frame}', '$\\nu_\mathrm{obs}$', 
+             '$f_\\nu$', 'RMS', 'Telescope'])
     unit_headings = np.array(
-            ['(UT)', '(days)', '', 
-             '(AB)', '(AB)', ''])
-    label = "optical-photometry"
+            ['(UT)', '(days)', '(GHz)', 
+             '(mJy)', '(mJy)', ''])
+    label = "radio-observations"
 
     ncol = len(headings)
     colstr = ""
@@ -40,7 +40,7 @@ def print_table():
         rowstr += "%s & "
     rowstr += "%s \\\ \n"
 
-    caption="Optical photometry of AT2022tsd."
+    caption="Radio observations of AT2022tsd."
 
     outputf = open("paper_table_%s.txt" %label, "w")
     outputf.write("\\begin{center} \n")
@@ -52,22 +52,18 @@ def print_table():
     outputf.write(unitstr+'\\\ \n')
     outputf.write("\hline\n")
 
-    jd,filt,mag,emag = get_ipac()
+    dat = get_radio()
 
-    for lc_point in list(zip(jd,filt,mag,emag)):
-        # Convert JD to readable date and time
-        tstr = Time(lc_point[0], format='jd').isot.replace('T', ' ').split('.')[0]
-        dtstr = '{:.4f}'.format((lc_point[0]-values.t0)/(1+values.z))
-        filtstr = "$\mathrm{ZTF}_{%s}$" %lc_point[1]
-        # Upper limit
-        if lc_point[3]==99:
-            mstr = '$>{:.2f}$'.format(lc_point[2])
-            emstr = '--'
-        # Detection
-        else:
-            mstr = '${:.2f}$'.format(lc_point[2])
-            emstr = '${:.2f}$'.format(lc_point[3])
-        row = rowstr %(tstr,dtstr,filtstr,mstr,emstr,'ZTF')
+    for i in np.arange(len(dat['Date'])):
+        # Convert date to readable date and time
+        tstr = dat['Date'].values[i].replace('T', ' ').split('.')[0]
+        # Rest-frame days
+        dtstr = '{:.2f}'.format((Time(dat['Date'].values[i]).jd-vals.t0)/(1+vals.z))
+        nustr = int(dat['Freq_Obs'].values[i])
+        # I think they're all detections
+        fstr = '${:.3f}$'.format(dat['Flux'].values[i])
+        efstr = '${:.3f}$'.format(dat['eFlux'].values[i])
+        row = rowstr %(tstr,dtstr,nustr,fstr,efstr,dat['Tel'].values[i])
         print(row)
         outputf.write(row)
 
