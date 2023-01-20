@@ -9,6 +9,8 @@ import numpy as np
 import sys
 from astropy.cosmology import Planck15
 from astropy.time import Time
+import sys
+sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
 from get_radio import *
 from scale_fluxes import sma_lc
 from read_table import *
@@ -393,14 +395,14 @@ def run(ax):
 
 
 if __name__=="__main__":
-    fig,ax = plt.subplots(1,1,figsize=(4,4))
+    fig,ax = plt.subplots(1,1,figsize=(3,4))
     run(ax)
     # Formatting
     ax.set_ylabel(
             r"$L_{\nu}$ (erg$\,$s$^{-1}$Hz$^{-1}$)", 
             fontsize=form['font_med'])
     ax.set_title(
-            r"$\nu_\mathrm{obs} > 100\,\mathrm{GHz}$", 
+            r"$\nu_\mathrm{obs} \gtrsim 100\,\mathrm{GHz}$", 
             fontsize=form['font_med'])
     ax.tick_params(axis='both', labelsize=form['font_small'])
     ax.set_xlim(0.7, 300) 
@@ -410,8 +412,8 @@ if __name__=="__main__":
     ax.set_xlabel(r"$\Delta t_\mathrm{obs}$ (d)", fontsize=form['font_med'])
 
     plt.tight_layout()
-    #plt.show()
-    plt.savefig(
-            "mm_lc_100ghz.png", dpi=300, 
-            bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig(
+    #        "mm_lc_100ghz.png", dpi=300, 
+    #        bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
