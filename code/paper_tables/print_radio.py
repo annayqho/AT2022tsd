@@ -12,12 +12,12 @@ def print_table():
 
     # Headings
     headings = np.array(
-            ['Date', '$\Delta t$\\footnote{Rest frame}', '$\\nu_\mathrm{obs}$', 
+            ['Start Date', '$\Delta t$\\footnote{Rest frame}', '$\\nu_\mathrm{obs}$', 
              '$f_\\nu$', 'RMS', 'Telescope'])
     unit_headings = np.array(
             ['(UT)', '(days)', '(GHz)', 
              '(mJy)', '(mJy)', ''])
-    label = "radio-observations"
+    label = "tab:radio-observations"
 
     ncol = len(headings)
     colstr = ""
