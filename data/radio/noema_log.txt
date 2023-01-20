@@ -1,0 +1,49 @@
+First observation, in 10 antenna compact configuration.
+Excellent conditions. 3.5-sigma detections
+Epoch 1: 4 Oct, Band 1
+
+--------------------------------------
+
+Epoch 2: All bands
+Was the middle of a Global VLBI session, kind of a mess.
+2mm was low elevation and more tricky. 3mm was also observed
+that day, but technical problem and was observed again afterwards
+(still trying to get something out o fthe first failed 3mm observation)
+10 Oct, Band 2 * the observation that was tricky
+11 Oct, Band 1 * the first failed 3mm observation
+11 Oct: Band 3
+12 Oct: Band 1  * observed again afterwards
+
+What is this?
+13 Oct, Band 1
+14 Oct, Band 2
+
+--------------------------------------
+
+* Then there was a period of bad weather
+
+Epoch 3
+28 Oct: Band 1
+29 Oct, Band 2 ... 309 +/- 33 uJy for 132 GHz...have to replace a bad result I think
+1 Nov, Band 3 (Two distinct dates)
+I have a note that Band 3 observations were obtained but under difficult weather conditions. No clear detection in the pipeline output.
+But then in my notes I have a detection, so I don't know if that means
+something changed. Should double check with Michael.
+
+"s22db006
+combines data from two distinct dates:
+01-NOV-2022 23:03 - 02-NOV-2022 03:17 UT taken in 12C Fluxcal LKHA101
+02-NOV-2022 21:14 - 02-NOV-2022 23:35 UT taken in 12C Fluxcal LKHA101"
+
+--------------------------------------
+
+Epoch 4
+18 Nov, Band 1
+26 Nov, Band 2...duplicate entry
+
+--------------------------------------
+
+Epoch 5
+14 Dec, Band 1
+
+
