@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import sys
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
-import values
+import vals
 import numpy as np
 from astropy.time import Time
 from astropy.cosmology import Planck15
@@ -696,7 +696,8 @@ if __name__=="__main__":
     # Plot AT2022tsd
     # 19.28 is the ext corr peak in g band
     # 19.74 is the value in r-band, which is g-band rest-frame
-    Mpeak = 19.74-5*np.log10(values.dL_mpc*1E6/10)+2.5*np.log10(1+values.z)
+    Mpeak = 19.74-5*np.log10(vals.dL_mpc*1E6/10)+2.5*np.log10(1+vals.z)
+    print(Mpeak)
     dur = 7.12
     edur = 2.57
     ax.errorbar(dur, Mpeak, xerr=edur, yerr=0.09, label=None, 
