@@ -374,9 +374,9 @@ if __name__=="__main__":
     run(ax)
     # Formatting
     ax.set_ylabel(
-            r"$L_{\nu}$ (erg$\,$s$^{-1}$Hz$^{-1}$)", fontsize=10)
-    ax.set_title(
-            r"$\nu_\mathrm{obs} \gtrsim 100\,\mathrm{GHz}$", fontsize=10)
+            r"$L_{\nu}$ ($\nu \gtrsim 100$ GHz; erg$\,$s$^{-1}$Hz$^{-1}$)", fontsize=10)
+    #ax.set_title(
+    #        r"$\nu_\mathrm{obs} \gtrsim 100\,\mathrm{GHz}$", fontsize=10)
     ax.tick_params(axis='both', labelsize=10)
     ax.set_xlim(0.7, 300) 
     ax.set_ylim(1E25, 2E33)
@@ -385,8 +385,8 @@ if __name__=="__main__":
     ax.set_xlabel(r"$\Delta t_\mathrm{obs}$ (d)", fontsize=10)
 
     plt.tight_layout()
-    plt.show()
-    #plt.savefig(
-    #        "mm_lc_100ghz.png", dpi=300, 
-    #        bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig(
+            "mm_lc_100ghz.png", dpi=300, 
+            bbox_inches='tight', pad_inches=0.1)
+    plt.close()
