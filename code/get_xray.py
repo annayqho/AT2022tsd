@@ -26,3 +26,4 @@ def load_swift_counts():
     df = pd.read_table(
             ddir+"/AT2022tsd_XRT_binned.qdp", 
             names=['t','t0','t1','ct','lct','uct'],delimiter='\t')
+
