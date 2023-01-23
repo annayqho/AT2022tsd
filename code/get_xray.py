@@ -6,7 +6,7 @@ import vals
 
 ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/xray"
 
-def load_swift():
+def load_swift_luminosity():
     """ load the Swift XRT data """
     df = pd.read_table(
             ddir+"/AT2022tsd_XRT_binned_luminosity.qdp",delimiter=" ")
@@ -19,3 +19,10 @@ def load_swift():
     uLs = df['col5']
 
     return t, Ls, lLs, uLs
+
+
+def load_swift_counts():
+    """ load the binned counts """
+    df = pd.read_table(
+            ddir+"/AT2022tsd_XRT_binned.qdp", 
+            names=['t','t0','t1','ct','lct','uct'],delimiter='\t')

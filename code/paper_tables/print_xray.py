@@ -17,7 +17,7 @@ def print_table():
              '$F_X$', '$L_X$', 'Telescope'])
     unit_headings = np.array(
             ['(UT)', '(days)', '(s$^{-1}$)', 
-             '(erg\,s$^{-1}$\,cm$^{-2}$)', '(erg\,s$^{-1}$)', ''])
+             '(erg\,s$^{-1}$\,cm$^{-2}$)', '$(10^{43}$\,erg\,s$^{-1}$)', ''])
     label = "tab:xray-observations"
 
     ncol = len(headings)
@@ -58,13 +58,20 @@ def print_table():
 
     for i in np.arange(len(t)):
         # Convert date to readable date and time
-        tstr = str(t.isot()[i]).replace('T', ' ').split('.')[0]
+        tstr = str(Time(t[i], format='mjd').isot).replace('T', ' ').split('.')[0]
         # Rest-frame days
-        dtstr = '{:.2f}'.format((Time(dat['Date'].values[i]).jd-vals.t0)/(1+vals.z))
-        Lstr = '${:.3f}$'.format(Ls.values[i])
-        lLstr = '${:.3f}$'.format(lLs.values[i])
-        uLstr = '${:.3f}$'.format(uLs.values[i])
-        row = rowstr %(tstr,dtstr,"%s_{%s}^{%s}" %(Lstr,lLstr,uLstr),'Swift')
+        dtstr = '{:.2f}'.format((Time(t[i], format='mjd').jd-vals.t0)/(1+vals.z))
+
+        # Luminosity formatting
+        L = '{:.2f}'.format(Ls[i]/1E43)
+        lL = '{:.2f}'.format(lLs[i]/1E43)
+        uL = '{:.2f}'.format(uLs[i]/1E43)
+        if lL==uL:
+            Lstr = "$%s\pm%s$" %(L,lL)
+        else:
+            Lstr = "$%s_{-%s}^{+%s}$" %(L,lL,uL)
+
+        row = rowstr %(tstr,dtstr,"","",Lstr,'Swift')
         print(row)
         outputf.write(row)
 
