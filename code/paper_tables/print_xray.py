@@ -12,12 +12,12 @@ def print_table():
 
     # Headings
     headings = np.array(
-            ['Start Date', '$\Delta t$\\footnote{Rest frame}', '$\\nu_\mathrm{obs}$', 
-             '$f_\\nu$', 'RMS', 'Telescope'])
+            ['Start Date', '$\Delta t$\\footnote{Rest frame}', 'Count Rate', 
+             '$F_X$', '$L_X$', 'Telescope'])
     unit_headings = np.array(
-            ['(UT)', '(days)', '(GHz)', 
-             '(mJy)', '(mJy)', ''])
-    label = "tab:radio-observations"
+            ['(UT)', '(days)', '(s$^{-1}$)', 
+             '(erg\,s$^{-1}$\,cm$^{-2}$)', '(erg\,s$^{-1}$)', ''])
+    label = "tab:xray-observations"
 
     ncol = len(headings)
     colstr = ""
@@ -40,7 +40,7 @@ def print_table():
         rowstr += "%s & "
     rowstr += "%s \\\ \n"
 
-    caption="Radio observations of AT2022tsd."
+    caption="X-ray observations of AT2022tsd."
 
     outputf = open("paper_table_%s.txt" %label, "w")
     outputf.write("\\begin{center} \n")
