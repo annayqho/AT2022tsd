@@ -53,18 +53,18 @@ def print_table():
     outputf.write(unitstr+'\\\ \n')
     outputf.write("\hline\n")
 
+    # Error bars are asymmetric
     t,Ls,lLs,uLs = load_swift()
 
-    for i in np.arange(len(dat['Date'])):
+    for i in np.arange(len(t):
         # Convert date to readable date and time
-        tstr = dat['Date'].values[i].replace('T', ' ').split('.')[0]
+        tstr = str(t.isot()[i]).replace('T', ' ').split('.')[0]
         # Rest-frame days
         dtstr = '{:.2f}'.format((Time(dat['Date'].values[i]).jd-vals.t0)/(1+vals.z))
-        nustr = int(dat['Freq_Obs'].values[i])
-        # I think they're all detections
-        fstr = '${:.3f}$'.format(dat['Flux'].values[i])
-        efstr = '${:.3f}$'.format(dat['eFlux'].values[i])
-        row = rowstr %(tstr,dtstr,nustr,fstr,efstr,dat['Tel'].values[i])
+        Lstr = '${:.3f}$'.format(Ls.values[i])
+        lLstr = '${:.3f}$'.format(lLs.values[i])
+        uLstr = '${:.3f}$'.format(uLs.values[i])
+        row = rowstr %(tstr,dtstr,"%s_{%s}^{%s}" %(Lstr,lLstr,uLstr),'Swift')
         print(row)
         outputf.write(row)
 
