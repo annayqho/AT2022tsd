@@ -56,7 +56,7 @@ def print_table():
     # Error bars are asymmetric
     t,Ls,lLs,uLs = load_swift()
 
-    for i in np.arange(len(t):
+    for i in np.arange(len(t)):
         # Convert date to readable date and time
         tstr = str(t.isot()[i]).replace('T', ' ').split('.')[0]
         # Rest-frame days

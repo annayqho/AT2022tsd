@@ -1,5 +1,6 @@
 """ Get the X-ray data of AT2022tsd """
 import pandas as pd
+import numpy as np
 from astropy.time import Time
 import vals
 
