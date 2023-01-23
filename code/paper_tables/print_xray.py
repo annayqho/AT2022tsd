@@ -5,6 +5,7 @@ from astropy.time import Time
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
 from get_opt import get_ipac
 from get_radio_at2022tsd import *
+from get_xray import load_swift
 import vals
 
 def print_table():
@@ -52,7 +53,7 @@ def print_table():
     outputf.write(unitstr+'\\\ \n')
     outputf.write("\hline\n")
 
-    dat = get_radio()
+    t,Ls,lLs,uLs = load_swift()
 
     for i in np.arange(len(dat['Date'])):
         # Convert date to readable date and time
