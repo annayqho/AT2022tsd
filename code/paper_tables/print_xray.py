@@ -13,10 +13,10 @@ def print_table():
 
     # Headings
     headings = np.array(
-            ['Start Date', '$\Delta t$\\footnote{Rest frame}', 'Count Rate', 
-             '$F_X$', '$L_X$', 'Telescope'])
+            ['t', 't_\mathrm{err}', '$\Delta t$\\footnote{Rest frame}', 
+             '$\Delta T$', 'Count Rate', '$F_X$', '$L_X$', 'Telescope'])
     unit_headings = np.array(
-            ['(UT)', '(days)', '(s$^{-1}$)', 
+            ['(UT)', '(days)', '(days)', '(ksec)', '(s$^{-1}$)', 
              '(erg\,s$^{-1}$\,cm$^{-2}$)', '$(10^{43}$\,erg\,s$^{-1}$)', ''])
     label = "tab:xray-observations"
 
@@ -54,13 +54,20 @@ def print_table():
     outputf.write("\hline\n")
 
     # Error bars are asymmetric
-    t,Ls,lLs,uLs = load_swift()
+    df = load_swift()
 
     for i in np.arange(len(t)):
         # Convert date to readable date and time
-        tstr = str(Time(t[i], format='mjd').isot).replace('T', ' ').split('.')[0]
+        t = Time(df['!MJD    '][i], format='mjd')
+        et = df['T_+ve   '][i]
+
+        # Effective time...only want minute precision
+        tstr = str((t-et).isot).replace('T', ' ').split('.')[0][0:-3]
+        # Error on the time
+        texp = '{:.2f}'.format(et)
         # Rest-frame days
-        dtstr = '{:.2f}'.format((Time(t[i], format='mjd').jd-vals.t0)/(1+vals.z))
+        dtstr = '{:.2f}'.format((t.jd-vals.t0)/(1+vals.z))
+        # Exposure time
 
         # Luminosity formatting
         L = '{:.2f}'.format(Ls[i]/1E43)

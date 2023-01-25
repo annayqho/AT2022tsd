@@ -31,3 +31,21 @@ def load_swift():
     df['Lneg'] =  df['Fluxneg']*4*np.pi*(vals.dL_cm)**2
 
     return df
+
+
+def get_exp(i):
+    """ Get the exposure time for a given obs ID """
+    df = pd.read_table(
+            ddir+"/swift_obs_log.txt", delimiter='|',
+            skiprows=(0,1))
+    obsid = df['obsid      ']
+    exp = df['exposure  ']
+    ops = df['operation_mode']
+    point = df['pointing_mode']
+
+    # Get the exposure times on-source
+    choose_obsid = np.array([int(str(o)[-2:])==i for o in obsid])
+    choose_mode = point=='pointing     '
+    choose = np.logical_and(choose_obsid, choose_mode)
+
+    return sum(exp[choose])
