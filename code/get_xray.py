@@ -6,24 +6,28 @@ import vals
 
 ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/xray"
 
-def load_swift_luminosity():
-    """ load the Swift XRT data """
-    df = pd.read_table(
-            ddir+"/AT2022tsd_XRT_binned_luminosity.qdp",delimiter=" ")
-
-    # Dates
-    mjd1 = df['!col1'].values/3600/24+59856.387276
-    t = Time(mjd1, format='mjd')
-    Ls = df['col4']
-    lLs = np.abs(df['col6'].values)
-    uLs = df['col5']
-
-    return t, Ls, lLs, uLs
-
 
 def load_swift_counts():
-    """ load the binned counts """
+    """ load the unbinned counts """
     df = pd.read_table(
-            ddir+"/AT2022tsd_XRT_binned.qdp", 
-            names=['t','t0','t1','ct','lct','uct'],delimiter='\t')
+            ddir+"/AT2022tsd_XRT_unbinned.qdp", delimiter='\t',
+            skiprows=np.hstack((np.arange(0,14),np.array([25,26]))))
+    return df
 
+
+def load_swift():
+    """ Load the full counts, flux, luminosity """
+    df = load_swift_counts()
+
+    # Convert counts to flux
+    conv = 5.10E-11 # From the XRT spectrum fit
+    df['Flux'] = df['Rate    ']*conv
+    df['Fluxpos'] = df['Ratepos ']*conv
+    df['Fluxneg'] = df['Rateneg']*conv
+
+    # Now the luminosity
+    df['L'] =  df['Flux']*4*np.pi*(vals.dL_cm)**2
+    df['Lpos'] =  df['Fluxpos']*4*np.pi*(vals.dL_cm)**2
+    df['Lneg'] =  df['Fluxneg']*4*np.pi*(vals.dL_cm)**2
+
+    return df

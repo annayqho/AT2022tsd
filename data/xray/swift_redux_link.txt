@@ -1,1 +1,19 @@
 https://www.swift.ac.uk/user_objects/tprods/USERPROD_78498/lc/index.php
+The source position (in the XRT co-ordinate frame) used for these products was: RA (J2000.0) = 50.0448 degrees, Dec (J2000.0) =+8.7484 degrees.
+The zero-point of the time axis is Swift MET = 686567641.8006, which corresponds to MJD=59856.384396 = 2022 Oct 04 at 09:13:31.827 UT.
+
+What you actually want to do for the log is to use this website:
+https://heasarc.gsfc.nasa.gov/db-perl/W3Browse/w3query.pl
+Because it tells you when the spacecraft was slewing, etc. 
+
+Another useful log: 
+https://www.swift.psu.edu/operations/obsSchedule.php?t=15367
+
+
+This is the power-law fit to the spectrum:
+https://www.swift.ac.uk/user_objects/tprods/USERPROD_78516/index.php
+
+This is all three fits (power law, blackbody, APEC):
+https://www.swift.ac.uk/user_objects/tprods/USERPROD_78517/spec/index.php
+
+Power law looks most satisfactory to me.
