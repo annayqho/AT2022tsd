@@ -13,8 +13,9 @@ def print_table():
 
     # Headings
     headings = np.array(
-            ['$t$', '$\Delta t$\\footnote{Rest frame}', 
-             '$t_\mathrm{exp}$', 'Count Rate', '$F_X$', '$L_X$', 'Tel.'])
+            ['$t$', '$\Delta t$\\footnote{Rest frame}', '$t_\mathrm{exp}$', 
+             'Count Rate\\footnote{Upper limits are 3-$\sigma$.}', '$F_X$', 
+             '$L_X$', 'Tel.'])
     unit_headings = np.array(
             ['(UT)', '(days)', '(ksec)', '($10^{-3}$\,s$^{-1}$)', 
              '($10^{-14}$ erg\,s$^{-1}$\,cm$^{-2}$)', 
