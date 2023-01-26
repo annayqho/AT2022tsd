@@ -17,7 +17,8 @@ def print_table():
              '$t_\mathrm{exp}$', 'Count Rate', '$F_X$', '$L_X$', 'Tel.'])
     unit_headings = np.array(
             ['(UT)', '(days)', '(ksec)', '($10^{-3}$\,s$^{-1}$)', 
-             '($10^{-14}$ erg\,s$^{-1}$\,cm$^{-2}$)', '$(10^{43}$\,erg\,s$^{-1}$)', ''])
+             '($10^{-14}$ erg\,s$^{-1}$\,cm$^{-2}$)', 
+             '$(10^{43}$\,erg\,s$^{-1}$)', ''])
     label = "tab:xray-observations"
 
     ncol = len(headings)
@@ -74,19 +75,35 @@ def print_table():
         ct = '{:.2f}'.format(df['Rate    '][i]/1E-3)
         # Errors are symmetric
         ect = '{:.2f}'.format(df['Ratepos '][i]/1E-3)
-        ctstr = "$%s\pm%s$" %(ct,ect)
+
+        # Check for upper limits
+        if ect=='0.00':
+            ctstr = "$<%s$" %(ct)
+        else:
+            ctstr = "$%s\pm%s$" %(ct,ect)
 
         # Flux
         f = '{:.2f}'.format(df['Flux'][i]/1E-14)
         # Errors are symmetric
         ef = '{:.2f}'.format(df['Fluxpos'][i]/1E-14)
-        fstr = "$%s\pm%s$" %(ct,ect)
+
+        # Check for upper limits
+        if ef=='0.00':
+            fstr = "$<%s$" %(f)
+        else:
+            fstr = "$%s\pm%s$" %(f,ef)
 
         # Luminosity
         L = '{:.2f}'.format(df['L'][i]/1E43)
         # Errors are symmetric
         eL = '{:.2f}'.format(df['Lpos'][i]/1E43)
         Lstr = "$%s\pm%s$" %(ct,ect)
+
+        # Check for upper limits
+        if eL=='0.00':
+            Lstr = "$<%s$" %(L)
+        else:
+            Lstr = "$%s\pm%s$" %(L,eL)
 
         row = rowstr %(tstr,dtstr,texp,ctstr,fstr,Lstr,'Swift')
         print(row)
