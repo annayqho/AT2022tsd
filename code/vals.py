@@ -4,6 +4,7 @@ from astropy.cosmology import Planck18
 ra = 50.045308 
 dec = 8.748872
 t0 = 2459828.7257 # first GOTO detection
+last_nondet = 2459826.9464 # last ZTF non-detection
 z = 0.25666 # redshift
 dm = Planck18.distmod(z=z).value
 dL_cm = Planck18.luminosity_distance(z=z).cgs.value
