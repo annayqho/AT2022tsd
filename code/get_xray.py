@@ -16,7 +16,8 @@ def load_swift_counts():
 
 
 def load_swift():
-    """ Load the full counts, flux, luminosity """
+    """ Load the full counts, flux, luminosity 
+    Sort by MJD """
     df = load_swift_counts()
 
     # Convert counts to flux
@@ -29,6 +30,8 @@ def load_swift():
     df['L'] =  df['Flux']*4*np.pi*(vals.dL_cm)**2
     df['Lpos'] =  df['Fluxpos']*4*np.pi*(vals.dL_cm)**2
     df['Lneg'] =  df['Fluxneg']*4*np.pi*(vals.dL_cm)**2
+
+    df = df.sort_values('!MJD    ', ignore_index=True)
 
     return df
 
