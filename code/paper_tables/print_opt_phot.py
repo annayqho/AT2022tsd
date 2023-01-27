@@ -1,10 +1,11 @@
 """ Print a table of optical photometry """
 import numpy as np
+import pandas as pd
 import sys
 from astropy.time import Time
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
-from get_opt import get_ipac
-import values
+from get_opt import get_ipac,get_flares
+import vals
 
 def print_table():
     """ Print the table """
@@ -13,10 +14,10 @@ def print_table():
     headings = np.array(
             ['Date', '$\Delta t$\\footnote{Rest frame}', 'Filter', 
              'Mag\\footnote{Not corrected for Galactic extinction. Upper limits are 5-$\sigma$.}', 
-             'eMag', 'Instrument'])
+             'eMag', 'Instrument', 'Flare?'])
     unit_headings = np.array(
             ['(UT)', '(days)', '', 
-             '(AB)', '(AB)', ''])
+             '(AB)', '(AB)', '', ''])
     label = "optical-photometry"
 
     ncol = len(headings)
@@ -52,22 +53,68 @@ def print_table():
     outputf.write(unitstr+'\\\ \n')
     outputf.write("\hline\n")
 
-    jd,filt,mag,emag = get_ipac()
+    # The ZTF lines
+    jd,filt,mag,emag,fujy,efujy = get_ipac()
+    tel = np.array(['ZTF']*len(jd))
+    flare = np.array(['']*len(jd))
+    limmag = np.copy(mag)
 
-    for lc_point in list(zip(jd,filt,mag,emag)):
+    # the IPAC flares are from JD > 2459857
+    is_flare = np.logical_and(emag<99, jd>2459854)
+    flare[is_flare] = ['*']*sum(is_flare)
+
+    # The flare lines
+    tel_fl,mjd_fl,filt_fl,mag_fl,emag_fl,limmag_fl,flare_fl = get_flares()
+    flare_fl[pd.isnull(flare_fl)] = np.array(['']*sum(pd.isnull(flare_fl)))
+
+    # Combine
+    jd = np.hstack((jd, Time(mjd_fl, format='mjd').jd))
+    filt = np.hstack((filt, filt_fl))
+    mag = np.hstack((mag, mag_fl))
+    emag = np.hstack((emag, emag_fl))
+    flare = np.hstack((flare, flare_fl))
+    tel = np.hstack((tel, tel_fl))
+    limmag = np.hstack((limmag, limmag_fl))
+
+    # Sort
+    order = np.argsort(jd)
+    jd = jd[order]
+    filt = filt[order]
+    mag = mag[order]
+    emag = emag[order]
+    flare = flare[order]
+    tel = tel[order]
+    limmag = limmag[order]
+
+    for i in np.arange(len(jd)):
         # Convert JD to readable date and time
-        tstr = Time(lc_point[0], format='jd').isot.replace('T', ' ').split('.')[0]
-        dtstr = '{:.4f}'.format((lc_point[0]-values.t0)/(1+values.z))
-        filtstr = "$\mathrm{ZTF}_{%s}$" %lc_point[1]
+        tstr = Time(jd[i], format='jd').isot.replace('T', ' ').split('.')[0]
+
+        # Calculate the dt in the rest frame
+        dtstr = '{:.4f}'.format((jd[i]-vals.t0)/(1+vals.z))
+
+        # Filter
+        filtstr = filt[i]
+        if tel[i]=='ZTF':
+            filtstr = "$\mathrm{ZTF}_{%s}$" %filt[i]
+
         # Upper limit
-        if lc_point[3]==99:
-            mstr = '$>{:.2f}$'.format(lc_point[2])
+        is_nondet = np.logical_or.reduce(
+                (emag[i]==99, np.isnan(emag[i]), mag[i]>limmag[i]))
+        if is_nondet:
+            mstr = '$>{:.2f}$'.format(limmag[i])
             emstr = '--'
         # Detection
         else:
-            mstr = '${:.2f}$'.format(lc_point[2])
-            emstr = '${:.2f}$'.format(lc_point[3])
-        row = rowstr %(tstr,dtstr,filtstr,mstr,emstr,'ZTF')
+            mstr = '${:.2f}$'.format(mag[i])
+            emstr = '${:.2f}$'.format(emag[i])
+
+        # Flare string
+        flstr = flare[i]
+        if flstr=='nan':
+            flstr = ''
+
+        row = rowstr %(tstr,dtstr,filtstr,mstr,emstr,tel[i],flstr)
         print(row)
         outputf.write(row)
 

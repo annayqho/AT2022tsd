@@ -146,6 +146,7 @@ def get_flares():
     filt = dat['filter'].values
     flare = dat['flare'].values
     tel = dat['telescope'].values
-    return tel,mjd,filt,mag,emag,flare
+    limmag = dat['limmag'].values
+    return tel,mjd,filt,mag,emag,limmag,flare
 
 
