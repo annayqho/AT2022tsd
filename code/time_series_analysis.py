@@ -12,10 +12,11 @@ def dfft(y, k):
 #  Compute the autocorrelation
 def autocorr(y):
     yfft = np.fft.fft(y)
-    acf = np.fft.ifft(yfft * np.conj(yfft))
+    acf = np.fft.fftshift(np.fft.ifft(yfft * np.conj(yfft)))
     return acf
 
 
+# Get the first flare
 def get_first_flare(dt,f,ef):
     isdet = f/ef>=5
     flare_start = min(dt[isdet])-0.01
@@ -27,11 +28,20 @@ def get_first_flare(dt,f,ef):
     return x,y,ey
 
 
+# Get the second flare
 def get_second_flare(dt,f,ef):
     isdet = f/ef>=5
     flare_start = min(dt[np.logical_and(isdet, dt>1.72)])-0.01
     flare_end = max(dt[np.logical_and(isdet, dt<1.79)])+0.01
     choose = np.logical_and(dt>=flare_start, dt<=flare_end)
+    x = dt[choose]
+    y = f[choose]
+    ey = ef[choose]
+    return x,y,ey
+
+
+def get_noise(dt,f,ef):
+    choose = np.logical_and(dt>=0.7, dt<=0.8)
     x = dt[choose]
     y = f[choose]
     ey = ef[choose]
@@ -52,23 +62,32 @@ def period_search(y):
     plt.show()
 
 
-
 if __name__=="__main__":
     # load data
     dat = pd.read_fwf(
-            "../data/opt/flares_lris_ultraspec.txt", comment='#', 
+            "../data/opt/flares_lris_ultraspec.txt", comment='#',
             names=['MJD','Exp','Filter','Flux','Unc'])
     t0 = 59932
     dt = dat['MJD'].values-t0
     f = dat['Flux'].values
     ef = dat['Unc'].values
-    plt.errorbar(dt, f, ef, fmt='o', c='lightgrey')
+    #plt.errorbar(dt, f, ef, fmt='o', c='lightgrey')
 
+    # ACF of the noise
+    x,y,ey = get_noise(dt,f,ef)
+    acf = autocorr(y)
+    plt.plot(acf, drawstyle='steps', c='lightgrey')
+
+    # ACF of the shorter flare
     x,y,ey = get_first_flare(dt,f,ef)
-    plt.errorbar(x, y, ey, fmt='o', c='red')
+    acf = autocorr(y)
+    plt.plot(acf, c='lightblue', drawstyle='steps')
+    #plt.errorbar(x, y, ey, fmt='o', c='lightblue')
 
+    # ACF of the longer flare
     x,y,ey = get_second_flare(dt,f,ef)
-    plt.errorbar(x, y, ey, fmt='o', c='red')
-
+    acf = autocorr(y)
+    plt.plot(acf, ls='-', drawstyle='steps', c='darkblue')
     plt.tight_layout()
     plt.show()
+
