@@ -14,7 +14,7 @@ def print_table():
     headings = np.array(
             ['Date', '$\Delta t$\\footnote{Rest frame}', 'Filter', 
              'Mag\\footnote{Not corrected for Galactic extinction. Upper limits are 5-$\sigma$.}', 
-             'eMag', 'Instrument', 'Flare?'])
+             'eMag', 'Instrument', 'Flare?\\footnote{$>5$-$\sigma$ detections.}'])
     unit_headings = np.array(
             ['(UT)', '(days)', '', 
              '(AB)', '(AB)', '', ''])

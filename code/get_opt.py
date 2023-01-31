@@ -155,9 +155,9 @@ def get_flares():
     dat['Tel'] = ['ULTRASPEC']*len(dat)
     dat.loc[dat['Exp']==300, 'Tel'] = ['LRIS']*sum(dat['Exp']==300)
     # Convert to mag
-    dat['Mag'] = [-99]*len(dat)
-    dat['eMag'] = [-99]*len(dat)
-    dat['Maglim'] = [-99]*len(dat)
+    dat['Mag'] = [99]*len(dat)
+    dat['eMag'] = [99]*len(dat)
+    dat['Maglim'] = [99]*len(dat)
     dat['Flare'] = ['']*len(dat)
     SNU = 5
     SNT = 3
