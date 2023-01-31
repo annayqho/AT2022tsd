@@ -9,9 +9,13 @@ z = 0.25666 # redshift
 dm = Planck18.distmod(z=z).value
 dL_cm = Planck18.luminosity_distance(z=z).cgs.value
 dL_mpc = Planck18.luminosity_distance(z=z).value
+# I got these colors from https://www.visualisingdata.com/2019/08/five-ways-to-design-for-red-green-colour-blindness/
 rc = '#DB4325'
 gc = '#57C4AD'
+ic = '#EDA247'
+uc = '#E6E1BC'
 ext = {}
+ext['u'] = 1.162 # Schlafly & Finkbeiner (2011)
 ext['g'] = 0.906 # Schlafly & Finkbeiner (2011)
 ext['r'] = 0.627 # Schlafly & Finkbeiner (2011)
 ext['i'] = 0.466 # Schlafly & Finkbeiner (2011)

@@ -161,6 +161,7 @@ def get_flares():
     dat['Flare'] = ['']*len(dat)
     SNU = 5
     SNT = 3
+    SNFlare = 5
     isdet = dat['Flux']/dat['Unc']>SNT # confident detection
     fdet = dat['Flux'][isdet]
     efdet = dat['Unc'][isdet]
@@ -168,8 +169,8 @@ def get_flares():
     dat.loc[isdet, 'eMag'] = (2.5/np.log(10)) * (efdet/fdet)
     dat.loc[~isdet, 'Maglim'] = -2.5*np.log10(
             dat['Unc'][~isdet]*1E-6*SNU)+8.90
-    dat.loc[dat['Flux']/dat['Unc']>5, 'Flare'] = ['*']*sum(
-            dat['Flux']/dat['Unc']>5)
+    dat.loc[dat['Flux']/dat['Unc']>SNFlare, 'Flare'] = ['*']*sum(
+            dat['Flux']/dat['Unc']>SNFlare)
 
     # Combine
     tel = np.hstack((tel, dat['Tel']))

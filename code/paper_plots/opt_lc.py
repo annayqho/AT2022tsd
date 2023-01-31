@@ -31,6 +31,12 @@ def plot_det(ax, x, y, ey, band, lines=False):
     if band=='r':
         col = vals.rc
         m = 'o'
+    elif band=='i':
+        col = vals.ic
+        m = 'D'
+    elif band=='u':
+        col = vals.uc
+        m = '>'
     if lines:
         m = '%s-'%m
     ax.errorbar(x, y, ey, c=col, fmt=m, label='$%s$' %band)
@@ -86,6 +92,10 @@ def plot_flares(ax):
     filt = filt[choose]
     mag = mag[choose]
     emag = emag[choose]
+
+    # For plotting purposes
+    filt[filt=='sdssg'] = ['g']*sum(filt=='sdssg')
+    filt[filt=='sdssr'] = ['r']*sum(filt=='sdssr')
     
     # Plot the g-band detections
     choose = np.logical_and(filt=='g', emag<99)
@@ -105,21 +115,46 @@ def plot_flares(ax):
     plot_lim(ax, dt[choose], mag[choose]-vals.ext['r'], 'r')
 
     # Non-ZTF flares
-    tel,mjd,filt,mag,emag,flare = get_flares()
+    tel,mjd,filt,mag,emag,limmag,flare = get_flares()
     jd = Time(mjd, format='mjd').jd
+    dt = jd-vals.t0
 
-    # So far, we only have g-band flares. That will change later.
-    choose = flare=='*'
-    plot_det(ax, jd[choose]-vals.t0, mag[choose]-vals.ext['g'], emag[choose], 'g')
+    # For plotting purposes
+    filt[filt=='sdssg'] = ['g']*sum(filt=='sdssg')
+    filt[filt=='sdssr'] = ['r']*sum(filt=='sdssr')
+
+    # Plot the g-band flares
+    choose = np.logical_and(flare=='*', filt=='g')
+    plot_det(ax,dt[choose],mag[choose]-vals.ext['g'],emag[choose],'g')
+
+    # Plot the g-band limits
+    choose = np.logical_and(filt=='g', emag==99)
+    plot_lim(ax, dt[choose], mag[choose]-vals.ext['g'], 'g')
+
+    # Plot the r-band flares
+    choose = np.logical_and(flare=='*', filt=='r')
+    plot_det(ax,dt[choose],mag[choose]-vals.ext['r'],emag[choose],'r')
+
+    # Plot the r-band limits
+    choose = np.logical_and(filt=='r', emag==99)
+    plot_lim(ax, dt[choose], mag[choose]-vals.ext['r'], 'r')
+
+    # Plot the i-band flares
+    choose = np.logical_and(flare=='*', filt=='i')
+    plot_det(ax,dt[choose],mag[choose]-vals.ext['i'],emag[choose],'i')
+
+    # Plot the i-band limits
+    choose = np.logical_and(filt=='i', emag==99)
+    plot_lim(ax, dt[choose], mag[choose]-vals.ext['i'], 'i')
 
 
 def plot_flares_zoom(ax):
     """ Plot a zoom-in of the flares. Minutes timescale """
     # Non-ZTF flares
-    tel,mjd,filt,mag,emag,flare = get_flares()
+    tel,mjd,filt,mag,emag,limmag,flare = get_flares()
     jd = Time(mjd, format='mjd').jd
 
-    # So far, we only have g-band flares. That will change later.
+    # The Magellan flare is in g-band
     choose = np.logical_and(flare=='*', tel=='Magellan')
     x = (jd[choose]-vals.t0)*24*60
     y = mag[choose]-vals.ext['g']
@@ -212,7 +247,7 @@ if __name__=="__main__":
     axins2.tick_params(axis='both', labelsize=8, pad=0.5)
 
     # Formatting
-    ax.set_xlim(-5, 105)
+    ax.set_xlim(-5, 118)
     ax.set_ylim(23.5, 19)
 
     # Make a second x-axis
@@ -241,6 +276,6 @@ if __name__=="__main__":
     ax2.plot([],[])
 
     #plt.tight_layout()
-    #plt.show()
-    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    plt.close()
+    plt.show()
+    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    #plt.close()
