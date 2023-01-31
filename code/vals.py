@@ -27,3 +27,6 @@ sdss_pivot = {}
 sdss_pivot['g'] = 4702.50
 sdss_pivot['r'] = 6175.58
 sdss_pivot['i'] = 7489.98
+keck_leff = {}
+keck_leff['u'] = 3450
+keck_leff['I'] = 7599
