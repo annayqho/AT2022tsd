@@ -6,8 +6,6 @@ from astropy.time import Time
 
 
 ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt"
-t0 = Time("2022-09-07").jd
-
 
 def measure_baseline(fcqf_use, ref_start, ref_end):
     """ Measure the baseline flux level for a given field-ccd-quadrant-filter
@@ -138,6 +136,8 @@ def get_transient():
 
 
 def get_flares():
+    """ Get flare photometry without any extinction correction """
+    # This is LT, NOT, Magellan
     inputf = ddir + "/at2022tsd_flare_phot.csv"
     dat  = pd.read_table(inputf, comment='#', delimiter=',')
     emag = dat['emag'].values
@@ -147,6 +147,42 @@ def get_flares():
     flare = dat['flare'].values
     tel = dat['telescope'].values
     limmag = dat['limmag'].values
-    return tel,mjd,filt,mag,emag,limmag,flare
+
+    # This is ULTRASPEC and LRIS 
+    inputf = ddir + "/flares_lris_ultraspec.txt"
+    dat  = pd.read_fwf(inputf, comment='#', 
+                         names=['MJD','Exp','Filt','Flux','Unc'])
+    dat['Tel'] = ['ULTRASPEC']*len(dat)
+    dat.loc[dat['Exp']==300, 'Tel'] = ['LRIS']*sum(dat['Exp']==300)
+    # Convert to mag
+    dat['Mag'] = [-99]*len(dat)
+    dat['eMag'] = [-99]*len(dat)
+    dat['Maglim'] = [-99]*len(dat)
+    dat['Flare'] = ['']*len(dat)
+    SNU = 5
+    SNT = 3
+    isdet = dat['Flux']/dat['Unc']>SNT # confident detection
+    fdet = dat['Flux'][isdet]
+    efdet = dat['Unc'][isdet]
+    dat.loc[isdet, 'Mag'] = -2.5*np.log10(fdet*1E-6)+8.90
+    dat.loc[isdet, 'eMag'] = (2.5/np.log(10)) * (efdet/fdet)
+    dat.loc[~isdet, 'Maglim'] = -2.5*np.log10(
+            dat['Unc'][~isdet]*1E-6*SNU)+8.90
+    dat.loc[dat['Flux']/dat['Unc']>5, 'Flare'] = ['*']*sum(
+            dat['Flux']/dat['Unc']>5)
+
+    # Combine
+    tel = np.hstack((tel, dat['Tel']))
+    mjd = np.hstack((mjd, dat['MJD']))
+    filt = np.hstack((filt, dat['Filt']))
+    mag = np.hstack((mag, dat['Mag']))
+    emag = np.hstack((emag, dat['eMag']))
+    limmag = np.hstack((limmag, dat['Maglim']))
+    flare = np.hstack((flare, dat['Flare']))
+
+    # Sort
+    order = np.argsort(mjd)
+
+    return tel[order],mjd[order],filt[order],mag[order],emag[order],limmag[order],flare[order]
 
 
