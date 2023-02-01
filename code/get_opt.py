@@ -137,6 +137,15 @@ def get_transient():
     jd,filt,mag,emag,fujy,efujy = get_ipac()
 
 
+def get_ultraspec():
+    """ Get the ULTRASPEC observations """
+    inputf = ddir + "/flares_lris_ultraspec.txt"
+    dat  = pd.read_fwf(
+            inputf, comment='#', 
+            names=['MJD','Exp','Filt','Flux','Unc'])
+    return dat
+
+
 def get_flares():
     """ Get flare photometry without any extinction correction """
     # This is LT, NOT, Magellan
