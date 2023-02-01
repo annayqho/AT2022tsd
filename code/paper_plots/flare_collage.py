@@ -65,13 +65,23 @@ fig,axarr = plt.subplots(2,2,figsize=(7,5))
 dat = get_ultraspec()
 
 # Top-left panel: r-band flare 
-plot_panel(axarr[0,0], dat, 'r', 'o', vals.rc)
+ax = axarr[0,0]
+plot_panel(ax, dat, 'r', 'o', vals.rc)
+ax.text(0.98, 0.95, 'ULTRASPEC $r$-band', transform=ax.transAxes,
+        ha='right', va='top', fontsize=8)
+ax.text(0.98, 0.85, '2022-12-19', transform=ax.transAxes,
+        ha='right', va='top', fontsize=8)
 
 # Top-right panel: zoom in
 plot_panel(axarr[0,1], dat, 'r', 'o', vals.rc, zoom=True)
 
 # Bottom-left panel: g-band flare
-plot_panel(axarr[1,0], dat, 'g', 's', vals.gc)
+ax = axarr[1,0]
+plot_panel(ax, dat, 'g', 's', vals.gc)
+ax.text(0.98, 0.08, 'ULTRASPEC $g$-band', transform=ax.transAxes,
+        ha='right', va='top', fontsize=8)
+ax.text(0.98, 0.15, '2022-12-20', transform=ax.transAxes,
+        ha='right', va='top', fontsize=8)
 
 # Zoom-in of the first flare
 axins = axarr[1,0].inset_axes([0.03, 0.55, 0.35, 0.4])
