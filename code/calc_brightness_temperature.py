@@ -10,6 +10,7 @@ k = 1.38E-16
 dt = 30/(1+vals.z) # 30 seconds in the rest frame
 dR = c * dt
 dTheta = dR / vals.dL_cm
+print(dTheta * (180 / np.pi) * 3600 * 1E6)
 
 # Intensity
 tel,mjd,filt,mag,emag,limmag,flare = get_flares()

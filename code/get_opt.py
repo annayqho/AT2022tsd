@@ -80,6 +80,7 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     filt = a['filter,'].values
     maglim = a['diffmaglim,'].values
     zp = a['zpdiff,'].values
+    exp = a['exptime,'].values
 
     # Subtract the baseline values
     flux[fcqf==5060331] = flux[fcqf==5060331]-baseline_g
@@ -100,7 +101,6 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     SNT = 3 # threshold for declaring a measurement a non-detection
     SNU = 5 # S/N to use when computing an upper limit
 
-    order = np.argsort(jd)
     mag = np.array([99]*len(flux)).astype(float)
     emag = np.array([99]*len(eflux)).astype(float)
     is_det = flux/eflux > SNT
@@ -114,6 +114,7 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     fujy = fratio * 3631 * 1E6
     efujy = eflux * (fujy/flux)
 
+    order = np.argsort(jd)
     filt_final = np.copy(filt[order])
     filt_final[filt_final=='ZTF_g'] = 'g'
     filt_final[filt_final=='ZTF_r'] = 'r'
@@ -125,9 +126,10 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     efujy = efujy[order]
     mag = mag[order]
     emag = emag[order]
-    filt = filt_final
+    exp = exp[order]
+    filt = np.copy(filt_final)
 
-    return jd,filt,mag,emag,fujy,efujy
+    return jd,exp,filt,mag,emag,fujy,efujy
 
 
 def get_transient():
