@@ -12,14 +12,17 @@ sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code
 from get_opt import get_ipac,get_flares,get_ultraspec
 import vals
 
-def plot_ultraspec_panel(ax, dat, filt, m, col, zoom=False, inset=False):
-    """ Plot a light-curve panel """
-    choose = dat['Filt']==filt
-    x = dat['MJD'][choose]
-    y = dat['Flux'][choose]
-    ey = dat['Unc'][choose]
-    t0 = min(x)
 
+def plot_ultraspec_panel(ax, dat, t0, filt, m, col, plot_binned=False):
+    """ Plot a light-curve panel """
+
+    # Get ULTRASPEC data
+    choose = dat['Filt']==filt
+    x = dat['MJD'][choose].values
+    y = dat['Flux'][choose].values
+    ey = dat['Unc'][choose].values
+
+    # Marker formatting
     s=2
     l=0.2
 
@@ -27,15 +30,11 @@ def plot_ultraspec_panel(ax, dat, filt, m, col, zoom=False, inset=False):
     # Otherwise you get what seem to be spurious points
     det = y/ey >= 5
 
-    if zoom:
-        t0 = min(x[det]*24*60)-5
-        dt = x*24*60-t0
-    else:
-        dt = (x-t0)*24
+    # Plot in hours
+    dt = (x-t0)*24
 
     # Plot detections
-    ax.errorbar(dt[det], y[det], ey[det],
-                c=col, fmt=m, ms=s,lw=l)
+    ax.errorbar(dt[det], y[det], ey[det], c=col, fmt=m, ms=s,lw=l)
 
     # Plot the non-detections
     ax.errorbar(dt[~det], y[~det], ey[~det],lw=l,
@@ -44,91 +43,103 @@ def plot_ultraspec_panel(ax, dat, filt, m, col, zoom=False, inset=False):
     # Plot a y=0 line
     ax.axhline(y=0, c='grey', lw=0.5)
 
-    if zoom:
-        if filt=='g':
-            ax.set_xlim(35, max(dt[det])+5)
-        else:
-            ax.set_xlim(min(dt[det])-5, max(dt[det])+5)
-
-    if inset:
-        ax.set_xlim(0, 10)
-
-    if inset==False and zoom==False:
-        ax.set_xlim(min(dt), max(dt))
-
-    ax.set_ylim(min(y)-1, max(y)+3)
+    # Bin the light curve...group by five points
+    if plot_binned:
+        bsize = 3
+        binned = []
+        for i in np.arange(bsize,len(dt)-bsize):
+            binned.append(np.average(y[i-bsize:i+bsize], 
+                          weights=1/(ey[i-bsize:i+bsize])**2))
+        ax.plot(dt[bsize:len(dt)-bsize], np.array(binned), c='k', zorder=10,
+                lw=0.5)
 
 
-# Initialize figure
-fig,axarr = plt.subplots(3,2,figsize=(7,6))
 
-# Plot the Magellan flare
-tel,mjd,filt,mag,emag,limmag,flare = get_flares()
-choose = tel=='Magellan'
-ax = axarr[0,0]
-y = (10**((mag[choose]-8.9)/(-2.5))) * 1E6
-ey = y*emag[choose]*(np.log(10))/2.5
-ax.errorbar((mjd[choose]-mjd[choose][0])*24*60, y, ey,
-            fmt='s', c=vals.gc)
-ax.text(0.02, 0.98, 'IMACS $g$-band', transform=ax.transAxes,
-        ha='left', va='top', fontsize=8)
-ax.text(0.02, 0.88, '2022-12-15', transform=ax.transAxes,
-        ha='left', va='top', fontsize=8)
-
-# Plot the LT flare
-choose = np.logical_and(tel=='LT', flare=='*')
-ax = axarr[0,1]
-y = (10**((mag[choose]-8.9)/(-2.5))) * 1E6
-ey = y*emag[choose]*(np.log(10))/2.5
-ax.errorbar((mjd[choose]-mjd[choose][0])*24*60, y, ey,
-            fmt='s', c=vals.gc)
-ax.text(0.98, 0.98, 'LT $g$-band', transform=ax.transAxes,
-        ha='right', va='top', fontsize=8)
-ax.text(0.98, 0.88, '2022-12-16', transform=ax.transAxes,
-        ha='right', va='top', fontsize=8)
-
-# Get the ULTRASPEC data
-dat = get_ultraspec()
-
-# Top-left panel: r-band flare 
-ax = axarr[1,0]
-plot_ultraspec_panel(ax, dat, 'r', 'o', vals.rc)
-ax.text(0.98, 0.95, 'ULTRASPEC $r$-band', transform=ax.transAxes,
-        ha='right', va='top', fontsize=8)
-ax.text(0.98, 0.85, '2022-12-19', transform=ax.transAxes,
-        ha='right', va='top', fontsize=8)
-
-# Top-right panel: zoom in
-plot_ultraspec_panel(axarr[1,1], dat, 'r', 'o', vals.rc, zoom=True)
-
-# Bottom-left panel: g-band flare
-ax = axarr[2,0]
-plot_ultraspec_panel(ax, dat, 'g', 's', vals.gc)
-ax.text(0.98, 0.1, 'ULTRASPEC $g$-band', transform=ax.transAxes,
-        ha='right', va='top', fontsize=8)
-ax.text(0.98, 0.17, '2022-12-20', transform=ax.transAxes,
-        ha='right', va='top', fontsize=8)
-
-# Zoom-in of the first flare
-axins = axarr[2,0].inset_axes([0.03, 0.55, 0.35, 0.4])
-axins.set_yticks([])
-plot_ultraspec_panel(axins, dat, 'g', 's', vals.gc, inset=True, zoom=True)
-axins.tick_params(axis='x', labelsize=8, pad=0.5)
-axins.set_xlabel("Minutes", fontsize=8, labelpad=1)
-axins.set_ylim(-1, 15)
-
-# Bottom-right panel: zoom in of the second flare
-plot_ultraspec_panel(axarr[2,1], dat, 'g', 's', vals.gc, zoom=True)
-
-# Formatting
-axarr[2,0].set_xlabel("Hours")
-axarr[2,1].set_xlabel("Minutes")
-for ax in axarr[:,0]:
+def plot_magellan(ax):
+    """ Plot the Magellan/IMACS flare in uJy """
+    tel,mjd,filt,mag,emag,limmag,flare = get_flares()
+    choose = tel=='Magellan'
+    y = (10**((mag[choose]-8.9)/(-2.5))) * 1E6
+    ey = y*emag[choose]*(np.log(10))/2.5
+    t0 = Time("2022-12-15T04:30:00", format='isot').mjd
+    ax.errorbar((mjd[choose]-t0)*24*60, y, ey,
+                fmt='s', c=vals.gc)
+    ax.text(0.02, 0.98, 'IMACS $g$-band', transform=ax.transAxes,
+            ha='left', va='top', fontsize=8)
+    #ax.text(0.02, 0.88, '2022-12-15', transform=ax.transAxes,
+    #        ha='left', va='top', fontsize=8)
+    ax.set_xlabel("Minutes since 2022-12-15 04:30")
     ax.set_ylabel("Flux Density ($\mu$Jy)")
 
-#plt.savefig(
-#        "ultraspec_flares.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-#plt.close()
-plt.show()
+
+def plot_lt(ax):
+    tel,mjd,filt,mag,emag,limmag,flare = get_flares()
+    choose = np.logical_and(tel=='LT', flare=='*')
+    y = (10**((mag[choose]-8.9)/(-2.5))) * 1E6
+    ey = y*emag[choose]*(np.log(10))/2.5
+    t0 = Time("2022-12-16T20:30:00", format='isot').mjd
+    ax.errorbar((mjd[choose]-t0)*24*60, y, ey,
+                fmt='s', c=vals.gc)
+    ax.text(0.98, 0.98, 'LT $g$-band', transform=ax.transAxes,
+            ha='right', va='top', fontsize=8)
+    ax.set_xlabel("Minutes since 2022-12-16 20:30")
+
+
+if __name__=="__main__":
+    # Initialize figure
+    fig,axarr = plt.subplots(figsize=(7,6))
+
+    # Plot IMACS & LT panels
+    ax = plt.subplot(3,2,1)
+    plot_magellan(ax)
+    ax = plt.subplot(3,2,2)
+    plot_lt(ax)
+
+    # Plot ULTRASPEC r-band panel
+    ax = plt.subplot(3,1,2)
+    dat = get_ultraspec()
+    t0 = Time("2022-12-19T15:00:00", format='isot').mjd
+    plot_ultraspec_panel(ax, dat, t0, 'r', 'o', vals.rc)
+    ax.set_xlabel("Hours since 2022-12-19 15:00")
+    ax.text(0.02, 0.95, 'ULTRASPEC $r$-band', transform=ax.transAxes,
+            ha='left', va='top', fontsize=8)
+    ax.set_ylabel("Flux Density ($\mu$Jy)")
+    ax.set_xlim(-0.6, 4.3)
+    ax.set_ylim(-6, 33)
+
+    # Zoom-in to r-band flare
+    axins = ax.inset_axes([0.5, 0.54, 0.48, 0.45])
+    plot_ultraspec_panel(axins, dat, t0, 'r', 'o', vals.rc)
+    axins.tick_params(axis='both', labelsize=8, pad=0.5)
+    axins.set_ylabel("")
+    axins.set_xlim(0.6,1.1)
+    axins.set_ylim(-1,32)
+    ax.indicate_inset_zoom(axins, edgecolor="grey")
+
+    # Plot ULTRASPEC g-band panel
+    ax = plt.subplot(3,1,3)
+    t0 = Time("2022-12-20T15:00:00", format='isot').mjd
+    plot_ultraspec_panel(ax, dat, t0, 'g', 's', vals.gc)#, plot_binned=True)
+    ax.text(0.98, 0.06, 'ULTRASPEC $g$-band', transform=ax.transAxes,
+            ha='right', va='bottom', fontsize=8)
+    ax.set_xlabel("Hours since 2022-12-20 15:00")
+    ax.set_ylabel("Flux Density ($\mu$Jy)")
+    ax.set_xlim(0.2, 4.3)
+
+    # Zoom-in to g-band flare
+    axins = ax.inset_axes([0.01, 0.54, 0.4, 0.42])
+    plot_ultraspec_panel(axins, dat, t0, 'g', 's', vals.gc, plot_binned=True)
+    axins.tick_params(axis='both', labelsize=8, pad=0.5)
+    axins.set_ylabel("")
+    axins.set_xlim(2.5,4.2)
+    axins.set_ylim(-1,21)
+    ax.indicate_inset_zoom(axins, edgecolor="grey")
+    axins.set_xticks([])
+    axins.set_yticks([])
+
+    plt.tight_layout()
+    plt.savefig("flares.png", dpi=300, 
+                bbox_inches='tight', pad_inches=0.1)
+    plt.close()
 
 
