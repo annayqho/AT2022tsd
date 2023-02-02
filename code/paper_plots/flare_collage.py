@@ -54,7 +54,6 @@ def plot_ultraspec_panel(ax, dat, t0, filt, m, col, plot_binned=False):
                 lw=0.5)
 
 
-
 def plot_magellan(ax):
     """ Plot the Magellan/IMACS flare in uJy """
     tel,mjd,filt,mag,emag,limmag,flare = get_flares()
@@ -64,12 +63,11 @@ def plot_magellan(ax):
     t0 = Time("2022-12-15T04:30:00", format='isot').mjd
     ax.errorbar((mjd[choose]-t0)*24*60, y, ey,
                 fmt='s', c=vals.gc)
-    ax.text(0.02, 0.98, 'IMACS $g$-band', transform=ax.transAxes,
+    ax.text(0.02, 0.1, 'IMACS $g$-band', transform=ax.transAxes,
             ha='left', va='top', fontsize=8)
     #ax.text(0.02, 0.88, '2022-12-15', transform=ax.transAxes,
     #        ha='left', va='top', fontsize=8)
-    ax.set_xlabel("Minutes since 2022-12-15 04:30")
-    ax.set_ylabel("Flux Density ($\mu$Jy)")
+    ax.set_xlabel("Min. since 2022-12-15 04:30", fontsize=8)
 
 
 def plot_lt(ax):
@@ -82,17 +80,49 @@ def plot_lt(ax):
                 fmt='s', c=vals.gc)
     ax.text(0.98, 0.98, 'LT $g$-band', transform=ax.transAxes,
             ha='right', va='top', fontsize=8)
-    ax.set_xlabel("Minutes since 2022-12-16 20:30")
+    ax.set_xlabel("Min. since 2022-12-16 20:30", fontsize=8)
+
+
+def plot_ztf(ax, flarenum=1):
+    """ Plot one of the ZTF flares. Can be flarenum=1 or flarenum=2
+    (These are the two r-band flares) """
+
+    # Get the data
+    jd,exp,filt,mag,emag,fujy,efujy = get_ipac()
+
+    # The dates of the two flares
+    t0s = np.array(['2022-10-04T09:30:00', '2022-10-29T04:30:00'])
+    t0 = Time(t0s[flarenum-1], format='isot').jd
+
+    # Plot the r-band data from that day 
+    window = 1/2 # window is 1 day, so 0.5 day on either side
+    choose = np.logical_and.reduce((filt=='r', jd>t0-window, jd<t0+window))
+    ax.errorbar((jd[choose]-t0)*24*60, fujy[choose], efujy[choose], 
+                fmt='o', c=vals.rc)
+    choose = np.logical_and.reduce((filt=='g', jd>t0-window, jd<t0+window))
+    ax.errorbar((jd[choose]-t0)*24*60, fujy[choose], efujy[choose], 
+                fmt='s', c=vals.gc)
+    t0_str = t0s[flarenum-1][0:16].replace('T', ' ')
+    ax.set_xlabel("Min. since %s" %t0_str, fontsize=8)
+    ax.text(0.95, 0.95, 'ZTF', ha='right', va='top', fontsize=8,
+            transform=ax.transAxes)
 
 
 if __name__=="__main__":
     # Initialize figure
     fig,axarr = plt.subplots(figsize=(7,6))
 
+    # Plot ZTF panels
+    ax = plt.subplot(3,4,1)
+    plot_ztf(ax)
+    ax.set_ylabel("Flux Density ($\mu$Jy)")
+    ax = plt.subplot(3,4,2)
+    plot_ztf(ax, flarenum=2)
+
     # Plot IMACS & LT panels
-    ax = plt.subplot(3,2,1)
+    ax = plt.subplot(3,4,3)
     plot_magellan(ax)
-    ax = plt.subplot(3,2,2)
+    ax = plt.subplot(3,4,4)
     plot_lt(ax)
 
     # Plot ULTRASPEC r-band panel
@@ -103,9 +133,9 @@ if __name__=="__main__":
     ax.set_xlabel("Hours since 2022-12-19 15:00")
     ax.text(0.02, 0.95, 'ULTRASPEC $r$-band', transform=ax.transAxes,
             ha='left', va='top', fontsize=8)
-    ax.set_ylabel("Flux Density ($\mu$Jy)")
     ax.set_xlim(-0.6, 4.3)
     ax.set_ylim(-6, 33)
+    ax.set_ylabel("Flux Density ($\mu$Jy)")
 
     # Zoom-in to r-band flare
     axins = ax.inset_axes([0.5, 0.54, 0.48, 0.45])
@@ -138,6 +168,7 @@ if __name__=="__main__":
     axins.set_yticks([])
 
     plt.tight_layout()
+    #plt.show()
     plt.savefig("flares.png", dpi=300, 
                 bbox_inches='tight', pad_inches=0.1)
     plt.close()
