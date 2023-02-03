@@ -54,6 +54,43 @@ def plot_ultraspec_panel(ax, dat, t0, filt, m, col, plot_binned=False):
                 lw=0.5)
 
 
+def plot_keck(ax, dat, t0):
+    """ Plot a light-curve panel """
+    t0_mjd = float(Time(t0, format='isot').mjd)
+    m = 5
+
+    # Get the relevant data
+    choose = dat['Filt']=='u'
+    x = dat['MJD'][choose].values
+    y = dat['Flux'][choose].values
+    ey = dat['Unc'][choose].values
+
+    # Plot in minutes
+    dt = (x-t0_mjd)*24*60
+
+    # Plot detections
+    ax.errorbar(dt, y, ey, c=vals.uc, fmt='*', ms=m*2, lw=0.5, label='$u$')
+
+    # Get the relevant data
+    choose = dat['Filt']=='i'
+    x = dat['MJD'][choose].values
+    y = dat['Flux'][choose].values
+    ey = dat['Unc'][choose].values
+
+    # Plot in minutes
+    dt = (x-t0_mjd)*24*60
+
+    # Plot detections
+    ax.errorbar(dt, y, ey, c=vals.ic, fmt='D', ms=m, lw=0.5, label='$i$')
+
+    # Format x-axis
+    t0_str = t0[0:16].replace('T', ' ')
+    ax.set_xlabel("Minutes since %s" %t0_str, fontsize=8)
+
+    ax.axhline(y=0, c='grey', lw=0.5)
+    ax.legend(loc='upper right', ncol=1, fontsize=8)
+
+
 def plot_magellan(ax):
     """ Plot the Magellan/IMACS flare in uJy """
     tel,mjd,filt,mag,emag,limmag,flare = get_flares()
@@ -63,11 +100,11 @@ def plot_magellan(ax):
     t0 = Time("2022-12-15T04:30:00", format='isot').mjd
     ax.errorbar((mjd[choose]-t0)*24*60, y, ey,
                 fmt='s', c=vals.gc)
-    ax.text(0.02, 0.1, 'IMACS $g$-band', transform=ax.transAxes,
+    ax.text(0.02, 0.15, 'IMACS $g$-band', transform=ax.transAxes,
             ha='left', va='top', fontsize=8)
     #ax.text(0.02, 0.88, '2022-12-15', transform=ax.transAxes,
     #        ha='left', va='top', fontsize=8)
-    ax.set_xlabel("Min. since 2022-12-15 04:30", fontsize=8)
+    ax.set_xlabel("Minutes since 2022-12-15 04:30", fontsize=8)
 
 
 def plot_lt(ax):
@@ -80,7 +117,7 @@ def plot_lt(ax):
                 fmt='s', c=vals.gc)
     ax.text(0.98, 0.98, 'LT $g$-band', transform=ax.transAxes,
             ha='right', va='top', fontsize=8)
-    ax.set_xlabel("Min. since 2022-12-16 20:30", fontsize=8)
+    ax.set_xlabel("Minutes since 2022-12-16 20:30", fontsize=8)
 
 
 def plot_ztf(ax, flarenum=1):
@@ -98,35 +135,44 @@ def plot_ztf(ax, flarenum=1):
     window = 1/2 # window is 1 day, so 0.5 day on either side
     choose = np.logical_and.reduce((filt=='r', jd>t0-window, jd<t0+window))
     ax.errorbar((jd[choose]-t0)*24*60, fujy[choose], efujy[choose], 
-                fmt='o', c=vals.rc)
+                fmt='o', c=vals.rc, label='$r$')
     choose = np.logical_and.reduce((filt=='g', jd>t0-window, jd<t0+window))
     ax.errorbar((jd[choose]-t0)*24*60, fujy[choose], efujy[choose], 
-                fmt='s', c=vals.gc)
+                fmt='s', c=vals.gc, label='$g$')
     t0_str = t0s[flarenum-1][0:16].replace('T', ' ')
-    ax.set_xlabel("Min. since %s" %t0_str, fontsize=8)
+    ax.set_xlabel("Minutes since %s" %t0_str, fontsize=8)
     ax.text(0.95, 0.95, 'ZTF', ha='right', va='top', fontsize=8,
             transform=ax.transAxes)
+    ax.legend(loc='lower left', fontsize=8)
 
 
 if __name__=="__main__":
     # Initialize figure
-    fig,axarr = plt.subplots(figsize=(7,6))
+    fig,axarr = plt.subplots(figsize=(7,7))
 
     # Plot ZTF panels
-    ax = plt.subplot(3,4,1)
+    ax = plt.subplot(4,3,1)
     plot_ztf(ax)
-    ax.set_ylabel("Flux Density ($\mu$Jy)")
-    ax = plt.subplot(3,4,2)
+    ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
+    ax = plt.subplot(4,3,2)
     plot_ztf(ax, flarenum=2)
 
-    # Plot IMACS & LT panels
-    ax = plt.subplot(3,4,3)
+    # Plot IMACS panel
+    ax = plt.subplot(4,3,3)
     plot_magellan(ax)
-    ax = plt.subplot(3,4,4)
+
+    # Plot LT panel
+    ax = plt.subplot(4,3,4)
     plot_lt(ax)
+    ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
+
+    # Plot Keck panel
+    ax = plt.subplot(4,3,5)
+    dat = get_ultraspec()
+    plot_keck(ax, dat, '2022-12-29T10:00:00')
 
     # Plot ULTRASPEC r-band panel
-    ax = plt.subplot(3,1,2)
+    ax = plt.subplot(4,1,3)
     dat = get_ultraspec()
     t0 = Time("2022-12-19T15:00:00", format='isot').mjd
     plot_ultraspec_panel(ax, dat, t0, 'r', 'o', vals.rc)
@@ -135,7 +181,7 @@ if __name__=="__main__":
             ha='left', va='top', fontsize=8)
     ax.set_xlim(-0.6, 4.3)
     ax.set_ylim(-6, 33)
-    ax.set_ylabel("Flux Density ($\mu$Jy)")
+    ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
 
     # Zoom-in to r-band flare
     axins = ax.inset_axes([0.5, 0.54, 0.48, 0.45])
@@ -147,13 +193,13 @@ if __name__=="__main__":
     ax.indicate_inset_zoom(axins, edgecolor="grey")
 
     # Plot ULTRASPEC g-band panel
-    ax = plt.subplot(3,1,3)
+    ax = plt.subplot(4,1,4)
     t0 = Time("2022-12-20T15:00:00", format='isot').mjd
     plot_ultraspec_panel(ax, dat, t0, 'g', 's', vals.gc)#, plot_binned=True)
     ax.text(0.98, 0.06, 'ULTRASPEC $g$-band', transform=ax.transAxes,
             ha='right', va='bottom', fontsize=8)
     ax.set_xlabel("Hours since 2022-12-20 15:00")
-    ax.set_ylabel("Flux Density ($\mu$Jy)")
+    ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
     ax.set_xlim(0.2, 4.3)
 
     # Zoom-in to g-band flare
