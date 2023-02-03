@@ -148,7 +148,7 @@ def get_ultraspec():
 
 def get_flares():
     """ Get flare photometry without any extinction correction """
-    # This is LT, NOT, Magellan
+    # Only use NOT and Magellan from here. LT from other file.
     inputf = ddir + "/at2022tsd_flare_phot.csv"
     dat  = pd.read_table(inputf, comment='#', delimiter=',')
     emag = dat['emag'].values
@@ -159,12 +159,20 @@ def get_flares():
     tel = dat['telescope'].values
     limmag = dat['limmag'].values
 
-    # This is ULTRASPEC and LRIS 
-    inputf = ddir + "/flares_lris_ultraspec.txt"
+    discard = tel=='LT'
+    emag = emag[~discard]
+    mag = mag[~discard]
+    mjd = mjd[~discard]
+    filt = filt[~discard]
+    flare = flare[~discard]
+    tel = tel[~discard]
+    limmag = limmag[~discard]
+
+    # This is ULTRASPEC and LRIS and LT. And actually the LT
+    # photometry is not all flares.
+    inputf = ddir + "/flares_lris_ultraspec_lt.txt"
     dat  = pd.read_fwf(inputf, comment='#', 
-                         names=['MJD','Exp','Filt','Flux','Unc'])
-    dat['Tel'] = ['ULTRASPEC']*len(dat)
-    dat.loc[dat['Exp']==300, 'Tel'] = ['LRIS']*sum(dat['Exp']==300)
+                         names=['Tel','MJD','Exp','Filt','Flux','Unc'])
     # Convert to mag
     dat['Mag'] = [99]*len(dat)
     dat['eMag'] = [99]*len(dat)
