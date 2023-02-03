@@ -41,13 +41,12 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     fcqf = (a['field,']*10000+a['ccdid,']*100+a['qid,']*10+fid).astype(int).values
     ufcqf = np.unique(fcqf) # 5060333, 5060332, 5060331
 
-    # Reference for i-band ends 30 Sept 2022! So, can't use this.
-    refends = np.unique(a['refjdend,'][fcqf==5060333].values)
-
-    # Remove i-band images
-    iband = fid==3
-    a = a[~iband]
-    fcqf = fcqf[~iband]
+    # Reference for i-band ends 30 Sept 2022...but I think it's OK,
+    # since the references are median stacks.
+    #refends = np.unique(a['refjdend,'][fcqf==5060333].values)
+    #iband = fid==3
+    #a = a[~iband]
+    #fcqf = fcqf[~iband]
 
     # Bad pixel contamination: 4 images
     if a['procstatus'].dtype=='int64':

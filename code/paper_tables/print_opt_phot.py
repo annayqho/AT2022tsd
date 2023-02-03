@@ -54,7 +54,7 @@ def print_table():
     outputf.write("\hline\n")
 
     # The ZTF lines
-    jd,filt,mag,emag,fujy,efujy = get_ipac()
+    jd,exp,filt,mag,emag,fujy,efujy = get_ipac()
     tel = np.array(['ZTF']*len(jd))
     flare = np.array(['']*len(jd))
     limmag = np.copy(mag)
