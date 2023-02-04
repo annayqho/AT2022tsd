@@ -138,6 +138,10 @@ def plot_flares(ax):
     choose = np.logical_and(filt=='r', emag==99)
     plot_lim(ax, dt[choose], mag[choose]-vals.ext['r'], 'r')
 
+    # Plot the i-band detections
+    choose = np.logical_and(filt=='i', emag<99)
+    plot_det(ax, dt[choose], mag[choose]-vals.ext['i'], emag[choose], 'i')
+
     # Non-ZTF flares
     tel,mjd,filt,mag,emag,limmag,flare = get_flares()
     jd = Time(mjd, format='mjd').jd
@@ -272,7 +276,7 @@ if __name__=="__main__":
 
     # Formatting
     ax.set_xlim(-5, 145)
-    ax.set_ylim(23.5, 19)
+    ax.set_ylim(23.6, 18.8)
 
     # Make a second x-axis
     ax3 = ax.twiny()
