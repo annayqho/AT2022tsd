@@ -109,10 +109,11 @@ def plot_magellan(ax):
 
 def plot_lt(ax):
     tel,mjd,filt,mag,emag,limmag,flare = get_flares()
-    choose = np.logical_and(tel=='LT/IO:O', flare=='*')
+    t0 = Time("2022-12-16T20:30:00", format='isot').mjd
+    choose = np.logical_and.reduce((tel=='LT/IO:O', flare=='*',
+                                    np.abs(mjd-t0)<1))
     y = (10**((mag[choose]-8.9)/(-2.5))) * 1E6
     ey = y*emag[choose]*(np.log(10))/2.5
-    t0 = Time("2022-12-16T20:30:00", format='isot').mjd
     ax.errorbar((mjd[choose]-t0)*24*60, y, ey,
                 fmt='s', c=vals.gc)
     ax.text(0.98, 0.98, 'LT $g$-band', transform=ax.transAxes,
@@ -170,7 +171,7 @@ if __name__=="__main__":
     plot_ztf(ax, window=2.5)
     ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
     ax.axhline(y=0, c='grey', lw=0.5)
-    axins = ax.inset_axes([0.01, 0.54, 0.3, 0.42])
+    axins = ax.inset_axes([0.2, 0.54, 0.2, 0.42])
     t0_str = plot_ztf(axins, window=0.1)
     ax.legend(loc='upper right', fontsize=8, ncol=1, columnspacing=0.2,
           handletextpad=0.1)
@@ -190,6 +191,12 @@ if __name__=="__main__":
     ax.set_xlabel("Days since %s" %t0_str, fontsize=8)
     ax.text(0.05, 0.95, 'ZTF', ha='left', va='top', fontsize=8,
             transform=ax.transAxes)
+    axins = ax.inset_axes([0.7, 0.54, 0.28, 0.45])
+    plot_ztf(axins, flarenum=3, window=0.1)
+    axins.set_yticks([])
+    axins.set_xticks([])
+    axins.set_xlabel("7 min", fontsize=8, labelpad=1)
+    ax.indicate_inset_zoom(axins, edgecolor="grey")
 
     # Plot IMACS panel
     ax = plt.subplot(4,4,5)
@@ -251,9 +258,9 @@ if __name__=="__main__":
     axins.set_yticks([])
 
     plt.tight_layout()
-    plt.show()
-    #plt.savefig("flares.png", dpi=300, 
-    #            bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("flares.png", dpi=300, 
+                bbox_inches='tight', pad_inches=0.1)
+    plt.close()
 
 
