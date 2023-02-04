@@ -13,13 +13,16 @@ from get_opt import *
 import vals
 
 
-def plot_lim(ax, x, y, band):
+def plot_lim(ax, x, y, band, leg=False):
     """ Plot 5-sigma upper limits """
     col = vals.gc
     lw = 0.3
     s = 10
+    lab = None
     if band=='r':
         col = vals.rc
+    if leg:
+        lab = '$%s$ limit' %band
     ax.scatter(x, y, 
         edgecolor=col, facecolor='white', marker='v', lw=lw, s=s)
 
@@ -70,7 +73,7 @@ def plot_main_lc(ax):
 
     # Plot the g-band limits
     choose = np.logical_and(filt=='g', emag==99)
-    plot_lim(ax, dt[choose], mag[choose]-vals.ext['g'], 'g')
+    plot_lim(ax, dt[choose], mag[choose]-vals.ext['g'], 'g', leg=True)
 
     # Plot the r-band detections
     choose = np.logical_and(filt=='r', emag<99)
@@ -79,7 +82,7 @@ def plot_main_lc(ax):
 
     # Plot the r-band limits
     choose = np.logical_and(filt=='r', emag==99)
-    plot_lim(ax, dt[choose], mag[choose]-vals.ext['r'], 'r')
+    plot_lim(ax, dt[choose], mag[choose]-vals.ext['r'], 'r', leg=True)
 
     # Now, get the LT photometry
     dat = get_keck_lt_ultraspec()
@@ -297,6 +300,6 @@ if __name__=="__main__":
     ax2.plot([],[])
 
     #plt.tight_layout()
-    plt.show()
-    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    #plt.close()
+    #plt.show()
+    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    plt.close()
