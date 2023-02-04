@@ -13,14 +13,13 @@ def print_table():
 
     # Headings
     headings = np.array(
-            ['$t$', '$\Delta t$\\footnote{Rest frame}', '$t_\mathrm{exp}$', 
-             'Count Rate\\footnote{Upper limits are 3-$\sigma$.}', '$F_X$', 
-             '$L_X$', 'Tel.'])
+            ['$t_\mathrm{start}$', '$\Delta t$\\footnote{Rest frame}', 
+             '$t_\mathrm{exp}$', '$F_X$', '$L_X$'])
     unit_headings = np.array(
-            ['(UT)', '(days)', '(ksec)', '($10^{-3}$\,s$^{-1}$)', 
+            ['(UT)', '(days)', '(ksec)', 
              '($10^{-14}$ erg\,s$^{-1}$\,cm$^{-2}$)', 
-             '$(10^{43}$\,erg\,s$^{-1}$)', ''])
-    label = "tab:xray-observations"
+             '$(10^{43}$\,erg\,s$^{-1}$)'])
+    label = "tab:chandra"
 
     ncol = len(headings)
     colstr = ""
@@ -43,7 +42,7 @@ def print_table():
         rowstr += "%s & "
     rowstr += "%s \\\ \n"
 
-    caption="X-ray observations of AT2022tsd."
+    caption="Chandra X-ray Observatory observations of AT2022tsd."
 
     outputf = open("paper_table_%s.txt" %label, "w")
     outputf.write("\\begin{table*} \n")
@@ -54,59 +53,34 @@ def print_table():
     outputf.write(unitstr+'\\\ \n')
     outputf.write("\hline\n")
 
-    # Error bars are asymmetric
-    df = load_swift()
+    # Get data
+    df = load_chandra()
 
     for i in np.arange(len(df)):
         # Convert date to readable date and time
-        t = Time(df['!MJD    '][i], format='mjd')
-        et = df['T_+ve   '][i]
+        t = Time(df['MJD'][i], format='mjd')
+        tstr = t.isot.replace("T", " ")[0:16]
 
-        # Effective time...only want minute precision
-        tstr = str((t-et).isot).replace('T', ' ').split('.')[0][0:-3]
         # Rest-frame days
-        dt = '{:.2f}'.format((t.jd-vals.t0)/(1+vals.z))
-        # Error on the time
-        terror = '{:.2f}'.format(et/(1+vals.z))
-        dtstr = '$%s\pm%s$' %(dt,terror)
+        dtstr = '{:.2f}'.format((t.jd-vals.t0)/(1+vals.z))
+
         # Exposure time
-        texp = '{:.2f}'.format(get_exp(i+1)/1000)
-
-        # Counts
-        ct = '{:.2f}'.format(df['Rate    '][i]/1E-3)
-        # Errors are symmetric
-        ect = '{:.2f}'.format(df['Ratepos '][i]/1E-3)
-
-        # Check for upper limits
-        if ect=='0.00':
-            ctstr = "$<%s$" %(ct)
-        else:
-            ctstr = "$%s\pm%s$" %(ct,ect)
+        texp = int(df['Exp'][i])
 
         # Flux
         f = '{:.2f}'.format(df['Flux'][i]/1E-14)
-        # Errors are symmetric
-        ef = '{:.2f}'.format(df['Fluxpos'][i]/1E-14)
-
-        # Check for upper limits
-        if ef=='0.00':
-            fstr = "$<%s$" %(f)
-        else:
-            fstr = "$%s\pm%s$" %(f,ef)
+        # Errors are asymmetric
+        ef_up = '{:.2f}'.format(df['uFlux'][i]/1E-14)
+        ef_bot = '{:.2f}'.format(df['lFlux'][i]/1E-14)
+        fstr = "$%s^{+%s}_{-%s}$" %(f,ef_up,ef_bot)
 
         # Luminosity
         L = '{:.2f}'.format(df['L'][i]/1E43)
-        # Errors are symmetric
-        eL = '{:.2f}'.format(df['Lpos'][i]/1E43)
-        Lstr = "$%s\pm%s$" %(ct,ect)
+        eL_up = '{:.2f}'.format(df['Lpos'][i]/1E43)
+        eL_bot = '{:.2f}'.format(df['Lneg'][i]/1E43)
+        Lstr = "$%s^{+%s}_{-%s}$" %(L,eL_up,eL_bot)
 
-        # Check for upper limits
-        if eL=='0.00':
-            Lstr = "$<%s$" %(L)
-        else:
-            Lstr = "$%s\pm%s$" %(L,eL)
-
-        row = rowstr %(tstr,dtstr,texp,ctstr,fstr,Lstr,'Swift')
+        row = rowstr %(tstr,dtstr,texp,fstr,Lstr)
         print(row)
         outputf.write(row)
 
