@@ -36,6 +36,23 @@ def load_swift():
     return df
 
 
+def load_chandra():
+    df = pd.read_table(ddir+"/chandra_flux_summary.txt", delimiter=',')
+
+    # Convert date to MJD
+    df['MJD'] = Time(df['Start'], format='isot').mjd
+
+    # Luminosity
+    df['L'] = df['Flux']*4*np.pi*(vals.dL_cm)**2
+    df['Lpos'] = df['uFlux']*4*np.pi*(vals.dL_cm)**2
+    df['Lneg'] = df['lFlux']*4*np.pi*(vals.dL_cm)**2
+
+    # Sort
+    df = df.sort_values('MJD', ignore_index=True)
+
+    return df
+
+
 def get_exp(i):
     """ Get the exposure time for a given obs ID """
     df = pd.read_table(
