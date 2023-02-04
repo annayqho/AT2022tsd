@@ -188,6 +188,7 @@ if __name__=="__main__":
     fig,axarr = plt.subplots(figsize=(7,7))
 
     # Plot ZTF: the first r and i flares (1d apart)
+    # And also the LT detections of what is presumably the transient
     ax = plt.subplot(4,2,1)
     plot_ztf(ax, window=2.5)
     ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
@@ -197,7 +198,7 @@ if __name__=="__main__":
     ax.legend(loc='upper right', fontsize=8, ncol=1, columnspacing=0.2,
           handletextpad=0.1)
     ax.set_xlabel("Days since %s" %t0_str, fontsize=8)
-    ax.text(0.05, 0.95, 'ZTF', ha='left', va='top', fontsize=8,
+    ax.text(0.01, 0.95, 'ZTF+LT', ha='left', va='top', fontsize=8,
             transform=ax.transAxes)
     axins.set_yticks([])
     axins.set_xticks([])
