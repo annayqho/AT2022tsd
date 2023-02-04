@@ -24,7 +24,7 @@ def plot_lim(ax, x, y, band, leg=False):
     if leg:
         lab = '$%s$ limit' %band
     ax.scatter(x, y, 
-        edgecolor=col, facecolor='white', marker='v', lw=lw, s=s)
+        edgecolor=col, facecolor='white', marker='v', lw=lw, s=s, label=lab)
 
 
 def plot_det(ax, x, y, ey, band, lines=False, leg=False):

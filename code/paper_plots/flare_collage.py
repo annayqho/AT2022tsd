@@ -9,7 +9,7 @@ plt.rcParams["font.family"] = "sans-serif"
 plt.rcParams["pdf.fonttype"] = 42
 from astropy.time import Time
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
-from get_opt import get_ipac,get_flares,get_ultraspec
+from get_opt import *
 import vals
 
 
@@ -114,7 +114,9 @@ def plot_lt(ax):
                                     np.abs(mjd-t0)<1))
     y = (10**((mag[choose]-8.9)/(-2.5))) * 1E6
     ey = y*emag[choose]*(np.log(10))/2.5
-    ax.errorbar((mjd[choose]-t0)*24*60, y, ey,
+
+    gdet = np.logical_and(choose, filt=='g')
+    ax.errorbar((mjd[gdet]-t0)*24*60, y, ey,
                 fmt='s', c=vals.gc)
     ax.text(0.98, 0.98, 'LT $g$-band', transform=ax.transAxes,
             ha='right', va='top', fontsize=8)
@@ -155,6 +157,25 @@ def plot_ztf(ax, flarenum=1, window=1):
     if sum(choose)>0:
         ax.errorbar((jd[choose]-t0), fujy[choose], efujy[choose], 
                     fmt='D', c=vals.ic, label='$i$')
+
+    # Plot LT points for that first flare
+    if flarenum==1:
+        dat = get_keck_lt_ultraspec()
+        tel = dat['Tel'].values
+        jd = Time(dat['MJD'].values, format='mjd').jd
+        choose = np.logical_and.reduce((
+            tel=='LT/IO:O', dat['Filt']=='g', jd>t0-window, jd<t0+window))
+        x = jd[choose]
+        y = dat['Flux'][choose].values
+        ey = dat['Unc'][choose].values
+        ax.errorbar((x-t0), y, ey, fmt='s', c=vals.gc)
+
+        choose = np.logical_and.reduce((
+            tel=='LT/IO:O', dat['Filt']=='r', jd>t0-window, jd<t0+window))
+        x = jd[choose]
+        y = dat['Flux'][choose].values
+        ey = dat['Unc'][choose].values
+        ax.errorbar((x-t0), y, ey, fmt='o', c=vals.rc)
 
     # Formatting the panel
     t0_str = t0s[flarenum-1][0:16].replace('T', ' ')
@@ -258,9 +279,9 @@ if __name__=="__main__":
     axins.set_yticks([])
 
     plt.tight_layout()
-    #plt.show()
-    plt.savefig("flares.png", dpi=300, 
-                bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("flares.png", dpi=300, 
+    #            bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
 
 
