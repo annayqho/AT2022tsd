@@ -24,11 +24,12 @@ def plot_lim(ax, x, y, band):
         edgecolor=col, facecolor='white', marker='v', lw=lw, s=s)
 
 
-def plot_det(ax, x, y, ey, band, lines=False):
+def plot_det(ax, x, y, ey, band, lines=False, leg=False):
     """ Plot detections """
     col = vals.gc
     m = 's'
     s = 5
+    lab = None # Default is no label
     if band=='r':
         col = vals.rc
         m = 'o'
@@ -40,7 +41,9 @@ def plot_det(ax, x, y, ey, band, lines=False):
         m = '>'
     if lines:
         m = '%s-'%m
-    ax.errorbar(x, y, ey, c=col, fmt=m, label='$%s$' %band, ms=s)
+    if leg:
+        lab='$%s$' %band
+    ax.errorbar(x, y, ey, c=col, fmt=m, label=lab, ms=s)
 
 
 def plot_main_lc(ax):
@@ -63,7 +66,7 @@ def plot_main_lc(ax):
     choose = np.logical_and(filt=='g', emag<99)
     plot_det(
             ax, dt[choose], mag[choose]-vals.ext['g'], emag[choose], 
-            'g', lines=False)
+            'g', lines=False, leg=True)
 
     # Plot the g-band limits
     choose = np.logical_and(filt=='g', emag==99)
@@ -72,7 +75,7 @@ def plot_main_lc(ax):
     # Plot the r-band detections
     choose = np.logical_and(filt=='r', emag<99)
     plot_det(ax, dt[choose], mag[choose]-vals.ext['r'], emag[choose], 'r',
-             lines=False)
+             lines=False, leg=True)
 
     # Plot the r-band limits
     choose = np.logical_and(filt=='r', emag==99)
@@ -155,7 +158,8 @@ def plot_flares(ax):
 
     # Plot the i-band flares
     choose = np.logical_and(flare=='*', filt=='i')
-    plot_det(ax,dt[choose],mag[choose]-vals.ext['i'],emag[choose],'i')
+    plot_det(ax,dt[choose],mag[choose]-vals.ext['i'],emag[choose],'i',
+             leg=True)
 
     # Plot the i-band limits
     choose = np.logical_and(filt=='i', emag==99)
@@ -239,6 +243,9 @@ if __name__=="__main__":
     plot_xray_epochs(ax)
     plot_radio_epochs(ax)
 
+    # Make a legend
+    ax.legend(loc='lower right', ncol=1, fontsize=8)
+
     # Zoom in
     axins = ax.inset_axes([0.35, 0.15, 0.3, 0.35])
     plot_flares_zoom(axins)
@@ -290,6 +297,6 @@ if __name__=="__main__":
     ax2.plot([],[])
 
     #plt.tight_layout()
-    #plt.show()
-    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    plt.close()
+    plt.show()
+    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    #plt.close()

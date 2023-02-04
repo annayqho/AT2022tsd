@@ -58,7 +58,6 @@ def print_table():
     jd,exp,filt,mag,emag,fujy,efujy = get_ipac()
     tel = np.array(['ZTF']*len(jd))
     flare = np.array(['']*len(jd))
-    limmag = np.copy(mag)
 
     # the IPAC flares are from JD > 2459857
     is_flare = np.logical_and(emag<99, jd>2459854)
@@ -71,8 +70,8 @@ def print_table():
     # Combine
     jd = np.hstack((jd, Time(mjd_fl, format='mjd').jd))
     filt = np.hstack((filt, filt_fl))
-    mag = np.hstack((mag, mag_fl))
-    emag = np.hstack((emag, emag_fl))
+    flux = np.hstack((fujy, mag_fl))
+    eflux = np.hstack((emag, emag_fl))
     flare = np.hstack((flare, flare_fl))
     tel = np.hstack((tel, tel_fl))
     limmag = np.hstack((limmag, limmag_fl))
