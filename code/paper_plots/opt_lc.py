@@ -28,6 +28,7 @@ def plot_det(ax, x, y, ey, band, lines=False):
     """ Plot detections """
     col = vals.gc
     m = 's'
+    s = 5
     if band=='r':
         col = vals.rc
         m = 'o'
@@ -39,7 +40,7 @@ def plot_det(ax, x, y, ey, band, lines=False):
         m = '>'
     if lines:
         m = '%s-'%m
-    ax.errorbar(x, y, ey, c=col, fmt=m, label='$%s$' %band)
+    ax.errorbar(x, y, ey, c=col, fmt=m, label='$%s$' %band, ms=s)
 
 
 def plot_main_lc(ax):
@@ -62,7 +63,7 @@ def plot_main_lc(ax):
     choose = np.logical_and(filt=='g', emag<99)
     plot_det(
             ax, dt[choose], mag[choose]-vals.ext['g'], emag[choose], 
-            'g', lines=True)
+            'g', lines=False)
 
     # Plot the g-band limits
     choose = np.logical_and(filt=='g', emag==99)
@@ -71,7 +72,7 @@ def plot_main_lc(ax):
     # Plot the r-band detections
     choose = np.logical_and(filt=='r', emag<99)
     plot_det(ax, dt[choose], mag[choose]-vals.ext['r'], emag[choose], 'r',
-             lines=True)
+             lines=False)
 
     # Plot the r-band limits
     choose = np.logical_and(filt=='r', emag==99)
@@ -90,13 +91,13 @@ def plot_main_lc(ax):
     choose = np.logical_and(filt=='g', emag<99)
     plot_det(
             ax, dt[choose], mag[choose]-vals.ext['g'], emag[choose], 
-            'g', lines=True)
+            'g', lines=False)
 
     # Plot the r-band detections
     choose = np.logical_and(filt=='r', emag<99)
     plot_det(
             ax, dt[choose], mag[choose]-vals.ext['r'], emag[choose], 
-            'r', lines=True)
+            'r', lines=False)
 
 
 def plot_flares(ax):
@@ -289,6 +290,6 @@ if __name__=="__main__":
     ax2.plot([],[])
 
     #plt.tight_layout()
-    plt.show()
-    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    #plt.close()
+    #plt.show()
+    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    plt.close()
