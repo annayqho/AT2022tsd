@@ -13,11 +13,12 @@ def print_table():
     # Headings
     headings = np.array(
             ['Date', '$\Delta t$\\footnote{Rest frame}', 'Filter', 
-             'Mag\\footnote{Not corrected for Galactic extinction. Upper limits are 5-$\sigma$.}', 
-             'eMag', 'Instrument', 'Flare?\\footnote{$>5$-$\sigma$ detections.}'])
+             '$f_\\nu$\\footnote{Not corrected for Galactic extinction.}', 
+             '$\sigma_f\\nu$', 'Instrument', 
+             'Flare?\\footnote{$>5$-$\sigma$ detections.}'])
     unit_headings = np.array(
             ['(UT)', '(days)', '', 
-             '(AB)', '(AB)', '', ''])
+             '($\mu$Jy)', '($\mu$Jy)', '', ''])
     label = "optical-photometry"
 
     ncol = len(headings)
