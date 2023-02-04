@@ -37,10 +37,9 @@ def load_swift():
 
 
 def load_chandra():
-    df = pd.read_table(ddir+"/chandra_flux_summary.txt", delimiter=',')
-
+    df = pd.read_csv(ddir+"/chandra_flux_summary.txt", delimiter=',')
     # Convert date to MJD
-    df['MJD'] = Time(df['Start'], format='isot').mjd
+    df['MJD'] = Time(df['Start'].values.astype(str), format='isot').mjd
 
     # Luminosity
     df['L'] = df['Flux']*4*np.pi*(vals.dL_cm)**2
