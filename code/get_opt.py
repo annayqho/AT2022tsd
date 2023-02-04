@@ -145,28 +145,7 @@ def get_ultraspec():
     return dat
 
 
-def get_flares():
-    """ Get flare photometry without any extinction correction """
-    # Only use NOT and Magellan from here. LT from other file.
-    inputf = ddir + "/at2022tsd_flare_phot.csv"
-    dat  = pd.read_table(inputf, comment='#', delimiter=',')
-    emag = dat['emag'].values
-    mag = dat['mag'].values
-    mjd = dat['mjd'].values
-    filt = dat['filter'].values
-    flare = dat['flare'].values
-    tel = dat['telescope'].values
-    limmag = dat['limmag'].values
-
-    discard = tel=='LT'
-    emag = emag[~discard]
-    mag = mag[~discard]
-    mjd = mjd[~discard]
-    filt = filt[~discard]
-    flare = flare[~discard]
-    tel = tel[~discard]
-    limmag = limmag[~discard]
-
+def get_keck_lt_ultraspec():
     # This is ULTRASPEC and LRIS and LT. And actually the LT
     # photometry is not all flares.
     inputf = ddir + "/flares_lris_ultraspec_lt.txt"
@@ -189,8 +168,32 @@ def get_flares():
             dat['Unc'][~isdet]*1E-6*SNU)+8.90
     dat.loc[dat['Flux']/dat['Unc']>SNFlare, 'Flare'] = ['*']*sum(
             dat['Flux']/dat['Unc']>SNFlare)
+    return dat
 
-    # Combine
+
+def get_flares():
+    """ Get flare photometry without any extinction correction """
+    # Only use NOT and Magellan from here. LT from other file.
+    inputf = ddir + "/at2022tsd_flare_phot.csv"
+    dat  = pd.read_table(inputf, comment='#', delimiter=',')
+    emag = dat['emag'].values
+    mag = dat['mag'].values
+    mjd = dat['mjd'].values
+    filt = dat['filter'].values
+    flare = dat['flare'].values
+    tel = dat['telescope'].values
+    limmag = dat['limmag'].values
+
+    discard = tel=='LT'
+    emag = emag[~discard]
+    mag = mag[~discard]
+    mjd = mjd[~discard]
+    filt = filt[~discard]
+    flare = flare[~discard]
+    tel = tel[~discard]
+    limmag = limmag[~discard]
+
+    dat = get_keck_lt_ultraspec() 
     tel = np.hstack((tel, dat['Tel']))
     mjd = np.hstack((mjd, dat['MJD']))
     filt = np.hstack((filt, dat['Filt']))

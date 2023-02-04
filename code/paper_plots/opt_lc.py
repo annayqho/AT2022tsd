@@ -9,7 +9,7 @@ plt.rcParams["font.family"] = "sans-serif"
 plt.rcParams["pdf.fonttype"] = 42
 from astropy.time import Time
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
-from get_opt import get_ipac,get_flares
+from get_opt import *
 import vals
 
 
@@ -77,6 +77,27 @@ def plot_main_lc(ax):
     choose = np.logical_and(filt=='r', emag==99)
     plot_lim(ax, dt[choose], mag[choose]-vals.ext['r'], 'r')
 
+    # Now, get the LT photometry
+    dat = get_keck_lt_ultraspec()
+    dt = dat['MJD']-Time(vals.t0, format='jd').mjd
+    choose = dt < 60 # transient LC
+    dt = dt[choose]
+    filt = dat['Filt'][choose]
+    mag = dat['Mag'][choose]
+    emag = dat['eMag'][choose]
+
+    # Plot the g-band detections
+    choose = np.logical_and(filt=='g', emag<99)
+    plot_det(
+            ax, dt[choose], mag[choose]-vals.ext['g'], emag[choose], 
+            'g', lines=True)
+
+    # Plot the r-band detections
+    choose = np.logical_and(filt=='r', emag<99)
+    plot_det(
+            ax, dt[choose], mag[choose]-vals.ext['r'], emag[choose], 
+            'r', lines=True)
+
 
 def plot_flares(ax):
     """ Add the flares to the diagram """
@@ -93,10 +114,6 @@ def plot_flares(ax):
     mag = mag[choose]
     emag = emag[choose]
 
-    # For plotting purposes
-    filt[filt=='sdssg'] = ['g']*sum(filt=='sdssg')
-    filt[filt=='sdssr'] = ['r']*sum(filt=='sdssr')
-    
     # Plot the g-band detections
     choose = np.logical_and(filt=='g', emag<99)
     plot_det(
