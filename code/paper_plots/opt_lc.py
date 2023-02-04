@@ -119,10 +119,6 @@ def plot_flares(ax):
     jd = Time(mjd, format='mjd').jd
     dt = jd-vals.t0
 
-    # For plotting purposes
-    filt[filt=='sdssg'] = ['g']*sum(filt=='sdssg')
-    filt[filt=='sdssr'] = ['r']*sum(filt=='sdssr')
-
     # Plot the g-band flares
     choose = np.logical_and(flare=='*', filt=='g')
     plot_det(ax,dt[choose],mag[choose]-vals.ext['g'],emag[choose],'g')
