@@ -35,9 +35,12 @@ def get_data():
     choose = np.logical_and(dat['Tel'].values=='VLA', dat['Freq_Obs'].values==15)
     eflux[choose] = np.sqrt((dat['eFlux'][choose].values)**2+(0.05*flux[choose])**2)
 
-    # Add 15% to the three higher bands
-    choose = np.logical_and(dat['Tel'].values=='VLA', dat['Freq_Obs'].values>15)
-    eflux[choose] = np.sqrt((dat['eFlux'][choose].values)**2+(0.15*flux[choose])**2)
+    # Add 15% to the three higher bands, for detections
+    choose = np.logical_and.reduce((
+            dat['Tel'].values=='VLA',dat['Freq_Obs'].values>15,
+            dat['Flux']<99))
+    eflux[choose] = np.sqrt(
+            (dat['eFlux'][choose].values)**2+(0.15*flux[choose])**2)
     
     dat['eFlux'] = eflux
     return dat
@@ -159,11 +162,16 @@ def plot_lc(dat,ax):
 
     for i,val in enumerate([15,22,33,45,77,134,207,350]):
         choose = nu==val
+
+        # Plot the detections
         x = dat['dt'][choose].values
         y = dat['Flux'][choose].values
         ey = dat['eFlux'][choose].values
-        ax.errorbar(x, y, ey, fmt=fmt, c=cols[i], lw=lw, ms=ms)
-        ax.plot(x, y, lw=1, c=cols[i])
+        isdet = y<99
+        ax.errorbar(x[isdet], y[isdet], ey[isdet], 
+                    fmt=fmt, c=cols[i], lw=lw, ms=ms)
+        ax.plot(x[isdet], y[isdet], lw=1, c=cols[i])
+
         if val==134:
             ax.text(x[0]/1.02, y[0], str(val),
                     ha='right', va='top',fontsize=8,color=cols[i])
@@ -176,6 +184,19 @@ def plot_lc(dat,ax):
         else:
             ax.text(x[0]/1.02, y[0], str(val),
                     ha='right', va='center',fontsize=8,color=cols[i])
+
+        # Plot the non-detection
+        nondet = y==99
+        if sum(nondet)>0:
+            lim = ey[nondet][0]*5
+            xval = x[nondet][0]
+            ax.scatter(xval, lim, marker=fmt, c=cols[i], s=ms*4)
+            ax.arrow(xval, lim, 0, -0.015, length_includes_head=True,
+                     head_length=0.007, head_width=8, color=cols[i])
+            last_x = x[isdet][-1]
+            ax.plot(
+                    [last_x,xval], [y[isdet][-1],lim], 
+                    lw=1, c=cols[i], ls='--')
 
     ax.axvspan(27,28,color='lightgrey')
     ax.axvspan(34,37,color='lightgrey')
@@ -204,6 +225,6 @@ if __name__=="__main__":
     ax4 = fig.add_subplot(gs[3,2:])
     plot_seds(dat, [ax1,ax2,ax3,ax4])
 
-    #plt.show()
-    plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
