@@ -48,84 +48,64 @@ def get_data():
 
 def plot_seds(dat, ax):
     """ Plot a multi-panel SED thing """
+    cols = cmr.take_cmap_colors(
+            'cmr.ember', 5, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
+    
     dt = dat['dt']
     flux = dat['Flux']
     eflux = dat['eFlux']
 
-    # Epoch 1
-    choose = np.logical_and(dt>27, dt<28)
-    x = dat['Freq_Obs'][choose]
-    y = flux[choose]
-    ey = eflux[choose]
-    ax.errorbar(x, y, ey, fmt='o', label="$\Delta t=27$-28d", c='k', lw=0.5)
-    params, cov = curve_fit(func, x, y, sigma=ey, absolute_sigma=True)
-    alpha = params[0]
-    y0 = params[1]
-    x0 = params[2]
-    xvals = np.linspace(10,500)
-    yvals = y0*(xvals/x0)**alpha
-    ax.plot(
-            xvals,yvals,c='lightgrey',ls='-',
-            label=r'$f_\nu\propto\nu^{%s}$'%np.round(alpha,1),lw=1)
+    mins = [27,34,41,65,113]
+    maxs = [28,37,45,70,114]
+    markers = ['o', 's', 'D', '>', '*']
+    sizes = [5, 5, 5, 6, 10]
 
-    # Epoch 2 (ALMA)
-    choose = np.logical_and(dt>34, dt<37)
-    x = dat['Freq_Obs'][choose]
-    y = flux[choose]
-    ey = eflux[choose]
-    ax.errorbar(x, y, ey,
-                fmt='o', label="$\Delta t=$34-37d", c='k', lw=0.5)
-    params, cov = curve_fit(func, x, y, sigma=ey, absolute_sigma=True)
-    alpha = params[0]
-    y0 = params[1]
-    x0 = params[2]
-    xvals = np.linspace(10,500)
-    yvals = y0*(xvals/x0)**alpha
-    ax.plot(
-            xvals,yvals,c='lightgrey',ls='-',
-            label=r'$f_\nu\propto\nu^{%s}$'%np.round(alpha,1),lw=1)
-     
-    # Epoch 3 (NOEMA)
-    choose = np.logical_and(dt>41, dt<46)
-    x = dat['Freq_Obs'][choose]
-    y = flux[choose]
-    ey = eflux[choose]
-    ax.errorbar(x, y, ey, 
-                fmt='o', label="$\Delta t=$41-45d", c='k', lw=0.5)
-    params, cov = curve_fit(func, x, y, sigma=ey, absolute_sigma=True)
-    alpha = params[0]
-    y0 = params[1]
-    x0 = params[2]
-    xvals = np.linspace(10,500)
-    yvals = y0*(xvals/x0)**alpha
-    ax.plot(
-            xvals,yvals,c='lightgrey',ls='-',
-            label=r'$f_\nu\propto\nu^{%s}$'%np.round(alpha,1),lw=1)
+    for i,minval in enumerate(mins):
+        choose = np.logical_and(dt>minval, dt<maxs[i])
+        x = dat['Freq_Obs'][choose].values*(1+vals.z)
+        order = np.argsort(x)
+        x = x[order]
+        y = flux[choose].values[order]
+        ey = eflux[choose].values[order]
 
-    choose = np.logical_and(dt>50, dt<51)
-    x = dat['Freq_Obs'][choose]
-    y = flux[choose]
-    ey = eflux[choose]
-    ax.errorbar(x, y, ey,
-                fmt='D', label="$\Delta t=$50d", c='lightgrey', lw=0.5)
-    params, cov = curve_fit(func, x, y, sigma=ey, absolute_sigma=True)
-    alpha = params[0]
-    y0 = params[1]
-    x0 = params[2]
-    xvals = np.linspace(10,500)
-    yvals = y0*(xvals/x0)**alpha
-    ax.plot(
-            xvals,yvals,c='lightgrey',ls='--',
-            label=r'$f_\nu\propto\nu^{%s}$'%np.round(alpha,1),lw=1)
+        # Plot detections
+        isdet = y<99
+        ax.errorbar(
+                x[isdet], y[isdet], ey[isdet], 
+                fmt=markers[i], c=cols[i], lw=0.5, ms=sizes[i],
+                label="$\Delta t=%s$-%sd" %(minval,maxs[i]))
+        ax.plot(x[isdet],y[isdet],c=cols[i],lw=2)
 
-     
-    # Epoch 4 (NOEMA)
-    choose = np.logical_and(dt>65, dt<70)
-    ax.errorbar(dat['Freq_Obs'][choose], flux[choose], eflux[choose], fmt='o',
-                label="$\Delta t=$65-70d", c='k')
-    #choose = np.logical_and(dt>79, dt<80)
-    #ax.errorbar(dat['Freq_Obs'][choose], flux[choose], eflux[choose], fmt='o',
-    #            label="$\Delta t=$79d", c='lightgrey')
+        # Plot the nondetection
+        if sum(~isdet)>0:
+            xval = x[~isdet][0]
+            yval = ey[~isdet][0]*5
+            ax.scatter(xval, yval, marker=markers[i], c=cols[i], 
+                       s=sizes[i]*5, zorder=10)
+            ax.arrow(x[~isdet][0],ey[~isdet][0]*5,0,-0.015,
+                     length_includes_head=True,
+                     head_length=0.007, head_width=8, color=cols[i],zorder=10)
+            ax.plot([x[isdet][-1],xval], [y[isdet][-1],yval], 
+                    c=cols[i], lw=2, ls='--', zorder=10)
+
+    #params, cov = curve_fit(func, x, y, sigma=ey, absolute_sigma=True)
+    #alpha = params[0]
+    #y0 = params[1]
+    #x0 = params[2]
+    xvals = np.linspace(10,500)
+    alpha = 5/2
+    x0 = 50
+    y0 = 0.3
+    yvals = y0*(xvals/x0)**alpha
+    ax.plot(xvals,yvals,lw=0.5,c='grey')
+    ax.text(60,0.5,r'$f_\nu\propto\nu^{5/2}$',c='grey',ha='right',fontsize=8)
+
+    alpha = 1
+    x0 = 30
+    y0 = 0.06
+    yvals = y0*(xvals/x0)**alpha
+    ax.plot(xvals,yvals,lw=1,c='grey',ls=':')
+    ax.text(300,0.5,r'$f_\nu\propto\nu^{1}$',c='grey',ha='left',fontsize=8)
 
     # Formatting
     ax.set_xscale('log')
@@ -136,19 +116,18 @@ def plot_seds(dat, ax):
     ax.set_yticklabels([0.02,0.05,0.1, 0.2, 0.5])
     #ax.set_ylabel(r"$f_{\nu}$ (mJy)", fontsize=10)
     ax.set_ylim(0.02,0.7)
-    ax.set_xlim(12,500)
+    ax.set_xlim(12,600)
     ax.legend(loc='lower right', fontsize=8, handletextpad=0.4,
               labelspacing=0.1)
-    ax.set_xlabel(r"$\nu_\mathrm{obs}$ (GHz)", fontsize=10)
+    ax.set_xlabel(r"$\nu_\mathrm{rest}$ (GHz)", fontsize=10)
 
 
 def plot_lc(dat,ax):
     """ Plot the LCs """
     cols = cmr.take_cmap_colors(
-            'cmr.freeze', 9, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
+            'cmr.arctic', 9, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
 
     nu = dat['Freq_Obs'].astype(int)
-    print(np.unique(nu))
 
     lw = 0.5
     fmt='o'
@@ -163,8 +142,8 @@ def plot_lc(dat,ax):
         ey = dat['eFlux'][choose].values
         isdet = y<99
         ax.errorbar(x[isdet], y[isdet], ey[isdet], 
-                    fmt=fmt, c=cols[i], lw=lw, ms=ms)
-        ax.plot(x[isdet], y[isdet], lw=1, c=cols[i])
+                    fmt=fmt, c=cols[i], lw=lw, ms=ms, zorder=10)
+        ax.plot(x[isdet], y[isdet], lw=1, c=cols[i], zorder=10)
 
         if val==134:
             ax.text(x[0]/1.02, y[0], str(val),
@@ -184,18 +163,19 @@ def plot_lc(dat,ax):
         if sum(nondet)>0:
             lim = ey[nondet][0]*5
             xval = x[nondet][0]
-            ax.scatter(xval, lim, marker=fmt, c=cols[i], s=ms*4)
+            ax.scatter(xval, lim, marker=fmt, c=cols[i], s=ms*4, zorder=10)
             ax.arrow(xval, lim, 0, -0.015, length_includes_head=True,
-                     head_length=0.007, head_width=8, color=cols[i])
+                     head_length=0.007, head_width=8, color=cols[i], zorder=10)
             last_x = x[isdet][-1]
             ax.plot(
                     [last_x,xval], [y[isdet][-1],lim], 
-                    lw=1, c=cols[i], ls='--')
+                    lw=1, c=cols[i], ls='--', zorder=10)
 
     ax.axvspan(27,28,color='lightgrey')
     ax.axvspan(34,37,color='lightgrey')
     ax.axvspan(41.2,45.1,color='lightgrey')
     ax.axvspan(65,70,color='lightgrey')
+    ax.axvspan(113,114,color='lightgrey',zorder=0)
     ax.set_xlabel(r"$\Delta t_\mathrm{rest}$ (d)")
     ax.set_xscale('log')
     ax.set_yscale('log')
@@ -216,6 +196,6 @@ if __name__=="__main__":
     ax = axarr[1]
     plot_seds(dat,ax)
 
-    plt.show()
-    #plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
