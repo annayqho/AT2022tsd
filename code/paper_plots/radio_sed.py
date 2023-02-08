@@ -46,14 +46,13 @@ def get_data():
     return dat
 
 
-def plot_seds(dat, axarr):
+def plot_seds(dat, ax):
     """ Plot a multi-panel SED thing """
     dt = dat['dt']
     flux = dat['Flux']
     eflux = dat['eFlux']
 
     # Epoch 1
-    ax = axarr[0]
     choose = np.logical_and(dt>27, dt<28)
     x = dat['Freq_Obs'][choose]
     y = flux[choose]
@@ -70,7 +69,6 @@ def plot_seds(dat, axarr):
             label=r'$f_\nu\propto\nu^{%s}$'%np.round(alpha,1),lw=1)
 
     # Epoch 2 (ALMA)
-    ax= axarr[1]
     choose = np.logical_and(dt>34, dt<37)
     x = dat['Freq_Obs'][choose]
     y = flux[choose]
@@ -88,7 +86,6 @@ def plot_seds(dat, axarr):
             label=r'$f_\nu\propto\nu^{%s}$'%np.round(alpha,1),lw=1)
      
     # Epoch 3 (NOEMA)
-    ax = axarr[2]
     choose = np.logical_and(dt>41, dt<46)
     x = dat['Freq_Obs'][choose]
     y = flux[choose]
@@ -123,7 +120,6 @@ def plot_seds(dat, axarr):
 
      
     # Epoch 4 (NOEMA)
-    ax = axarr[3]
     choose = np.logical_and(dt>65, dt<70)
     ax.errorbar(dat['Freq_Obs'][choose], flux[choose], eflux[choose], fmt='o',
                 label="$\Delta t=$65-70d", c='k')
@@ -132,19 +128,17 @@ def plot_seds(dat, axarr):
     #            label="$\Delta t=$79d", c='lightgrey')
 
     # Formatting
-    for ax in axarr:
-        ax.set_xscale('log')
-        ax.set_yscale('log')
-        ax.set_xticks([20,30,50,100,200,500])
-        ax.set_yticks([0.02,0.05,0.1, 0.2, 0.5])
-        ax.set_xticklabels([20,30,50,100,200,500])
-        ax.set_yticklabels([0.02,0.05,0.1, 0.2, 0.5])
-        #ax.set_ylabel(r"$f_{\nu}$ (mJy)", fontsize=10)
-        ax.set_ylim(0.02,0.7)
-        ax.set_xlim(12,500)
-        ax.legend(loc='lower right', fontsize=8, handletextpad=0.4,
-                  labelspacing=0.1)
-    ax = axarr[-1]
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+    ax.set_xticks([20,30,50,100,200,500])
+    ax.set_yticks([0.02,0.05,0.1, 0.2, 0.5])
+    ax.set_xticklabels([20,30,50,100,200,500])
+    ax.set_yticklabels([0.02,0.05,0.1, 0.2, 0.5])
+    #ax.set_ylabel(r"$f_{\nu}$ (mJy)", fontsize=10)
+    ax.set_ylim(0.02,0.7)
+    ax.set_xlim(12,500)
+    ax.legend(loc='lower right', fontsize=8, handletextpad=0.4,
+              labelspacing=0.1)
     ax.set_xlabel(r"$\nu_\mathrm{obs}$ (GHz)", fontsize=10)
 
 
@@ -202,12 +196,13 @@ def plot_lc(dat,ax):
     ax.axvspan(34,37,color='lightgrey')
     ax.axvspan(41.2,45.1,color='lightgrey')
     ax.axvspan(65,70,color='lightgrey')
-    ax.set_xlabel(r"$\Delta t$ (d)")
+    ax.set_xlabel(r"$\Delta t_\mathrm{rest}$ (d)")
     ax.set_xscale('log')
     ax.set_yscale('log')
-    ax.set_xticks([20,30,40,60,80])
+    ax.set_xlim(20,130)
+    ax.set_xticks([20,30,40,60,80,120])
+    ax.set_xticklabels([20,30,40,60,80,120])
     ax.set_yticks([0.02,0.05,0.1, 0.2, 0.5])
-    ax.set_xticklabels([20,30,40,60,80])
     ax.set_yticklabels([0.02,0.05,0.1, 0.2, 0.5])
     ax.set_ylabel(r"$f_{\nu}$ (mJy)", fontsize=10)
      
@@ -215,15 +210,11 @@ def plot_lc(dat,ax):
 if __name__=="__main__":
     dat = get_data()
 
-    fig = plt.figure(figsize=(6,8))
-    gs = gridspec.GridSpec(4,4,hspace=0.2,wspace=0.7)
-    ax = fig.add_subplot(gs[1:-1,0:2])
+    fig,axarr = plt.subplots(1,2, figsize=(8,4))
+    ax = axarr[0]
     plot_lc(dat,ax)
-    ax1 = fig.add_subplot(gs[0,2:])
-    ax2 = fig.add_subplot(gs[1,2:])
-    ax3 = fig.add_subplot(gs[2,2:])
-    ax4 = fig.add_subplot(gs[3,2:])
-    plot_seds(dat, [ax1,ax2,ax3,ax4])
+    ax = axarr[1]
+    plot_seds(dat,ax)
 
     plt.show()
     #plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
