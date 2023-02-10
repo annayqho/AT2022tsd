@@ -134,24 +134,24 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
 
 def get_non_ztf():
     # This is everything except ZTF.
-    inputf = ddir + "/flares_lris_ultraspec_lt.txt"
-    dat  = pd.read_fwf(inputf, comment='#', 
-                         names=['Tel','MJD','Exp','Filt','Flux','Unc'])
-    # Convert to mag
-    dat['Mag'] = [99]*len(dat)
-    dat['eMag'] = [99]*len(dat)
-    dat['Maglim'] = [99]*len(dat)
-    dat['Flare'] = ['']*len(dat)
+    inputf = ddir + "/full_lc.txt"
+    dat  = pd.read_fwf(inputf)
+
+    # Add a magnitudes column
+    dat['mag'] = [99]*len(dat)
+    dat['emag'] = [99]*len(dat)
+    dat['maglim'] = [99]*len(dat)
+
+    # Detections
     SNU = 5
     SNT = 3
-    SNFlare = 5
-    isdet = dat['Flux']/dat['Unc']>SNT # confident detection
-    fdet = dat['Flux'][isdet]
-    efdet = dat['Unc'][isdet]
-    dat.loc[isdet, 'Mag'] = -2.5*np.log10(fdet*1E-6)+8.90
-    dat.loc[isdet, 'eMag'] = (2.5/np.log(10)) * (efdet/fdet)
-    dat.loc[~isdet, 'Maglim'] = -2.5*np.log10(
-            dat['Unc'][~isdet]*1E-6*SNU)+8.90
-    dat.loc[dat['Flux']/dat['Unc']>SNFlare, 'Flare'] = ['*']*sum(
-            dat['Flux']/dat['Unc']>SNFlare)
+    isdet = dat['sig']>SNT # confident detection
+    fdet = dat['flux'][isdet]
+    efdet = dat['unc'][isdet]
+    dat.loc[isdet, 'mag'] = -2.5*np.log10(fdet*1E-6)+8.90
+    dat.loc[isdet, 'emag'] = (2.5/np.log(10)) * (efdet/fdet)
+
+    # Non-detections / upper limits
+    dat.loc[~isdet, 'maglim'] = -2.5*np.log10(
+            dat['unc'][~isdet]*1E-6*SNU)+8.90
     return dat

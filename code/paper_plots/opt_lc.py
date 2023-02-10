@@ -74,26 +74,14 @@ def plot_ztf(ax):
     choose = np.logical_and(filt=='r', emag==99)
     plot_lim(ax, dt[choose], mag[choose]-vals.ext['r'], 'r', leg=True)
 
-    # Now, get the LT photometry
-    dat = get_keck_lt_ultraspec()
-    dt = dat['MJD']-Time(vals.t0, format='jd').mjd
-    choose = dt < 60 # transient LC
-    dt = dt[choose]
-    filt = dat['Filt'][choose]
-    mag = dat['Mag'][choose]
-    emag = dat['eMag'][choose]
+    # Plot the i-band detections
+    choose = np.logical_and(filt=='i', emag<99)
+    plot_det(ax, dt[choose], mag[choose]-vals.ext['i'], emag[choose], 'i',
+             lines=False, leg=True)
 
-    # Plot the g-band detections
-    choose = np.logical_and(filt=='g', emag<99)
-    plot_det(
-            ax, dt[choose], mag[choose]-vals.ext['g'], emag[choose], 
-            'g', lines=False)
-
-    # Plot the r-band detections
-    choose = np.logical_and(filt=='r', emag<99)
-    plot_det(
-            ax, dt[choose], mag[choose]-vals.ext['r'], emag[choose], 
-            'r', lines=False)
+    # Plot the r-band limits
+    choose = np.logical_and(filt=='i', emag==99)
+    plot_lim(ax, dt[choose], mag[choose]-vals.ext['i'], 'i', leg=True)
 
 
 def plot_non_ztf(ax):
