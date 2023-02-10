@@ -17,10 +17,10 @@ def plot_ultraspec_panel(ax, dat, t0, filt, m, col, plot_binned=False):
     """ Plot a light-curve panel """
 
     # Get ULTRASPEC data
-    choose = dat['Filt']==filt
-    x = dat['MJD'][choose].values
-    y = dat['Flux'][choose].values
-    ey = dat['Unc'][choose].values
+    choose = dat['flt']==filt
+    x = dat['mjdstart'][choose].values
+    y = dat['flux'][choose].values
+    ey = dat['unc'][choose].values
 
     # Marker formatting
     s=2
@@ -54,16 +54,16 @@ def plot_ultraspec_panel(ax, dat, t0, filt, m, col, plot_binned=False):
                 lw=0.5)
 
 
-def plot_keck(ax, dat, t0):
+def plot_keck(ax, dat, t0, flare_num=1):
     """ Plot a light-curve panel """
     t0_mjd = float(Time(t0, format='isot').mjd)
     m = 5
 
     # Get the relevant data
-    choose = dat['Filt']=='u'
-    x = dat['MJD'][choose].values
-    y = dat['Flux'][choose].values
-    ey = dat['Unc'][choose].values
+    choose = dat['flt']=='u'
+    x = dat['mjdstart'][choose].values
+    y = dat['flux'][choose].values
+    ey = dat['unc'][choose].values
 
     # Plot in minutes
     dt = (x-t0_mjd)*24*60
@@ -72,10 +72,10 @@ def plot_keck(ax, dat, t0):
     ax.errorbar(dt, y, ey, c=vals.uc, fmt='*', ms=m*2, lw=0.5, label='$u$')
 
     # Get the relevant data
-    choose = dat['Filt']=='i'
-    x = dat['MJD'][choose].values
-    y = dat['Flux'][choose].values
-    ey = dat['Unc'][choose].values
+    choose = dat['flt']=='i'
+    x = dat['mjdstart'][choose].values
+    y = dat['flux'][choose].values
+    ey = dat['unc'][choose].values
 
     # Plot in minutes
     dt = (x-t0_mjd)*24*60
@@ -89,12 +89,16 @@ def plot_keck(ax, dat, t0):
 
     ax.axhline(y=0, c='grey', lw=0.5)
     ax.legend(loc='upper right', ncol=1, fontsize=8)
+    ax.set_ylim(-0.5,2.7)
 
 
 def plot_magellan(ax):
     """ Plot the Magellan/IMACS flare in uJy """
-    tel,mjd,filt,mag,emag,limmag,flare = get_flares()
-    choose = tel=='Magellan'
+    dat = get_non_ztf()
+    choose = dat['#inst']=='Magella'
+    mag = dat['mag']
+    emag = dat['emag']
+    mjd = dat['mjdstart']
     y = (10**((mag[choose]-8.9)/(-2.5))) * 1E6
     ey = y*emag[choose]*(np.log(10))/2.5
     t0 = Time("2022-12-15T04:30:00", format='isot').mjd
@@ -108,9 +112,17 @@ def plot_magellan(ax):
 
 
 def plot_lt(ax):
-    tel,mjd,filt,mag,emag,limmag,flare = get_flares()
+    dat = get_non_ztf()
+    tel = dat['#inst'].values
+    flare = dat['flare'].values
+    mag = dat['mag'].values
+    emag = dat['emag'].values
+    filt = dat['flt'].values
+
     t0 = Time("2022-12-16T20:30:00", format='isot').mjd
-    choose = np.logical_and.reduce((tel=='LT/IO:O', flare=='*',
+
+    mjd = dat['mjdstart'].values
+    choose = np.logical_and.reduce((tel=='LT/IO:O', flare=='**',
                                     np.abs(mjd-t0)<1))
     y = (10**((mag[choose]-8.9)/(-2.5))) * 1E6
     ey = y*emag[choose]*(np.log(10))/2.5
@@ -122,6 +134,27 @@ def plot_lt(ax):
             ha='right', va='top', fontsize=8)
     ax.set_xlabel("Min. since 2022-12-16 20:30", fontsize=8)
 
+
+def plot_not(ax):
+    dat = get_non_ztf()
+    tel = dat['#inst'].values
+    flare = dat['flare'].values
+    mag = dat['mag'].values
+    emag = dat['emag'].values
+    filt = dat['flt'].values
+
+    t0 = Time("2022-12-23T01:30:00", format='isot').mjd
+
+    mjd = dat['mjdstart'].values
+    choose = np.logical_and.reduce((tel=='NOT/ALF', np.abs(mjd-t0)<1))
+    y = (10**((mag[choose]-8.9)/(-2.5))) * 1E6
+    ey = y*emag[choose]*(np.log(10))/2.5
+
+    ax.errorbar((mjd[choose]-t0)*24*60, y, ey,
+                fmt='s', c=vals.gc)
+    ax.text(0.98, 0.98, 'NOT $g$-band', transform=ax.transAxes,
+            ha='right', va='top', fontsize=8)
+    ax.set_xlabel("Min. since 2022-12-23 01:30", fontsize=8)
 
 
 def plot_ztf(ax, flarenum=1, window=1):
@@ -160,27 +193,26 @@ def plot_ztf(ax, flarenum=1, window=1):
 
     # Plot LT points for that first flare
     if flarenum==1:
-        dat = get_keck_lt_ultraspec()
-        tel = dat['Tel'].values
-        jd = Time(dat['MJD'].values, format='mjd').jd
+        dat = get_non_ztf()
+        tel = dat['#inst'].values
+        jd = Time(dat['mjdstart'].values, format='mjd').jd
         choose = np.logical_and.reduce((
-            tel=='LT/IO:O', dat['Filt']=='g', jd>t0-window, jd<t0+window))
+            tel=='LT/IO:O', dat['flt']=='g', jd>t0-window, jd<t0+window))
         x = jd[choose]
-        y = dat['Flux'][choose].values
-        ey = dat['Unc'][choose].values
+        y = dat['flux'][choose].values
+        ey = dat['unc'][choose].values
         ax.errorbar((x-t0), y, ey, fmt='s', c=vals.gc)
 
         choose = np.logical_and.reduce((
-            tel=='LT/IO:O', dat['Filt']=='r', jd>t0-window, jd<t0+window))
+            tel=='LT/IO:O', dat['flt']=='r', jd>t0-window, jd<t0+window))
         x = jd[choose]
-        y = dat['Flux'][choose].values
-        ey = dat['Unc'][choose].values
+        y = dat['flux'][choose].values
+        ey = dat['unc'][choose].values
         ax.errorbar((x-t0), y, ey, fmt='o', c=vals.rc)
 
     # Formatting the panel
     t0_str = t0s[flarenum-1][0:16].replace('T', ' ')
     return t0_str
-
 
 
 if __name__=="__main__":
@@ -226,12 +258,18 @@ if __name__=="__main__":
     ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
 
     # Plot LT panel
+    # So far, LT just has one flare
     ax = plt.subplot(4,4,6)
     plot_lt(ax)
 
-    # Plot Keck panel
+    # Plot NOT panel
+    # One flare
     ax = plt.subplot(4,4,7)
-    dat = get_ultraspec()
+    plot_not(ax)
+
+    # Plot Keck panel
+    ax = plt.subplot(4,4,8)
+    dat = get_non_ztf()
     plot_keck(ax, dat, '2022-12-29T10:00:00')
     ax.set_xlim(8, 33)
     ax.text(0.02, 0.02, 'LRIS', transform=ax.transAxes,
@@ -239,7 +277,7 @@ if __name__=="__main__":
 
     # Plot ULTRASPEC r-band panel
     ax = plt.subplot(4,1,3)
-    dat = get_ultraspec()
+    dat = get_non_ztf()
     t0 = Time("2022-12-19T15:00:00", format='isot').mjd
     plot_ultraspec_panel(ax, dat, t0, 'r', 'o', vals.rc)
     ax.set_xlabel("Hours since 2022-12-19 15:00")
