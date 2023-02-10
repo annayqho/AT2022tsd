@@ -131,20 +131,6 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     return jd,exp,filt,mag,emag,fujy,efujy
 
 
-def get_transient():
-    """ Get all the opt phot of the main transient event """
-    jd,filt,mag,emag,fujy,efujy = get_ipac()
-
-
-def get_ultraspec():
-    """ Get the ULTRASPEC observations """
-    inputf = ddir + "/flares_lris_ultraspec.txt"
-    dat  = pd.read_fwf(
-            inputf, comment='#', 
-            names=['MJD','Exp','Filt','Flux','Unc'])
-    return dat
-
-
 def get_non_ztf():
     # This is everything except ZTF.
     inputf = ddir + "/flares_lris_ultraspec_lt.txt"
