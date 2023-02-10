@@ -103,7 +103,7 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
 
     mag = np.array([99]*len(flux)).astype(float)
     emag = np.array([99]*len(eflux)).astype(float)
-    is_det = flux/eflux > SNT
+    is_det = flux/eflux >= SNT
     mag[is_det] = zp[is_det]-2.5*np.log10(flux[is_det])
     emag[is_det] = 1.0857*eflux[is_det]/flux[is_det]
     mag[~is_det] = zp[~is_det]-2.5*np.log10(SNU*eflux[~is_det])
@@ -136,6 +136,7 @@ def get_non_ztf():
     # This is everything except ZTF.
     inputf = ddir + "/full_lc.txt"
     dat  = pd.read_fwf(inputf)
+    print(dat.keys())
 
     # Add a magnitudes column
     dat['mag'] = [99]*len(dat)
@@ -145,7 +146,7 @@ def get_non_ztf():
     # Detections
     SNU = 5
     SNT = 3
-    isdet = dat['sig']>SNT # confident detection
+    isdet = dat['sig']>=SNT # confident detection
     fdet = dat['flux'][isdet]
     efdet = dat['unc'][isdet]
     dat.loc[isdet, 'mag'] = -2.5*np.log10(fdet*1E-6)+8.90
@@ -154,4 +155,6 @@ def get_non_ztf():
     # Non-detections / upper limits
     dat.loc[~isdet, 'maglim'] = -2.5*np.log10(
             dat['unc'][~isdet]*1E-6*SNU)+8.90
+
     return dat
+

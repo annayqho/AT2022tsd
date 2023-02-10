@@ -31,7 +31,7 @@ def plot_det(ax, x, y, ey, band, lines=False, leg=False):
     """ Plot detections """
     col = vals.gc
     m = 's'
-    s = 5
+    s = 4
     lab = None # Default is no label
     if band=='r':
         col = vals.rc
@@ -46,7 +46,7 @@ def plot_det(ax, x, y, ey, band, lines=False, leg=False):
         m = '%s-'%m
     if leg:
         lab='$%s$' %band
-    ax.errorbar(x, y, ey, c=col, fmt=m, label=lab, ms=s)
+    ax.errorbar(x, y, ey, c=col, fmt=m, label=lab, ms=s, lw=0.5)
 
 
 def plot_ztf(ax):
@@ -79,21 +79,26 @@ def plot_ztf(ax):
     plot_det(ax, dt[choose], mag[choose]-vals.ext['i'], emag[choose], 'i',
              lines=False, leg=True)
 
-    # Plot the r-band limits
+    # Plot the i-band limits
     choose = np.logical_and(filt=='i', emag==99)
     plot_lim(ax, dt[choose], mag[choose]-vals.ext['i'], 'i', leg=True)
 
 
 def plot_non_ztf(ax):
-    """ Add the flares to the diagram """
+    """ Add all the non-ZTF photometry """
+    dat = get_non_ztf()
 
-    # Non-ZTF flares
-    tel,mjd,filt,mag,emag,limmag,flare = get_non_ztf()
-    jd = Time(mjd, format='mjd').jd
+    jd = Time(dat['mjdstart'].values, format='mjd').jd
     dt = jd-vals.t0
 
+    isflare = np.logical_or(dat['flare']=='*', dat['flare']=='**')
+    mag = dat['mag']
+    limmag = dat['maglim']
+    emag = dat['emag']
+    filt = dat['flt']
+
     # Plot the g-band flares
-    choose = np.logical_and(flare=='*', filt=='g')
+    choose = np.logical_and(isflare, filt=='g')
     plot_det(ax,dt[choose],mag[choose]-vals.ext['g'],emag[choose],'g')
 
     # Plot the g-band limits
@@ -101,7 +106,11 @@ def plot_non_ztf(ax):
     plot_lim(ax, dt[choose], limmag[choose]-vals.ext['g'], 'g')
 
     # Plot the r-band flares
-    choose = np.logical_and(flare=='*', filt=='r')
+
+    # HCT is technically R band
+    dat.loc[dat['flt']=='R', 'flt'] = 'r'
+
+    choose = np.logical_and(isflare, filt=='r')
     plot_det(ax,dt[choose],mag[choose]-vals.ext['r'],emag[choose],'r')
 
     # Plot the r-band limits
@@ -109,7 +118,7 @@ def plot_non_ztf(ax):
     plot_lim(ax, dt[choose], limmag[choose]-vals.ext['r'], 'r')
 
     # Plot the i-band flares
-    choose = np.logical_and(flare=='*', filt=='i')
+    choose = np.logical_and(isflare, filt=='i')
     plot_det(ax,dt[choose],mag[choose]-vals.ext['i'],emag[choose],'i',
              leg=True)
 
@@ -196,32 +205,32 @@ if __name__=="__main__":
     plot_radio_epochs(ax)
 
     # Make a legend
-    ax.legend(loc='lower right', ncol=1, fontsize=8)
+    #ax.legend(loc='lower right', ncol=1, fontsize=8)
 
     # Zoom in
-    axins = ax.inset_axes([0.35, 0.15, 0.3, 0.35])
-    plot_flares_zoom(axins)
-    axins.set_xlabel("Minutes (obs. frame)", fontsize=8, labelpad=1)
-    axins.set_ylabel(r"$\nu L_\nu$ (erg s$^{-1}$)", fontsize=8, labelpad=1)
-    axins.tick_params(axis='both', labelsize=8, pad=0.5)
-    axins.set_yscale('log')
-    axins.set_ylim(3E42, 1E44)
-    rect = patches.Rectangle((98.2, 19.4), 3.6, 3.6, linewidth=0.5, 
-                             edgecolor='grey', facecolor='none')
-    ax.add_patch(rect)
-    ax.plot([92.3,98.2],[21.2,19.4], c='grey', lw=0.5)
-    ax.plot([92.3,98.2],[22.8,19.4+3.6], c='grey', lw=0.5)
-    # Make a second x-axis
-    axins2 = axins.twiny()
-    axins2.set_xlabel(r"Minutes (rest frame)", fontsize=8, labelpad=1)
-    x_f = lambda x_i: x_i/(1+float(vals.z))
-    xmin, xmax = axins.get_xlim()
-    axins2.set_xlim((x_f(xmin), x_f(xmax)))
-    axins2.tick_params(axis='both', labelsize=8, pad=0.5)
+    # axins = ax.inset_axes([0.35, 0.15, 0.3, 0.35])
+    # plot_flares_zoom(axins)
+    # axins.set_xlabel("Minutes (obs. frame)", fontsize=8, labelpad=1)
+    # axins.set_ylabel(r"$\nu L_\nu$ (erg s$^{-1}$)", fontsize=8, labelpad=1)
+    # axins.tick_params(axis='both', labelsize=8, pad=0.5)
+    # axins.set_yscale('log')
+    # axins.set_ylim(3E42, 1E44)
+    # rect = patches.Rectangle((98.2, 19.4), 3.6, 3.6, linewidth=0.5, 
+    #                          edgecolor='grey', facecolor='none')
+    # ax.add_patch(rect)
+    # ax.plot([92.3,98.2],[21.2,19.4], c='grey', lw=0.5)
+    # ax.plot([92.3,98.2],[22.8,19.4+3.6], c='grey', lw=0.5)
+    # # Make a second x-axis
+    # axins2 = axins.twiny()
+    # axins2.set_xlabel(r"Minutes (rest frame)", fontsize=8, labelpad=1)
+    # x_f = lambda x_i: x_i/(1+float(vals.z))
+    # xmin, xmax = axins.get_xlim()
+    # axins2.set_xlim((x_f(xmin), x_f(xmax)))
+    # axins2.tick_params(axis='both', labelsize=8, pad=0.5)
 
     # Formatting
     ax.set_xlim(-5, 145)
-    ax.set_ylim(23.6, 18.8)
+    ax.set_ylim(24.5, 18.7)
 
     # Make a second x-axis
     ax3 = ax.twiny()
