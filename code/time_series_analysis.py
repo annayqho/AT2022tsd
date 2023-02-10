@@ -20,12 +20,12 @@ def power_spectrum(x,y):
     f,W = f[1:int(N/2)],(2 * np.abs(Y)**2/sampling_rate)[1:int(N/2)]
 
     # Plot
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.loglog(f,W)
-    ax.set_xlabel("Frequency [1/d]")
-    ax.set_ylabel("power spectral density")
-    plt.show()
+    #fig = plt.figure()
+    #ax = fig.add_subplot(111)
+    #ax.loglog(f,W)
+    #ax.set_xlabel("Frequency [1/d]")
+    #ax.set_ylabel("power spectral density")
+    #plt.show()
 
     return f,W
 
@@ -211,6 +211,44 @@ if __name__=="__main__":
     f = dat['Flux'].values
     ef = dat['Unc'].values
     plt.errorbar(dt, f, ef, fmt='o', c='lightgrey')
+
+    # Get data from the first flare
+    x_obs,y,ey = get_first_flare(dt,f,ef)
+
+    # Transform to the rest frame, minutes
+    x_rest = x_obs*86400 / (1+vals.z)
+
+    # Lomb-Scargle
+    x_input = x_rest * u.second
+    y_input = y * u.uJy
+    ey_input = ey * u.uJy
+    T = max(x_input)-min(x_input)
+    min_freq = 1/T.value
+    max_freq = (1/24)/2
+    freq_step = 1/(10*T.value)
+    freq_grid = np.arange(min_freq, max_freq, step=freq_step) * u.Hz
+    power = LombScargle(x_input, y_input, ey_input).power(freq_grid)
+    plt.plot(1/freq_grid,power)
+    plt.xlabel("Sec")
+
+    pow_x,pow_y = power_spectrum(x_rest,y)
+    
+
+    # Plot
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.loglog(pow_x,pow_y)
+
+    # Get data from the second flare
+    x_obs,y,ey = get_second_flare(dt,f,ef)
+    x_rest = x_obs / (1+vals.z)
+    pow_x,pow_y = power_spectrum(x_rest,y)
+
+    # Plot
+    ax.loglog(pow_x,pow_y)
+    ax.set_xlabel("Frequency [1/d]")
+    ax.set_ylabel("power spectral density")
+    plt.show()
 # 
 #     # ACF of the noise
 #     x,y,ey = get_noise(dt,f,ef)
@@ -218,13 +256,13 @@ if __name__=="__main__":
 #     plt.plot(acf, drawstyle='steps', c='lightgrey')
 # 
     # ACF of the shorter flare
-    x,y,ey = get_first_flare(dt,f,ef)
+
+
     acf = autocorr(y)
     plt.plot(acf, c='lightblue', drawstyle='steps')
     plt.errorbar(x, y, ey, fmt='o', c='lightblue')
 # 
 #     # ACF of the longer flare
-    x,y,ey = get_second_flare(dt,f,ef)
     acf = autocorr(y)
     plt.plot(acf, ls='-', drawstyle='steps', c='darkblue')
 #     plt.tight_layout()
