@@ -86,7 +86,6 @@ def plot_ztf(ax):
 
 def plot_non_ztf(ax):
     """ Add all the non-ZTF photometry """
-    dat = get_non_ztf()
 
     jd = Time(dat['mjdstart'].values, format='mjd').jd
     dt = jd-vals.t0
@@ -208,13 +207,13 @@ if __name__=="__main__":
     #ax.legend(loc='lower right', ncol=1, fontsize=8)
 
     # Zoom in
-    # axins = ax.inset_axes([0.35, 0.15, 0.3, 0.35])
-    # plot_flares_zoom(axins)
-    # axins.set_xlabel("Minutes (obs. frame)", fontsize=8, labelpad=1)
-    # axins.set_ylabel(r"$\nu L_\nu$ (erg s$^{-1}$)", fontsize=8, labelpad=1)
-    # axins.tick_params(axis='both', labelsize=8, pad=0.5)
-    # axins.set_yscale('log')
-    # axins.set_ylim(3E42, 1E44)
+    axins = ax.inset_axes([0.35, 0.15, 0.3, 0.35])
+    plot_flares_zoom(axins)
+    axins.set_xlabel("Minutes (obs. frame)", fontsize=8, labelpad=1)
+    axins.set_ylabel(r"$\nu L_\nu$ (erg s$^{-1}$)", fontsize=8, labelpad=1)
+    axins.tick_params(axis='both', labelsize=8, pad=0.5)
+    axins.set_yscale('log')
+    axins.set_ylim(3E42, 1E44)
     # rect = patches.Rectangle((98.2, 19.4), 3.6, 3.6, linewidth=0.5, 
     #                          edgecolor='grey', facecolor='none')
     # ax.add_patch(rect)
@@ -258,6 +257,6 @@ if __name__=="__main__":
     ax2.plot([],[])
 
     #plt.tight_layout()
-    plt.show()
-    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    #plt.close()
+    #plt.show()
+    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    plt.close()
