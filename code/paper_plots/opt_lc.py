@@ -49,21 +49,11 @@ def plot_det(ax, x, y, ey, band, lines=False, leg=False):
     ax.errorbar(x, y, ey, c=col, fmt=m, label=lab, ms=s)
 
 
-def plot_main_lc(ax):
-    """ Plot the main transient LC 
-
-    Only ZTF for now...pending final LT/NOT/P200/Keck
+def plot_ztf(ax):
+    """ Plot the ZTF photometry
     """
     jd,exp,filt,mag,emag,fujy,efujy = get_ipac()
     dt = jd-vals.t0
-
-    # Just get the main LC, not the flares
-    choose = dt < 20
-    dt = dt[choose]
-    jd = jd[choose]
-    filt = filt[choose]
-    mag = mag[choose]
-    emag = emag[choose]
 
     # Plot the g-band detections
     choose = np.logical_and(filt=='g', emag<99)
@@ -106,44 +96,11 @@ def plot_main_lc(ax):
             'r', lines=False)
 
 
-def plot_flares(ax):
+def plot_non_ztf(ax):
     """ Add the flares to the diagram """
 
-    # First, ZTF flares
-    jd,exp,filt,mag,emag,fujy,efujy = get_ipac()
-    dt = jd-vals.t0
-
-    # Just get the flares
-    choose = dt > 20
-    dt = dt[choose]
-    jd = jd[choose]
-    filt = filt[choose]
-    mag = mag[choose]
-    emag = emag[choose]
-
-    # Plot the g-band detections
-    choose = np.logical_and(filt=='g', emag<99)
-    plot_det(
-            ax, dt[choose], mag[choose]-vals.ext['g'], emag[choose], 'g')
-    
-    # Plot the g-band limits
-    choose = np.logical_and(filt=='g', emag==99)
-    plot_lim(ax, dt[choose], mag[choose]-vals.ext['g'], 'g')
-    
-    # Plot the r-band detections
-    choose = np.logical_and(filt=='r', emag<99)
-    plot_det(ax, dt[choose], mag[choose]-vals.ext['r'], emag[choose], 'r')
-    
-    # Plot the r-band limits
-    choose = np.logical_and(filt=='r', emag==99)
-    plot_lim(ax, dt[choose], mag[choose]-vals.ext['r'], 'r')
-
-    # Plot the i-band detections
-    choose = np.logical_and(filt=='i', emag<99)
-    plot_det(ax, dt[choose], mag[choose]-vals.ext['i'], emag[choose], 'i')
-
     # Non-ZTF flares
-    tel,mjd,filt,mag,emag,limmag,flare = get_flares()
+    tel,mjd,filt,mag,emag,limmag,flare = get_non_ztf()
     jd = Time(mjd, format='mjd').jd
     dt = jd-vals.t0
 
@@ -244,8 +201,8 @@ if __name__=="__main__":
     fig,ax = plt.subplots(1,1,figsize=(6,3.5))
 
     # Plot LC with epochs
-    plot_main_lc(ax)
-    plot_flares(ax)
+    plot_ztf(ax)
+    plot_non_ztf(ax)
     plot_spec_epochs(ax)
     plot_xray_epochs(ax)
     plot_radio_epochs(ax)

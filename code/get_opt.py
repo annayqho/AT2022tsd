@@ -7,6 +7,7 @@ from astropy.time import Time
 
 ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt"
 
+
 def measure_baseline(fcqf_use, ref_start, ref_end):
     """ Measure the baseline flux level for a given field-ccd-quadrant-filter
     combination that uses the same reference image """
