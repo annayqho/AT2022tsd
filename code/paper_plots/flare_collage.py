@@ -215,6 +215,29 @@ def plot_ztf(ax, flarenum=1, window=1):
     return t0_str
 
 
+def plot_flare(ax, tab, mjd, window=1):
+    """ Plot the flare from a single night 
+    The window is the interval used to select data around the flare. """
+    
+    # Data from the night of choice
+    choose = tab['flare_nights']==mjd
+    t0 = tab['mjdstart'][choose][tab[choose]['flare']][0]
+
+    # Extract relevant data
+    filt = tab['flt'].values
+    t = tab['mjdstart'].values
+    fujy = tab['flux'].values
+    efujy = tab['unc'].values
+
+    # Plot
+    cols = [vals.rc, vals.gc, vals.ic, vals.uc]
+    for i,b in enumerate(np.array(['r', 'g', 'i', 'u'])):
+        choose = np.logical_and.reduce((filt==b, t>t0-window, t<t0+window))
+        if sum(choose)>0:
+            ax.errorbar((t[choose]-t0), fujy[choose], efujy[choose], 
+                    fmt='o', c=cols[i], label='$%s$' %b)
+
+
 if __name__=="__main__":
     # Initialize figure
     fig,axarr = plt.subplots(figsize=(7,7))
@@ -222,8 +245,16 @@ if __name__=="__main__":
     # Get the optical photometry
     tab = get_full_opt()
 
+    # Identify flares as 5-sigma detections after the first ZTF detection
+    tab['flare'] = np.logical_and(tab['sig']>5, tab['mjdstart']>59830)
+
+    # Identify nights with flares (since we'll plot each night individually)
+    flare_nights = np.unique(tab['mjdstart'][tab['flare']==True].astype(int))
+
+    # There are 11 flare nights. The two ZTF flares will be in a single
+    # row, and the ULTRASPEC flares will have their own rows.
+
     # Plot ZTF: the first r and i flares (1d apart)
-    # And also the LT detections of what is presumably the transient
     ax = plt.subplot(4,2,1)
     plot_ztf(ax, window=2.5)
     ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
