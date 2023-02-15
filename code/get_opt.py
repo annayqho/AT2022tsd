@@ -136,7 +136,7 @@ def get_full_opt():
     dat = get_non_ztf()
     jd,exp,filt,mag,emag,fujy,efujy = get_ipac()
     add_dict = {}
-    add_dict['#inst'] = ['ZTF']*len(jd)
+    add_dict['#instrument'] = ['ZTF']*len(jd)
     add_dict['mjdstart'] = Time(jd, format='jd').mjd
     add_dict['exp'] = exp
     add_dict['flt'] = filt
