@@ -237,6 +237,9 @@ def plot_flare(ax, tab, mjd, window=1):
             ax.errorbar((t[choose]-t0), fujy[choose], efujy[choose], 
                     fmt='o', c=cols[i], label='$%s$' %b)
 
+    t0_str = str(Time(t0, format='mjd').isot).replace('T', ' ')[0:-7]
+    return t0_str
+
 
 if __name__=="__main__":
     # Initialize figure
@@ -250,106 +253,107 @@ if __name__=="__main__":
 
     # Identify nights with flares (since we'll plot each night individually)
     flare_nights = np.unique(tab['mjdstart'][tab['flare']==True].astype(int))
+    tab['flare_nights'] = tab['mjdstart'].astype(int)
 
     # There are 11 flare nights. The two ZTF flares will be in a single
     # row, and the ULTRASPEC flares will have their own rows.
 
     # Plot ZTF: the first r and i flares (1d apart)
     ax = plt.subplot(4,2,1)
-    plot_ztf(ax, window=2.5)
+    t0_str = plot_flare(ax, tab, flare_nights[0], window=2.5)
     ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
     ax.axhline(y=0, c='grey', lw=0.5)
     axins = ax.inset_axes([0.2, 0.54, 0.2, 0.42])
-    t0_str = plot_ztf(axins, window=0.1)
-    ax.legend(loc='upper right', fontsize=8, ncol=1, columnspacing=0.2,
-          handletextpad=0.1)
+    #t0_str = plot_flare(axins, window=0.1)
+    #ax.legend(loc='upper right', fontsize=8, ncol=1, columnspacing=0.2,
+    #      handletextpad=0.1)
     ax.set_xlabel("Days since %s" %t0_str, fontsize=8)
-    ax.text(0.01, 0.95, 'ZTF+LT', ha='left', va='top', fontsize=8,
-            transform=ax.transAxes)
+    #ax.text(0.01, 0.95, 'ZTF+LT', ha='left', va='top', fontsize=8,
+    #        transform=ax.transAxes)
     axins.set_yticks([])
     axins.set_xticks([])
     axins.set_xlabel("15 min", fontsize=8, labelpad=1)
     ax.indicate_inset_zoom(axins, edgecolor="grey")
 
     # Plot ZTF: the second r-band flare
-    ax = plt.subplot(4,2,2)
-    t0_str = plot_ztf(ax, flarenum=3, window=1.5)
-    ax.legend(loc='lower center', fontsize=8, ncol=3, columnspacing=0.2,
-          handletextpad=0.1)
-    ax.set_xlabel("Days since %s" %t0_str, fontsize=8)
-    ax.text(0.05, 0.95, 'ZTF', ha='left', va='top', fontsize=8,
-            transform=ax.transAxes)
-    axins = ax.inset_axes([0.7, 0.54, 0.28, 0.45])
-    plot_ztf(axins, flarenum=3, window=0.1)
-    axins.set_yticks([])
-    axins.set_xticks([])
-    axins.set_xlabel("7 min", fontsize=8, labelpad=1)
-    ax.indicate_inset_zoom(axins, edgecolor="grey")
+    # ax = plt.subplot(4,2,2)
+    # t0_str = plot_ztf(ax, flarenum=3, window=1.5)
+    # ax.legend(loc='lower center', fontsize=8, ncol=3, columnspacing=0.2,
+    #       handletextpad=0.1)
+    # ax.set_xlabel("Days since %s" %t0_str, fontsize=8)
+    # ax.text(0.05, 0.95, 'ZTF', ha='left', va='top', fontsize=8,
+    #         transform=ax.transAxes)
+    # axins = ax.inset_axes([0.7, 0.54, 0.28, 0.45])
+    # plot_ztf(axins, flarenum=3, window=0.1)
+    # axins.set_yticks([])
+    # axins.set_xticks([])
+    # axins.set_xlabel("7 min", fontsize=8, labelpad=1)
+    # ax.indicate_inset_zoom(axins, edgecolor="grey")
 
-    # Plot IMACS panel
-    ax = plt.subplot(4,4,5)
-    plot_magellan(ax)
-    ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
+    # # Plot IMACS panel
+    # ax = plt.subplot(4,4,5)
+    # plot_magellan(ax)
+    # ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
 
-    # Plot LT panel
-    # So far, LT just has one flare
-    ax = plt.subplot(4,4,6)
-    plot_lt(ax)
+    # # Plot LT panel
+    # # So far, LT just has one flare
+    # ax = plt.subplot(4,4,6)
+    # plot_lt(ax)
 
-    # Plot NOT panel
-    # One flare
-    ax = plt.subplot(4,4,7)
-    plot_not(ax)
+    # # Plot NOT panel
+    # # One flare
+    # ax = plt.subplot(4,4,7)
+    # plot_not(ax)
 
-    # Plot Keck panel
-    ax = plt.subplot(4,4,8)
-    dat = get_non_ztf()
-    plot_keck(ax, dat, '2022-12-29T10:00:00')
-    ax.set_xlim(8, 33)
-    ax.text(0.02, 0.02, 'LRIS', transform=ax.transAxes,
-            ha='left', va='bottom', fontsize=8)
+    # # Plot Keck panel
+    # ax = plt.subplot(4,4,8)
+    # dat = get_non_ztf()
+    # plot_keck(ax, dat, '2022-12-29T10:00:00')
+    # ax.set_xlim(8, 33)
+    # ax.text(0.02, 0.02, 'LRIS', transform=ax.transAxes,
+    #         ha='left', va='bottom', fontsize=8)
 
-    # Plot ULTRASPEC r-band panel
-    ax = plt.subplot(4,1,3)
-    dat = get_non_ztf()
-    t0 = Time("2022-12-19T15:00:00", format='isot').mjd
-    plot_ultraspec_panel(ax, dat, t0, 'r', 'o', vals.rc)
-    ax.set_xlabel("Hours since 2022-12-19 15:00")
-    ax.text(0.02, 0.95, 'ULTRASPEC $r$-band', transform=ax.transAxes,
-            ha='left', va='top', fontsize=8)
-    ax.set_xlim(-0.6, 4.3)
-    ax.set_ylim(-6, 33)
-    ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
+    # # Plot ULTRASPEC r-band panel
+    # ax = plt.subplot(4,1,3)
+    # dat = get_non_ztf()
+    # t0 = Time("2022-12-19T15:00:00", format='isot').mjd
+    # plot_ultraspec_panel(ax, dat, t0, 'r', 'o', vals.rc)
+    # ax.set_xlabel("Hours since 2022-12-19 15:00")
+    # ax.text(0.02, 0.95, 'ULTRASPEC $r$-band', transform=ax.transAxes,
+    #         ha='left', va='top', fontsize=8)
+    # ax.set_xlim(-0.6, 4.3)
+    # ax.set_ylim(-6, 33)
+    # ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
 
-    # Zoom-in to r-band flare
-    axins = ax.inset_axes([0.5, 0.54, 0.48, 0.45])
-    plot_ultraspec_panel(axins, dat, t0, 'r', 'o', vals.rc)
-    axins.tick_params(axis='both', labelsize=8, pad=0.5)
-    axins.set_ylabel("")
-    axins.set_xlim(0.6,1.1)
-    axins.set_ylim(-1,32)
-    ax.indicate_inset_zoom(axins, edgecolor="grey")
+    # # Zoom-in to r-band flare
+    # axins = ax.inset_axes([0.5, 0.54, 0.48, 0.45])
+    # plot_ultraspec_panel(axins, dat, t0, 'r', 'o', vals.rc)
+    # axins.tick_params(axis='both', labelsize=8, pad=0.5)
+    # axins.set_ylabel("")
+    # axins.set_xlim(0.6,1.1)
+    # axins.set_ylim(-1,32)
+    # ax.indicate_inset_zoom(axins, edgecolor="grey")
 
-    # Plot ULTRASPEC g-band panel
-    ax = plt.subplot(4,1,4)
-    t0 = Time("2022-12-20T15:00:00", format='isot').mjd
-    plot_ultraspec_panel(ax, dat, t0, 'g', 's', vals.gc)#, plot_binned=True)
-    ax.text(0.98, 0.06, 'ULTRASPEC $g$-band', transform=ax.transAxes,
-            ha='right', va='bottom', fontsize=8)
-    ax.set_xlabel("Time since 2022-12-20 15:00 (hours)")
-    ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
-    ax.set_xlim(0.2, 4.3)
+    # # Plot ULTRASPEC g-band panel
+    # ax = plt.subplot(4,1,4)
+    # t0 = Time("2022-12-20T15:00:00", format='isot').mjd
+    # plot_ultraspec_panel(ax, dat, t0, 'g', 's', vals.gc)#, plot_binned=True)
+    # ax.text(0.98, 0.06, 'ULTRASPEC $g$-band', transform=ax.transAxes,
+    #         ha='right', va='bottom', fontsize=8)
+    # ax.set_xlabel("Time since 2022-12-20 15:00 (hours)")
+    # ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
+    # ax.set_xlim(0.2, 4.3)
 
-    # Zoom-in to g-band flare
-    axins = ax.inset_axes([0.01, 0.54, 0.4, 0.42])
-    plot_ultraspec_panel(axins, dat, t0, 'g', 's', vals.gc, plot_binned=True)
-    axins.tick_params(axis='both', labelsize=8, pad=0.5)
-    axins.set_ylabel("")
-    axins.set_xlim(2.5,4.2)
-    axins.set_ylim(-1,21)
-    ax.indicate_inset_zoom(axins, edgecolor="grey")
-    axins.set_xticks([])
-    axins.set_yticks([])
+    # # Zoom-in to g-band flare
+    # axins = ax.inset_axes([0.01, 0.54, 0.4, 0.42])
+    # plot_ultraspec_panel(axins, dat, t0, 'g', 's', vals.gc, plot_binned=True)
+    # axins.tick_params(axis='both', labelsize=8, pad=0.5)
+    # axins.set_ylabel("")
+    # axins.set_xlim(2.5,4.2)
+    # axins.set_ylim(-1,21)
+    # ax.indicate_inset_zoom(axins, edgecolor="grey")
+    # axins.set_xticks([])
+    # axins.set_yticks([])
 
     plt.tight_layout()
     plt.show()
