@@ -219,6 +219,9 @@ if __name__=="__main__":
     # Initialize figure
     fig,axarr = plt.subplots(figsize=(7,7))
 
+    # Get the optical photometry
+    tab = get_full_opt()
+
     # Plot ZTF: the first r and i flares (1d apart)
     # And also the LT detections of what is presumably the transient
     ax = plt.subplot(4,2,1)
