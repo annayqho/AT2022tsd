@@ -132,6 +132,25 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     return jd,exp,filt,mag,emag,fujy,efujy
 
 
+def get_full_opt():
+    dat = get_non_ztf()
+    jd,exp,filt,mag,emag,fujy,efujy = get_ipac()
+    add_dict = {}
+    add_dict['#inst'] = ['ZTF']*len(jd)
+    add_dict['mjdstart'] = Time(jd, format='jd').mjd
+    add_dict['exp'] = exp
+    add_dict['flt'] = filt
+    add_dict['flux'] = fujy
+    add_dict['unc'] = efujy
+    add_dict['sig'] = fujy/efujy
+    add_dict['flare'] = fujy/efujy >= 5
+    add_dict['mag'] = mag
+    add_dict['emag'] = emag
+    add_dict['maglim'] = mag
+    add_dict = pd.DataFrame(add_dict)
+    return dat.append(add_dict, ignore_index=True)
+
+
 def get_non_ztf():
     # This is everything except ZTF.
     inputf = ddir + "/full_lc.txt"
