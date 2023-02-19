@@ -132,9 +132,24 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     return jd,exp,filt,mag,emag,fujy,efujy
 
 
+def get_last():
+    """ Get observations from the LAST telescope. Data table provided
+    by Eran """
+    dat = pd.read_fwf(ddir+"/Table_LAST_binned.txt")
+    mjd = Time(dat['% JD-2459000']+2459000, format='jd').mjd
+    flux = dat['Flux,'].values
+    eflux = dat['FluxErr,'].values
+    nobs = dat['Nobs'].values
+    return mjd,flux,eflux,nobs
+
+
 def get_full_opt():
+    # Get all the different photometry
     dat = get_non_ztf()
     jd,exp,filt,mag,emag,fujy,efujy = get_ipac()
+    last = get_last()
+
+    # Add the single-image photometry table to the ZTF photometry
     add_dict = {}
     add_dict['#instrument'] = ['ZTF']*len(jd)
     add_dict['mjdstart'] = Time(jd, format='jd').mjd
@@ -148,6 +163,25 @@ def get_full_opt():
     add_dict['emag'] = emag
     add_dict['maglim'] = mag
     add_dict = pd.DataFrame(add_dict)
+    single_exposures = dat.append(add_dict, ignore_index=True)
+
+    # Indicate that all rows of this table are single images
+    single_exposures['nobs'] = [1]*len(single_exposures)
+
+    # Add the LAST photometry
+    add_dict = {}
+    add_dict['#instrument'] = ['LAST']*len(last)
+    add_dict['mjdstart'] = last[0] # but this is MJD median
+    add_dict['exp'] = [2]*len(last) # all 2 minutes
+    add_dict['flt'] = ['B_p']*len(last)
+    add_dict['flux'] = last[1]
+    add_dict['unc'] = last[2]
+    add_dict['sig'] = np.abs(last[1]/last[2])
+    add_dict['flare'] = np.abs(last[1]/last[2]) >= 5
+    add_dict['mag'] = [99]*len(last)
+    add_dict['emag'] = [99]*len(last)
+    add_dict['maglim'] = mag
+
     return dat.append(add_dict, ignore_index=True)
 
 
