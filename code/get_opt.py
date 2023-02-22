@@ -171,7 +171,7 @@ def get_full_opt():
     add_dict['flt'] = filt
     add_dict['flux'] = fujy
     add_dict['unc'] = efujy
-    add_dict['sig'] = fujy/efujy
+    add_dict['sig'] = np.abs(fujy/efujy)
     add_dict['mag'] = mag
     add_dict['emag'] = emag
     add_dict['maglim'] = -2.5*np.log10(efujy*1E-6*3)+8.90
