@@ -57,9 +57,6 @@ def print_table_all():
     # Get the data
     dat = get_full_opt()
 
-    # Sort
-    dat = dat.sort_values(by=['mjdstart'], ignore_index=True, axis=0)
-
     for i in np.arange(len(dat)):
         # Get the things you need
         mjd = dat['mjdstart'][i]

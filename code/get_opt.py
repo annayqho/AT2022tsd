@@ -199,10 +199,10 @@ def get_full_opt():
     full_dict['nobs'] = [1]*len(full_dict)
 
     # Mark flares
-    full_dict['isflare'] = np.logical_and(full_dict['mjdstart']>59856,
+    full_dict['isflare'] = np.logical_and(full_dict['mjdstart']>59856.4,
                                           full_dict['sig']>5)
 
-    return full_dict
+    return full_dict.sort_values(by=['mjdstart'], ignore_index=True, axis=0)
 
 
 def get_dan_lc():
