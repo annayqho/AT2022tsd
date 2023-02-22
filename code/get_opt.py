@@ -196,20 +196,6 @@ def get_full_opt():
     add_dict['emag'] = [99]*len(lulin_mjd) # not provided
     add_dict['maglim'] = lulin_lim
 
-    # Add the LAST photometry
-    add_dict = {}
-    add_dict['#instrument'] = ['LAST']*len(last)
-    add_dict['mjdstart'] = last[0] # but this is MJD median
-    add_dict['exp'] = [2]*len(last) # all 2 minutes
-    add_dict['flt'] = ['B_p']*len(last)
-    add_dict['flux'] = last[1]
-    add_dict['unc'] = last[2]
-    add_dict['sig'] = np.abs(last[1]/last[2])
-    add_dict['flare'] = np.abs(last[1]/last[2]) >= 5
-    add_dict['mag'] = [99]*len(last)
-    add_dict['emag'] = [99]*len(last)
-    add_dict['maglim'] = mag
-
     return dat.append(add_dict, ignore_index=True)
 
 
