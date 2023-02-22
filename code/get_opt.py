@@ -163,7 +163,7 @@ def get_full_opt():
     last = get_last()
     lulin_mjd,lulin_lim = get_lulin() # 3-sigma
 
-    # Add the photometry table from Dan
+    # Add the ZTF photometry to Dan's photometry
     add_dict = {}
     add_dict['#instrument'] = ['ZTF']*len(jd)
     add_dict['mjdstart'] = Time(jd, format='jd').mjd
@@ -172,38 +172,44 @@ def get_full_opt():
     add_dict['flux'] = fujy
     add_dict['unc'] = efujy
     add_dict['sig'] = fujy/efujy
-    add_dict['flare'] = fujy/efujy >= 5
     add_dict['mag'] = mag
     add_dict['emag'] = emag
     add_dict['maglim'] = mag
     add_dict = pd.DataFrame(add_dict)
-    single_exposures = dat.append(add_dict, ignore_index=True)
-
-    # Indicate that all rows of this table are single images
-    single_exposures['nobs'] = [1]*len(single_exposures)
+    ztf_dan = dat.append(add_dict, ignore_index=True)
 
     # Add the Lulin photometry
     add_dict = {}
     add_dict['#instrument'] = ['LOT']*len(lulin_mjd)
-    add_dict['mjdstart'] = lulin_mjd
-    add_dict['exp'] = [?]*len(lulin_mjd) # asking group
+    add_dict['mjdstart'] = list(lulin_mjd)
+    add_dict['exp'] = ['?']*len(lulin_mjd) # asking group
     add_dict['flt'] = ['g']*len(lulin_mjd)
     add_dict['flux'] = '' # not provided
     add_dict['unc'] = '' # not provided
-    add_dict['sig'] = '' # not provided
+    add_dict['sig'] = [-99]*len(lulin_mjd) # not provided
     add_dict['flare'] = ['']*len(lulin_mjd) # none
     add_dict['mag'] = [99]*len(lulin_mjd) # not provided
     add_dict['emag'] = [99]*len(lulin_mjd) # not provided
     add_dict['maglim'] = lulin_lim
+    add_dict = pd.DataFrame(add_dict)
 
-    return dat.append(add_dict, ignore_index=True)
+    full_dict = ztf_dan.append(add_dict, ignore_index=True)
+
+    # Indicate that all rows of this table are single images
+    full_dict['nobs'] = [1]*len(full_dict)
+
+    # Mark flares
+    full_dict['isflare'] = np.logical_and(full_dict['mjdstart']>59856,
+                                          full_dict['sig']>5)
+
+    return full_dict
 
 
 def get_dan_lc():
     """ Get the LC data provided by Dan Perley 
     Upper limits are 3-sigma """
     inputf = ddir + "/full_lc.txt"
-    dat  = pd.read_fwf(inputf)
+    dat  = pd.read_fwf(inputf, infer_nrows=200)
     print(dat.keys())
 
     # Add a magnitudes column

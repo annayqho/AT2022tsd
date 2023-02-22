@@ -4,22 +4,22 @@ import pandas as pd
 import sys
 from astropy.time import Time
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
-from get_opt import get_ipac,get_flares
+from get_opt import get_full_opt,get_last
 import vals
 
-def print_table():
+def print_table_all():
     """ Print the table """
 
     # Headings
     headings = np.array(
             ['Date', '$\Delta t$\\footnote{Rest frame}', 'Filter', 
-             '$f_\\nu$\\footnote{Not corrected for Galactic extinction.}', 
-             '$\sigma_f\\nu$', 'Instrument', 
-             'Flare?\\footnote{$>5$-$\sigma$ detections.}'])
+             'Mag\\footnote{Not corrected for Galactic extinction.}', 
+             'eMag\\footnote{Upper limits reported as 3-$\sigma$.}', 
+             'Instrument', 'Flare?\\footnote{$>5$-$\sigma$ detections.}'])
     unit_headings = np.array(
             ['(UT)', '(days)', '', 
-             '($\mu$Jy)', '($\mu$Jy)', '', ''])
-    label = "optical-photometry"
+             '(AB)', '(AB)', '', ''])
+    label = "tab:optical-photometry"
 
     ncol = len(headings)
     colstr = ""
@@ -54,67 +54,125 @@ def print_table():
     outputf.write(unitstr+'\\\ \n')
     outputf.write("\hline\n")
 
-    # The ZTF lines
-    jd,exp,filt,mag,emag,fujy,efujy = get_ipac()
-    tel = np.array(['ZTF']*len(jd))
-    flare = np.array(['']*len(jd))
-
-    # the IPAC flares are from JD > 2459857
-    is_flare = np.logical_and(emag<99, jd>2459854)
-    flare[is_flare] = ['*']*sum(is_flare)
-
-    # The flare lines
-    tel_fl,mjd_fl,filt_fl,mag_fl,emag_fl,limmag_fl,flare_fl = get_flares()
-    flare_fl[pd.isnull(flare_fl)] = np.array(['']*sum(pd.isnull(flare_fl)))
-
-    # Combine
-    jd = np.hstack((jd, Time(mjd_fl, format='mjd').jd))
-    filt = np.hstack((filt, filt_fl))
-    flux = np.hstack((fujy, mag_fl))
-    eflux = np.hstack((emag, emag_fl))
-    flare = np.hstack((flare, flare_fl))
-    tel = np.hstack((tel, tel_fl))
-    limmag = np.hstack((limmag, limmag_fl))
+    # Get the data
+    dat = get_full_opt()
 
     # Sort
-    order = np.argsort(jd)
-    jd = jd[order]
-    filt = filt[order]
-    mag = mag[order]
-    emag = emag[order]
-    flare = flare[order]
-    tel = tel[order]
-    limmag = limmag[order]
+    dat = dat.sort_values(by=['mjdstart'], ignore_index=True, axis=0)
 
-    for i in np.arange(len(jd)):
-        # Convert JD to readable date and time
-        tstr = Time(jd[i], format='jd').isot.replace('T', ' ').split('.')[0]
+    for i in np.arange(len(dat)):
+        # Get the things you need
+        mjd = dat['mjdstart'][i]
+        jd = Time(mjd, format='mjd').jd
+        tel = dat['#instrument'][i]
+        filt = dat['flt'][i]
+        mag = dat['mag'][i]
+        emag = dat['emag'][i]
+        limmag = dat['maglim'][i]
+        isflare = dat['isflare'][i]
+
+        # Convert to readable date and time
+        tstr = Time(
+                mjd, format='mjd').isot.replace('T', ' ').split('.')[0]
 
         # Calculate the dt in the rest frame
-        dtstr = '{:.4f}'.format((jd[i]-vals.t0)/(1+vals.z))
+        dtstr = '{:.4f}'.format((jd-vals.t0)/(1+vals.z))
 
         # Filter
-        filtstr = filt[i]
-        if tel[i]=='ZTF':
-            filtstr = "$\mathrm{ZTF}_{%s}$" %filt[i]
+        filtstr = filt
+        if tel=='ZTF':
+            filtstr = "$\mathrm{ZTF}_{%s}$" %filt
+        else:
+            filtstr = "$%s$" %filt
 
         # Upper limit
         is_nondet = np.logical_or.reduce(
-                (emag[i]==99, np.isnan(emag[i]), mag[i]>limmag[i]))
+                (emag==99, np.isnan(emag), mag>limmag))
         if is_nondet:
-            mstr = '$>{:.2f}$'.format(limmag[i])
+            mstr = '$>{:.2f}$'.format(limmag)
             emstr = '--'
         # Detection
         else:
-            mstr = '${:.2f}$'.format(mag[i])
-            emstr = '${:.2f}$'.format(emag[i])
+            mstr = '${:.2f}$'.format(mag)
+            emstr = '${:.2f}$'.format(emag)
 
         # Flare string
-        flstr = flare[i]
-        if flstr=='nan':
-            flstr = ''
+        flstr = ''
+        if isflare:
+            flstr = '*'
 
-        row = rowstr %(tstr,dtstr,filtstr,mstr,emstr,tel[i],flstr)
+        row = rowstr %(tstr,dtstr,filtstr,mstr,emstr,tel,flstr)
+        print(row)
+        outputf.write(row)
+
+    outputf.write("\hline \n")
+
+    outputf.write("\end{longtable} \n")
+    outputf.write("\end{center} \n")
+    outputf.close()
+
+
+def print_table_last():
+    """ Print the table """
+    # Headings
+    headings = np.array(
+            ['Date', '$\Delta t$\\footnote{Rest frame}', 
+             'Flux\\footnote{Not corrected for Galactic extinction.\
+                     ZP=25 (AB), calibrated to Gaia $G_p$ band.}',\
+             'eFlux', '\# Frames'])
+    unit_headings = np.array(['(UT)', '(days)', '', '', ''])
+    label = "tab:last-photometry"
+
+    ncol = len(headings)
+    colstr = ""
+    colstr += 'l'
+    for col in np.arange(ncol-1): colstr+="l"
+    print(colstr)
+
+    colheadstr = ""
+    for col in np.arange(ncol-1):
+        colheadstr += "%s & " %headings[col]
+    colheadstr += "%s" %headings[-1]
+
+    unitstr = ""
+    for col in np.arange(ncol-1):
+        unitstr += "%s & " %unit_headings[col]
+    unitstr += "%s" %unit_headings[-1]
+
+    rowstr = ""
+    for col in np.arange(ncol-1):
+        rowstr += "%s & "
+    rowstr += "%s \\\ \n"
+
+    caption="LAST observations of AT2022tsd, binned into two-minute exposures."
+
+    outputf = open("paper_table_%s.txt" %label, "w")
+    outputf.write("\\begin{center} \n")
+    outputf.write("\\begin{longtable}{%s} \n" %colstr)
+    outputf.write("\\caption{%s} \n" %caption)
+    outputf.write("\\label{%s}\\\ \n" %label)
+    outputf.write("\hline\hline\n")
+    outputf.write(colheadstr+'\\\ \n')
+    outputf.write(unitstr+'\\\ \n')
+    outputf.write("\hline\n")
+
+    # Get data
+    mjd,flux,eflux,nobs = get_last()
+
+    for i in np.arange(len(mjd)):
+        # Convert to readable date and time
+        tstr = Time(
+                mjd[i], format='mjd').isot.replace('T', ' ').split('.')[0]
+
+        # Calculate the dt in the rest frame
+        jd = Time(mjd[i], format='mjd').jd
+        dtstr = '{:.4f}'.format((jd-vals.t0)/(1+vals.z))
+
+        fstr = '{:.2f}'.format(flux[i])
+        efstr = '{:.2f}'.format(eflux[i])
+        nobsstr = nobs[i]
+
+        row = rowstr %(tstr,dtstr,fstr,efstr,nobsstr)
         print(row)
         outputf.write(row)
 
@@ -126,4 +184,5 @@ def print_table():
 
 
 if __name__=="__main__":
-    print_table()
+    #print_table_all() # the main table
+    print_table_last() # the table of LAST photometry

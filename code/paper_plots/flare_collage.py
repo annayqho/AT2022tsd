@@ -106,7 +106,7 @@ if __name__=="__main__":
     tab = get_full_opt()
 
     # Identify flares as 5-sigma detections after a chosen time
-    tab['flare'] = np.logical_and(tab['sig']>5, tab['mjdstart']>59856)
+    tab['isflare'] = np.logical_and(tab['sig']>5, tab['mjdstart']>59856)
 
     # Identify nights with flares (since we'll plot each night individually)
     flare_nights = np.unique(tab['mjdstart'][tab['flare']].astype(int))
