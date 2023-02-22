@@ -23,55 +23,68 @@ lc = lc.sort_values(by=['mjdstart'], ignore_index=True, axis=0)
 # Let R = r
 lc['flt'][lc['flt']=='R'] = ['r']*len(lc[lc['flt']=='R'])
 
+print("Band & Threshold & $N_\mathrm{exp}$ & $T_\mathrm{exp}$ & $T_\mathrm{on}$/Texp & $N_\mathrm{exp,on}/N_\mathrm{exp}$")
 for filt in np.unique(lc['flt']):
-    print("Running for %s" %filt)
+    #print("Running for %s" %filt)
     # Choose the filter and limiting magnitude
-    threshold = 21
+    for threshold in np.arange(19.5, 25, step=0.5):
+        # For a given filter and limiting magnitude, 
+        # identify all sufficiently deep exposures
+        filt_crit = lc['flt']==filt
+        use_lc_filt = lc[filt_crit]
 
-    # For a given filter and limiting magnitude, 
-    # identify all sufficiently deep exposures
-    filt_crit = lc['flt']==filt
-    use_lc_filt = lc[filt_crit]
+        # To be valid for this analysis, EITHER...
 
-    # To detect a flare, the limiting magnitude of the image has to be 
-    # fainter than this threshold. But you have to convert it from 3-sigma
-    # to 5-sigma, since you use a 5-sigma threshold for your flares.
-    conversion_value = 2.5*np.log10(5)-2.5*np.log10(3)
-    maglims = use_lc_filt['maglim'] - conversion_value
+        # (a) the limiting magnitude of the image has to be 
+        # fainter than this threshold. But you have to convert it from 3-sigma
+        # to 5-sigma, since you use a 5-sigma threshold for your flares.
+        conversion_value = 2.5*np.log10(5)-2.5*np.log10(3)
+        maglims = use_lc_filt['maglim'] - conversion_value
+        deep_enough = maglims>threshold
 
-    deep_enough = maglims>threshold
-    use_lc = use_lc_filt[deep_enough]
+        # OR (b) there's a flare detection that's bright enough (or both)
+        # no, I don't think that's correct. you should only use the images
+        # that are sensitive enough, because otherwise for very faint magnitudes
+        # you end up way overestimating the flare duty cycle.
+        #bright_enough = np.logical_and(
+        #        use_lc_filt['mag']<threshold, use_lc_filt['isflare'])
 
-    nrows = len(use_lc)
-    print("%s rows" %nrows)
-    if nrows>0:
-        if nrows<10:
-          print(use_lc)
+        #use_lc = use_lc_filt[np.logical_or(deep_enough, bright_enough)]
+        use_lc = use_lc_filt[deep_enough]
 
-        # Exposures where there was a flare this bright or brighter
-        exp_on = use_lc[np.logical_and(
-                        use_lc['mag']<=threshold, use_lc['isflare'])]
-        time_on = sum(exp_on['exp'])
-        n_exp_on = len(exp_on)
+        nrows = len(use_lc)
+        n_sensitive_exposures = nrows
+        tot_time = sum(use_lc['exp'].values.astype(float))
+        #print("%s rows" %nrows)
+        if nrows>0:
+            #if nrows<10:
+              #print(use_lc)
 
-        # Calculate the duty cycle in several different ways.
+            # Exposures where there was a flare this bright or brighter
+            exp_on = use_lc[np.logical_and(
+                            use_lc['mag']<=threshold, use_lc['isflare'])]
+            time_on = sum(exp_on['exp'])
+            n_exp_on = len(exp_on)
 
-        # The ratio of the time on to the time off (exposure times)
-        print("calculate simple ratio of time on to total time")
-        frac_time_on = time_on / sum(use_lc['exp'].values.astype(float))
-        print(frac_time_on)
+            # Calculate the duty cycle in several different ways.
 
-        # The binomial statistic---number of exposures
-        print("binomial statistic with number of exposures")
-        out = binomtest(n_exp_on, len(use_lc))
-        val = out.statistic
-        conf_low = out.proportion_ci().low
-        conf_high = out.proportion_ci().high
-        print(val, conf_low, conf_high)
+            # The ratio of the time on to the time off (exposure times)
+            #print("calculate simple ratio of time on to total time")
+            frac_time_on = time_on / tot_time
+            #print(frac_time_on)
 
-        #print(
-        #    filt, threshold, np.round(frac_time_on,2), np.round(val, 2), 
-        #    np.round(conf_low, 3), np.round(conf_high, 2))
+            # The binomial statistic---number of exposures
+            #print("binomial statistic with number of exposures")
+            out = binomtest(n_exp_on, nrows)
+            val = out.statistic
+            conf_low = out.proportion_ci().low
+            conf_high = out.proportion_ci().high
+            #print(val, conf_low, conf_high)
 
-    else:
-        print(filt, threshold, "no exposures")
+            print("%s & %s & %s & %s & %s & %s [%s, %s]" %(
+                filt,threshold,n_sensitive_exposures,int(tot_time/60),
+                '{:.2f}'.format(frac_time_on),'{:.2f}'.format(val),
+                '{:.2f}'.format(conf_low),'{:.2f}'.format(conf_high)))
+
+        #else:
+            #print(filt, threshold, "no exposures")
