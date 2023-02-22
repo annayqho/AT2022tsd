@@ -30,31 +30,50 @@ for filt in np.unique(lc['flt']):
 
     # For a given filter and limiting magnitude, 
     # identify all sufficiently deep exposures
-    thresh_crit = np.logical_or(
-            np.logical_and(lc['mag']>threshold, lc['mag']<99), 
-            np.logical_and(lc['maglim']>threshold, lc['maglim']<99))
     filt_crit = lc['flt']==filt
-    choose = np.logical_and(thresh_crit, filt_crit)
-    lc = lc[choose]
+    use_lc_filt = lc[filt_crit]
 
-    print("%s rows" %len(lc))
-    if len(lc)>0:
+    # Either it's deep enough because there was a detection brighter
+    # than the threshold 
+    detected = np.logical_and(lc['mag']<threshold, lc['sig']>=3)
+
+    # Or it's deep enough because there was no detection, and the limiting
+    # magnitude is fainter than the threshold
+    not_detected = np.logical_and.reduce((lc['maglim']>threshold, lc['sig']<3,
+                                          np.abs(lc['maglim'])<99))
+    thresh_crit = np.logical_or(detected, not_detected)
+    choose = np.logical_and(thresh_crit, filt_crit)
+
+    nrows = len(use_lc)
+    print("%s rows" %nrows)
+    if nrows>0:
+        if nrows<10:
+          print(use_lc)
+
+        # Exposures where there was a flare this bright or brighter
+        exp_on = use_lc[np.logical_and(
+                        use_lc['mag']<=threshold, use_lc['isflare'])]
+        time_on = sum(exp_on['exp'])
+        n_exp_on = len(exp_on)
+
         # Calculate the duty cycle in several different ways.
 
         # The ratio of the time on to the time off (exposure times)
-        frac_time_on = sum(lc['exp'][lc['isflare']==True])/sum(lc['exp'])
+        print("calculate simple ratio of time on to total time")
+        frac_time_on = time_on / sum(use_lc['exp'].values.astype(float))
+        print(frac_time_on)
 
         # The binomial statistic---number of exposures
-        out = binomtest(len(lc['exp'][lc['isflare']==True]),len(lc['exp']))
+        print("binomial statistic with number of exposures")
+        out = binomtest(n_exp_on, len(use_lc))
         val = out.statistic
-        conf_low = binomtest(
-            len(lc['exp'][lc['isflare']==True]),len(lc['exp'])).proportion_ci().low
-        conf_high= binomtest(
-            len(lc['exp'][lc['isflare']==True]),len(lc['exp'])).proportion_ci().high
+        conf_low = out.proportion_ci().low
+        conf_high = out.proportion_ci().high
+        print(val, conf_low, conf_high)
 
-        print(
-            filt, threshold, np.round(frac_time_on,2), np.round(val, 2), 
-            np.round(conf_low, 3), np.round(conf_high, 2))
+        #print(
+        #    filt, threshold, np.round(frac_time_on,2), np.round(val, 2), 
+        #    np.round(conf_low, 3), np.round(conf_high, 2))
 
     else:
         print(filt, threshold, "no exposures")

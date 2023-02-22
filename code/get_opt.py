@@ -227,8 +227,8 @@ def get_dan_lc():
     dat.loc[isdet, 'emag'] = (2.5/np.log(10)) * (efdet/fdet)
 
     # Non-detections / upper limits
-    dat.loc[~isdet, 'maglim'] = -2.5*np.log10(
-            dat['unc'][~isdet]*1E-6*SNU)+8.90
+    # Calculate an upper limit (limiting magnitude) for all exposures
+    dat['maglim'] = -2.5*np.log10(dat['unc']*1E-6*SNU)+8.90
 
     return dat
 
