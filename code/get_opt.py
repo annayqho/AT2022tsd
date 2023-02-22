@@ -182,7 +182,7 @@ def get_full_opt():
     add_dict = {}
     add_dict['#instrument'] = ['LOT']*len(lulin_mjd)
     add_dict['mjdstart'] = list(lulin_mjd)
-    add_dict['exp'] = ['?']*len(lulin_mjd) # asking group
+    add_dict['exp'] = ['300']*len(lulin_mjd) # asking group
     add_dict['flt'] = ['g']*len(lulin_mjd)
     add_dict['flux'] = '' # not provided
     add_dict['unc'] = '' # not provided
