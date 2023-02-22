@@ -174,7 +174,7 @@ def get_full_opt():
     add_dict['sig'] = fujy/efujy
     add_dict['mag'] = mag
     add_dict['emag'] = emag
-    add_dict['maglim'] = mag
+    add_dict['maglim'] = -2.5*np.log10(efujy*1E-6*3)+8.90
     add_dict = pd.DataFrame(add_dict)
     ztf_dan = dat.append(add_dict, ignore_index=True)
 

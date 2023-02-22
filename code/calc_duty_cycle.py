@@ -33,16 +33,14 @@ for filt in np.unique(lc['flt']):
     filt_crit = lc['flt']==filt
     use_lc_filt = lc[filt_crit]
 
-    # Either it's deep enough because there was a detection brighter
-    # than the threshold 
-    detected = np.logical_and(lc['mag']<threshold, lc['sig']>=3)
+    # To detect a flare, the limiting magnitude of the image has to be 
+    # fainter than this threshold. But you have to convert it from 3-sigma
+    # to 5-sigma, since you use a 5-sigma threshold for your flares.
+    conversion_value = 2.5*np.log10(5)-2.5*np.log10(3)
+    maglims = use_lc_filt['maglim'] - conversion_value
 
-    # Or it's deep enough because there was no detection, and the limiting
-    # magnitude is fainter than the threshold
-    not_detected = np.logical_and.reduce((lc['maglim']>threshold, lc['sig']<3,
-                                          np.abs(lc['maglim'])<99))
-    thresh_crit = np.logical_or(detected, not_detected)
-    choose = np.logical_and(thresh_crit, filt_crit)
+    deep_enough = maglims>threshold
+    use_lc = use_lc_filt[deep_enough]
 
     nrows = len(use_lc)
     print("%s rows" %nrows)
