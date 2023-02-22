@@ -99,7 +99,7 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
 
     # Cobble together the LC
     SNT = 3 # threshold for declaring a measurement a non-detection
-    SNU = 5 # S/N to use when computing an upper limit
+    SNU = 3 # S/N to use when computing an upper limit
 
     mag = np.array([99]*len(flux)).astype(float)
     emag = np.array([99]*len(eflux)).astype(float)
@@ -143,13 +143,27 @@ def get_last():
     return mjd,flux,eflux,nobs
 
 
-def get_full_opt():
-    # Get all the different photometry
-    dat = get_non_ztf()
-    jd,exp,filt,mag,emag,fujy,efujy = get_ipac()
-    last = get_last()
+def get_lulin():
+    """ Get Lulin observations. Limit is 3-sigma. 
+    """
+    dat = np.loadtxt(ddir + "/AT2022tsd_LOT+g.txt")
+    mjd = dat[:,0]
+    mlim = dat[:,1]
+    return mjd,mlim
 
-    # Add the single-image photometry table to the ZTF photometry
+
+def get_full_opt():
+    """ Retrieve a table of ALL optical photometry 
+    Report upper limits as 3-sigma
+    Label flares as 5-sigma
+    MJD is the start time
+    """
+    dat = get_dan_lc() # 3-sigma
+    jd,exp,filt,mag,emag,fujy,efujy = get_ipac() # 3-sigma U.L.
+    last = get_last()
+    lulin_mjd,lulin_lim = get_lulin() # 3-sigma
+
+    # Add the photometry table from Dan
     add_dict = {}
     add_dict['#instrument'] = ['ZTF']*len(jd)
     add_dict['mjdstart'] = Time(jd, format='jd').mjd
@@ -168,6 +182,20 @@ def get_full_opt():
     # Indicate that all rows of this table are single images
     single_exposures['nobs'] = [1]*len(single_exposures)
 
+    # Add the Lulin photometry
+    add_dict = {}
+    add_dict['#instrument'] = ['LOT']*len(lulin_mjd)
+    add_dict['mjdstart'] = lulin_mjd
+    add_dict['exp'] = [?]*len(lulin_mjd) # asking group
+    add_dict['flt'] = ['g']*len(lulin_mjd)
+    add_dict['flux'] = '' # not provided
+    add_dict['unc'] = '' # not provided
+    add_dict['sig'] = '' # not provided
+    add_dict['flare'] = ['']*len(lulin_mjd) # none
+    add_dict['mag'] = [99]*len(lulin_mjd) # not provided
+    add_dict['emag'] = [99]*len(lulin_mjd) # not provided
+    add_dict['maglim'] = lulin_lim
+
     # Add the LAST photometry
     add_dict = {}
     add_dict['#instrument'] = ['LAST']*len(last)
@@ -185,8 +213,9 @@ def get_full_opt():
     return dat.append(add_dict, ignore_index=True)
 
 
-def get_non_ztf():
-    # This is everything except ZTF.
+def get_dan_lc():
+    """ Get the LC data provided by Dan Perley 
+    Upper limits are 3-sigma """
     inputf = ddir + "/full_lc.txt"
     dat  = pd.read_fwf(inputf)
     print(dat.keys())
@@ -197,7 +226,7 @@ def get_non_ztf():
     dat['maglim'] = [99]*len(dat)
 
     # Detections
-    SNU = 5
+    SNU = 3 # provide 3-sigma U.L.
     SNT = 3
     isdet = dat['sig']>=SNT # confident detection
     fdet = dat['flux'][isdet]

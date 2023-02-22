@@ -27,13 +27,10 @@ save as bkg.reg
 # Get the spectrum of a pointlike source
 punlearn specextract
 pset specextract infile="acisf27643_repro_evt2.fits[sky=region(src.reg)]"
-pset specextract bkgfile="acisf27643_repro_evt2.fits[sky=region(bkg.reg)]"
+pset specextract bkgfile="acisf27643_repro_evt2.fits[sky=region(bkg_offset.reg)]"
 pset specextract outroot=AT2022tsd_bigap
 pset specextract weight=no correctpsf=yes
-# Matthews values
-# pset specextract grouptype=NUM_CTS binspec=5 # 5 for Epoch 5, 10 for Epoch 4, 15 for Epochs 1-3
-# My values
-pset specextract grouptype=NUM_CTS binspec=5 # 5 for Epoch 1, 2
+pset specextract grouptype=NUM_CTS binspec=5 
 specextract
 
 # Fit the spectrum using sherpa (https://cxc.cfa.harvard.edu/sherpa/threads/pha_intro/)

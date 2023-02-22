@@ -75,7 +75,7 @@ if __name__=="__main__":
                           sigma=eL, absolute_sigma=True)
     xvals = np.linspace(22,140)
     yvals = popt[0]*(xvals/popt[1])**(popt[2])
-    ax.plot(xvals,yvals,label='$L_X\propto t^{-1.8}$', c=cols[0])
+    ax.plot(xvals,yvals,label='$L_X\propto t^{-1.9}$', c=cols[0])
     print(popt[2],np.sqrt(pcov[2,2]))
 
     ax.legend()
