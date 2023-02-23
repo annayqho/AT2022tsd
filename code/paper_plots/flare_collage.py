@@ -60,7 +60,7 @@ def plot_flare(ax, tab, mjd, window=1, unit='Days'):
     """ Plot the flare from a single night 
     The window is the interval used to select data around the flare. """
     # Data from the night of choice
-    choose = np.logical_and(tab['flare_nights']==mjd, tab['flare'])
+    choose = np.logical_and(tab['flare_nights']==mjd, tab['isflare'])
     indmax = np.argmax(tab['flux'][choose])
     t0 = tab['mjdstart'][choose].values[indmax]
 
@@ -105,11 +105,8 @@ if __name__=="__main__":
     # Get the optical photometry
     tab = get_full_opt()
 
-    # Identify flares as 5-sigma detections after a chosen time
-    tab['isflare'] = np.logical_and(tab['sig']>5, tab['mjdstart']>59856)
-
     # Identify nights with flares (since we'll plot each night individually)
-    flare_nights = np.unique(tab['mjdstart'][tab['flare']].astype(int))
+    flare_nights = np.unique(tab['mjdstart'][tab['isflare']==True].astype(int))
     tab['flare_nights'] = tab['mjdstart'].astype(int)
 
     # There are 10 flare nights. 
@@ -175,31 +172,31 @@ if __name__=="__main__":
     ax.indicate_inset_zoom(axins, edgecolor="grey")
 
     # Plot ULTRASPEC g-band panel
-    ax = plt.subplot(4,1,4)
-    t0 = Time("2022-12-20T15:00:00", format='isot').mjd
-    plot_ultraspec_panel(ax, tab, t0, 'g', 's', vals.gc)
-    ax.text(0.02, 0.95, 'ULTRASPEC $g$-band', transform=ax.transAxes,
-            ha='left', va='top', fontsize=8)
-    ax.set_xlabel("Hours since 2022-12-20 15:00")
-    ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
-    ax.set_xlim(0.2, 4.3)
-    ax.set_ylim(-5,22)
+    # ax = plt.subplot(4,1,4)
+    # t0 = Time("2022-12-20T15:00:00", format='isot').mjd
+    # plot_ultraspec_panel(ax, tab, t0, 'g', 's', vals.gc)
+    # ax.text(0.02, 0.95, 'ULTRASPEC $g$-band', transform=ax.transAxes,
+    #         ha='left', va='top', fontsize=8)
+    # ax.set_xlabel("Hours since 2022-12-20 15:00")
+    # ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
+    # ax.set_xlim(0.2, 4.3)
+    # ax.set_ylim(-5,22)
 
     # Zoom-in to g-band flare
-    axins = ax.inset_axes([0.01, 0.35, 0.4, 0.42])
-    plot_ultraspec_panel(axins, tab, t0, 'g', 's', vals.gc, plot_binned=True)
-    axins.tick_params(axis='both', labelsize=8, pad=0.5)
-    axins.set_ylabel("")
-    axins.set_xlim(2.5,4.2)
-    axins.set_ylim(-1,21)
-    ax.indicate_inset_zoom(axins, edgecolor="grey")
-    axins.set_xticks([])
-    axins.set_yticks([])
+    # axins = ax.inset_axes([0.01, 0.35, 0.4, 0.42])
+    # plot_ultraspec_panel(axins, tab, t0, 'g', 's', vals.gc, plot_binned=True)
+    # axins.tick_params(axis='both', labelsize=8, pad=0.5)
+    # axins.set_ylabel("")
+    # axins.set_xlim(2.5,4.2)
+    # axins.set_ylim(-1,21)
+    # ax.indicate_inset_zoom(axins, edgecolor="grey")
+    # axins.set_xticks([])
+    # axins.set_yticks([])
 
     plt.tight_layout()
-    #plt.show()
-    plt.savefig("flares.png", dpi=300, 
-                bbox_inches='tight', pad_inches=0.2)
-    plt.close()
+    plt.show()
+    #plt.savefig("flares.png", dpi=300, 
+    #            bbox_inches='tight', pad_inches=0.2)
+    #plt.close()
 
 
