@@ -23,7 +23,7 @@ lc = lc.sort_values(by=['mjdstart'], ignore_index=True, axis=0)
 # Let R = r
 lc['flt'][lc['flt']=='R'] = ['r']*len(lc[lc['flt']=='R'])
 
-print("Band & Threshold & $N_\mathrm{exp}$ & $T_\mathrm{exp}$ & $T_\mathrm{on}$/Texp & $N_\mathrm{exp,on}/N_\mathrm{exp}$")
+print("Band & Threshold & $N_\mathrm{exp}$ & $T_\mathrm{exp}$ & $T_\mathrm{on}$/Texp")#& $N_\mathrm{exp,on}/N_\mathrm{exp}$")
 for filt in np.unique(lc['flt']):
     #print("Running for %s" %filt)
     # Choose the filter and limiting magnitude
@@ -68,7 +68,7 @@ for filt in np.unique(lc['flt']):
 
             # Calculate the duty cycle in several different ways.
 
-            # The ratio of the time on to the time off (exposure times)
+            # The ratio of the time on to the total time
             #print("calculate simple ratio of time on to total time")
             frac_time_on = time_on / tot_time
             #print(frac_time_on)
@@ -81,10 +81,14 @@ for filt in np.unique(lc['flt']):
             conf_high = out.proportion_ci().high
             #print(val, conf_low, conf_high)
 
-            print("%s & %s & %s & %s & %s & %s [%s, %s]" %(
+            #print("%s & %s & %s & %s & %s & %s [%s, %s]" %(
+            #    filt,threshold,n_sensitive_exposures,int(tot_time/60),
+            #    '{:.2f}'.format(frac_time_on),'{:.2f}'.format(val),
+            #    '{:.2f}'.format(conf_low),'{:.2f}'.format(conf_high)))
+            print("$%s$ & %s & %s & %s & %s \\\\" %(
                 filt,threshold,n_sensitive_exposures,int(tot_time/60),
-                '{:.2f}'.format(frac_time_on),'{:.2f}'.format(val),
-                '{:.2f}'.format(conf_low),'{:.2f}'.format(conf_high)))
+                '{:.2f}'.format(frac_time_on)))#,'{:.2f}'.format(val),
+                #'{:.2f}'.format(conf_low),'{:.2f}'.format(conf_high)))
 
         #else:
             #print(filt, threshold, "no exposures")
