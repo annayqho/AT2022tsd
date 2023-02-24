@@ -46,6 +46,7 @@ ax.set_xlabel("Minutes")
 # Spectral index
 ax = axarr[2]
 beta, ebeta = calc_color_spindex(dat[choose], 'g', 'i')
+print(beta,ebeta)
 ax.errorbar(dt[toplot], beta, ebeta, c='grey', fmt='o')
 ax.set_ylabel(r"$\beta$ where $f_\nu \propto \nu^{\beta}$")
 ax.set_xlabel("Minutes")
