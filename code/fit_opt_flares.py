@@ -164,6 +164,8 @@ def ultraspec_gband_large(ax, show='exponential', return_residuals=False):
         popt, pcov = curve_fit(two_gaussians,
                 xflare, yflare-ymod, sigma=eyflare/ymod, 
                 absolute_sigma=True, p0=p0)
+        print(popt[1])
+        print(np.sqrt(pcov[1,1]))
         ygausfit = yflare-ymod
         plt.errorbar(xflare, ygausfit, yerr=eyflare, fmt='o', 
                      c=vals.gc, zorder=2, ms=4)
@@ -571,7 +573,6 @@ def lt():
     red_chisq = chisq/dof
     ax.text(0.98, 0.92, "$\chi^2$=%s" %np.round(red_chisq,1), 
             ha='right', va='top', transform=ax.transAxes, fontsize=8)
-    print(popt)
 
     # Next row: fast rise exponential decay
     ax = axarr[1]
@@ -616,4 +617,4 @@ def lt():
 
 
 if __name__=="__main__":
-    ultraspec_r()
+    ultraspec_gband()
