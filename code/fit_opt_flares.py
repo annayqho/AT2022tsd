@@ -18,7 +18,9 @@ def two_gaussians(x, sigma1, A1, b1, sigma2, A2, b2):
 
 
 def fred(x, a, b, c, d):
-    """ Fast rise exponential decay """
+    """ Fast rise exponential decay 
+    Functional form taken from this website: 
+    https://pygrb.readthedocs.io/en/latest/user/pulses.html"""
     return a*np.exp(-b*(((x-c)/(d))+((d)/(x-c))))
 
 
@@ -296,26 +298,40 @@ def lris_gi():
     ax.text(0.95, 0.95, 'Gaussian, varying color', ha='right', va='top',
             transform=ax.transAxes, fontsize=8)
     # g-band
+    p0 = [40, 4.4, -31]
     popt, pcov = curve_fit(
             gauss, np.array(xgfit).astype(float), 
             np.array(ygfit).astype(float), 
             sigma=np.array(eygfit).astype(float),
-            absolute_sigma=True, p0=[40, 4.4, -31], maxfev=10000)
+            absolute_sigma=True, p0=p0, maxfev=10000)
     xplt = np.linspace(min(xgfit[1:]), max(xgfit))
     yplt = gauss(xplt, *popt)
     ax.plot(xplt, yplt, c=vals.gc)
+    chisq = sum((ygfit[1:]-gauss(xgfit[1:], *popt))**2/eygfit[1:]**2)
+    dof = len(xgfit[1:])-len(p0)
+    red_chisq = chisq/dof
+    ax.text(0.98, 0.8, "g-band, $\chi^2$=%s" %np.round(red_chisq,1), 
+            ha='right', va='top', transform=ax.transAxes, fontsize=8)
+
     # i-band
     xfit_temp = np.append(xifit,-93.6)
     yfit_temp = np.append(yifit,-7.0)
     eyfit_temp = np.append(eyifit,4.0)
+    p0 = [40, 6.4, -31]
     popt, pcov = curve_fit(
             gauss, np.array(xfit_temp).astype(float), 
             np.array(yfit_temp).astype(float), 
             sigma=np.array(eyfit_temp).astype(float),
-            absolute_sigma=True, p0=[40, 6.4, -31], maxfev=10000)
+            absolute_sigma=True, p0=p0, maxfev=10000)
     xplt = np.linspace(min(xifit), max(xifit))
     yplt = gauss(xplt, *popt)
     ax.plot(xplt, yplt, c=vals.ic)
+
+    chisq = sum((yifit-gauss(xifit, *popt))**2/eyifit**2)
+    dof = len(xifit)-len(p0)
+    red_chisq = chisq/dof
+    ax.text(0.98, 0.92, "i-band, $\chi^2$=%s" %np.round(red_chisq,1), 
+            ha='right', va='top', transform=ax.transAxes, fontsize=8)
 
     # Top right: Gaussian fit to the bands together
     ax = axarr[0,1]
@@ -347,6 +363,11 @@ def lris_gi():
     xplt = np.linspace(min(xgfit[1:]), max(xgfit))
     yplt = exp(xplt, *popt)
     ax.plot(xplt, yplt, c=vals.gc)
+    chisq = sum((ygfit[1:]-exp(xgfit[1:], *popt))**2/eygfit[1:]**2)
+    dof = len(xgfit[1:])-len(p0)
+    red_chisq = chisq/dof
+    ax.text(0.98, 0.8, "g-band, $\chi^2$=%s" %np.round(red_chisq,1), 
+            ha='right', va='top', transform=ax.transAxes, fontsize=8)
 
     p0 = [0.1, 20]
     popt, pcov = curve_fit(
@@ -355,6 +376,11 @@ def lris_gi():
     xplt = np.linspace(min(xifit), max(xifit))
     yplt = exp(xplt, *popt)
     ax.plot(xplt, yplt, c=vals.ic)
+    chisq = sum((yifit-exp(xifit, *popt))**2/eyifit**2)
+    dof = len(xifit)-len(p0)
+    red_chisq = chisq/dof
+    ax.text(0.98, 0.92, "i-band, $\chi^2$=%s" %np.round(red_chisq,1), 
+            ha='right', va='top', transform=ax.transAxes, fontsize=8)
 
     # Try a dual-band exponential.
     ax = axarr[1,1]
@@ -384,7 +410,6 @@ def lris_gi():
     yiplt = yplt[int((len(yplt)+1)/2):]
     ax.plot(xplt, ygplt, c=vals.gc)
     ax.plot(xplt, yiplt, c=vals.ic)
-    print(popt)
 
     # Gaussian+offset, varying color
     ax = axarr[2,0]
@@ -397,6 +422,11 @@ def lris_gi():
     xplt = np.linspace(min(xgfit[1:]), max(xgfit))
     yplt = gauss_const(xplt, *popt)
     ax.plot(xplt, yplt, c=vals.gc)
+    chisq = sum((ygfit[1:]-gauss_const(xgfit[1:], *popt))**2/eygfit[1:]**2)
+    dof = len(xgfit[1:])-len(p0)
+    red_chisq = chisq/dof
+    ax.text(0.98, 0.9, "g-band, $\chi^2$=%s" %np.round(red_chisq,1), 
+            ha='right', va='top', transform=ax.transAxes, fontsize=8)
 
     p0 = [9, 2, 100, 1.7] 
     popt, pcov = curve_fit(
@@ -406,6 +436,11 @@ def lris_gi():
     yplt = gauss_const(xplt, *popt)
     ax.plot(xplt, yplt, c=vals.ic)
     ax.set_xticklabels([0,5,10,15,20,25]) # shift
+    chisq = sum((yifit-gauss_const(xifit, *popt))**2/eyifit**2)
+    dof = len(xifit)-len(p0)
+    red_chisq = chisq/dof
+    ax.text(0.98, 0.8, "i-band, $\chi^2$=%s" %np.round(red_chisq,1), 
+            ha='right', va='top', transform=ax.transAxes, fontsize=8)
 
     for ax in axarr[:,0]:
         ax.set_ylabel(r"$f_\nu$ (uJy)")
@@ -413,8 +448,9 @@ def lris_gi():
         ax.set_xlabel("Minutes")
 
     plt.tight_layout()
-    plt.savefig("lris_gi_fit.png", dpi=200)
-    plt.close()
+    plt.show()
+    #plt.savefig("lris_gi_fit.png", dpi=200)
+    #plt.close()
 
 
 def imacs():
@@ -467,6 +503,7 @@ def imacs():
     red_chisq = chisq/dof
     ax.text(0.98, 0.92, "$\chi^2$=%s" %np.round(red_chisq,1), 
             ha='right', va='top', transform=ax.transAxes, fontsize=8)
+    print(popt[3], np.sqrt(pcov[3,3]))
 
     # Gaussian+offset, varying color
     ax = axarr[2]
@@ -490,14 +527,14 @@ def imacs():
         ax.set_xlabel("Minutes")
 
     plt.tight_layout()
-    #plt.show()
+    plt.show()
 
     # The outcome is that the FRED clearly does the best job.
-    plt.savefig("imacs_fit.png", dpi=200)
-    plt.close()
+    #plt.savefig("imacs_fit.png", dpi=200)
+    #plt.close()
 
 
-if __name__=="__main__":
+def lt():
     """ Fit various functions to the LT flare """
     fig,axarr = plt.subplots(1,3,figsize=(7,2.5),sharex=True,sharey=True)
 
@@ -507,6 +544,8 @@ if __name__=="__main__":
     x = (dat['mjdstart']-dat['mjdstart'].values[0])*24*60
     y = dat['flux']
     ey = dat['unc']
+
+    print(max(x)-min(x))
 
     # Just pick the first few points
     x = x[0:4]
@@ -575,7 +614,6 @@ if __name__=="__main__":
     plt.tight_layout()
     plt.show()
 
-    # The outcome is that the FRED clearly does the best job.
-    #plt.savefig("lt_fit.png", dpi=200)
-    #plt.close()
 
+if __name__=="__main__":
+    ultraspec_r()
