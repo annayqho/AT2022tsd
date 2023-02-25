@@ -91,18 +91,20 @@ def full_lc(ax):
 
 
 if __name__=="__main__":
-    fig,ax= plt.subplots(1,1,figsize=(4,2.5))
-    full_lc(ax)
-    plt.tight_layout()
-    plt.savefig("xray_fit.png", dpi=200)
-    plt.close()
+    #fig,ax= plt.subplots(1,1,figsize=(4,2.5))
+    #full_lc(ax)
+    #plt.tight_layout()
+    #plt.show()
+    #plt.savefig("xray_fit.png", dpi=200)
+    #plt.close()
 
     # Maybe plot them separately and just put them together in LaTeX
-    #fig,axarr = plt.subplots(4,2,figsize=(8,6))
+    fig,axarr = plt.subplots(4,2,figsize=(8,6))
 
     # Plot the flares
-    #plot_flares(axarr)
+    plot_flares(axarr)
 
-    #plt.tight_layout()
-    #plt.savefig("xray_flares.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    plt.tight_layout()
+    #plt.show()
+    plt.savefig("xray_flares.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.close()

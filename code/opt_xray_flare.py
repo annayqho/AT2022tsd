@@ -1,5 +1,11 @@
 """ LC of the simultaneously observed optical and X-ray flare """
 
+import pandas as pd
+import numpy as np
+from astropy.io import fits as pyfits
+from get_opt import *
+from get_xray import *
+
 def flare_lc():
     """ Get the optical and X-ray light curves during the flare campaign """
 
@@ -44,9 +50,9 @@ def flare_lc():
 
     # Plot the X-ray count rate (500s bins)
     exx = 250/86400 # half the bin size
-    xx = mjd+ex # center of the bin
+    xx = mjd+exx # center of the bin
     yx = ct
     eyx = ect
     #plt.errorbar(xx, yx, xerr=exx, yerr=eyx, fmt='o', c='k')
 
-    return xo,exo,yo,eyo,xx,exx,yx,eyx
+    return obsid,xo,exo,yo,eyo,xx,exx,yx,eyx
