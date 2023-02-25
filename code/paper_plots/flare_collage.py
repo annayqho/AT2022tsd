@@ -146,6 +146,7 @@ if __name__=="__main__":
                 axins.set_xticks([])
                 axins.set_xlabel("15 min", fontsize=8, labelpad=1)
                 ax.indicate_inset_zoom(axins, edgecolor="grey")
+                ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
             if i in [0,5,6,7,8,9]:
                 ax.axhline(y=0, c='grey', lw=0.5)
             if np.logical_or(tel_str=='NOT', tel_str=='LT+NOT+ZTF'):
