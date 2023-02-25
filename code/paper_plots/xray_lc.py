@@ -1,4 +1,6 @@
-""" Fit a power law to the X-ray light curve """
+""" Plot the X-ray light curve of Swift and Chandra.
+Plot the best-fit power law
+Also plot the Chandra flares """
 
 import sys
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
@@ -8,22 +10,23 @@ from astropy.time import Time
 from scipy.optimize import curve_fit
 from get_xray import *
 import vals
+from xray_flares import plot_flares
 
+cols = cmr.take_cmap_colors(
+        'cmr.freeze', 3, cmap_range=(0.2, 0.8), return_fmt='hex')[::-1]
+swift_col = cols[1]
+chandra_col = cols[2]
+fit_col = cols[0]
 
 def func(x,y0,x0,alpha):
     """ Fitting function for a power law """
     return y0*(x/x0)**(alpha)
 
 
-if __name__=="__main__":
-    fig,ax = plt.subplots(1,1,figsize=(4,3))
-
-    cols = cmr.take_cmap_colors(
-            'cmr.freeze', 3, cmap_range=(0.2, 0.8), return_fmt='hex')[::-1]
-
+def full_lc(ax):
+    """ Plot the full Swift + Chandra LC """
     # Load the Swift data
     df = load_swift()
-
     t = Time(df['!MJD    '].values, format='mjd')
     dt = (t.jd-vals.t0)/(1+vals.z)
     et = (df['T_+ve   '].values)/(1+vals.z)
@@ -31,18 +34,17 @@ if __name__=="__main__":
     eL = df['Lpos'].values/1E43
 
     # Plot the Swift data
-    c = cols[1]
     isdet = eL>0
     ax.errorbar(
             dt[isdet],L[isdet],xerr=et[isdet],yerr=eL[isdet],
-            fmt='o',c=c, lw=0.5, label='Swift')
+            fmt='o',c=swift_col, lw=0.5, label='Swift')
     ax.scatter(
             dt[~isdet],L[~isdet],marker='o',
-            edgecolor=c,facecolor='white', zorder=10)
+            edgecolor=swift_col,facecolor='white', zorder=10)
     for i in np.arange(len(dt[~isdet])):
         ax.arrow(dt[~isdet][i], L[~isdet][i], dx=0, dy=-L[~isdet][i]/4,
                  length_includes_head=True, head_width=dt[~isdet][i]/20,
-                 head_length=L[~isdet][i]/8, color=c, zorder=0)
+                 head_length=L[~isdet][i]/8, color=swift_col, zorder=0)
 
     # Get Chandra
     # WebPIMMS: the factor for going from 0.5-6 to 0.3-10 is 1.77
@@ -62,7 +64,7 @@ if __name__=="__main__":
     c = cols[2]
     ax.errorbar(
             dt_ch,L_ch,xerr=e_dt_ch,yerr=[lL_ch,uL_ch], 
-            fmt='s',c=c, lw=0.5, label='Chandra')
+            fmt='s',c=chandra_col, lw=0.5, label='Chandra')
 
     # Concatenate
     dt = np.hstack((dt[isdet], dt_ch))
@@ -75,7 +77,7 @@ if __name__=="__main__":
                           sigma=eL, absolute_sigma=True)
     xvals = np.linspace(22,140)
     yvals = popt[0]*(xvals/popt[1])**(popt[2])
-    ax.plot(xvals,yvals,label='$L_X\propto t^{-1.9}$', c=cols[0])
+    ax.plot(xvals,yvals,label='$L_X\propto t^{-1.9}$', c=fit_col)
     print(popt[2],np.sqrt(pcov[2,2]))
 
     ax.legend()
@@ -87,7 +89,18 @@ if __name__=="__main__":
     ax.set_xlabel("$\Delta t$ (rest-frame days)")
     ax.set_ylabel("$L_X$ ($10^{43}$ erg s$^{-1}$)")
 
+
+if __name__=="__main__":
+    fig,axarr = plt.subplots(5,2,figsize=(8,8))
+
+    # Plot the full LC on top 
+    ax = plt.subplot(5,1,1)
+    full_lc(ax)
+
+    # Plot the flares
+    plot_flares(axarr[1:,:])
+
     plt.tight_layout()
-    #plt.show()
-    plt.savefig("xray_fit.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("xray_fit.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
