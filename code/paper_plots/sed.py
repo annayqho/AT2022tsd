@@ -7,10 +7,11 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 from astropy.time import Time
+from astropy.io import fits as pyfits
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
 import vals
 from get_opt import *
-from get_xray import load_swift
+from get_xray import *
 from get_radio_at2022tsd import get_radio
 
 
@@ -119,38 +120,19 @@ def quiescent_sed(ax):
     ax.legend(loc='lower right')
 
 
-
-def flare_sed():
-    """ Plot the SED during a flare """
-
-    # Choose the second LRIS flare, since that was simultaneous with 
-    # a Chandra observation
-    # Add the optical to the plot 
-    dat = get_full_opt()
-    dat['dt'] = (Time(dat['mjdstart'], format='mjd').jd-vals.t0)
-    dt = dat['dt']
-    choose_dt = np.logical_and(dt>start_time, dt<end_time)
-    # use the NOT gri data
-    choose_det = np.logical_and(dat['emag']<99, dat['#instrument']=='NOT/ALFOSC')
-    choose = np.logical_and(choose_dt, choose_det)
-
-
 if __name__=="__main__":
-    fig, axarr = plt.subplots(2,1,figsize=(4,5.5))
-    ax = axarr[0]
+    fig, ax= plt.subplots(1,1,figsize=(4,2.5))
     quiescent_sed(ax)
 
-    ax = axarr[1]
     ax.set_xlabel(
             r"$\nu_\mathrm{obs}$",fontsize=11,
             fontname='sans-serif')
 
-    for ax in axarr:
-        ax.tick_params(axis='both', labelsize=11)
-        ax.set_ylabel(r"$\nu L_\nu$", fontsize=11,
-                fontname='sans-serif')
+    ax.tick_params(axis='both', labelsize=11)
+    ax.set_ylabel(r"$\nu L_\nu$", fontsize=11,
+            fontname='sans-serif')
     plt.tight_layout()
-    plt.show()
+    #plt.show()
 
-    #plt.savefig("sed.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    plt.savefig("sed.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
