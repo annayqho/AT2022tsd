@@ -418,9 +418,11 @@ def lris_gi():
     ax.text(0.95, 0.95, 'Gaussian+offset, varying color', ha='right', va='top',
             transform=ax.transAxes, fontsize=8)
     p0 = [9, 2, 100, 1.7] 
+    print("g-band")
     popt, pcov = curve_fit(
             gauss_const, xgfit[1:], ygfit[1:], sigma=eygfit[1:], 
             absolute_sigma=True, p0=p0, maxfev=10000)
+    print(popt[3], np.sqrt(pcov[3,3]))
     xplt = np.linspace(min(xgfit[1:]), max(xgfit))
     yplt = gauss_const(xplt, *popt)
     ax.plot(xplt, yplt, c=vals.gc)
@@ -430,10 +432,12 @@ def lris_gi():
     ax.text(0.98, 0.9, "g-band, $\chi^2$=%s" %np.round(red_chisq,1), 
             ha='right', va='top', transform=ax.transAxes, fontsize=8)
 
+    print("i-band")
     p0 = [9, 2, 100, 1.7] 
     popt, pcov = curve_fit(
             gauss_const, xifit, yifit, sigma=eyifit, 
             absolute_sigma=True, p0=p0, maxfev=10000)
+    print(popt[3], np.sqrt(pcov[3,3]))
     xplt = np.linspace(min(xifit), max(xifit))
     yplt = gauss_const(xplt, *popt)
     ax.plot(xplt, yplt, c=vals.ic)
@@ -617,4 +621,4 @@ def lt():
 
 
 if __name__=="__main__":
-    ultraspec_gband()
+    lris_gi()
