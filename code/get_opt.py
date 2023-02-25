@@ -82,6 +82,11 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     zp = a['zpdiff,'].values
     exp = a['exptime,'].values
 
+    # Update the name of the filters
+    filt[filt=='ZTF_g'] = 'g'
+    filt[filt=='ZTF_r'] = 'r'
+    filt[filt=='ZTF_i'] = 'i'
+
     # Subtract the baseline values
     flux[fcqf==5060331] = flux[fcqf==5060331]-baseline_g
     flux[fcqf==5060332] = flux[fcqf==5060332]-baseline_r
@@ -108,28 +113,42 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     emag[is_det] = 1.0857*eflux[is_det]/flux[is_det]
     mag[~is_det] = zp[~is_det]-2.5*np.log10(SNU*eflux[~is_det])
 
+    # Correct for MW extinction
+    mag_extcorr = np.copy(mag)
+    for f in np.unique(filt[is_det]):
+        choose = filt[is_det]==f
+        mag_extcorr[is_det][choose] = mag[is_det][choose]-vals.ext[f]
+
     # Convert the flux and eflux into physical units, uJy
     f0 = 10**(0.4*zp)
     fratio = flux/f0
     fujy = fratio * 3631 * 1E6
     efujy = eflux * (fujy/flux)
 
-    order = np.argsort(jd)
-    filt_final = np.copy(filt[order])
-    filt_final[filt_final=='ZTF_g'] = 'g'
-    filt_final[filt_final=='ZTF_r'] = 'r'
-    filt_final[filt_final=='ZTF_i'] = 'i'
+    # Correct for MW extinction
+    fujy_extcorr = np.copy(fujy)
+    efujy_extcorr = np.copy(efujy)
+    for f in np.unique(filt[is_det]):
+        choose = filt[is_det]==f
+        fac = 10**(vals.ext[f]/2.5)
+        fujy_extcorr[is_det][choose] = fujy[is_det][choose] * fac
+        efujy_extcorr[is_det][choose] = efujy[is_det][choose] * fac
 
     # Final arrays for the light curve
+    order = np.argsort(jd)
     jd = jd[order]
     fujy = fujy[order]
     efujy = efujy[order]
+    fujy_extcorr = fujy_extcorr[order]
+    efujy_extcorr = efujy_extcorr[order]
     mag = mag[order]
+    mag_extcorr = mag_extcorr[order]
     emag = emag[order]
     exp = exp[order]
-    filt = np.copy(filt_final)
+    filt = filt[order]
 
-    return jd,exp,filt,mag,emag,fujy,efujy
+    return jd,exp,filt,mag,mag_extcorr,emag,\
+           fujy,efujy,fujy_extcorr,efujy_extcorr
 
 
 def get_last():
@@ -158,12 +177,10 @@ def get_full_opt():
     Label flares as 5-sigma
     MJD is the start time
     """
-    dat = get_dan_lc() # 3-sigma
-    jd,exp,filt,mag,emag,fujy,efujy = get_ipac() # 3-sigma U.L.
-    last = get_last()
-    lulin_mjd,lulin_lim = get_lulin() # 3-sigma
+    # Put the ZTF data into a dictionary
+    jd,exp,filt,mag,mag_extcorr,emag,fujy,efujy,fujy_extcorr,efujy_extcorr = \
+            get_ipac() # ULs are 3-sig
 
-    # Add the ZTF photometry to Dan's photometry
     add_dict = {}
     add_dict['#instrument'] = ['ZTF']*len(jd)
     add_dict['mjdstart'] = Time(jd, format='jd').mjd
@@ -171,14 +188,24 @@ def get_full_opt():
     add_dict['flt'] = filt
     add_dict['flux'] = fujy
     add_dict['unc'] = efujy
+    add_dict['flux_extcorr'] = fujy_extcorr
+    add_dict['unc_extcorr'] = efujy_extcorr
     add_dict['sig'] = np.abs(fujy/efujy)
     add_dict['mag'] = mag
+    add_dict['mag_extcorr'] = mag_extcorr
     add_dict['emag'] = emag
+
+    # Give all observations a 3-sigma limiting magnitude
     add_dict['maglim'] = -2.5*np.log10(efujy*1E-6*3)+8.90
+    add_dict['maglim_extcorr'] = -2.5*np.log10(efujy_extcorr*1E-6*3)+8.90
     add_dict = pd.DataFrame(add_dict)
+
+    # Add Dan's photometry to the ZTF photometry
+    dat = get_dan_lc() # 3-sigma
     ztf_dan = dat.append(add_dict, ignore_index=True)
 
     # Add the Lulin photometry
+    lulin_mjd,lulin_lim = get_lulin() # 3-sigma
     add_dict = {}
     add_dict['#instrument'] = ['LOT']*len(lulin_mjd)
     add_dict['mjdstart'] = list(lulin_mjd)
@@ -210,7 +237,6 @@ def get_dan_lc():
     Upper limits are 3-sigma """
     inputf = ddir + "/full_lc.txt"
     dat  = pd.read_fwf(inputf, infer_nrows=200)
-    print(dat.keys())
 
     # Add a magnitudes column
     dat['mag'] = [99]*len(dat)
