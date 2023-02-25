@@ -1,6 +1,7 @@
 """ Get the radio observations """
 
 import pandas as pd
+import numpy as np
 
 def get_radio():
     dd = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/radio"
