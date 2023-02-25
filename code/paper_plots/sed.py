@@ -9,9 +9,9 @@ import sys
 from astropy.time import Time
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
 import vals
-from radio_sed import get_data
-from get_opt import get_keck_lt_ultraspec
+from get_opt import *
 from get_xray import load_swift
+from get_radio_at2022tsd import get_radio
 
 
 def plot_xray(ax, flux):
@@ -38,73 +38,77 @@ def plot_xray(ax, flux):
     ax.plot(xplot, xplot*yplot, c='k', ls='-')
 
 
-# Initialize
-fig,ax = plt.subplots(1,1,figsize=(4,3))
+def quiescent_sed():
+    # Initialize
+    fig,ax = plt.subplots(1,1,figsize=(4,3))
 
-# Add the radio to the plot
-dat = get_data() # mJy
-dt = dat['dt']
-choose = np.logical_and(dt>27, dt<29)
-y = dat['Flux'][choose]*1E-3*1E-23*4*np.pi*(vals.dL_cm)**2
-ey = dat['eFlux'][choose]*1E-3*1E-23*4*np.pi*(vals.dL_cm)**2
-ax.errorbar(
-        dat['Freq_Obs'][choose]*1E9, y*dat['Freq_Obs'][choose]*1E9, 
-        ey*dat['Freq_Obs'][choose]*1E9, fmt='o', c='k')
+    # Add the radio to the plot
+    dat = get_radio()
+    dat['dt'] = Time(dat['Date'].values, format='isot').jd-vals.t0
+    choose = np.logical_and(dt>27, dt<28) # 27.14 VLA, 27.70 NOEMA
+    y = dat['Flux'][choose]*1E-3*1E-23*4*np.pi*(vals.dL_cm)**2
+    ey = dat['eFlux'][choose]*1E-3*1E-23*4*np.pi*(vals.dL_cm)**2
+    ax.errorbar(
+            dat['Freq_Obs'][choose]*1E9, y*dat['Freq_Obs'][choose]*1E9, 
+            ey*dat['Freq_Obs'][choose]*1E9, fmt='o', c='k')
 
-# Add the optical to the plot --- this really needs to be the Keck obs
-# use LT for now
-dat = get_keck_lt_ultraspec()
-dat['dt'] = (Time(dat['MJD'], format='mjd').jd-vals.t0)#/(1+vals.z)
-dt = dat['dt']
-choose = np.logical_and(dt>27, dt<29)
-freq = np.zeros(len(dat[choose]['Filt']))
-freq[dat[choose]['Filt']=='r'] = 3E18/vals.sdss_pivot['r']
-freq[dat[choose]['Filt']=='g'] = 3E18/vals.sdss_pivot['g']
-y = dat['Flux'][choose]*1E-6*1E-23*4*np.pi*(vals.dL_cm)**2
-ey = dat['Unc'][choose]*1E-6*1E-23*4*np.pi*(vals.dL_cm)**2
-ax.errorbar(freq, y*freq, ey*freq, fmt='o', c='k', lw=0.2)
+    # Add the optical to the plot 
+    dat = get_full_opt()
+    dat['dt'] = (Time(dat['mjdstart'], format='mjd').jd-vals.t0)
+    dt = dat['dt']
+    choose_dt = np.logical_and(dt>27, dt<28)
+    # use the NOT gri data
+    choose_det = np.logical_and(dat['emag']<99, dat['#instrument']=='NOT/ALFOSC')
+    choose = np.logical_and(choose_dt, choose_det)
+    freq = np.zeros(len(dat[choose]['flt']))
+    freq[dat[choose]['flt']=='i'] = 3E18/vals.sdss_pivot['i']
+    freq[dat[choose]['flt']=='r'] = 3E18/vals.sdss_pivot['r']
+    freq[dat[choose]['flt']=='g'] = 3E18/vals.sdss_pivot['g']
+    y = dat['flux'][choose]*1E-6*1E-23*4*np.pi*(vals.dL_cm)**2
+    ey = dat['unc'][choose]*1E-6*1E-23*4*np.pi*(vals.dL_cm)**2
+    ax.errorbar(freq, y*freq, ey*freq, fmt='o', c='k', lw=0.2)
 
-# Add the X-ray to the plot
-df = load_swift()
-t = Time(df['!MJD    '].values, format='mjd')
-dt = (t.jd-vals.t0)/(1+vals.z)
-et = (df['T_+ve   '].values)/(1+vals.z)
-L = df['L'].values
-eL = df['Lpos'].values
-choose = np.logical_and(dt>27, dt<29)
-plot_xray(ax, L[choose][0])
+    # Add the X-ray to the plot
+    df = load_swift()
+    t = Time(df['!MJD    '].values, format='mjd')
+    dt = t.jd-vals.t0
+    et = (df['T_+ve   '].values)
+    L = df['L'].values
+    eL = df['Lpos'].values
+    choose = np.logical_and(dt>27, dt<28)
+    plot_xray(ax, L[choose][0])
 
-# Add a line
-xvals = np.linspace(1E10,1E13)
-yvals = (4E40)*(xvals/1E11)**2
-plt.plot(xvals, yvals, c='lightblue', label=r'$\nu L_\nu \propto \nu^2$')
+    # Add a line
+    xvals = np.linspace(1E10,1E13)
+    yvals = (4E40)*(xvals/1E11)**2
+    plt.plot(xvals, yvals, c='lightblue', label=r'$\nu L_\nu \propto \nu^2$')
 
-# Add a line
-xvals = np.linspace(1E10,1E17)
-yvals = (3E42)*(xvals/4.6E14)**0.3
-plt.plot(xvals, yvals, c='lightblue', 
-         ls='--', label=r'$\nu L_\nu \propto \nu^{0.3}$')
+    # Add a line
+    xvals = np.linspace(1E10,1E17)
+    yvals = (3E42)*(xvals/4.6E14)**0.3
+    plt.plot(xvals, yvals, c='lightblue', 
+             ls='--', label=r'$\nu L_\nu \propto \nu^{0.3}$')
 
-ax.text(0.05, 0.95, r'$\Delta t_\mathrm{rest}\approx30$d', 
-        transform=ax.transAxes, ha='left', va='top')
+    ax.text(0.05, 0.95, r'$\Delta t_\mathrm{rest}\approx30$d', 
+            transform=ax.transAxes, ha='left', va='top')
 
-# Formatting
-ax.set_xscale('log')
-ax.set_yscale('log')
-ax.set_xlim(7E9, 4E18)
-ax.set_ylim(5E38,2E43)
-ax.legend(loc='lower right')
+    # Formatting
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+    ax.set_xlim(7E9, 4E18)
+    ax.set_ylim(5E38,2E43)
+    ax.legend(loc='lower right')
 
-ax.set_xlabel(
-        r"$\nu_\mathrm{obs}$",fontsize=11,
-        fontname='sans-serif')
+    ax.set_xlabel(
+            r"$\nu_\mathrm{obs}$",fontsize=11,
+            fontname='sans-serif')
 
-ax.set_ylabel(r"$\nu L_\nu$", fontsize=11,
-        fontname='sans-serif')
+    ax.set_ylabel(r"$\nu L_\nu$", fontsize=11,
+            fontname='sans-serif')
 
-ax.tick_params(axis='both', labelsize=11)
-#plt.tight_layout()
-#plt.show()
+    ax.tick_params(axis='both', labelsize=11)
+    #plt.tight_layout()
+    #plt.show()
 
-plt.savefig("sed.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
-plt.close()
+    plt.savefig("sed.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
