@@ -5,7 +5,7 @@ Classes:
     - LFBOTs (LC done)
     - TDEs (22cmc LC is red, don't bother)
     - LGRBs (LCs are red, don't bother)
-    - LLGRBs 
+    - LLGRBs (98bw)
     - Stellar phenomena (CVs, novae)
 """
 
@@ -17,7 +17,7 @@ import sys
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code)")
 import vals
 from get_opt import *
-from helpers import bin_lc
+from helpers import *
 
 
 
@@ -84,9 +84,10 @@ def plot_22tsd(ax, show='absolute'):
         eyf = (eyb/yb) * (2.5/np.log(10))
 
         if show=='absolute':
-            ax.errorbar(xb/(1+vals.z), yf-vals.dm, eyf, fmt=ms[i], color=cs[i])
+            ax.errorbar(xb/(1+vals.z), yf-vals.dm, eyf, fmt=ms[i], color=cs[i],
+                        zorder=10)
         elif show=='apparent':
-            ax.errorbar(xb/(1+vals.z), yf, eyf, fmt=ms[i], color=cs[i])
+            ax.errorbar(xb, yf, eyf, fmt=ms[i], color=cs[i], zorder=10)
 
 
 def plot_18cow(ax):
@@ -152,11 +153,70 @@ def plot_sn2011kl(ax):
 
 
 def plot_cvs(ax):
+    dat = pd.read_csv("bts_cv.txt")
+
+    # Get rid of things with bad measurements
+    rise = dat['rise'].values
+    discard = np.array(['>' in val for val in rise])
+    dat = dat[~discard]
+    fade = dat['fade'].values
+    discard = np.array(['>' in val for val in fade])
+    dat = dat[~discard]
+
+    names = dat['ZTFID'].values
+    rise = dat['rise'].values.astype(float)
+    fade = dat['fade'].values.astype(float)
+    choose = np.logical_and(rise<10, fade<20)
+
+    names = names[choose]
+
+    s = logon()
+    for i,name in enumerate(names):
+        isalert,jd,mag,emag,filt,program,limjds,limmags,limfilts,limprogram =\
+                get_lc(s, name)
+        if max(jd)-min(jd)<50:
+            choose = filt==1
+            maxmag = min(mag)
+            shift = 19.1-maxmag
+            ax.plot(
+                    jd[choose]-jd[choose][0], mag[choose]+shift, 
+                    c='lightgrey', alpha=0.5, zorder=0)
+
+
+def plot_novae(ax):
+    dat = pd.read_csv("bts_novae.txt")
+
+    # Get rid of things with bad measurements
+    rise = dat['rise'].values
+    discard = np.array(['>' in val for val in rise])
+    dat = dat[~discard]
+    fade = dat['fade'].values
+    discard = np.array(['>' in val for val in fade])
+    dat = dat[~discard]
+
+    names = dat['ZTFID'].values
+    rise = dat['rise'].values.astype(float)
+    fade = dat['fade'].values.astype(float)
+    choose = np.logical_and(rise<10, fade<20)
+
+    names = names[choose]
+
+    s = logon()
+    for i,name in enumerate(names):
+        isalert,jd,mag,emag,filt,program,limjds,limmags,limfilts,limprogram =\
+                get_lc(s, name)
+        if max(jd)-min(jd)<50:
+            choose = filt==1
+            maxmag = min(mag)
+            shift = 19.1-maxmag
+            ax.plot(
+                    jd[choose]-jd[choose][0], mag[choose]+shift, 
+                    c='lightgrey', alpha=0.5, zorder=0)
 
 
 if __name__=="__main__":
-    # Initialize a 2-panel figure
-    fig,axarr = plt.subplots(1,2,figsize=(8,3))
+    # Initialize a 3-panel figure
+    fig,axarr = plt.subplots(1,3,figsize=(10,3))
 
     # LFBOTs
     ax = axarr[0]
@@ -179,11 +239,21 @@ if __name__=="__main__":
     ax = axarr[1]
     plot_22tsd(ax, show='apparent')
     ax.invert_yaxis()
-    ax.set_xlabel("Rest-frame days since explosion")
+    ax.set_xlabel("Days")
     ax.set_ylabel("Apparent magnitude")
-    #plot_cvs(ax)
+    plot_cvs(ax)
+    ax.text(0.95, 0.95, "CVs / Dwarf Novae", va='top',
+            ha='right', transform=ax.transAxes, fontsize=9)
+
+    ax = axarr[2]
+    plot_22tsd(ax, show='apparent')
+    ax.invert_yaxis()
+    ax.set_xlabel("Days")
+    plot_novae(ax)
+    ax.text(0.95, 0.95, "Novae", va='top',
+            ha='right', transform=ax.transAxes, fontsize=9)
 
     plt.tight_layout()
-    plt.show()
-    #plt.savefig("compare_opt_lc.png", dpi=200)
-    #plt.close()
+    #plt.show()
+    plt.savefig("compare_opt_lc.png", dpi=200)
+    plt.close()
