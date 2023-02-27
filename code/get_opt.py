@@ -2,6 +2,7 @@
 
 import pandas as pd
 import numpy as np
+import vals
 from astropy.time import Time
 
 
@@ -111,13 +112,12 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     is_det = flux/eflux >= SNT
     mag[is_det] = zp[is_det]-2.5*np.log10(flux[is_det])
     emag[is_det] = 1.0857*eflux[is_det]/flux[is_det]
-    mag[~is_det] = zp[~is_det]-2.5*np.log10(SNU*eflux[~is_det])
 
     # Correct for MW extinction
-    mag_extcorr = np.copy(mag)
-    for f in np.unique(filt[is_det]):
-        choose = filt[is_det]==f
-        mag_extcorr[is_det][choose] = mag[is_det][choose]-vals.ext[f]
+    mag_extcorr = np.array([99]*len(mag)).astype(float)
+    for f in np.unique(filt):
+        choose = np.logical_and(is_det, filt==f)
+        mag_extcorr[choose] = mag[choose]-vals.ext[f]
 
     # Convert the flux and eflux into physical units, uJy
     f0 = 10**(0.4*zp)
@@ -126,13 +126,13 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     efujy = eflux * (fujy/flux)
 
     # Correct for MW extinction
-    fujy_extcorr = np.copy(fujy)
-    efujy_extcorr = np.copy(efujy)
-    for f in np.unique(filt[is_det]):
-        choose = filt[is_det]==f
+    fujy_extcorr = np.ones(len(fujy)).astype(float)
+    efujy_extcorr = np.ones(len(fujy)).astype(float)
+    for f in np.unique(filt):
+        choose = filt==f
         fac = 10**(vals.ext[f]/2.5)
-        fujy_extcorr[is_det][choose] = fujy[is_det][choose] * fac
-        efujy_extcorr[is_det][choose] = efujy[is_det][choose] * fac
+        fujy_extcorr[choose] = fujy[choose] * fac
+        efujy_extcorr[choose] = efujy[choose] * fac
 
     # Final arrays for the light curve
     order = np.argsort(jd)
@@ -165,10 +165,9 @@ def get_last():
 def get_lulin():
     """ Get Lulin observations. Limit is 3-sigma. 
     """
-    dat = np.loadtxt(ddir + "/AT2022tsd_LOT+g.txt")
-    mjd = dat[:,0]
-    mlim = dat[:,1]
-    return mjd,mlim
+    dat = pd.read_csv(ddir + "/AT2022tsd_LOT_SLT.txt", delimiter=' ',
+                      names=['MJD','maglim','filt'])
+    return dat
 
 
 def get_full_opt():
@@ -205,19 +204,34 @@ def get_full_opt():
     ztf_dan = dat.append(add_dict, ignore_index=True)
 
     # Add the Lulin photometry
-    lulin_mjd,lulin_lim = get_lulin() # 3-sigma
+    lulin = get_lulin() # 3-sigma
+    lulin_tel = []
+    for f in lulin['filt'].values:
+        if f=='g':
+            lulin_tel.append('LOT')
+        elif f=='r':
+            lulin_tel.append('SLT')
+        else:
+            print("problem")
     add_dict = {}
-    add_dict['#instrument'] = ['LOT']*len(lulin_mjd)
-    add_dict['mjdstart'] = list(lulin_mjd)
-    add_dict['exp'] = ['300']*len(lulin_mjd) # asking group
-    add_dict['flt'] = ['g']*len(lulin_mjd)
+    add_dict['#instrument'] = lulin_tel
+    add_dict['mjdstart'] = lulin['MJD']
+    add_dict['exp'] = ['300']*len(lulin) # asking group
+    add_dict['flt'] = lulin['filt']
     add_dict['flux'] = '' # not provided
     add_dict['unc'] = '' # not provided
-    add_dict['sig'] = [-99]*len(lulin_mjd) # not provided
-    add_dict['flare'] = ['']*len(lulin_mjd) # none
-    add_dict['mag'] = [99]*len(lulin_mjd) # not provided
-    add_dict['emag'] = [99]*len(lulin_mjd) # not provided
-    add_dict['maglim'] = lulin_lim
+    add_dict['sig'] = [-99]*len(lulin) # not provided
+    add_dict['flare'] = ['']*len(lulin) # none
+    add_dict['mag'] = [99]*len(lulin) # not provided
+    add_dict['emag'] = [99]*len(lulin) # not provided
+    add_dict['maglim'] = lulin['maglim']
+
+    # Correct for MW extinction
+    maglim_extcorr = []
+    for i,b in enumerate(lulin['filt'].values):
+        maglim_extcorr.append(lulin['maglim'].values[i]-vals.ext[b])
+    add_dict['maglim_extcorr'] = maglim_extcorr
+
     add_dict = pd.DataFrame(add_dict)
 
     full_dict = ztf_dan.append(add_dict, ignore_index=True)
@@ -249,12 +263,28 @@ def get_dan_lc():
     isdet = dat['sig']>=SNT # confident detection
     fdet = dat['flux'][isdet]
     efdet = dat['unc'][isdet]
+
+    # Correct for MW extinction
+    f_extcorr = np.copy(dat['flux'].values)
+    ef_extcorr = np.copy(dat['unc'].values)
+    for f in np.unique(dat['flt']):
+        choose = dat['flt'].values==f
+        fac = 10**(vals.ext[f]/2.5)
+        f_extcorr[choose] = dat['flux'].values[choose]*fac
+        ef_extcorr[choose] = dat['unc'].values[choose]*fac
+    dat['flux_extcorr'] = f_extcorr
+    dat['unc_extcorr'] = ef_extcorr
+
     dat.loc[isdet, 'mag'] = -2.5*np.log10(fdet*1E-6)+8.90
     dat.loc[isdet, 'emag'] = (2.5/np.log(10)) * (efdet/fdet)
+    fdet_corr = dat['flux_extcorr'][isdet]
+    dat['mag_extcorr'] = np.copy(dat['mag'])
+    dat.loc[isdet, 'mag_extcorr'] = -2.5*np.log10(fdet_corr*1E-6)+8.90
 
     # Non-detections / upper limits
     # Calculate an upper limit (limiting magnitude) for all exposures
     dat['maglim'] = -2.5*np.log10(dat['unc']*1E-6*SNU)+8.90
+    dat['maglim_extcorr'] = -2.5*np.log10(dat['unc_extcorr']*1E-6*SNU)+8.90
 
     return dat
 

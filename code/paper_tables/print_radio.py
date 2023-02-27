@@ -40,7 +40,8 @@ def print_table():
         rowstr += "%s & "
     rowstr += "%s \\\ \n"
 
-    caption="Radio observations of AT2022tsd."
+    caption="Radio observations of AT2022tsd. Non-detections are reported\
+            as 3-$\sigma$."
 
     outputf = open("paper_table_%s.txt" %label, "w")
     outputf.write("\\begin{center} \n")
