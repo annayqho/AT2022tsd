@@ -1,11 +1,12 @@
-""" Compare the optical LC and spectrum to other classes of 
-extragalactic transients.
+""" Compare the optical LC and spectrum to other classes of transients.
+
 Classes: 
     - CC SN
-    - LFBOTs
-    - TDEs
-    - LGRBs 
+    - LFBOTs (LC done)
+    - TDEs (22cmc LC is red, don't bother)
+    - LGRBs (LCs are red, don't bother)
     - LLGRBs 
+    - Stellar phenomena (CVs, novae)
 """
 
 
@@ -19,7 +20,8 @@ from get_opt import *
 from helpers import bin_lc
 
 
-def plot_22tsd(ax):
+
+def plot_22tsd(ax, show='absolute'):
     """ Plot the extinction-corrected optical LC of AT2022tsd """
     # Get the LC of the baseline transient
     opt = get_full_opt()
@@ -81,7 +83,10 @@ def plot_22tsd(ax):
         yf = -2.5*np.log10(yb/3631)
         eyf = (eyb/yb) * (2.5/np.log(10))
 
-        ax.errorbar(xb/(1+vals.z), yf-vals.dm, eyf, fmt=ms[i], color=cs[i])
+        if show=='absolute':
+            ax.errorbar(xb/(1+vals.z), yf-vals.dm, eyf, fmt=ms[i], color=cs[i])
+        elif show=='apparent':
+            ax.errorbar(xb/(1+vals.z), yf, eyf, fmt=ms[i], color=cs[i])
 
 
 def plot_18cow(ax):
@@ -118,21 +123,67 @@ def plot_20xnd(ax):
     ax.text(15, -17, '20xnd', rotation=-35, fontsize=8)
 
 
+def plot_98bw(ax):
+    """ Plot the LC of SN1998bw """
+    dat = pd.read_csv(
+            "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt/sn1998bw.dat",
+            delimiter=';')
+    dm = Planck18.distmod(z=0.0085).value
+    jd = dat['JD'].values
+    rband = dat['Rcmag'].values
+    erband = dat['e_Rcmag'].values
+    choose = rband!="     "
+    jd = jd[choose]
+    rband = rband[choose].astype(float)
+    erband = erband[choose].astype(float)
+    # Extinction is 0.127 in R-band in this direction
+    ax.plot(jd-jd[0], rband-dm-0.127, color=vals.rc, lw=1, ls=':')
+    ax.text(30, -18.7, '98bw', rotation=-15, fontsize=8)
+
+
+def plot_sn2011kl(ax):
+    """ Plot the LC of the ULGRB counterpart """
+    dat = np.loadtxt("2011kl.txt")
+    t = dat[:,0]
+    m = dat[:,1]
+    em = dat[:,2]
+    ax.plot(t/(1.677), m, c='grey', lw=0.8)
+    ax.text(10, -20, 'SN2011kl', rotation=-15, fontsize=8)
+
+
+def plot_cvs(ax):
+
+
 if __name__=="__main__":
     # Initialize a 2-panel figure
     fig,axarr = plt.subplots(1,2,figsize=(8,3))
 
-    # Optical LC panel
+    # LFBOTs
     ax = axarr[0]
     plot_22tsd(ax)
     plot_18cow(ax)
     plot_20xnd(ax)
+    plot_98bw(ax)
+    plot_sn2011kl(ax)
+    ax.text(0.95, 0.95, "Extragalactic", va='top',
+            ha='right', transform=ax.transAxes, fontsize=9)
 
+    # Format the panel
     ax.invert_yaxis()
     ax.set_xlim(-5, 40)
     ax.set_ylim(-15, -22)
-    ax.set_xlabel("Rest-frame days")
+    ax.set_xlabel("Rest-frame days since explosion")
     ax.set_ylabel("Absolute magnitude")
+
+    # Galactic phenomena
+    ax = axarr[1]
+    plot_22tsd(ax, show='apparent')
+    ax.invert_yaxis()
+    ax.set_xlabel("Rest-frame days since explosion")
+    ax.set_ylabel("Apparent magnitude")
+    #plot_cvs(ax)
 
     plt.tight_layout()
     plt.show()
+    #plt.savefig("compare_opt_lc.png", dpi=200)
+    #plt.close()
