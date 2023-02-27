@@ -244,6 +244,7 @@ if __name__=="__main__":
     plot_cvs(ax)
     ax.text(0.95, 0.95, "CVs / Dwarf Novae", va='top',
             ha='right', transform=ax.transAxes, fontsize=9)
+    ax.set_ylim(22.5,18.9)
 
     ax = axarr[2]
     plot_22tsd(ax, show='apparent')
