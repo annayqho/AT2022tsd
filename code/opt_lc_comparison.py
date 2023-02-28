@@ -214,9 +214,56 @@ def plot_novae(ax):
                     c='lightgrey', alpha=0.5, zorder=0)
 
 
-if __name__=="__main__":
+def compare_opt_lc():
+    """ Three panels, comparing the optical LC to various transients """
     # Initialize a 3-panel figure
     fig,axarr = plt.subplots(1,3,figsize=(10,3))
+
+    # LFBOTs
+    ax = axarr[0]
+    plot_22tsd(ax)
+    plot_18cow(ax)
+    plot_20xnd(ax)
+    plot_98bw(ax)
+    plot_sn2011kl(ax)
+    ax.text(0.95, 0.95, "Extragalactic", va='top',
+            ha='right', transform=ax.transAxes, fontsize=9)
+
+    # Format the panel
+    ax.invert_yaxis()
+    ax.set_xlim(-5, 40)
+    ax.set_ylim(-15, -22)
+    ax.set_xlabel("Rest-frame days since explosion")
+    ax.set_ylabel("Absolute magnitude")
+
+    # Galactic phenomena
+    ax = axarr[1]
+    plot_22tsd(ax, show='apparent')
+    ax.invert_yaxis()
+    ax.set_xlabel("Days")
+    ax.set_ylabel("Apparent magnitude")
+    plot_cvs(ax)
+    ax.text(0.95, 0.95, "CVs / Dwarf Novae", va='top',
+            ha='right', transform=ax.transAxes, fontsize=9)
+    ax.set_ylim(22.5,18.9)
+
+    ax = axarr[2]
+    plot_22tsd(ax, show='apparent')
+    ax.invert_yaxis()
+    ax.set_xlabel("Days")
+    plot_novae(ax)
+    ax.text(0.95, 0.95, "Novae", va='top',
+            ha='right', transform=ax.transAxes, fontsize=9)
+
+    plt.tight_layout()
+    #plt.show()
+    plt.savefig("compare_opt_lc.png", dpi=200)
+    plt.close()
+
+
+    """ Compare the optical spectra to various transients """
+    # Initialize a one-panel figure
+    fig,axarr = plt.subplots(1,1,figsize=(4,6))
 
     # LFBOTs
     ax = axarr[0]

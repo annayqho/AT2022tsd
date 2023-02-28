@@ -65,8 +65,8 @@ if __name__=="__main__":
     wl_lines = get_rest_wl()
 
     # Initialize figure
-    fig = plt.figure(figsize=(6,5))
-    gs = gridspec.GridSpec(2, 3, height_ratios=(1,2))
+    fig = plt.figure(figsize=(6,8))
+    gs = gridspec.GridSpec(3, 3, height_ratios=(1,2,1))
 
     ax = fig.add_subplot(gs[1, :])
     main_spec(ax, wl, flam)
@@ -85,8 +85,8 @@ if __name__=="__main__":
     ax = fig.add_subplot(gs[0, 1])
     panels(ax, [4800, 5050], wl, flam)
     plot_lines(ax, 'oiii', vals.gc)
-    ax.text(0.35, 0.95, '[O III]', ha='left', va='top', transform=ax.transAxes,
-            color=vals.gc)
+    ax.text(0.35, 0.95, '[O III]', ha='left', va='top', 
+            transform=ax.transAxes, color=vals.gc)
     plot_lines(ax, 'hb', vals.rc, lw=2)
     ax.text(0.00, 0.95, r'[H$\beta$]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
@@ -105,6 +105,6 @@ if __name__=="__main__":
             transform=ax.transAxes, color='grey')
 
     #plt.tight_layout()
-    #plt.show()
-    plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
