@@ -126,6 +126,8 @@ def get_rest_wl():
     http://astronomy.nmsu.edu/drewski/tableofemissionlines.html """
     wl_lines = {}
     wl_lines['ha'] = [6562.819]
+    wl_lines['heii'] = [4686]
+    wl_lines['hei'] = [5875]
     wl_lines['hb'] = [4861.333]
     wl_lines['oii'] = [3726.032, 3728.815]
     wl_lines['oiii'] = [4958.911, 5006.843]
