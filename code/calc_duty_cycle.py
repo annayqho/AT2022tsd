@@ -44,8 +44,8 @@ def get_favg(filt, threshold):
     # To be valid for this analysis, limiting magnitude of the image has to be
     # fainter than this threshold. But you have to convert it from 3-sigma
     # to 5-sigma, since you use a 5-sigma threshold to define flares.
-    conversion_value = 2.5*np.log10(5)-2.5*np.log10(3)
-    maglims = use_lc_filt['maglim'] - conversion_value
+    conversion_value = 2.5*np.log10(5)-2.5*np.log10(3) # positive number
+    maglims = use_lc_filt['maglim'] - conversion_value # make lims shallower
     deep_enough = maglims>threshold
     use_lc = use_lc_filt[deep_enough]
 
