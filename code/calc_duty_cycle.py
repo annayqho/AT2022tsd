@@ -68,7 +68,28 @@ def get_favg(filt, threshold):
         return None
 
 
-if __name__=="__main__":
+def get_duration(filt, threshold):
+    """ Get the minimum and maximum flare duration above 
+    a certain limiting magnitude 
+
+    returns
+    -------
+    T_min: minimum flare duration in seconds
+    T_max = maximum flare duration in seconds
+    """
+
+    # For now, let's just adopt some typical minimum and maximum
+    # value, since the diversity of morphologies is highly uncertain.
+    # The OBSERVED minimum is a couple of minutes, so let's say 1 min.
+    # The OBSERVED maximum is a copule of hours, so let's say 3 hours.
+
+    T_min = 60
+    T_max = 3*60*60
+    return T_min, T_max
+
+
+def print_table_for_paper():
+    """ Print a table with all the favg values """
     print("Band & Threshold & $N_\mathrm{exp}$ & $T_\mathrm{exp}$ & $T_\mathrm{on}$/Texp")#& $N_\mathrm{exp,on}/N_\mathrm{exp}$")
     for filt in np.unique(lc['flt']):
         #print("Running for %s" %filt)
@@ -77,3 +98,7 @@ if __name__=="__main__":
             print("$%s$ & %s & %s & %s & %s \\\\" %(
                 filt,threshold,n_sensitive_exposures,int(tot_time/60),
                 '{:.2f}'.format(frac_time_on)))#,'{:.2f}'.format(val),
+
+
+if __name__=="__main__":
+    print(get_favg('g', 24))
