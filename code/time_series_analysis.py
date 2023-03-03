@@ -7,7 +7,7 @@ from astropy.time import Time
 import sys
 import vals
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code/paper_plots")
-from get_opt import get_ipac,get_flares
+from get_opt import *
 from opt_lc import plot_det, plot_lim
 
 
@@ -45,10 +45,17 @@ def autocorr(y):
 
 
 # Get the first flare
-def get_first_flare(dt,f,ef):
+def get_gband_flare():
+    dat = get_full_opt()
+    choose = np.logical_and(
+            dat['#instrument']=='TNT/ULTRASPEC', dat['flt']=='g')
+    dat = dat[choose]
+    f = dat['flux'].values
+    ef = dat['unc'].values
+    dt = dat['mjdstart'].values-dat['mjdstart'].values[0]
+
     # Parameters
     padding = 0.01
-    padding = 0
     sig = 4
 
     isdet = f/ef>=sig
@@ -62,11 +69,34 @@ def get_first_flare(dt,f,ef):
 
 
 # Get the second flare
-def get_second_flare(dt,f,ef):
+def get_rband_flare():
+    dat = get_full_opt()
+    choose = np.logical_and(
+            dat['#instrument']=='TNT/ULTRASPEC', dat['flt']=='r')
+    dat = dat[choose]
+    f = dat['flux'].values
+    ef = dat['unc'].values
+    dt = dat['mjdstart'].values-dat['mjdstart'].values[0]
+
     isdet = f/ef>=5
-    flare_start = min(dt[np.logical_and(isdet, dt>1.72)])-0.01
-    flare_end = max(dt[np.logical_and(isdet, dt<1.79)])+0.02
+    flare_start = min(dt[isdet])-0.01
+    flare_end = max(dt[isdet])+0.02
     choose = np.logical_and(dt>=flare_start, dt<=flare_end)
+    x = dt[choose]
+    y = f[choose]
+    ey = ef[choose]
+    return x,y,ey
+
+
+def get_rband_noise():
+    dat = get_full_opt()
+    choose = np.logical_and(
+            dat['#instrument']=='TNT/ULTRASPEC', dat['flt']=='r')
+    dat = dat[choose]
+    f = dat['flux'].values
+    ef = dat['unc'].values
+    dt = dat['mjdstart'].values-dat['mjdstart'].values[0]
+    choose = dt > 0.08
     x = dt[choose]
     y = f[choose]
     ey = ef[choose]
@@ -201,70 +231,82 @@ def period_search():
 
 
 if __name__=="__main__":
-    #period_search()
-    # load data
-    dat = pd.read_fwf(
-            "../data/opt/flares_lris_ultraspec.txt", comment='#',
-            names=['MJD','Exp','Filter','Flux','Unc'])
-    t0 = 59932
-    dt = dat['MJD'].values-t0
-    f = dat['Flux'].values
-    ef = dat['Unc'].values
-    plt.errorbar(dt, f, ef, fmt='o', c='lightgrey')
+    # Construct a periodogram of the ULTRASPEC flares
 
-    # Get data from the first flare
-    x_obs,y,ey = get_first_flare(dt,f,ef)
+    # testing things
+    #x = np.linspace(0.06, 0.17, 290)
+    #y = np.zeros(len(x))
+    #y[::5] = np.random.random(len(y[::5]))
 
-    # Transform to the rest frame, minutes
-    x_rest = x_obs*86400 / (1+vals.z)
+    #x,y,ey = get_gband_flare()
+    x,y,ey = get_rband_flare()
+    sp = np.fft.fft(y)
+    freq = np.fft.fftfreq(x.shape[-1])
+    dt = x[1]-x[0]
+    freq_phys = freq * (1/dt)
+    choose = freq_phys > 0
+    period_d = 1/freq_phys
+    period_m = period_d*24*60
+    plt.plot(freq_phys[choose], (sp.real[choose])**2, c='k')
 
-    # Lomb-Scargle
-    x_input = x_rest * u.second
-    y_input = y * u.uJy
-    ey_input = ey * u.uJy
-    T = max(x_input)-min(x_input)
-    min_freq = 1/T.value
-    max_freq = (1/24)/2
-    freq_step = 1/(10*T.value)
-    freq_grid = np.arange(min_freq, max_freq, step=freq_step) * u.Hz
-    power = LombScargle(x_input, y_input, ey_input).power(freq_grid)
-    plt.plot(1/freq_grid,power)
-    plt.xlabel("Sec")
+    x,y,ey = get_rband_noise()
+    sp = np.fft.fft(y)
+    freq = np.fft.fftfreq(x.shape[-1])
+    dt = x[1]-x[0]
+    freq_phys = freq * (1/dt)
+    choose = freq_phys > 0
+    period_d = 1/freq_phys
+    period_m = period_d*24*60
+    plt.plot(freq_phys[choose], (sp.real[choose])**2, c='lightgrey')
 
-    pow_x,pow_y = power_spectrum(x_rest,y)
-    
+    plt.ylabel("|DFFT(flux)|$^2$")
+    plt.xlabel("days$^{-1}$")
+    plt.tight_layout()
 
-    # Plot
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.loglog(pow_x,pow_y)
-
-    # Get data from the second flare
-    x_obs,y,ey = get_second_flare(dt,f,ef)
-    x_rest = x_obs / (1+vals.z)
-    pow_x,pow_y = power_spectrum(x_rest,y)
-
-    # Plot
-    ax.loglog(pow_x,pow_y)
-    ax.set_xlabel("Frequency [1/d]")
-    ax.set_ylabel("power spectral density")
-    plt.show()
+#     # Lomb-Scargle
+#     x_input = x_rest * u.second
+#     y_input = y * u.uJy
+#     ey_input = ey * u.uJy
+#     T = max(x_input)-min(x_input)
+#     min_freq = 1/T.value
+#     max_freq = (1/24)/2
+#     freq_step = 1/(10*T.value)
+#     freq_grid = np.arange(min_freq, max_freq, step=freq_step) * u.Hz
+#     power = LombScargle(x_input, y_input, ey_input).power(freq_grid)
+#     plt.plot(1/freq_grid,power)
+#     plt.xlabel("Sec")
 # 
-#     # ACF of the noise
-#     x,y,ey = get_noise(dt,f,ef)
-#     acf = autocorr(y)
-#     plt.plot(acf, drawstyle='steps', c='lightgrey')
+#     # Plot
+#     fig = plt.figure()
+#     ax = fig.add_subplot(111)
+#     ax.loglog(pow_x,pow_y)
 # 
-    # ACF of the shorter flare
-
-
-    acf = autocorr(y)
-    plt.plot(acf, c='lightblue', drawstyle='steps')
-    plt.errorbar(x, y, ey, fmt='o', c='lightblue')
+#     # Get data from the second flare
+#     x_obs,y,ey = get_second_flare(dt,f,ef)
+#     x_rest = x_obs / (1+vals.z)
+#     pow_x,pow_y = power_spectrum(x_rest,y)
 # 
-#     # ACF of the longer flare
-    acf = autocorr(y)
-    plt.plot(acf, ls='-', drawstyle='steps', c='darkblue')
-#     plt.tight_layout()
+#     # Plot
+#     ax.loglog(pow_x,pow_y)
+#     ax.set_xlabel("Frequency [1/d]")
+#     ax.set_ylabel("power spectral density")
 #     plt.show()
+# # 
+# #     # ACF of the noise
+# #     x,y,ey = get_noise(dt,f,ef)
+# #     acf = autocorr(y)
+# #     plt.plot(acf, drawstyle='steps', c='lightgrey')
+# # 
+#     # ACF of the shorter flare
 # 
+# 
+#     acf = autocorr(y)
+#     plt.plot(acf, c='lightblue', drawstyle='steps')
+#     plt.errorbar(x, y, ey, fmt='o', c='lightblue')
+# # 
+# #     # ACF of the longer flare
+#     acf = autocorr(y)
+#     plt.plot(acf, ls='-', drawstyle='steps', c='darkblue')
+# #     plt.tight_layout()
+# #     plt.show()
+# # 
