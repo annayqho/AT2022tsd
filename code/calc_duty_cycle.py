@@ -125,7 +125,7 @@ if __name__=="__main__":
     avg_flare_rates = np.logspace(-1,1)
 
     T = T_min # the lower bound is 
-    avg_flare_rates = np.logspace(1,3)
+    avg_flare_rates = np.logspace(2.5,3)
 
     # Construct a set of burst times that obey a Poisson distribution
     # For Poisson, the time between events is exponentially distributed
