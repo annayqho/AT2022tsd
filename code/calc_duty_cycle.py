@@ -120,12 +120,11 @@ if __name__=="__main__":
     T_min, T_max = get_duration()
 
     ### Which duration to use
-    T = T_max # the lower bound is a rate of 0.2/day
-                # the upper bound is 3.6/day
+    T = T_max # bounds: 0.2/day-3.6/day, duty cycle 0.025-0.45
     avg_flare_rates = np.logspace(-1,1)
 
-    T = T_min # the lower bound is 
-    avg_flare_rates = np.logspace(2.5,3)
+    T = T_min # bounds: 87-290/day, duty cycle 0.06-0.20
+    #avg_flare_rates = np.logspace(1,2)
 
     # Construct a set of burst times that obey a Poisson distribution
     # For Poisson, the time between events is exponentially distributed
@@ -135,7 +134,8 @@ if __name__=="__main__":
     for j,avg_flare_rate in enumerate(avg_flare_rates):
         print("rate %s" %avg_flare_rate)
         duty_cycles = []
-        for i in np.arange(1000):
+        for i in np.arange(600):
+            print(i)
             # Arrival times
             r = random.rand(100000)
             inter_flare_times = -np.log(r)/avg_flare_rate
