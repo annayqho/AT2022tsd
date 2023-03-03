@@ -41,6 +41,8 @@ def get_flaring_lc(filt, threshold):
     deep_enough = maglims>threshold
     use_lc = use_lc_filt[deep_enough]
 
+    use_lc['maglim_5sig'] = maglims
+
     return use_lc
 
 
@@ -75,9 +77,12 @@ def get_favg(use_lc, filt, threshold):
         return None
 
 
-def get_duration():
+def get_duration(maglim):
     """ Get the minimum and maximum flare duration above 
     a certain limiting magnitude 
+
+    I'm basically assuming half the observed minimum,
+    to twice the observed maximum.
 
     returns
     -------
@@ -85,14 +90,21 @@ def get_duration():
     T_max = maximum flare duration in days
     """
 
-    # For now, let's just adopt some typical minimum and maximum
-    # value, since the diversity of morphologies is highly uncertain.
-    # The OBSERVED minimum is a couple of minutes, so let's say 1 min.
-    # The OBSERVED maximum is a copule of hours, so let's say 3 hours.
-
-    T_min = 60
-    T_max = 3*60*60
-    return T_min/86400, T_max/86400
+    if maglim==22.5:
+        T_min = 60
+        T_max = 3*60*60
+        return T_min/86400, T_max/86400
+    elif maglim==24:
+        T_min = 60
+        T_max = 3*60*60
+        return T_min/86400, T_max/86400
+    elif maglim==21:
+        T_min = 10*60
+        T_max = 40*60
+        return T_min/86400, T_max/86400
+    else:
+        print("invalid threshold")
+        return None
 
 
 def print_table_for_paper():
@@ -110,32 +122,29 @@ def print_table_for_paper():
 if __name__=="__main__":
     ### Select your parameters
     filt = 'g'
-    thresh = 22
+    thresh = 24
 
     # Get the the relevant exposures 
     lc = get_flaring_lc(filt,thresh)
 
     # Get basic parameters
     favg = get_favg(lc, filt, thresh) # duty cycle, avg
-    T_min, T_max = get_duration()
+    T_min, T_max = get_duration(thresh)
 
     ### Which duration to use
-    T = T_max # bounds: 0.2/day-3.6/day, duty cycle 0.025-0.45
-    avg_flare_rates = np.logspace(-1,1)
-
-    T = T_min # bounds: 87-290/day, duty cycle 0.06-0.20
-    #avg_flare_rates = np.logspace(1,2)
+    T = T_min
 
     # Construct a set of burst times that obey a Poisson distribution
     # For Poisson, the time between events is exponentially distributed
     tstart = min(lc['mjdstart'])-1 # one day before the start of the window
     tend = max(lc['mjdstart'])+1  # one day after the end of the window
 
+    avg_flare_rates = np.logspace(-1, 1)
     for j,avg_flare_rate in enumerate(avg_flare_rates):
+        print("running for %s, %s mag" %(filt, thresh))
         print("rate %s" %avg_flare_rate)
         duty_cycles = []
-        for i in np.arange(600):
-            print(i)
+        for i in np.arange(1000):
             # Arrival times
             r = random.rand(100000)
             inter_flare_times = -np.log(r)/avg_flare_rate
@@ -158,6 +167,8 @@ if __name__=="__main__":
                         ton += obs_exp[i]
                 duty_cycle = ton / sum(obs_exp)
                 duty_cycles.append(duty_cycle)
+            else:
+                duty_cycles.append(0)
         duty_cycles = np.array(duty_cycles)
         frac_high = sum(duty_cycles>favg)/len(duty_cycles) 
         frac_low = sum(duty_cycles<favg)/len(duty_cycles) 
