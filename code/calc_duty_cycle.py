@@ -2,23 +2,15 @@
 Calculate the duty cycle of the flares for different limiting magnitudes
 """
 
+from numpy import random
+import math
 from scipy.stats import binomtest
 from get_opt import *
 
 
-def get_favg(filt, threshold):
-    """ For a given filter and limiting magnitude, return 
-    f_avg = T_on / T_tot 
-
-    Parameters:
-    -----------
-    filt: filter ('r', 'g', etc)
-    threshold: the limiting magnitude
-
-    Returns:
-    --------
-    favg: the average duty cycle
-    """
+def get_flaring_lc(filt, threshold):
+    """ Get the LC in the range where you think flaring is happening,
+    for a certain filter and threshold """
     # Get the optical photometry
     full_lc = get_full_opt()
 
@@ -34,7 +26,7 @@ def get_favg(filt, threshold):
         full_lc['mjdstart']>=min_mjd, full_lc['mjdstart']<=max_mjd)]
     lc = lc.sort_values(by=['mjdstart'], ignore_index=True, axis=0)
 
-    # Let R = r
+    # Update name of filter
     lc['flt'][lc['flt']=='R'] = ['r']*len(lc[lc['flt']=='R'])
 
     # For the filter and limiting magnitude, identify all relevant exposures
@@ -49,7 +41,22 @@ def get_favg(filt, threshold):
     deep_enough = maglims>threshold
     use_lc = use_lc_filt[deep_enough]
 
-    # Calculate duty cycles
+    return use_lc
+
+
+def get_favg(use_lc, filt, threshold):
+    """ For a given filter and limiting magnitude, return 
+    f_avg = T_on / T_tot 
+
+    Parameters:
+    -----------
+    filt: filter ('r', 'g', etc)
+    threshold: the limiting magnitude
+
+    Returns:
+    --------
+    favg: the average duty cycle
+    """
     nrows = len(use_lc)
     n_sensitive_exposures = nrows
     tot_time = sum(use_lc['exp'].values.astype(float))
@@ -68,14 +75,14 @@ def get_favg(filt, threshold):
         return None
 
 
-def get_duration(filt, threshold):
+def get_duration():
     """ Get the minimum and maximum flare duration above 
     a certain limiting magnitude 
 
     returns
     -------
-    T_min: minimum flare duration in seconds
-    T_max = maximum flare duration in seconds
+    T_min: minimum flare duration in days
+    T_max = maximum flare duration in days
     """
 
     # For now, let's just adopt some typical minimum and maximum
@@ -85,7 +92,7 @@ def get_duration(filt, threshold):
 
     T_min = 60
     T_max = 3*60*60
-    return T_min, T_max
+    return T_min/86400, T_max/86400
 
 
 def print_table_for_paper():
@@ -101,4 +108,60 @@ def print_table_for_paper():
 
 
 if __name__=="__main__":
-    print(get_favg('g', 24))
+    ### Select your parameters
+    filt = 'g'
+    thresh = 22
+
+    # Get the the relevant exposures 
+    lc = get_flaring_lc(filt,thresh)
+
+    # Get basic parameters
+    favg = get_favg(lc, filt, thresh) # duty cycle, avg
+    T_min, T_max = get_duration()
+
+    ### Which duration to use
+    T = T_max # the lower bound is a rate of 0.2/day
+                # the upper bound is 3.6/day
+    avg_flare_rates = np.logspace(-1,1)
+
+    T = T_min # the lower bound is 
+    avg_flare_rates = np.logspace(1,3)
+
+    # Construct a set of burst times that obey a Poisson distribution
+    # For Poisson, the time between events is exponentially distributed
+    tstart = min(lc['mjdstart'])-1 # one day before the start of the window
+    tend = max(lc['mjdstart'])+1  # one day after the end of the window
+
+    for j,avg_flare_rate in enumerate(avg_flare_rates):
+        print("rate %s" %avg_flare_rate)
+        duty_cycles = []
+        for i in np.arange(1000):
+            # Arrival times
+            r = random.rand(100000)
+            inter_flare_times = -np.log(r)/avg_flare_rate
+
+            # Flare start times
+            flare_start_times = tstart+np.cumsum(inter_flare_times)
+            flare_start_times = flare_start_times[flare_start_times<tend]
+
+            if len(flare_start_times)>0:
+                # Flare end times, given the duration
+                flare_end_times = flare_start_times + T
+
+                # Calculate the duty cycle given our observing times
+                obs_times = lc['mjdstart'].values
+                obs_exp = lc['exp'].values
+                ton = 0
+                for i,t in enumerate(obs_times):
+                    det = np.logical_and(t>=flare_start_times, t<=flare_end_times)
+                    if sum(det)>0:
+                        ton += obs_exp[i]
+                duty_cycle = ton / sum(obs_exp)
+                duty_cycles.append(duty_cycle)
+        duty_cycles = np.array(duty_cycles)
+        frac_high = sum(duty_cycles>favg)/len(duty_cycles) 
+        frac_low = sum(duty_cycles<favg)/len(duty_cycles) 
+        if np.logical_or(frac_high>0.975, frac_low>0.975):
+            print("not consistent")
+        else:
+            print("consistent")
