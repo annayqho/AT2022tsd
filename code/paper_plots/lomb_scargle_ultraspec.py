@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 from astropy.time import Time
 from astropy.timeseries import LombScargle
 import sys
+sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
 import vals
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code/paper_plots")
 from get_opt import *
 from opt_lc import plot_det, plot_lim
 
@@ -58,7 +58,7 @@ def get_gband_all():
     f = dat['flux'].values
     ef = dat['unc'].values
     dt = dat['mjdstart'].values-dat['mjdstart'].values[0]
-    return x,y,ey
+    return dt, f, ef
 
 
 def get_rband_flare():
