@@ -17,9 +17,9 @@ def get_gband_flare():
     choose = np.logical_and(
             dat['#instrument']=='TNT/ULTRASPEC', dat['flt']=='g')
     dat = dat[choose]
-    f = dat['flux'].values
-    ef = dat['unc'].values
-    dt = dat['mjdstart'].values-dat['mjdstart'].values[0]
+    f = dat['flux'].values.astype(float)
+    ef = dat['unc'].values.astype(float)
+    dt = np.array(dat['mjdstart'].values-dat['mjdstart'].values[0]).atype(float)
 
     # Parameters
     padding = 0.01
@@ -40,9 +40,9 @@ def get_gband_noise():
     choose = np.logical_and(
             dat['#instrument']=='TNT/ULTRASPEC', dat['flt']=='g')
     dat = dat[choose]
-    f = dat['flux'].values
-    ef = dat['unc'].values
-    dt = dat['mjdstart'].values-dat['mjdstart'].values[0]
+    f = dat['flux'].values.astype(float)
+    ef = dat['unc'].values.astype(float)
+    dt = np.array(dat['mjdstart'].values-dat['mjdstart'].values[0]).astype(float)
     choose = dt < 0.065
     x = dt[choose]
     y = f[choose]
@@ -55,9 +55,9 @@ def get_gband_all():
     choose = np.logical_and(
             dat['#instrument']=='TNT/ULTRASPEC', dat['flt']=='g')
     dat = dat[choose]
-    f = dat['flux'].values
-    ef = dat['unc'].values
-    dt = dat['mjdstart'].values-dat['mjdstart'].values[0]
+    f = dat['flux'].values.astype(float)
+    ef = dat['unc'].values.astype(float)
+    dt = np.array(dat['mjdstart'].values-dat['mjdstart'].values[0]).astype(float)
     return dt, f, ef
 
 
@@ -66,9 +66,9 @@ def get_rband_flare():
     choose = np.logical_and(
             dat['#instrument']=='TNT/ULTRASPEC', dat['flt']=='r')
     dat = dat[choose]
-    f = dat['flux'].values
-    ef = dat['unc'].values
-    dt = dat['mjdstart'].values-dat['mjdstart'].values[0]
+    f = dat['flux'].values.astype(float)
+    ef = dat['unc'].values.astype(float)
+    dt = np.array(dat['mjdstart'].values-dat['mjdstart'].values[0]).astype(float)
 
     isdet = f/ef>=5
     flare_start = min(dt[isdet])-0.01
@@ -85,9 +85,9 @@ def get_rband_all():
     choose = np.logical_and(
             dat['#instrument']=='TNT/ULTRASPEC', dat['flt']=='r')
     dat = dat[choose]
-    f = dat['flux'].values
-    ef = dat['unc'].values
-    dt = dat['mjdstart'].values-dat['mjdstart'].values[0]
+    f = dat['flux'].values.astype(float)
+    ef = dat['unc'].values.astype(float)
+    dt = np.array(dat['mjdstart'].values-dat['mjdstart'].values[0]).astype(float)
     return dt, f, ef
 
 
@@ -96,9 +96,9 @@ def get_rband_noise():
     choose = np.logical_and(
             dat['#instrument']=='TNT/ULTRASPEC', dat['flt']=='r')
     dat = dat[choose]
-    f = dat['flux'].values
-    ef = dat['unc'].values
-    dt = dat['mjdstart'].values-dat['mjdstart'].values[0]
+    f = dat['flux'].values.astype(float)
+    ef = dat['unc'].values.astype(float)
+    dt = np.array(dat['mjdstart'].values-dat['mjdstart'].values[0]).astype(float)
     choose = dt > 0.08
     x = dt[choose]
     y = f[choose]
@@ -112,7 +112,7 @@ def plot_ls(ax, x, y, ey, c='k', lab=""):
     And the false-alarm power (2.5%)
     """
     ls = LombScargle(x, y, ey)
-    frequency, power = ls.autopower()
+    frequency, power = ls.autopower(method='slow') # floating mean
     period_d = 1/frequency
     period_m = period_d*24*60
     ax.plot(period_m, power, c=c, label=lab)
