@@ -1,6 +1,7 @@
 """ Get the X-ray data of AT2022tsd """
 import pandas as pd
 import numpy as np
+from astropy.io import fits as pyfits
 from astropy.time import Time
 import vals
 
@@ -75,8 +76,14 @@ def load_chandra_flares(oid):
     dd = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/xray" 
     ff = dd + "/" + oid + "/repro/xray_flare_lc.txt"
     dat = np.loadtxt(ff)
-    x = dat[:,0]/60
+    x = dat[:,0]/86400 # in days
     y = dat[:,1]
-    xerr = 250/60
+    xerr = 250/86400
     yerr = dat[:,2]
-    return x,y,xerr,yerr
+
+    # Get the t0 in MJD and MET
+    head = pyfits.open(dd + "/%s/repro/acis_bary_evt2.fits" %(oid))[0].header
+    t0_mjd = Time(head['DATE-OBS'], format='isot').mjd
+    t = t0_mjd+x
+
+    return t,x,y,xerr,yerr
