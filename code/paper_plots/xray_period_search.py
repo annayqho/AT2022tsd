@@ -1,4 +1,6 @@
 import matplotlib.pyplot as plt
+import sys
+sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
 import numpy as np
 from astropy.timeseries import LombScargle
 from get_xray import *
@@ -24,9 +26,8 @@ def all():
     ls = LombScargle(dt, y, ey)
     frequency, power = ls.autopower(method='slow', maximum_frequency=1)
     period = (1/frequency) # in minutes
-    plt.plot(period, power, 'k')
     level = ls.false_alarm_level(0.025, method='bootstrap')
-    plt.axhline(y=level, c='lightgrey')
+    return period, power, level
 
 
 def per_obsid():
@@ -50,3 +51,19 @@ def per_obsid():
         #plt.errorbar(x / pmax % 1, y, yerr, fmt='o')
 
     plt.show()
+
+
+if __name__=="__main__":
+    fig, ax = plt.subplots(1,1,figsize=(8,3.5))
+    period, power, level = all()
+    ax.axhline(y=level, c='k', ls='-', lw=2)
+    for n in np.arange(1,9):
+        ax.axvline(x=8.333333/n, c='k', ls='--', lw=0.5, zorder=2)
+    ax.plot(period, power, c='grey', zorder=0)
+    ax.set_xlabel("Period (Minutes)")
+    ax.set_ylabel("Lomb-Scargle Power")
+    ax.set_xscale('log')
+    plt.tight_layout()
+    #plt.savefig("lomb_scargle_xray.png", dpi=300)
+    plt.show()
+    #plt.close()
