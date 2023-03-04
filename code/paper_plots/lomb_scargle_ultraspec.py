@@ -135,8 +135,8 @@ if __name__=="__main__":
     ax.set_ylabel("Lomb-Scargle Power")
     ax.set_xlabel("Minutes")
     ax.set_xscale('log')
-    ax.set_ylim(0, 0.17)
-    ax.set_xlim(0.2, max(x)*24*60)
+    ax.set_ylim(0, 0.19)
+    ax.set_xlim(0.2, 48) # 48 min = 1/dt
     ax.legend(loc='upper left', fontsize=8)
 
     # First panel: g-band flare
@@ -150,11 +150,11 @@ if __name__=="__main__":
     ax.set_ylabel("Lomb-Scargle Power")
     ax.set_xlabel("Minutes")
     ax.set_xscale('log')
-    ax.set_ylim(0, 0.17)
-    ax.set_xlim(0.2, max(x)*24*60)
+    ax.set_ylim(0, 0.19)
+    ax.set_xlim(0.2, 48)
     ax.legend(loc='upper left', fontsize=8)
 
     plt.tight_layout()
-    #plt.savefig("lomb_scargle_periodogram.png", dpi=300)
-    #plt.close()
-    plt.show()
+    plt.savefig("lomb_scargle_periodogram.png", dpi=300)
+    plt.close()
+    #plt.show()
