@@ -68,3 +68,15 @@ def get_exp(i):
     choose = np.logical_and(choose_obsid, choose_mode)
 
     return sum(exp[choose])
+
+
+def load_chandra_flares(oid):
+    """ Get the X-ray flare LC from Chandra """
+    dd = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/xray" 
+    ff = dd + "/" + oid + "/repro/xray_flare_lc.txt"
+    dat = np.loadtxt(ff)
+    x = dat[:,0]/60
+    y = dat[:,1]
+    xerr = 250/60
+    yerr = dat[:,2]
+    return x,y,xerr,yerr
