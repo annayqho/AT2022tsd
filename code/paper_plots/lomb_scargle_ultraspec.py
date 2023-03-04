@@ -19,7 +19,7 @@ def get_gband_flare():
     dat = dat[choose]
     f = dat['flux'].values.astype(float)
     ef = dat['unc'].values.astype(float)
-    dt = np.array(dat['mjdstart'].values-dat['mjdstart'].values[0]).atype(float)
+    dt = np.array(dat['mjdstart'].values-dat['mjdstart'].values[0]).astype(float)
 
     # Parameters
     padding = 0.01
