@@ -181,5 +181,5 @@ def print_table_last():
 
 
 if __name__=="__main__":
-    #print_table_all() # the main table
-    print_table_last() # the table of LAST photometry
+    print_table_all() # the main table
+    #print_table_last() # the table of LAST photometry
