@@ -170,6 +170,49 @@ def get_lulin():
     return dat
 
 
+def get_chimera():
+    """ Get CHIMERA data """
+    inputf = ddir + "/lc_chimera.txt"
+    dat  = pd.read_fwf(inputf)
+
+    # Add a magnitudes column
+    dat['mag'] = [99]*len(dat)
+    dat['emag'] = [99]*len(dat)
+    dat['maglim'] = [99]*len(dat)
+
+    # Detections
+    SNU = 3 # provide 3-sigma U.L.
+    SNT = 3
+    isdet = dat['sig']>=SNT # confident detection
+    fdet = dat['flux'][isdet]
+    efdet = dat['unc'][isdet]
+
+    # Correct for MW extinction
+    f_extcorr = np.copy(dat['flux'].values)
+    ef_extcorr = np.copy(dat['unc'].values)
+    for f in np.unique(dat['flt']):
+        choose = dat['flt'].values==f
+        fac = 10**(vals.ext[f]/2.5)
+        f_extcorr[choose] = dat['flux'].values[choose]*fac
+        ef_extcorr[choose] = dat['unc'].values[choose]*fac
+    dat['flux_extcorr'] = f_extcorr
+    dat['unc_extcorr'] = ef_extcorr
+
+    dat.loc[isdet, 'mag'] = -2.5*np.log10(fdet*1E-6)+8.90
+    dat.loc[isdet, 'emag'] = (2.5/np.log(10)) * (efdet/fdet)
+    fdet_corr = dat['flux_extcorr'][isdet]
+    dat['mag_extcorr'] = np.copy(dat['mag'])
+    dat.loc[isdet, 'mag_extcorr'] = -2.5*np.log10(fdet_corr*1E-6)+8.90
+
+    # Non-detections / upper limits
+    # Calculate an upper limit (limiting magnitude) for all exposures
+    dat['maglim'] = -2.5*np.log10(dat['unc']*1E-6*SNU)+8.90
+    dat['maglim_extcorr'] = -2.5*np.log10(dat['unc_extcorr']*1E-6*SNU)+8.90
+
+    return dat
+
+
+
 def get_full_opt():
     """ Retrieve a table of ALL optical photometry 
     Report upper limits as 3-sigma
@@ -203,6 +246,10 @@ def get_full_opt():
     dat = get_dan_lc() # 3-sigma
     ztf_dan = dat.append(add_dict, ignore_index=True)
 
+    # Add Dan's CHIMERA photometry
+    chimera = get_chimera()
+    ztf_dan_chimera = ztf_dan.append(chimera, ignore_index=True)
+
     # Add the Lulin photometry
     lulin = get_lulin() # 3-sigma
     lulin_tel = []
@@ -234,7 +281,7 @@ def get_full_opt():
 
     add_dict = pd.DataFrame(add_dict)
 
-    full_dict = ztf_dan.append(add_dict, ignore_index=True)
+    full_dict = ztf_dan_chimera.append(add_dict, ignore_index=True)
 
     # Indicate that all rows of this table are single images
     full_dict['nobs'] = [1]*len(full_dict)
