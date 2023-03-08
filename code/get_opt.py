@@ -290,6 +290,10 @@ def get_full_opt():
     full_dict['isflare'] = np.logical_and(full_dict['mjdstart']>59856.4,
                                           full_dict['sig']>5)
 
+    # Mark the transient
+    full_dict['istransient'] = np.logical_and(full_dict['mjdstart']<59856.4,
+                                          full_dict['sig']>3)
+
     return full_dict.sort_values(by=['mjdstart'], ignore_index=True, axis=0)
 
 

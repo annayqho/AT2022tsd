@@ -10,6 +10,8 @@ plt.rcParams["pdf.fonttype"] = 42
 from astropy.time import Time
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
 from get_opt import *
+from get_radio_at2022tsd import *
+from get_xray import *
 import vals
 
 
@@ -49,81 +51,48 @@ def plot_det(ax, x, y, ey, band, lines=False, leg=False):
     ax.errorbar(x, y, ey, c=col, fmt=m, label=lab, ms=s, lw=0.5)
 
 
-def plot_ztf(ax):
-    """ Plot the ZTF photometry
-    """
-    jd,exp,filt,mag,emag,fujy,efujy = get_ipac()
-    dt = jd-vals.t0
-
-    # Plot the g-band detections
-    choose = np.logical_and(filt=='g', emag<99)
-    plot_det(
-            ax, dt[choose], mag[choose]-vals.ext['g'], emag[choose], 
-            'g', lines=False, leg=True)
-
-    # Plot the g-band limits
-    choose = np.logical_and(filt=='g', emag==99)
-    plot_lim(ax, dt[choose], mag[choose]-vals.ext['g'], 'g', leg=True)
-
-    # Plot the r-band detections
-    choose = np.logical_and(filt=='r', emag<99)
-    plot_det(ax, dt[choose], mag[choose]-vals.ext['r'], emag[choose], 'r',
-             lines=False, leg=True)
-
-    # Plot the r-band limits
-    choose = np.logical_and(filt=='r', emag==99)
-    plot_lim(ax, dt[choose], mag[choose]-vals.ext['r'], 'r', leg=True)
-
-    # Plot the i-band detections
-    choose = np.logical_and(filt=='i', emag<99)
-    plot_det(ax, dt[choose], mag[choose]-vals.ext['i'], emag[choose], 'i',
-             lines=False, leg=True)
-
-    # Plot the i-band limits
-    choose = np.logical_and(filt=='i', emag==99)
-    plot_lim(ax, dt[choose], mag[choose]-vals.ext['i'], 'i', leg=True)
-
-
-def plot_non_ztf(ax):
-    """ Add all the non-ZTF photometry """
-
+def plot_full_lc(ax, dat):
+    """ Add all the optical photometry """
     jd = Time(dat['mjdstart'].values, format='mjd').jd
     dt = jd-vals.t0
 
-    isflare = np.logical_or(dat['flare']=='*', dat['flare']=='**')
+    isflare = dat['isflare']
+    istransient = dat['istransient']
     mag = dat['mag']
     limmag = dat['maglim']
     emag = dat['emag']
     filt = dat['flt']
 
-    # Plot the g-band flares
-    choose = np.logical_and(isflare, filt=='g')
-    plot_det(ax,dt[choose],mag[choose]-vals.ext['g'],emag[choose],'g')
+    isdet = np.logical_or(isflare, istransient)
+
+    # Plot the g-band detections
+    choose = np.logical_and(isdet, filt=='g')
+    plot_det(ax,dt[choose],mag[choose]-vals.ext['g'],emag[choose],'g', leg=True)
 
     # Plot the g-band limits
-    choose = np.logical_and(filt=='g', emag==99)
-    plot_lim(ax, dt[choose], limmag[choose]-vals.ext['g'], 'g')
+    choose = np.logical_and(~isdet, filt=='g')
+    plot_lim(ax, dt[choose], limmag[choose]-vals.ext['g'], 'g', leg=True)
 
     # Plot the r-band flares
 
     # HCT is technically R band
     dat.loc[dat['flt']=='R', 'flt'] = 'r'
 
-    choose = np.logical_and(isflare, filt=='r')
-    plot_det(ax,dt[choose],mag[choose]-vals.ext['r'],emag[choose],'r')
+    choose = np.logical_and(isdet, filt=='r')
+    plot_det(ax,dt[choose],mag[choose]-vals.ext['r'],emag[choose],'r', leg=True)
 
     # Plot the r-band limits
-    choose = np.logical_and(filt=='r', emag==99)
-    plot_lim(ax, dt[choose], limmag[choose]-vals.ext['r'], 'r')
+    choose = np.logical_and(filt=='r', ~isdet)
+    plot_lim(ax, dt[choose], limmag[choose]-vals.ext['r'], 'r', leg=True)
 
     # Plot the i-band flares
-    choose = np.logical_and(isflare, filt=='i')
+    choose = np.logical_and(isdet, filt=='i')
     plot_det(ax,dt[choose],mag[choose]-vals.ext['i'],emag[choose],'i',
              leg=True)
 
     # Plot the i-band limits
-    choose = np.logical_and(filt=='i', emag==99)
-    plot_lim(ax, dt[choose], limmag[choose]-vals.ext['i'], 'i')
+    choose = np.logical_and(filt=='i', ~isdet)
+    plot_lim(ax, dt[choose], limmag[choose]-vals.ext['i'], 'i', leg=True)
 
 
 def plot_flares_zoom(ax):
@@ -149,56 +118,76 @@ def plot_flares_zoom(ax):
     plot_det(ax, x-x[0], vLv, ey, 'g')
 
 
-def plot_epoch(ax, xval, txt):
+def plot_epoch(ax, xval, txt, align='center', label=None, ymin=0, ymax=0.05, c='grey', l='-', lw=2):
     """ Plot an epoch: a vertical line at x, labeled with txt 
     xval should be in JD """
-    ax.axvline(x=xval-vals.t0, ymax=0.1, c='grey', ls='--', lw=1)
-    ax.text(
-            xval-vals.t0, 23, txt, ha='center', va='bottom',
-            color='grey', rotation=270, fontsize=8)
+    ax.axvline(
+            x=xval-vals.t0, ymin=ymin, ymax=ymax, 
+            c=c, ls=l, lw=lw, label=label)
+    #ax.text(
+    #        xval-vals.t0, 23.9, txt, ha=align, va='bottom',
+    #        color='grey', rotation=270, fontsize=8)
 
 
 def plot_spec_epochs(ax):
     """ Plot epochs of Keck/LRIS spectroscopy """
     start = 2459846.07834 # from reading the file from Alex's group
-    plot_epoch(ax, start, 'Redshift')
+    plot_epoch(ax, start, '', '', label=None, c='k', lw=2)
 
     # I think the second one was at 10am ET on Thursday Oct 6,
     # from looking at my email
-    #start = Time("2022-10-06T15:00:00", format='isot').jd
-    #ax.axvline(x=start-values.t0, c='grey', ls=':', lw=0.5)
-    #ax.text(
-    #        start-values.t0, 24, 'Keck/LRIS', ha='left', va='bottom',
-    #        color='grey', rotation=270, fontsize=8)
+    start = Time("2022-10-06T15:00:00", format='isot').jd
+    plot_epoch(ax, start, '', '', label='Spec.', c='k', lw=2)
 
 
 def plot_xray_epochs(ax):
     """ Plot timing of X-ray observations """
-    # from the Swift observation log
-    x = Time("2022-10-04T09:13:00", format='isot').jd
-    plot_epoch(ax, x, 'X-ray')
+    xray = load_swift()
+    mjd = xray['!MJD    '].values
+    t = Time(mjd, format='mjd').jd
+
+    ch = load_chandra()
+    tch = np.array([Time(val, format='isot').jd for val in ch['Start'].values])
+
+    tboth = np.hstack((t, tch))
+
+    for i,tval in enumerate(tboth):
+        if i==0:
+            plot_epoch(
+                    ax, tval, 'X-ray', align='center', label='X-ray', 
+                    c='k', l=':', lw=1, ymin=0.1, ymax=0.15)
+        else:
+            plot_epoch(
+                    ax, tval, 'X-ray', align='center', c='k', l=':', lw=1,
+                    ymin=0.1, ymax=0.15)
 
 
 def plot_radio_epochs(ax):
-    x = Time("2022-10-02T00:00:00", format='isot').jd
-    plot_epoch(ax, x, 'Radio')
-
-    #x = Time("2022-10-04T00:00:00", format='isot').jd
-    #ax.axvline(x-values.t0, lw=0.5, c='grey', ls=':')
-    #ax.text(
-    #        x-values.t0, 24, 'Radio/NOEMA', ha='left', va='bottom',
-    #        color='grey', rotation=270, fontsize=8)
+    dat = get_radio() 
+    xs = np.array([Time(val, format='isot').jd for val in dat['Date'].values])
+    for i,x in enumerate(xs):
+        print(x)
+        if i==0:
+            plot_epoch(ax, x, 'Radio', align='right', label='Radio', 
+                       ymin=0.05, ymax=0.1, lw=1)
+        else:
+            plot_epoch(ax, x, 'Radio', align='right', ymin=0.05, ymax=0.1, lw=1)
 
 
 if __name__=="__main__":
+    # Get the full LC 
+    dat = get_full_opt()
+
+    # Get the approximate time of explosion
     t0_str = Time(vals.t0, format='jd').isot.replace("T", " ").split('.')[0]
 
     # Initialize
     fig,ax = plt.subplots(1,1,figsize=(6,3.5))
 
-    # Plot LC with epochs
-    plot_ztf(ax)
-    plot_non_ztf(ax)
+    # Plot LC 
+    plot_full_lc(ax, dat)
+
+    # Plot epochs of various things (spec, x-ray, radio)
     plot_spec_epochs(ax)
     plot_xray_epochs(ax)
     plot_radio_epochs(ax)
@@ -207,13 +196,13 @@ if __name__=="__main__":
     #ax.legend(loc='lower right', ncol=1, fontsize=8)
 
     # Zoom in
-    axins = ax.inset_axes([0.35, 0.15, 0.3, 0.35])
-    plot_flares_zoom(axins)
-    axins.set_xlabel("Minutes (obs. frame)", fontsize=8, labelpad=1)
-    axins.set_ylabel(r"$\nu L_\nu$ (erg s$^{-1}$)", fontsize=8, labelpad=1)
-    axins.tick_params(axis='both', labelsize=8, pad=0.5)
-    axins.set_yscale('log')
-    axins.set_ylim(3E42, 1E44)
+    #axins = ax.inset_axes([0.35, 0.15, 0.3, 0.35])
+    #plot_flares_zoom(axins)
+    #axins.set_xlabel("Minutes (obs. frame)", fontsize=8, labelpad=1)
+    #axins.set_ylabel(r"$\nu L_\nu$ (erg s$^{-1}$)", fontsize=8, labelpad=1)
+    #axins.tick_params(axis='both', labelsize=8, pad=0.5)
+    #axins.set_yscale('log')
+    #axins.set_ylim(3E42, 1E44)
     # rect = patches.Rectangle((98.2, 19.4), 3.6, 3.6, linewidth=0.5, 
     #                          edgecolor='grey', facecolor='none')
     # ax.add_patch(rect)
@@ -255,6 +244,8 @@ if __name__=="__main__":
     ax2.set_ylim((y_f(ymin), y_f(ymax)))
     ax2.tick_params(axis='y', labelsize=10)
     ax2.plot([],[])
+
+    ax.legend(fontsize=7, handletextpad=0.1)
 
     #plt.tight_layout()
     #plt.show()
