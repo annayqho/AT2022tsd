@@ -23,6 +23,8 @@ def plot_lim(ax, x, y, band, leg=False):
     lab = None
     if band=='r':
         col = vals.rc
+    elif band=='w':
+        col = vals.wc
     if leg:
         lab = '$%s$ limit' %band
     ax.scatter(x, y, 
@@ -44,6 +46,9 @@ def plot_det(ax, x, y, ey, band, lines=False, leg=False):
     elif band=='u':
         col = vals.uc
         m = '>'
+    elif band=='w':
+        col = vals.wc
+        m = '<'
     if lines:
         m = '%s-'%m
     if leg:
@@ -58,8 +63,8 @@ def plot_full_lc(ax, dat):
 
     isflare = dat['isflare']
     istransient = dat['istransient']
-    mag = dat['mag']
-    limmag = dat['maglim']
+    mag = dat['mag_extcorr']
+    limmag = dat['maglim_extcorr']
     emag = dat['emag']
     filt = dat['flt']
 
@@ -67,32 +72,39 @@ def plot_full_lc(ax, dat):
 
     # Plot the g-band detections
     choose = np.logical_and(isdet, filt=='g')
-    plot_det(ax,dt[choose],mag[choose]-vals.ext['g'],emag[choose],'g', leg=True)
+    plot_det(ax,dt[choose],mag[choose],emag[choose],'g', leg=True)
 
     # Plot the g-band limits
     choose = np.logical_and(~isdet, filt=='g')
-    plot_lim(ax, dt[choose], limmag[choose]-vals.ext['g'], 'g', leg=True)
+    plot_lim(ax, dt[choose], limmag[choose], 'g', leg=True)
 
-    # Plot the r-band flares
-
+    # Now onto r-band
     # HCT is technically R band
     dat.loc[dat['flt']=='R', 'flt'] = 'r'
 
+    # Plot the r-band flares
     choose = np.logical_and(isdet, filt=='r')
-    plot_det(ax,dt[choose],mag[choose]-vals.ext['r'],emag[choose],'r', leg=True)
+    plot_det(ax,dt[choose],mag[choose],emag[choose],'r', leg=True)
 
     # Plot the r-band limits
     choose = np.logical_and(filt=='r', ~isdet)
-    plot_lim(ax, dt[choose], limmag[choose]-vals.ext['r'], 'r', leg=True)
+    plot_lim(ax, dt[choose], limmag[choose], 'r', leg=True)
 
-    # Plot the i-band flares
+    # Plot the i-band flares ( will include PS 1)
     choose = np.logical_and(isdet, filt=='i')
-    plot_det(ax,dt[choose],mag[choose]-vals.ext['i'],emag[choose],'i',
+    plot_det(ax,dt[choose],mag[choose],emag[choose],'i',
              leg=True)
 
     # Plot the i-band limits
     choose = np.logical_and(filt=='i', ~isdet)
-    plot_lim(ax, dt[choose], limmag[choose]-vals.ext['i'], 'i', leg=True)
+    plot_lim(ax, dt[choose], limmag[choose], 'i', leg=True)
+
+    # Finally, w-band
+    choose = np.logical_and(isdet, filt=='w')
+    plot_det(ax,dt[choose],mag[choose],emag[choose],'w',
+             leg=True)
+    choose = np.logical_and(filt=='w', ~isdet)
+    plot_lim(ax, dt[choose], limmag[choose], 'w', leg=True)
 
 
 def plot_flares_zoom(ax):
@@ -221,13 +233,13 @@ if __name__=="__main__":
     ax.set_ylim(24.5, 18.7)
 
     # Make a second x-axis
-    ax3 = ax.twiny()
-    ax3.set_xlabel(r"Days since %s (rest frame)" %t0_str)
-    x_f = lambda x_i: x_i/(1+float(vals.z))
-    xmin, xmax = ax.get_xlim()
-    ax3.set_xlim((x_f(xmin), x_f(xmax)))
-    ax3.tick_params(axis='x', labelsize=10)
-    ax3.plot([],[])
+    # ax3 = ax.twiny()
+    # ax3.set_xlabel(r"Days since %s (rest frame)" %t0_str)
+    # x_f = lambda x_i: x_i/(1+float(vals.z))
+    # xmin, xmax = ax.get_xlim()
+    # ax3.set_xlim((x_f(xmin), x_f(xmax)))
+    # ax3.tick_params(axis='x', labelsize=10)
+    # ax3.plot([],[])
 
     ax.set_xlabel(
             r"Days since %s (observer frame)" %t0_str,fontsize=10,
@@ -245,7 +257,9 @@ if __name__=="__main__":
     ax2.tick_params(axis='y', labelsize=10)
     ax2.plot([],[])
 
-    ax.legend(fontsize=7, handletextpad=0.1)
+    ax.legend(loc='upper center', fontsize=7, handletextpad=0.1, 
+              bbox_to_anchor=(0.5, 1.15), 
+              ncol=6, fancybox=True)
 
     #plt.tight_layout()
     #plt.show()

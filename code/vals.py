@@ -21,6 +21,7 @@ rc = '#DB4325'
 gc = '#57C4AD'
 ic = '#EDA247'
 uc = '#E6E1BC'
+wc = 'grey'
 
 # Get extinction
 def get_extinction(wave):
