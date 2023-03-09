@@ -229,6 +229,11 @@ def get_panstarrs():
     d['maglim_extcorr'] = dat['maglim_extcorr'].values
 
     df = pd.DataFrame(d)
+
+    # Keep only the dates after 2022-08-25
+    keep = df['mjdstart'] > Time("2022-08-25T00:00:00", format='isot').mjd
+    df = df[keep]
+
     return df
 
 
@@ -313,6 +318,10 @@ def get_full_opt():
     chimera = get_chimera()
     ztf_dan_chimera = ztf_dan.append(chimera, ignore_index=True)
 
+    # Add the PS1 photometry
+    ps1 = get_panstarrs()
+    ztf_dan_chimera_ps1 = ztf_dan_chimera.append(ps1, ignore_index=True)
+
     # Add the Lulin photometry
     lulin = get_lulin() # 3-sigma
     lulin_tel = []
@@ -344,7 +353,7 @@ def get_full_opt():
 
     add_dict = pd.DataFrame(add_dict)
 
-    full_dict = ztf_dan_chimera.append(add_dict, ignore_index=True)
+    full_dict = ztf_dan_chimera_ps1.append(add_dict, ignore_index=True)
 
     # Indicate that all rows of this table are single images
     full_dict['nobs'] = [1]*len(full_dict)
