@@ -1,4 +1,11 @@
+import numpy as np
 from astropy.cosmology import Planck18
+from astropy.coordinates import SkyCoord
+import extinction
+from dustmaps.sfd import SFDQuery
+from dustmaps.config import config
+config['data_dir'] = '/Users/annaho/Dropbox/astro/tools/scanning/sfddata-master/'
+
 
 # Important values
 ra = 50.045308 
@@ -14,6 +21,17 @@ rc = '#DB4325'
 gc = '#57C4AD'
 ic = '#EDA247'
 uc = '#E6E1BC'
+
+# Get extinction
+def get_extinction(wave):
+    # wavelength in AA
+    coords = SkyCoord(ra,dec,unit='deg')
+    sfd = SFDQuery()
+    ebv = sfd(coords)
+    a_v = ebv*2.742 # conversion for V-band (Schlafly & Finkbeiner 2011)
+    ext = extinction.fitzpatrick99(np.array([wave]),a_v,r_v=3.1,unit='aa')
+    return ext[0]
+
 ext = {}
 ext['u'] = 1.162 # Schlafly & Finkbeiner (2011)
 ext['g'] = 0.906 # Schlafly & Finkbeiner (2011)
@@ -29,6 +47,10 @@ sdss_pivot['g'] = 4702.50
 sdss_pivot['r'] = 6175.58
 sdss_pivot['i'] = 7489.98
 keck_leff = {}
-keck_leff['u'] = 3450
-keck_leff['g'] = 4706
-keck_leff['i'] = 7599
+keck_leff['u'] = 3450.0
+keck_leff['g'] = 4706.0
+keck_leff['i'] = 7599.0
+ps1_leff = {}
+ps1_leff['i'] = 7520.0
+ps1_leff['w'] = 6080.0
+ps1_leff['z'] = 8660.0

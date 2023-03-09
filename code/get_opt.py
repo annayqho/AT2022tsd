@@ -170,6 +170,69 @@ def get_lulin():
     return dat
 
 
+def get_panstarrs():
+    """ Get the Pan-STARRS data """
+    inputf = ddir + "/AT2022tsd-PS1-forced.csv"
+    dat  = pd.read_csv(inputf)
+
+    # Add a magnitudes column
+    dat['mag'] = [99]*len(dat)
+    dat['emag'] = [99]*len(dat)
+    dat['maglim'] = [99]*len(dat)
+
+    # Detections
+    SNU = 3 # provide 3-sigma U.L.
+    SNT = 3
+    dat['sig'] = dat['ujy'].values/dat['dujy'].values
+    isdet = dat['sig']>=SNT # confident detection
+    fdet = dat['ujy'][isdet]
+    efdet = dat['dujy'][isdet]
+
+    # Correct for MW extinction
+    f_extcorr = np.copy(dat['ujy'].values)
+    ef_extcorr = np.copy(dat['dujy'].values)
+    for f in np.unique(dat['filter']):
+        choose = dat['filter'].values==f
+        fac = 10**(vals.get_extinction(vals.ps1_leff[f])/2.5)
+        f_extcorr[choose] = dat['ujy'].values[choose]*fac
+        ef_extcorr[choose] = dat['dujy'].values[choose]*fac
+    dat['flux_extcorr'] = f_extcorr
+    dat['unc_extcorr'] = ef_extcorr
+
+    dat.loc[isdet, 'mag'] = -2.5*np.log10(fdet*1E-6)+8.90
+    dat.loc[isdet, 'emag'] = (2.5/np.log(10)) * (efdet/fdet)
+    fdet_corr = dat['flux_extcorr'][isdet]
+    dat['mag_extcorr'] = np.copy(dat['mag'])
+    dat.loc[isdet, 'mag_extcorr'] = -2.5*np.log10(fdet_corr*1E-6)+8.90
+
+    # Non-detections / upper limits
+    # Calculate an upper limit (limiting magnitude) for all exposures
+    dat['maglim'] = -2.5*np.log10(dat['dujy']*1E-6*SNU)+8.90
+    dat['maglim_extcorr'] = -2.5*np.log10(dat['unc_extcorr']*1E-6*SNU)+8.90
+
+    # Now create a new dataframe with the same headings as our other dfs
+    d = {}
+    d['#instrument'] = np.array(['PS1 '+v for v in dat['pscamera'].values])
+    d['mjdstart'] = dat['#mjd'].values
+    d['exp'] = dat['exptime'].values
+    d['flt'] = dat['filter'].values
+    d['flux'] = dat['ujy'].values
+    d['flux_extcorr'] = dat['flux_extcorr'].values
+    d['unc'] = dat['dujy'].values
+    d['unc_extcorr'] = dat['unc_extcorr'].values
+    d['sig'] = np.abs(dat['ujy'].values/dat['dujy'].values)
+    d['flare'] = np.logical_and(d['sig']>5, d['mjdstart']>59856.4)
+    d['mag'] = dat['mag'].values
+    d['mag_extcorr'] = dat['mag_extcorr'].values
+    d['emag'] = dat['emag'].values
+    d['maglim'] = dat['maglim'].values
+    d['maglim_extcorr'] = dat['maglim_extcorr'].values
+
+    df = pd.DataFrame(d)
+    return df
+
+
+
 def get_chimera():
     """ Get CHIMERA data """
     inputf = ddir + "/lc_chimera.txt"
