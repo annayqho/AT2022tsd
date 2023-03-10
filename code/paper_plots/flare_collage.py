@@ -19,8 +19,8 @@ def plot_ultraspec_panel(ax, dat, t0, filt, m, col, plot_binned=False, y2=False)
     # Get ULTRASPEC data
     choose = dat['flt']==filt
     x = dat['mjdstart'][choose].values
-    y = dat['flux'][choose].values
-    ey = dat['unc'][choose].values
+    y = dat['flux_extcorr'][choose].values.astype(float)
+    ey = dat['unc_extcorr'][choose].values.astype(float)
 
     # Marker formatting
     s=2
@@ -88,18 +88,18 @@ def plot_flare(ax, tab, mjd, window=1, unit='Days'):
     # Extract relevant data
     filt = tab['flt'].values
     t = tab['mjdstart'].values
-    fujy = tab['flux'].values
-    efujy = tab['unc'].values
+    fujy = tab['flux_extcorr'].values
+    efujy = tab['unc_extcorr'].values
 
     # Telescope string
     tel_list = []
 
     # Plot
-    cols = [vals.rc, vals.gc, vals.ic, vals.uc]
-    syms = ['o', 's', 'D', '*']
-    ms_scale = [1,1,1,2]
+    cols = [vals.rc, vals.gc, vals.ic, vals.uc, vals.wc]
+    syms = ['o', 's', 'D', '*', '<']
+    ms_scale = [1,1,1,2,1.5]
     done = False
-    for i,b in enumerate(np.array(['r', 'g', 'i', 'u'])):
+    for i,b in enumerate(np.array(['r', 'g', 'i', 'u', 'w'])):
         choose = np.logical_and.reduce((filt==b, t>t0-window, t<t0+window))
         if sum(choose)>0:
             for val in np.unique(tab['#instrument'].values[choose]):
@@ -109,8 +109,7 @@ def plot_flare(ax, tab, mjd, window=1, unit='Days'):
                 fac = 24
             if unit=='Minutes':
                 fac = 24*60
-            corr = 10**(vals.ext[b]/2.5) # extinction
-            ax.errorbar((t[choose]-t0)*fac, fujy[choose]*corr, efujy[choose]*corr, 
+            ax.errorbar((t[choose]-t0)*fac, fujy[choose], efujy[choose], 
                     fmt=syms[i], c=cols[i], label='$%s$' %b, ms=5*ms_scale[i])
 
     t0_str = str(Time(t0, format='mjd').isot).replace('T', ' ')[0:-7]
@@ -123,7 +122,7 @@ def plot_flare(ax, tab, mjd, window=1, unit='Days'):
 
 if __name__=="__main__":
     # Initialize figure
-    fig,axarr = plt.subplots(figsize=(7,7))
+    fig,axarr = plt.subplots(figsize=(7,8))
 
     # Get the optical photometry
     tab = get_full_opt()
@@ -132,7 +131,7 @@ if __name__=="__main__":
     flare_nights = np.unique(tab['mjdstart'][tab['isflare']==True].astype(int))
     tab['flare_nights'] = tab['mjdstart'].astype(int)
 
-    # There are 10 flare nights. 
+    # There are 12 flare nights. 
 
     # Some custom settings
     windows = (np.ones(len(flare_nights))/24/60)*30
@@ -141,14 +140,14 @@ if __name__=="__main__":
     units[0] = 'Days' # for that first ZTF obs
 
     for i,night in enumerate(flare_nights):
-        if i not in [1,5,6]: # skip three: ZTF i-band, 2xTNT
+        if i not in [1,7,8]: # skip three: ZTF i-band, 2xTNT
             if i < 1:
                 ind = i + 1
-            elif i < 7:
+            elif i < 9:
                 ind = i
             else:
                 ind = i-2
-            ax = plt.subplot(4,4,ind)
+            ax = plt.subplot(5,3,ind)
             t0_str,tel_str = plot_flare(ax, tab, night, window=windows[i],
                                         unit=units[i])
             if i == 0:
@@ -178,7 +177,7 @@ if __name__=="__main__":
 
             # Make a second axis
             scale_y2 = 42
-            if ind < 5:
+            if ind < 7:
                 scale_y2 = 43
             ax2 = ax.twinx()
             leff = vals.sdss_pivot['g'] # use g-band for all
@@ -202,7 +201,7 @@ if __name__=="__main__":
                 ax2.set_yticklabels([0.7,1.1])
 
     # # Plot ULTRASPEC r-band panel
-    ax = plt.subplot(4,1,3)
+    ax = plt.subplot(5,1,4)
     t0 = Time("2022-12-19T15:00:00", format='isot').mjd
     plot_ultraspec_panel(ax, tab, t0, 'r', 'o', vals.rc, y2=True)
     ax.set_xlabel("Hours since 12-19 15:00", fontsize=9)
@@ -223,7 +222,7 @@ if __name__=="__main__":
     ax.indicate_inset_zoom(axins, edgecolor="grey")
 
     # Plot ULTRASPEC g-band panel
-    ax = plt.subplot(4,1,4)
+    ax = plt.subplot(5,1,5)
     t0 = Time("2022-12-20T15:00:00", format='isot').mjd
     plot_ultraspec_panel(ax, tab[tab['#instrument']=='TNT/ULTRASPEC'], 
                          t0, 'g', 's', vals.gc, y2=True)
@@ -247,19 +246,19 @@ if __name__=="__main__":
     axins.set_yticks([])
 
     # Add an axis just for the legend?
-    ax = plt.subplot(4,4,8)
-    ax.scatter(0,0,c=vals.uc,marker='*',label='$u$',s=60)
-    ax.scatter(0,0,c=vals.gc,marker='s',label='$g$')
-    ax.scatter(0,0,c=vals.rc,marker='o',label='$r$')
-    ax.scatter(0,0,c=vals.ic,marker='D',label='$i$')
-    ax.set_xlim(5,10)
-    ax.axis('off')
-    ax.legend()
+    #ax = plt.subplot(4,4,8)
+    #ax.scatter(0,0,c=vals.uc,marker='*',label='$u$',s=60)
+    #ax.scatter(0,0,c=vals.gc,marker='s',label='$g$')
+    #ax.scatter(0,0,c=vals.rc,marker='o',label='$r$')
+    #ax.scatter(0,0,c=vals.ic,marker='D',label='$i$')
+    #ax.set_xlim(5,10)
+    #ax.axis('off')
+    #ax.legend()
 
     plt.subplots_adjust(wspace=0.4, hspace=0.5)
-    #plt.show()
-    plt.savefig("flares.png", dpi=300, 
-                bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("flares.png", dpi=300, 
+    #            bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
 
 
