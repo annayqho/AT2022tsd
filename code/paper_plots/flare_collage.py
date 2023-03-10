@@ -169,9 +169,9 @@ if __name__=="__main__":
                 axins.set_xlabel("15 min", fontsize=8, labelpad=1)
                 ax.indicate_inset_zoom(axins, edgecolor="grey")
                 ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
-            if i in [0,5,6,7,8,9]:
+            if ind in [1, 7, 8, 9]:
                 ax.axhline(y=0, c='grey', lw=0.5)
-            if np.logical_or(tel_str=='NOT', tel_str=='LT+NOT+ZTF'):
+            if np.logical_or.reduce((ind==1, ind==4, ind==7)):
                 ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
             ax.tick_params(axis='both', labelsize=9, pad=0.5)
 
@@ -189,7 +189,7 @@ if __name__=="__main__":
             ax2.plot([],[])
             #ax2.set_yscale('log')
             ax2.tick_params(axis='both', labelsize=9)
-            if np.logical_or(ind==4, ind==7):
+            if np.logical_or.reduce((ind==3, ind==6, ind==9)):
                 ax2.set_ylabel(
                         r"$\nu L_\nu$ ($10^{%s}$ erg s$^{-1}$)" %scale_y2, fontsize=9,
                         rotation=270, labelpad=15.0)
@@ -208,7 +208,7 @@ if __name__=="__main__":
     ax.text(0.02, 0.95, 'ULTRASPEC $r$-band', transform=ax.transAxes,
             ha='left', va='top', fontsize=8)
     ax.set_xlim(-0.6, 4.3)
-    ax.set_ylim(-6, 33)
+    ax.set_ylim(-6, 60)
     ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
     ax.tick_params(axis='both', labelsize=9, pad=0.5)
 
@@ -231,7 +231,7 @@ if __name__=="__main__":
     ax.set_xlabel("Hours since 12-20 15:00", fontsize=9)
     ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
     ax.set_xlim(0.2, 4.3)
-    ax.set_ylim(-5,22)
+    ax.set_ylim(-5,50)
 
     # Zoom-in to g-band flare
     axins = ax.inset_axes([0.01, 0.35, 0.4, 0.42])
