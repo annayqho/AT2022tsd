@@ -208,7 +208,7 @@ if __name__=="__main__":
     ax.text(0.02, 0.95, 'ULTRASPEC $r$-band', transform=ax.transAxes,
             ha='left', va='top', fontsize=8)
     ax.set_xlim(-0.6, 4.3)
-    ax.set_ylim(-6, 60)
+    ax.set_ylim(-10, 60)
     ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
     ax.tick_params(axis='both', labelsize=9, pad=0.5)
 
@@ -218,7 +218,7 @@ if __name__=="__main__":
     axins.tick_params(axis='both', labelsize=8, pad=0.5)
     axins.set_ylabel("")
     axins.set_xlim(0.6,1.1)
-    axins.set_ylim(-1,32)
+    axins.set_ylim(-1,59)
     ax.indicate_inset_zoom(axins, edgecolor="grey")
 
     # Plot ULTRASPEC g-band panel
@@ -240,7 +240,7 @@ if __name__=="__main__":
     axins.tick_params(axis='both', labelsize=8, pad=0.5)
     axins.set_ylabel("")
     axins.set_xlim(2.5,4.2)
-    axins.set_ylim(-1,21)
+    axins.set_ylim(-3,50)
     ax.indicate_inset_zoom(axins, edgecolor="grey")
     axins.set_xticks([])
     axins.set_yticks([])
@@ -256,9 +256,9 @@ if __name__=="__main__":
     #ax.legend()
 
     plt.subplots_adjust(wspace=0.4, hspace=0.5)
-    plt.show()
-    #plt.savefig("flares.png", dpi=300, 
-    #            bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("flares.png", dpi=300, 
+                bbox_inches='tight', pad_inches=0.1)
+    plt.close()
 
 
