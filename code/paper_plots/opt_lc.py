@@ -194,7 +194,7 @@ if __name__=="__main__":
     t0_str = Time(vals.t0, format='jd').isot.replace("T", " ").split('.')[0]
 
     # Initialize
-    fig,ax = plt.subplots(1,1,figsize=(6,3.5))
+    fig,ax = plt.subplots(1,1,figsize=(6,3))
 
     # Plot LC 
     plot_full_lc(ax, dat)
@@ -258,7 +258,7 @@ if __name__=="__main__":
     ax2.plot([],[])
 
     ax.legend(loc='upper center', fontsize=7, handletextpad=0.1, 
-              bbox_to_anchor=(0.5, 1.15), 
+              bbox_to_anchor=(0.5, 1.20), 
               ncol=6, fancybox=True)
 
     #plt.tight_layout()
