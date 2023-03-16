@@ -334,9 +334,9 @@ def run(ax):
         'cmr.rainforest', 5, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
 
     tde_col = cols[4]
-    lgrb_col = cols[1]
+    lgrb_col = cols[0]
     llgrb_col = cols[3]
-    sn_col = cols[0]
+    sn_col = 'grey'#cols[0]
     cow_col = cols[2]
 
     # Category: TDEs
