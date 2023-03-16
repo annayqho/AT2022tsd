@@ -117,7 +117,7 @@ as well as luminous ($>10^{44}\,$erg\,s$^{-1}$) and steadily fading ($L_X\propto
 In a photometric optical imaging sequence starting at 04:29:57 on 15 December 2022, a hundred days (observer frame) after the initial transient event, we detected\cite{Ho2022_Astronote_Flares} a flare at the position of \at\ across five three-minute Magellan/IMACS $g$-band images, with a peak luminosity of $\nu L_\nu \approx 10^{44}\,$erg\,s$^{-1}$.
 Forced photometry on ZTF and Pan-STARRS survey images at the position of the transient revealed additional flare detections (Figure~\ref{fig:optical-lc}; Methods section \ref{sec:flare-association}).
 Following the IMACS flare detection, we obtained a total of 2470 minutes of optical observations of \at\ on 19 different nights, using nine different telescopes. The duration of each sequence ranged from 10\,min to 4.5\,hr. In total we detected approximately a dozen flares (Figure~\ref{fig:flare-collage}). ULTRASPEC observations revealed flux variations exceeding an order of magnitude on timescales shorter than 20\,s (rest frame), and complex temporal profiles that vary between flares (Figure~\ref{fig:flare-collage}; Section~\ref{sec:flare-morphology}).
-Two different Keck/LRIS observations revealed red flare colors:
+Two different Keck/LRIS observations revealed red flare colors (Methods section \ref{sec:flare-emission-mechanism}):
 $u-I=1.41\pm0.31\,$mag, or $\beta=-1.6\pm0.1$ where
 $f_\nu \propto \nu^{\beta}$ (corrected for Milky Way extinction but not corrected for host attenuation).
 
@@ -389,7 +389,7 @@ should be addressed to Anna Y. Q. Ho (email: annayqho@cornell.edu).
 ZTF data are analyzed daily with the goal of discovering luminous fast blue optical transients similar to AT2018cow.
 Transients are filtered based on age, light-curve timescale, and absolute magnitude (via the best-available host-galaxy redshift estimate).
 AT2022tsd was flagged due to its proximity to a catalogued galaxy with a photometric redshift that implied a high peak luminosity, together with the relatively fast timescale of the optical light curve.
-Keck/LRIS observations enabled a redshift measurement that gave a peak absolute magnitude of $M_{g, \mathrm{peak}}=-20.64\pm0.13$, accounting for Galactic extinction and applying a crude cosmological correction (see Equation~2 in \cite{Ho2020Koala}).
+Keck/LRIS observations enabled a redshift measurement that gave a peak absolute magnitude of $M_{g, \mathrm{peak}}=-20.64\pm0.13$, accounting for Milky Way extinction ($E_{B-V}=A_V/R_V=0.27$ where $R_V=3.1$)\cite{Finkbeiner1999,Schlegel1998,Schlafly2011} and applying a crude cosmological correction.
 With the absolute magnitude confirmed, AT2022tsd clearly lay in the part of optical-transient parameter space that included other LFBOTs (Figure~\ref{fig:opt-phase-space}) so
 multiwavelength (X-ray, decimeter, and submillimeter wavelength) observations were triggered.
 
@@ -410,7 +410,7 @@ The result was $z=0.25666\pm0.00005$.
 
 We searched for a possible GRB counterpart in the 1.8\,d between the last ZTF non-detection (4 Sept; JD 2459826.9464) and the first GOTO detection (6 Sept; JD 2459828.7257). We did not identify any reported burst consistent with the time and position of \at\ in the GCN archive or the Fermi burst catalog. Konus-Wind was taking data throughout this interval, but detected no events consistent with the \at\ position. We adopt a  fluence and flux threshold of $10^{-6}\,$erg\,cm$^{-2}$ and $3\times10^{-7}\,$erg\,cm$^{-2}$\,s$^{-1}$, respectively\cite{Tsvetkova2017},
 giving upper limits of $E_\mathrm{\gamma,iso}<2\times10^{50}\,$erg and $L_{\gamma,\mathrm{iso}}<6\times10^{49}\,$erg\,s$^{-1}$.
-These limits rule out a classical long-duration GRB, but not a low-luminosity GRB\cite{Cano2017}.
+These limits rule out an on-axis classical long-duration GRB, but not an off-axis or low-luminosity GRB\cite{Cano2017}.
 
 \section{Association of Flares with \at}
 \label{sec:flare-association}
@@ -796,6 +796,12 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \makeatother
 
 % Custom ADS Format: \bibitem{%1H%Y} %5l %T. \emph{%j}, \textbf{%V}, %p (%Y). \n
+
+ \bibitem{Finkbeiner1999} Finkbeiner, D. P., Davis, M., \& Schlegel, D. J. Extrapolation of Galactic Dust Emission at 100 Microns to Cosmic Microwave Background Radiation Frequencies Using FIRAS. \emph{\apj}, \textbf{524}, 867 (1999). 
+ 
+ \bibitem{Schlegel1998} Schlegel, D. J., Finkbeiner, D. P., \& Davis, M. Maps of Dust Infrared Emission for Use in Estimation of Reddening and Cosmic Microwave Background Radiation Foregrounds. \emph{\apj}, \textbf{500}, 525 (1998). 
+
+ \bibitem{Schlafly2011} Schlafly, E. F., \& Finkbeiner, D. P. Measuring Reddening with Sloan Digital Sky Survey Stellar Spectra and Recalibrating SFD. \emph{\apj}, \textbf{737}, 103 (2011). 
 
 \bibitem{Chambers2016} Chambers, K. C., et al. The Pan-STARRS1 Surveys. \emph{arXiv e-prints}, \textbf arXiv:1612.05560 (2016). 
 

@@ -3,6 +3,7 @@ from astropy.cosmology import Planck18
 from astropy.coordinates import SkyCoord
 import extinction
 from dustmaps.sfd import SFDQuery
+from dustmaps.planck import PlanckQuery
 from dustmaps.config import config
 config['data_dir'] = '/Users/annaho/Dropbox/astro/tools/scanning/sfddata-master/'
 
