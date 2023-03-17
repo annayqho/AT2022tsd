@@ -12,8 +12,8 @@ def print_table_all():
 
     # Headings
     headings = np.array(
-            ['Date', '$\Delta t$\\footnote{Rest frame}', '$t_\mathrm{exp}$', 
-             'Filter', 
+            ['Start Date', '$\Delta t$\\footnote{Rest frame}', 
+             '$t_\mathrm{exp}$', 'Filter', 
              'Mag\\footnote{Not corrected for Galactic extinction.}', 
              'eMag\\footnote{Upper limits reported as 3-$\sigma$.}', 
              'Instrument', 'Flare?\\footnote{$>5$-$\sigma$ detections.}'])
