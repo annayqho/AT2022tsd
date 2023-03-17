@@ -11,7 +11,7 @@ config['data_dir'] = '/Users/annaho/Dropbox/astro/tools/scanning/sfddata-master/
 # Important values
 ra = 50.045308 
 dec = 8.748872
-t0 = 2459829.9731 # first ZTF detection
+t0 = 2459829.9731713 # first ZTF detection (from IPAC forced phot)
 last_nondet = 2459826.9464 # last ZTF non-detection
 t_flare_onset = 2459856.9 # onset of flaring
 z = 0.25666 # redshift

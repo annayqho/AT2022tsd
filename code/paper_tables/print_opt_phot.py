@@ -12,12 +12,13 @@ def print_table_all():
 
     # Headings
     headings = np.array(
-            ['Date', '$\Delta t$\\footnote{Rest frame}', 'Filter', 
+            ['Date', '$\Delta t$\\footnote{Rest frame}', '$t_\mathrm{exp}$', 
+             'Filter', 
              'Mag\\footnote{Not corrected for Galactic extinction.}', 
              'eMag\\footnote{Upper limits reported as 3-$\sigma$.}', 
              'Instrument', 'Flare?\\footnote{$>5$-$\sigma$ detections.}'])
     unit_headings = np.array(
-            ['(UT)', '(days)', '', 
+            ['(UT)', '(days)', '(sec.)', '',
              '(AB)', '(AB)', '', ''])
     label = "tab:optical-photometry"
 
@@ -63,6 +64,7 @@ def print_table_all():
         jd = Time(mjd, format='mjd').jd
         tel = dat['#instrument'][i]
         filt = dat['flt'][i]
+        exptime = dat['exp'].values[i]
         mag = dat['mag'][i]
         emag = dat['emag'][i]
         limmag = dat['maglim'][i]
@@ -78,7 +80,7 @@ def print_table_all():
         # Filter
         filtstr = filt
         if tel=='ZTF':
-            filtstr = "$\mathrm{ZTF}_{%s}$" %filt
+            filtstr = "${%s}_\mathrm{ZTF}$" %filt
         else:
             filtstr = "$%s$" %filt
 
@@ -98,7 +100,7 @@ def print_table_all():
         if isflare:
             flstr = '*'
 
-        row = rowstr %(tstr,dtstr,filtstr,mstr,emstr,tel,flstr)
+        row = rowstr %(tstr,dtstr,exptime,filtstr,mstr,emstr,tel,flstr)
         print(row)
         outputf.write(row)
 
