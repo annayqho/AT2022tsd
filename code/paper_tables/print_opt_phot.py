@@ -14,12 +14,12 @@ def print_table_all():
     headings = np.array(
             ['Start Date', '$\Delta t$\\footnote{Rest frame}', 
              '$t_\mathrm{exp}$', 'Filter', 
-             'Mag\\footnote{Not corrected for Galactic extinction.}', 
-             'eMag\\footnote{Upper limits reported as 3-$\sigma$.}', 
+             r'$f_\nu$\\footnote{Not corrected for Galactic extinction.}', 
+             r'$\sigma_{f_\nu}$\\footnote{Upper limits reported as 3-$\sigma$.}', 
              'Instrument', 'Flare?\\footnote{$>5$-$\sigma$ detections.}'])
     unit_headings = np.array(
             ['(UT)', '(days)', '(sec.)', '',
-             '(AB)', '(AB)', '', ''])
+             r'($\mu Jy$)', r'($\mu Jy$)', '', ''])
     label = "tab:optical-photometry"
 
     ncol = len(headings)
@@ -66,7 +66,9 @@ def print_table_all():
         filt = dat['flt'][i]
         exptime = dat['exp'].values[i]
         mag = dat['mag'][i]
+        flux = dat['flux'][i]
         emag = dat['emag'][i]
+        eflux = dat['unc'][i]
         limmag = dat['maglim'][i]
         isflare = dat['isflare'][i]
 
@@ -84,23 +86,15 @@ def print_table_all():
         else:
             filtstr = "$%s$" %filt
 
-        # Upper limit
-        is_nondet = np.logical_or.reduce(
-                (emag==99, np.isnan(emag), mag>limmag))
-        if is_nondet:
-            mstr = '$>{:.2f}$'.format(limmag)
-            emstr = '--'
-        # Detection
-        else:
-            mstr = '${:.2f}$'.format(mag)
-            emstr = '${:.2f}$'.format(emag)
+        fstr = '${:.2f}$'.format(flux)
+        efstr = '${:.2f}$'.format(eflux)
 
         # Flare string
         flstr = ''
         if isflare:
             flstr = '*'
 
-        row = rowstr %(tstr,dtstr,exptime,filtstr,mstr,emstr,tel,flstr)
+        row = rowstr %(tstr,dtstr,exptime,filtstr,fstr,efstr,tel,flstr)
         print(row)
         outputf.write(row)
 
