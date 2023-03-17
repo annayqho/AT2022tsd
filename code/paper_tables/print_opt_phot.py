@@ -113,7 +113,7 @@ def print_table_last():
     """ Print the table """
     # Headings
     headings = np.array(
-            ['Date', '$\Delta t$\\footnote{Rest frame}', 
+            ['Date', '$\Delta t$\\footnote{Observer frame}', 
              'Flux\\footnote{Not corrected for Galactic extinction.\
                      ZP=25 (AB), calibrated to Gaia $G_p$ band.}',\
              'eFlux', '\# Frames'])
