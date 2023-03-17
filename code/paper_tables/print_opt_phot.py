@@ -75,7 +75,7 @@ def print_table_all():
                 mjd, format='mjd').isot.replace('T', ' ').split('.')[0]
 
         # Calculate the dt in the observer frame
-        dtstr = '{:.4f}'.format(jd-vals.t0)
+        dtstr = '{:.5f}'.format(jd-vals.t0)
 
         # Filter
         filtstr = filt
