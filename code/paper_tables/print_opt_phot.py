@@ -14,12 +14,12 @@ def print_table_all():
     headings = np.array(
             ['Start Date', '$\Delta t$\\footnote{Rest frame}', 
              '$t_\mathrm{exp}$', 'Filter', 
-             r'$f_\nu$\\footnote{Not corrected for Galactic extinction.}', 
-             r'$\sigma_{f_\nu}$\\footnote{Upper limits reported as 3-$\sigma$.}', 
+             '$f_\\nu$\\footnote{Not corrected for Galactic extinction.}', 
+             '$\sigma_{f_\\nu}$\\footnote{Upper limits reported as 3-$\sigma$.}', 
              'Instrument', 'Flare?\\footnote{$>5$-$\sigma$ detections.}'])
     unit_headings = np.array(
             ['(UT)', '(days)', '(sec.)', '',
-             r'($\mu Jy$)', r'($\mu Jy$)', '', ''])
+             r'($\mu$Jy)', r'($\mu$Jy)', '', ''])
     label = "tab:optical-photometry"
 
     ncol = len(headings)
@@ -68,7 +68,7 @@ def print_table_all():
         mag = dat['mag'][i]
         emag = float(dat['emag'][i])
         print(tel)
-        if tel in ['HCT', 'SLT', 'LOT']:
+        if tel in ['SLT', 'LOT']:
             flux= -99
             eflux = -99
         else:

@@ -146,16 +146,16 @@ def plot_lc(dat,ax):
         ax.plot(x[isdet], y[isdet], lw=1, c=cols[i], zorder=10)
 
         if val==134:
-            ax.text(x[0]/1.02, y[0], str(val),
+            ax.text(x[0]/1.02, y[0], str(val) + 'GHz',
                     ha='right', va='top',fontsize=8,color=cols[i])
         elif val==15:
-            ax.text(x[0]*1.02, y[0], str(val),
+            ax.text(x[0]*1.02, y[0], str(val) + 'GHz',
                     ha='left', va='top',fontsize=8,color=cols[i])
         elif val==77:
-            ax.text(x[0], y[0]*1.02, str(val),
-                    ha='center', va='bottom',fontsize=8,color=cols[i])
+            ax.text(x[-1], y[-1]*1.02, str(val) + 'GHz',
+                    ha='left', va='bottom',fontsize=8,color=cols[i])
         else:
-            ax.text(x[0]/1.02, y[0], str(val),
+            ax.text(x[0]/1.02, y[0], str(val) + 'GHz',
                     ha='right', va='center',fontsize=8,color=cols[i])
 
         # Plot the non-detection
@@ -179,7 +179,7 @@ def plot_lc(dat,ax):
     ax.set_xlabel(r"$\Delta t_\mathrm{rest}$ (d)")
     ax.set_xscale('log')
     ax.set_yscale('log')
-    ax.set_xlim(20,130)
+    ax.set_xlim(18,130)
     ax.set_xticks([20,30,40,60,80,120])
     ax.set_xticklabels([20,30,40,60,80,120])
     ax.set_yticks([0.02,0.05,0.1, 0.2, 0.5])
@@ -196,6 +196,6 @@ if __name__=="__main__":
     ax = axarr[1]
     plot_seds(dat,ax)
 
-    #plt.show()
-    plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
