@@ -72,8 +72,8 @@ def print_table_all():
         tstr = Time(
                 mjd, format='mjd').isot.replace('T', ' ').split('.')[0]
 
-        # Calculate the dt in the rest frame
-        dtstr = '{:.4f}'.format((jd-vals.t0)/(1+vals.z))
+        # Calculate the dt in the observer frame
+        dtstr = '{:.4f}'.format(jd-vals.t0)
 
         # Filter
         filtstr = filt

@@ -116,7 +116,7 @@ as well as luminous ($>10^{44}\,$erg\,s$^{-1}$) and steadily fading ($L_X\propto
 
 In a photometric optical imaging sequence starting at 04:29:57 on 15 December 2022, a hundred days (observer frame) after the initial transient event, we detected\cite{Ho2022_Astronote_Flares} a flare at the position of \at\ across five three-minute Magellan/IMACS $g$-band images, with a peak luminosity of $\nu L_\nu \approx 10^{44}\,$erg\,s$^{-1}$.
 Forced photometry on ZTF and Pan-STARRS survey images at the position of the transient revealed additional flare detections (Figure~\ref{fig:optical-lc}; Methods section \ref{sec:flare-association}).
-Following the IMACS flare detection, we obtained a total of 2470 minutes of optical observations of \at\ on 19 different nights, using nine different telescopes. The duration of each sequence ranged from 10\,min to 4.5\,hr. In total we detected approximately a dozen flares (Figure~\ref{fig:flare-collage}). ULTRASPEC observations revealed flux variations exceeding an order of magnitude on timescales shorter than 20\,s (rest frame), and complex temporal profiles that vary between flares (Figure~\ref{fig:flare-collage}; Section~\ref{sec:flare-morphology}).
+Following the IMACS flare detection, we obtained a total of 2470 minutes of optical observations of \at\ on 19 different nights, using nine different telescopes. The duration of each sequence ranged from 10\,min to 4.5\,hr. In total we detected approximately a dozen flares (Figure~\ref{fig:optical-lc}). ULTRASPEC observations revealed flux variations exceeding an order of magnitude on timescales shorter than 20\,s (rest frame), and complex temporal profiles that vary between flares (Figure~\ref{fig:optical-lc}; Section~\ref{sec:flare-morphology}).
 Two different Keck/LRIS observations revealed red flare colors (Methods section \ref{sec:flare-emission-mechanism}):
 $u-I=1.41\pm0.31\,$mag, or $\beta=-1.6\pm0.1$ where
 $f_\nu \propto \nu^{\beta}$ (corrected for Milky Way extinction but not corrected for host attenuation).
@@ -145,7 +145,7 @@ The detection of flares requires an outflow on-axis that is at least mildly rela
 \centering
     \includegraphics[width=0.8\textwidth]{fig1_flare_zooms.pdf}
 \caption{\textbf{\at\ optical light curve.}
-  The original transient event (top panel, $\Delta t_\mathrm{obs}<28\,$d) was followed by prominent short-duration (minutes to hours) flares with amplitudes of a few to $100\times$. Measurements have been corrected for Milky Way extinction, and error bars are 1-$\sigma$. Upper limits (3-$\sigma$) are shown as open triangles. A crude cosmological correction has been applied to convert to absolute magnitude. Epochs of follow-up observations (optical spectroscopy, X-ray, and radio) are marked in the top panel. For ULTRASPEC observations, points with S/N$>5$ are filled in, and the $g$-band inset shows the light curve smoothed using a 3-minute running average.}
+  The original transient event (top panel, $\Delta t_\mathrm{obs}<28\,$d) was followed by prominent short-duration (minutes to hours) flares with amplitudes of a few to $100\times$. Measurements have been corrected for Milky Way extinction, and error bars are 1-$\sigma$. Upper limits (3-$\sigma$) are shown as open triangles. Epochs of follow-up observations (optical spectroscopy, X-ray, and radio) are marked in the top panel. Absolute magnitude is AB magnitudes of the rest-frame filterband blueshifted by $(1+z)$. For ULTRASPEC observations, points with S/N$>5$ are filled in, and the $g$-band inset shows the light curve smoothed using a 3-minute running average.}
  \label{fig:optical-lc}
 \end{figure*}
 
@@ -405,23 +405,27 @@ These limits rule out an on-axis classical long-duration GRB, but not an off-axi
 \section{Association of Flares with \at}
 \label{sec:flare-association}
 
-It is highly likely that the flares are associated with the initial LFBOT and the X-ray and radio emission. The position of the optical flare is within 0.5'' of the VLA radio position. Furthermore, only one 3.2-sigma detection was recovered in the 600 ZTF exposures obtained prior to the transient event, which is consistent with statistical fluctuations. By contrast, flares were detected in three out of 67 individual 30s exposures obtained after the initial LFBOT. No significant historical activity was observed by either ZTF or Pan-STARRS\cite{Fulton2022} (Methods section \ref{sec:panstarrs}). 
+The best-fit position of the optical flare is \textcolor{red}{Dan to-do from Magellan}. This is consistent with the best-fit position of the radio emission (\textcolor{red}{Anna to-do}), the best-fit position of the X-ray emission (\textcolor{red}{Anna to-do}), and the best-fit position of the original optical transient (the LFBOT; \textcolor{red}{Anna to-do}). 
 
-Given the very likely association, we consider whether the FBOT, the X-ray and radio emission, and the flares could all arise from a foreground source, i.e., whether the coincidence with the $z=0.2567$ galaxy could be a chance alignment. 
+We searched for a history of detections at the position of \at\ using ZTF and Pan-STARRS, as might be expected if the flares arose from a foreground Galactic object. There were 190 images obtained by Pan-STARRS going back 3000 days prior to the first detection of \at, with no significant ($>1.4$-$\sigma$) excess\cite{Fulton2022}. There were 647 images obtained by ZTF going back 1600 days prior to the first detection of \at, with one image having a $>3$-$\sigma$ excess (3.2-$\sigma$). The probability of finding at least one image above 3-$\sigma$ in 647 images is 60\% (from binomial statistics), so this is not statistically significant. By contrast, of the 65 ZTF exposures obtained from JD 2459856.9 to JD 2459969.7, three showed $>3$-$\sigma$ excesses (7.4-$\sigma$, 10.1-$\sigma$, and 3.5-$\sigma$). The probability of finding at least three images above 3-$\sigma$ in 65 images is 0.01\%; the probability of finding at least two images above 5-$\sigma$ (our formal definition of a flare in Table~\ref{tab:optical-photometry}) is $1.7\times10^{-8}$. Therefore, it is highly likely that the initial LFBOT, the X-ray and radio emission, and the flares are all associated. 
+
+We now consider whether it is possible that the LFBOT, the radio and X-ray emission, and the flares all arise from a foreground source, i.e., whether the coincidence with the $z=0.2567$ galaxy could be a chance alignment. 
 Several classes of galactic transients can produce fast optical light curves, minute-timescale variability, and X-ray and radio emission. However, we note that the Galactic latitude of \at\ is 39.2\,deg, and that there is no counterpart recorded in SIMBAD within 30$^{\prime\prime}$. From our imaging sequence, we estimate that any foreground counterpart would have to be $g \gtrsim 24\,$mag. We consider two classes of events that have optical light curves with similar timescales to LFBOTs (Figure~\ref{fig:opt-lc-comparison}): classical novae and dwarf novae.
 
-Classical novae can produce fast optical light curves and multiwavelength emission\cite{Chomiuk2021}. However, we find a classical nova unlikely for several reasons: the peak absolute magnitude of novae ($-5\,$mag to $-10\,$mag\cite{Chomiuk2021}) implies a distance of 1--10\,Mpc for \at, yet there is no galaxy at or near this position; novae typically show prominent spectroscopic features of H$\alpha$ and other species after maximum optical light\cite{Chomiuk2021}, and the LRIS spectra of \at\ show no such features at $z\approx0$ (\ref{fig:spec}); and the observed X-ray flux of \at\ implies a distance of 10--30\,kpc (given the observed X-ray luminosities\cite{Chomiuk2021} of novae: $10^{33}$--$10^{34}\,$erg\,s$^{-1}$) which is at odds with the optical brightness.
+Classical novae can produce fast optical light curves and multiwavelength emission\cite{Chomiuk2021}. However, we find a classical nova unlikely for several reasons: the peak absolute magnitude of novae ($-5\,$mag to $-10\,$mag\cite{Chomiuk2021}) implies a distance of 1--10\,Mpc for \at, yet there is no galaxy at or near this position; novae typically show prominent spectroscopic features of H$\alpha$ and other species after maximum optical light\cite{Chomiuk2021}, and the LRIS spectra of \at\ show no such features at $z\approx0$ (\ref{fig:spec}); and the optical to X-ray luminosity ratio of novae is typically $L_\mathrm{opt}/L_X=10^{5}$--$10^{6}$ (for $>1\,$keV X-rays, which typically become detectable one month post-eruption\cite{Chomiuk2021}) whereas in \at\ we observe $L_\mathrm{opt}/L_X\lesssim1$. 
 
-Dwarf novae, a subclass of cataclysmic variable outbursts, can also have fast day-timescale blue optical light curves; the optical light curve of \at\ is similar to that of classified dwarf novae in ZTF's Bright Transient Survey\cite{PerleyBTS} (\ref{fig:opt-lc-comparison}. The absolute magnitudes of dwarf novae in quiescence range from 8--14\,mag for systems with outburst amplitudes of $\gtrsim4\,$mag, implying a distance to \at\ of 0.6--16\,kpc. At 0.6\,kpc, the X-ray and 10\,GHz radio luminosities of \at\ would be $7\times10^{30}\,$erg\,s$^{-1}$ and $2\times10^{16}$\,erg\,s$^{-1}$\,Hz$^{-1}$, which is in the observed range\cite{Polzin2022,Coppejans2020_CV}. 
+Dwarf novae, a subclass of cataclysmic variable outbursts, can also have fast day-timescale blue optical light curves; the optical light curve of \at\ (while sparsely sampled) is similar to that of classified dwarf novae in ZTF's Bright Transient Survey\cite{PerleyBTS} (\ref{fig:opt-lc-comparison}. The absolute magnitudes of dwarf novae in quiescence range from 8--14\,mag for systems with outburst amplitudes of $\gtrsim4\,$mag\cite{Szkody2021}, implying a distance to \at\ of $\gtrsim1\,$kpc. At 0.6\,kpc, the X-ray and 10\,GHz radio luminosities of \at\ would be $7\times10^{30}\,$erg\,s$^{-1}$ and $2\times10^{16}$\,erg\,s$^{-1}$\,Hz$^{-1}$, which is in the observed range\cite{Polzin2022,Coppejans2020_CV}. 
 However, dwarf novae develop prominent spectroscopic features (particularly Balmer features, HeI, and HeII) after peak light\cite{Morales-Rueda2002,Han2020}, which we do not observe (\ref{fig:spec}). The spectrum does show a feature close to the rest wavelength of HeII; however, this feature is almost certainly dominated by redshifted OII, given that the line ratios are similar in the two spectra, and that we do not see any other He features at $z=0$.
 In addition, to our knowledge there is no dwarf nova with X-ray emission that decays as a power law for so long after the optical outburst; outside the outburst itself, the X-ray luminosity is typically constant\cite{Fertig2011}.
+
+\textcolor{red}{Should also consider M-dwarf flares, since those are known to have durations of minutes (Andreoni et al)}.
 
 Therefore, if \at\ is a foreground source, it would be a highly exotic object, and it would be unlikely for such an unusual stellar system to be aligned with a galaxy. A simpler explanation is that \at\ is extragalactic.
 
 \section{Flare Morphology and Periodicity Search}
 \label{sec:flare-morphology}
 
-The observed optical flares (Figure~\ref{fig:flare-collage}) show a variety of morphologies. The first flare was detected by ZTF on 2022-10-04, with an order-of-magnitude increase in flux from the LT and NOT detections obtained 7.2 hours prior. Information on this flare is limited, as it was only detected in one $r$-band image. However, we can estimate the fade rate using the $g$-band 15 minutes later. Assuming a spectral index of $f_\nu \propto \nu^{-1.6}$, the $r$-band flux decreased by an order of magnitude in 15 minutes.
+The observed optical flares (Figure~\ref{fig:opt-lc}) show a variety of morphologies. The first flare was detected by ZTF on 2022-10-04, with an order-of-magnitude increase in flux from the LT and NOT detections obtained 7.2 hours prior. Information on this flare is limited, as it was only detected in one $r$-band image. However, we can estimate the fade rate using the $g$-band 15 minutes later. Assuming a spectral index of $f_\nu \propto \nu^{-1.6}$, the $r$-band flux decreased by an order of magnitude in 15 minutes.
 
 The second flare was detected by Keck/LRIS, and shows a smooth decline in both $i$-band and $g$-band. The decline is well described by a Gaussian with a constant offset (the underlying transient is contributing to the emission during this epoch; Section~\ref{sec:flare-emission-mechanism}), with $\chi^2_r=0.1$ in $g$-band and $\chi^2_r=0.8$ in $i$-band. The Gaussian has a standard deviation of $\sigma=10.2\pm5.4$ minutes in $g$-band and $\sigma=7.1\pm1.9$ minutes in $i$-band.
 
@@ -436,7 +440,7 @@ Several optical flares have more complex morphologies (LT, Keck $u+i$, and ULTRA
 \section{Flare Duty Cycle}
 \label{sec:flare-duty-cycle}
 
-We estimated the flare duty cycle for different limiting magnitude thresholds, assuming a Poisson distribution for the likelihood of detecting a flare in any given time interval. We performed the calculation in $g$-band, because this is the band with the largest number of detected flares at a variety of magnitude thresholds (Figure~\ref{fig:flare-collage}). 
+We estimated the flare duty cycle for different limiting magnitude thresholds, assuming a Poisson distribution for the likelihood of detecting a flare in any given time interval. We performed the calculation in $g$-band, because this is the band with the largest number of detected flares at a variety of magnitude thresholds (Figure~\ref{fig:optical-lc}). 
 For each threshold, \ref{tab:flare-stats} gives the total number of exposures above that threshold (the number of exposures in which a flare brighter than the threshold could have been detected), the total exposure time of those exposures, and the fraction of time in which a flare was detected. To estimate the uncertainty on the duty cycle, we performed a simulation. We adopted a range of flare durations for each threshold (10--20\,min for 21\,mag, and 1\,min to 3\,hr for 22.5\,mag and 24\,mag), based on what we observed. For each choice of flare duration and average flare frequency, we simulated 1000 sets of flare start times from one day prior to our earliest detected flare to one day after our last detected flare. We calculated what the observed duty cycle would have been, and discarded values of average flare frequency that resulted in $<2.5\%$ of the 1000 trials being above or below our true observed value. We find that the minimum allowed flare duty cycle is $\approx3\%$, while the maximum possible flare duty cycle is 100\% (the upper bound is due to the fact that in our most sensitive set of $g$-band exposures, obtained using Keck/LRIS, a flare was detected in all images.) 
 
 In summary, our data are consistent with a mechanism that is always ``on,'' producing fainter flares all of the time and brighter ($<21\,$mag) flares infrequently (duty cycle 0.2--10\%). However, the data are also consistent with a mechanism that operates only 3\%--10\% of the time. 
@@ -554,9 +558,9 @@ A S/N threshold of 3 was used to identify detections. Non-detections are reporte
 We performed forced photometry on images from the Panoramic Survey Telescope and Rapid Response System (Pan-STARRS1\cite{Chambers2016}).
 The typical PS1 observing sequence is $4\times45$\,sec per night, with the
 four exposures separated over one hour. Filters are $i$, $w$, and $z$ \cite{Tonry2012}.
+We detected two high-significance (X-$\sigma$ and X-$\sigma$) flares (at $\Delta t=
 
-Going back 3000 days prior to the first transient detection, there is no significant pre-discovery activity, i.e., no excess to $>1.4$-$\sigma$ significance, in any of the 190 images taken prior to the first GOTO detection (MJD 59828.2257).
-We detect two high-significance flares (on 59899.35326 and 59909.35975; Figure~\ref{fig:flare-collage}).
+on 59899.35326 and 59909.35975; Figure~\ref{fig:optical-lc}).
 In addition, the high-cadence observations during the transient event show no variability, supporting the idea that there is an underlying ``FBOT'' distinct from the optical flares.
 
 \subsection{Liverpool Telescope}
@@ -796,6 +800,8 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \bibitem{Chambers2016} Chambers, K. C., et al. The Pan-STARRS1 Surveys. \emph{arXiv e-prints}, \textbf arXiv:1612.05560 (2016). 
 
 \bibitem{Tonry2012} Tonry, J. L., et al. The Pan-STARRS1 Photometric System. \emph{\apj}, \textbf{750}, 99 (2012). 
+
+\bibitem{Szkody2021} Szkody, P., et al. Cataclysmic Variables in the Second Year of the Zwicky Transient Facility. \emph{\aj}, \textbf{162}, 94 (2021). 
 
 \bibitem{Perley2011} Perley, R. A., Chandler, C. J., Butler, B. J., \& Wrobel, J. M. The Expanded Very Large Array: A New Telescope for New Science. \emph{\apjl}, \textbf{739}, L1 (2011). 
 
@@ -1041,9 +1047,17 @@ Date & $\Delta t$\footnote{Rest frame} & Filter & Mag\footnote{Not corrected for
 2022-08-30 11:40:48 & -5.3627 & $\mathrm{ZTF}_{r}$ & $>21.72$ & -- & ZTF &  \\ 
 2022-09-02 10:24:50 & -3.0173 & $\mathrm{ZTF}_{g}$ & $>21.73$ & -- & ZTF &  \\ 
 2022-09-02 11:13:20 & -2.9906 & $\mathrm{ZTF}_{r}$ & $>21.72$ & -- & ZTF &  \\ 
+2022-09-02 14:04:59 & -2.8957 & $w$ & $>21.77$ & -- & PS1 GPC2 &  \\ 
+2022-09-02 14:18:53 & -2.8880 & $w$ & $>21.84$ & -- & PS1 GPC2 &  \\ 
+2022-09-02 14:32:53 & -2.8803 & $w$ & $>21.49$ & -- & PS1 GPC2 &  \\ 
+2022-09-02 14:46:58 & -2.8725 & $w$ & $>21.75$ & -- & PS1 GPC2 &  \\ 
 2022-09-04 10:42:53 & -1.4159 & $\mathrm{ZTF}_{r}$ & $>21.45$ & -- & ZTF &  \\ 
 2022-09-07 11:21:22 & 0.9927 & $\mathrm{ZTF}_{r}$ & $20.37$ & $0.13$ & ZTF &  \\ 
 2022-09-07 11:42:36 & 1.0044 & $\mathrm{ZTF}_{g}$ & $20.19$ & $0.09$ & ZTF &  \\ 
+2022-09-07 12:58:01 & 1.0461 & $i$ & $20.48$ & $0.27$ & PS1 GPC2 &  \\ 
+2022-09-07 13:13:40 & 1.0547 & $i$ & $20.52$ & $0.23$ & PS1 GPC2 &  \\ 
+2022-09-07 13:29:15 & 1.0634 & $i$ & $20.48$ & $0.19$ & PS1 GPC2 &  \\ 
+2022-09-07 13:44:58 & 1.0720 & $i$ & $20.63$ & $0.27$ & PS1 GPC2 &  \\ 
 2022-09-18 10:43:24 & 9.7251 & $\mathrm{ZTF}_{g}$ & $>21.61$ & -- & ZTF &  \\ 
 2022-09-18 11:36:05 & 9.7542 & $\mathrm{ZTF}_{g}$ & $21.55$ & $0.36$ & ZTF &  \\ 
 2022-09-20 10:28:05 & 11.3081 & $\mathrm{ZTF}_{r}$ & $21.48$ & $0.36$ & ZTF &  \\ 
@@ -1052,9 +1066,17 @@ Date & $\Delta t$\footnote{Rest frame} & Filter & Mag\footnote{Not corrected for
 2022-09-23 01:55:51 & 13.4123 & $r$ & $21.41$ & $0.20$ & LT/IO:O &  \\ 
 2022-09-23 01:57:50 & 13.4134 & $r$ & $>21.99$ & -- & LT/IO:O &  \\ 
 2022-09-23 01:59:49 & 13.4145 & $r$ & $21.66$ & $0.22$ & LT/IO:O &  \\ 
+2022-09-24 13:09:59 & 14.5806 & $w$ & $22.12$ & $0.30$ & PS1 GPC1 &  \\ 
+2022-09-24 13:29:15 & 14.5913 & $w$ & $21.86$ & $0.30$ & PS1 GPC1 &  \\ 
+2022-09-24 13:48:40 & 14.6020 & $w$ & $21.90$ & $0.22$ & PS1 GPC1 &  \\ 
+2022-09-24 14:08:10 & 14.6128 & $w$ & $21.89$ & $0.27$ & PS1 GPC1 &  \\ 
 2022-09-25 10:35:57 & 15.2913 & $\mathrm{ZTF}_{r}$ & $>21.51$ & -- & ZTF &  \\ 
 2022-09-27 11:06:51 & 16.8999 & $\mathrm{ZTF}_{g}$ & $>21.68$ & -- & ZTF &  \\ 
 2022-09-29 10:37:45 & 18.4753 & $\mathrm{ZTF}_{r}$ & $>21.82$ & -- & ZTF &  \\ 
+2022-09-30 10:47:50 & 19.2766 & $w$ & $>21.52$ & -- & PS1 GPC2 &  \\ 
+2022-09-30 11:04:11 & 19.2857 & $w$ & $>21.33$ & -- & PS1 GPC2 &  \\ 
+2022-09-30 11:24:55 & 19.2971 & $w$ & $>21.52$ & -- & PS1 GPC2 &  \\ 
+2022-09-30 11:41:25 & 19.3063 & $w$ & $>21.26$ & -- & PS1 GPC2 &  \\ 
 2022-10-01 04:42:42 & 19.8706 & $r$ & $>22.29$ & -- & LT/IO:O &  \\ 
 2022-10-01 04:45:00 & 19.8719 & $r$ & $21.78$ & $0.28$ & LT/IO:O &  \\ 
 2022-10-01 04:47:19 & 19.8732 & $r$ & $>21.87$ & -- & LT/IO:O &  \\ 
@@ -1093,6 +1115,10 @@ Date & $\Delta t$\footnote{Rest frame} & Filter & Mag\footnote{Not corrected for
 2022-10-10 10:47:58 & 27.2343 & $\mathrm{ZTF}_{r}$ & $>20.47$ & -- & ZTF &  \\ 
 2022-10-14 09:05:02 & 30.3605 & $\mathrm{ZTF}_{r}$ & $>20.97$ & -- & ZTF &  \\ 
 2022-10-14 11:00:30 & 30.4243 & $\mathrm{ZTF}_{g}$ & $>20.80$ & -- & ZTF &  \\ 
+2022-10-16 12:00:53 & 32.0492 & $i$ & $>20.90$ & -- & PS1 GPC2 &  \\ 
+2022-10-16 12:18:45 & 32.0591 & $i$ & $>20.86$ & -- & PS1 GPC2 &  \\ 
+2022-10-16 12:36:33 & 32.0689 & $i$ & $>20.86$ & -- & PS1 GPC2 &  \\ 
+2022-10-16 12:54:19 & 32.0787 & $i$ & $>20.87$ & -- & PS1 GPC2 &  \\ 
 2022-10-19 08:58:52 & 34.3359 & $\mathrm{ZTF}_{g}$ & $>21.31$ & -- & ZTF &  \\ 
 2022-10-19 10:32:23 & 34.3876 & $i$ & $21.95$ & $0.09$ & KeckI/LRIS & * \\ 
 2022-10-19 10:32:26 & 34.3876 & $g$ & $22.59$ & $0.10$ & KeckI/LRIS & * \\ 
@@ -1127,6 +1153,10 @@ Date & $\Delta t$\footnote{Rest frame} & Filter & Mag\footnote{Not corrected for
 2022-11-14 06:52:40 & 54.9559 & $\mathrm{ZTF}_{r}$ & $>21.11$ & -- & ZTF &  \\ 
 2022-11-16 06:06:01 & 56.5216 & $\mathrm{ZTF}_{g}$ & $>21.01$ & -- & ZTF &  \\ 
 2022-11-16 07:10:16 & 56.5571 & $\mathrm{ZTF}_{r}$ & $>20.32$ & -- & ZTF &  \\ 
+2022-11-16 07:55:06 & 56.5819 & $w$ & $>21.77$ & -- & PS1 GPC1 &  \\ 
+2022-11-16 08:11:54 & 56.5912 & $w$ & $>21.76$ & -- & PS1 GPC1 &  \\ 
+2022-11-16 08:28:41 & 56.6005 & $w$ & $21.66$ & $0.17$ & PS1 GPC1 & * \\ 
+2022-11-16 08:45:31 & 56.6098 & $w$ & $>22.35$ & -- & PS1 GPC1 &  \\ 
 2022-11-18 06:36:18 & 58.1299 & $\mathrm{ZTF}_{r}$ & $>21.48$ & -- & ZTF &  \\ 
 2022-11-18 07:19:57 & 58.1540 & $\mathrm{ZTF}_{g}$ & $>21.53$ & -- & ZTF &  \\ 
 2022-11-20 06:05:53 & 59.7046 & $\mathrm{ZTF}_{g}$ & $>21.35$ & -- & ZTF &  \\ 
@@ -1135,6 +1165,10 @@ Date & $\Delta t$\footnote{Rest frame} & Filter & Mag\footnote{Not corrected for
 2022-11-22 07:35:03 & 61.3454 & $\mathrm{ZTF}_{r}$ & $>21.60$ & -- & ZTF &  \\ 
 2022-11-24 05:59:19 & 62.8840 & $\mathrm{ZTF}_{i}$ & $>20.73$ & -- & ZTF &  \\ 
 2022-11-25 05:16:25 & 63.6561 & $\mathrm{ZTF}_{r}$ & $>21.02$ & -- & ZTF &  \\ 
+2022-11-26 08:38:02 & 64.5632 & $w$ & $21.41$ & $0.14$ & PS1 GPC1 & * \\ 
+2022-11-26 08:55:23 & 64.5728 & $w$ & $>22.27$ & -- & PS1 GPC1 &  \\ 
+2022-11-26 09:14:48 & 64.5836 & $w$ & $>22.46$ & -- & PS1 GPC1 &  \\ 
+2022-11-26 09:37:09 & 64.5959 & $w$ & $>21.88$ & -- & PS1 GPC1 &  \\ 
 2022-11-27 05:21:16 & 65.2503 & $\mathrm{ZTF}_{g}$ & $>21.71$ & -- & ZTF &  \\ 
 2022-11-27 06:26:27 & 65.2863 & $\mathrm{ZTF}_{r}$ & $>21.39$ & -- & ZTF &  \\ 
 2022-11-30 06:53:33 & 67.6885 & $\mathrm{ZTF}_{r}$ & $>21.22$ & -- & ZTF &  \\ 
@@ -2475,6 +2509,14 @@ Date & $\Delta t$\footnote{Rest frame} & Filter & Mag\footnote{Not corrected for
 2022-12-30 01:53:43 & 91.3957 & $g$ & $>23.13$ & -- & NTT/EFOSC &  \\ 
 2022-12-30 01:56:02 & 91.3969 & $r$ & $>23.14$ & -- & NTT/EFOSC &  \\ 
 2023-01-09 02:51:59 & 99.3855 & $\mathrm{ZTF}_{g}$ & $>20.54$ & -- & ZTF &  \\ 
+2023-01-09 07:57:41 & 99.5544 & $i$ & $>20.73$ & -- & PS1 GPC1 &  \\ 
+2023-01-09 07:58:36 & 99.5549 & $i$ & $>20.18$ & -- & PS1 GPC1 &  \\ 
+2023-01-09 08:14:34 & 99.5637 & $i$ & $>21.04$ & -- & PS1 GPC1 &  \\ 
+2023-01-09 08:15:30 & 99.5642 & $i$ & $>20.56$ & -- & PS1 GPC1 &  \\ 
+2023-01-09 08:31:25 & 99.5730 & $i$ & $>20.66$ & -- & PS1 GPC1 &  \\ 
+2023-01-09 08:32:21 & 99.5736 & $i$ & $>20.40$ & -- & PS1 GPC1 &  \\ 
+2023-01-09 08:48:26 & 99.5824 & $i$ & $>20.70$ & -- & PS1 GPC1 &  \\ 
+2023-01-09 08:49:21 & 99.5830 & $i$ & $>20.44$ & -- & PS1 GPC1 &  \\ 
 2023-01-13 03:04:54 & 102.5756 & $\mathrm{ZTF}_{g}$ & $>20.41$ & -- & ZTF &  \\ 
 2023-01-17 07:08:11 & 105.8931 & $g$ & $24.49$ & $0.34$ & KeckI/LRIS &  \\ 
 2023-01-17 07:08:17 & 105.8932 & $i$ & $>23.79$ & -- & KeckI/LRIS &  \\ 

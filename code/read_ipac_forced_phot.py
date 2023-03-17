@@ -11,7 +11,7 @@ from astropy.time import Time
 
 def get_lc():
     # Get the full IPAC forced phot light curve
-    a = pd.read_table("ipac_forced_phot_lc.txt", comment='#', delimiter=' ')
+    a = pd.read_table("ipac_forced_phot.txt", comment='#', delimiter=' ')
 
     # Get the full light curve
     jd = a['jd,'].values
