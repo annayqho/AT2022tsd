@@ -66,9 +66,14 @@ def print_table_all():
         filt = dat['flt'][i]
         exptime = dat['exp'].values[i]
         mag = dat['mag'][i]
-        flux = dat['flux'][i]
-        emag = dat['emag'][i]
-        eflux = dat['unc'][i]
+        emag = float(dat['emag'][i])
+        print(tel)
+        if tel in ['HCT', 'SLT', 'LOT']:
+            flux= -99
+            eflux = -99
+        else:
+            flux = float(dat['flux'][i])
+            eflux = float(dat['unc'][i])
         limmag = dat['maglim'][i]
         isflare = dat['isflare'][i]
 
