@@ -125,7 +125,7 @@ def plot_seds(dat, ax):
 def plot_lc(dat,ax):
     """ Plot the LCs """
     cols = cmr.take_cmap_colors(
-            'cmr.arctic', 9, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
+            'cmr.cosmic', 9, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
 
     nu = dat['Freq_Obs'].astype(int)
 
