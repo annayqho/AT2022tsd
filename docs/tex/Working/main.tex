@@ -568,7 +568,7 @@ We obtained $g$- and $r$-band images of \at\ using the IO:O camera on the Liverp
 \subsection{Himalayan Chandra Telescope}
 \label{sec:HCT}
 
-We observed \at\ with the 2-meter Himalayan Chandra Telescope (HCT) on 2022 December 26 under a Director's Discretionary Time proposal. We obtained a series of five-minute exposures in $R$-band from 13:47 to 20:25, covering almost all of the Chandra observing window. We did not detect any clear flares, with a limiting magnitude per exposure of $R\gtrsim22\,$mag. It is possible that there are some weak flares at the detection threshold, but the detections are not robust due to the variable PSF size and shape over the course of the observation window.
+We observed \at\ with the 2-meter Himalayan Chandra Telescope (HCT) on 2022 December 26 under a Director's Discretionary Time proposal. We obtained a series of five-minute exposures in $R$-band from 13:47 to 20:25, covering almost all of the first Chandra observing window. We did not detect any clear flares, with a limiting magnitude per exposure of $R\gtrsim22\,$mag. It is possible that there are some weak flares at the detection threshold, but the detections are not robust due to the variable PSF size and shape over the course of the observation window.
 
 \subsection{Magellan-Baade Telescope}
 \label{sec:magellan}
@@ -611,8 +611,23 @@ In each image, we also performed forced photometry on all GAIA-DR3 (REF) stars
 within 500" from the transient position.
 These sources were used for the photometric calibration (see Ofek et al. [3] for details).
 
-Since in many cases, we observed the transient location simultaneously with several telescopes, in Table~\ref{tab:last-photometry} we provide a 2\,min binning of the measurements. We did not detect any flares, and in Table~\ref{tab:last-maglim} we give the cumulative amount of minutes collected as a function of limiting magnitude.
+Since in many cases, we observed the transient location simultaneously with several LAST telescopes, in Table~\ref{tab:last-photometry} we provide a 2\,min binning of the measurements. We did not detect any flares, and in Table~\ref{tab:last-maglim} we give the cumulative amount of minutes collected as a function of limiting magnitude.
+
+\ayqh{No image subtraction was performed. Asked Eran about this.}
+
 %Figure~X shows the limiting magnitude (5-sigma the noise) distribution if the 2-min binning.
+
+\subsection{W.~M. Keck Observatory}
+\label{sec:Keck}
+
+We obtained five epochs of observations of \at\ using the Low Resolution Imaging Spectrometer (LRIS) at the W.~M.~Keck Observatory. The first epoch was a 40-min exposure starting at 13:52:48.69 on 2022 September 23. The setup was a 1'' slit, blue grism 600/4000, red grating 400/8500, and dichroic 560. Binning was 1$\times1$ in both red and blue. The wavelength coverage was 3138--10259\,\AA. The data were obtained as part of a program with PI: A. V. Filippenko.
+
+The second epoch was a 40\,min exposure starting at 14:13:16 on 2022 October 6. The setup was a 1'' slit, blue grism 400/3400, red grating 400/8500, and dichroic 560. Binning was 1$\times2$ (spatial, spectral) in the blue and $1\times1$ in the red. The wavelength coverage was 3109--9646\,\AA. The data were obtained as part of a ToO program with PI: R. Margutti. 
+
+We obtained two imaging epochs in $g$- and $I$-band (PI Mansi Kasliwal), each comprising four exposures totaling 20\,min. The first epoch started at 2022 October 19 10:35 and the second epoch started at 2023 Jan 17 07:12. 
+Finally, we obtained one imaging epoch in $u$- and $I$-band (PI Jeff Cooke). The observation comprised five exposures of five minutes each, beginning at 10:36 on 2022 December 29.
+
+All spectra and images were reduced using LPipe\cite{PerleyLPipe}. In order to calibrate the $u$-band images, we obtained a $u$-band observation using LT \ayqh{need Dan to explain.} For each image sequence, we performed image subtraction using the last image of the sequence as the reference. 
 
 \subsection{Very Large Array}
 \label{Methods:VLA}
@@ -727,19 +742,6 @@ Then, point-source fits were performed to each of the five on-target scans. Each
 % \subsection{Calar Alto}
 
 % We obtained observations of ZTF22aaajecp/\at\ under program 22A-2.2-019 (PI: Kann) on 2022 February 18 from 04:54:04 - 06:04:15 UT with CAFOS (Calar Alto Faint Object Spectrograph) mounted on the 2.2m telescope at the Centro Astron\'omico Hispano-Alem\'an (CAHA), Almeria, Spain\cite{2022GCN.31626....1K}. Observing conditions were good but images were influenced by the bright Moon. Twelve images of 120 s integration time each were taken in the SDSS $r^\prime$ and $i^\prime$ bands. We reduced the images following standard procedures in IRAF (bias subtraction, flatfielding, sky subtraction, shifting \& co-adding). The source is well-detected in both bands in each stacked image. Photometry was performed with respect to field stars from the SDSS photometric catalog. Data are presented in \ref{table:photometry}.
-
-
-\subsection{W.~M. Keck Observatory}
-\label{sec:Keck}
-
-We obtained five epochs of observations of \at\ using the Low Resolution Imaging Spectrometer (LRIS) at the W.~M.~Keck Observatory. The first epoch was a 40-min exposure starting at 13:52:48.69 on 2022 September 23. The setup was a 1'' slit, blue grism 600/4000, red grating 400/8500, and dichroic 560. Binning was 1$\times1$ in both red and blue. The wavelength coverage was 3138--10259\,\AA. The data were obtained as part of a program with PI: A. V. Filippenko.
-
-The second epoch was a 40\,min exposure starting at 14:13:16 on 2022 October 6. The setup was a 1'' slit, blue grism 400/3400, red grating 400/8500, and dichroic 560. Binning was 1$\times2$ (spatial, spectral) in the blue and $1\times1$ in the red. The wavelength coverage was 3109--9646\,\AA. The data were obtained as part of a ToO program with PI: R. Margutti. 
-
-We obtained two imaging epochs in $g$- and $I$-band (PI Mansi Kasliwal), each comprising four exposures totaling 20\,min. The first epoch started at 2022 October 19 10:35 and the second epoch started at 2023 Jan 17 07:12. 
-Finally, we obtained one imaging epoch in $u$- and $I$-band (PI Jeff Cooke). The observation comprised five exposures of five minutes each, beginning at 10:36 on 2022 December 29.
-
-All spectra and images were reduced using LPipe\cite{PerleyLPipe}.
 
 \subsection{Neil Gehrels Swift Observatory}
 \label{Methods:Swift}
