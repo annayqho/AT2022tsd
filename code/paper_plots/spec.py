@@ -10,6 +10,9 @@ from get_spec import *
 import vals
 from fit_spectrum import *
 
+single_width = 40
+multi_width = 130
+
 
 def main_spec(ax, wl, flam):
     """ The main spectrum panel """
@@ -62,6 +65,8 @@ if __name__=="__main__":
     # Get data
     wl, flam, eflam = load_spec_1()
     wl = wl/(1+vals.z)
+    wl2, flam2, eflam2 = load_spec_2()
+    wl2 = wl2/(1+vals.z)
     wl_lines = get_rest_wl()
 
     # Initialize figure
@@ -76,24 +81,29 @@ if __name__=="__main__":
 
     # Zoom-in of the OII (left-most) doublet
     ax = fig.add_subplot(gs[0, 0])
-    panels(ax, [3700, 3760], wl, flam)
+    panels(ax, [3725-single_width, 3725+single_width], wl, flam+2E-17)
+    panels(ax, [3725-single_width, 3725+single_width], wl2, flam2)
     plot_lines(ax, 'oii', vals.gc)
     ax.text(0.05, 0.95, '[O II]', ha='left', va='top', transform=ax.transAxes,
             color=vals.gc)
+    ax.set_ylim(0, 1)
 
     # Zoom-in of the middle lines
     ax = fig.add_subplot(gs[0, 1])
-    panels(ax, [4800, 5050], wl, flam)
+    panels(ax, [4930-multi_width, 4930+multi_width], wl, flam+2E-17)
+    panels(ax, [4930-multi_width, 4930+multi_width], wl2, flam2)
     plot_lines(ax, 'oiii', vals.gc)
     ax.text(0.35, 0.95, '[O III]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.gc)
     plot_lines(ax, 'hb', vals.rc, lw=2)
     ax.text(0.00, 0.95, r'[H$\beta$]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
+    ax.set_ylim(0, 0.8)
 
     # Zoom-in of the right lines
     ax = fig.add_subplot(gs[0, 2])
-    panels(ax, [6510, 6770], wl, flam)
+    panels(ax, [6640-multi_width, 6640+multi_width], wl, flam+2E-17)
+    panels(ax, [6640-multi_width, 6640+multi_width], wl2, flam2)
     plot_lines(ax, 'ha', vals.rc, lw=2)
     ax.text(0.01, 0.9, r'[H$\alpha$]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
@@ -101,8 +111,8 @@ if __name__=="__main__":
     ax.text(0.3, 0.95, r'[N II]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.gc)
     plot_lines(ax, 'sii', 'grey', lw=3)
-    ax.text(0.8, 0.85, r'[S II]', ha='center', va='top', 
-            transform=ax.transAxes, color='grey')
+    ax.text(6725, 0.85, r'[S II]', ha='center', va='top', color='grey')
+    ax.set_ylim(0, 1.2)
 
     # Get data assuming z=0
     wl, flam, eflam = load_spec_1()
@@ -111,20 +121,20 @@ if __name__=="__main__":
 
     # Zoom-in of H-alpha at z=0 (6563 AA)
     ax = fig.add_subplot(gs[2, 0])
-    panels(ax, [6500, 6600], wl, flam+0.7E-17)
-    panels(ax, [6500, 6600], wl2, flam2)
+    panels(ax, [6560-single_width, 6560+single_width], wl, flam+0.7E-17)
+    panels(ax, [6560-single_width, 6560+single_width], wl2, flam2)
     plot_lines(ax, 'ha', vals.rc)
     ax.text(0.05, 0.95, r'H$\alpha$', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
-    ax.set_xticks([6520, 6550, 6580])
-    ax.set_xticklabels([6520, 6550, 6580])
+    #ax.set_xticks([6520, 6550, 6580])
+    #ax.set_xticklabels([6520, 6550, 6580])
     ax.set_ylim(0, 0.35)
     ax.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
 
     # Zoom-in of He I 5875
     ax = fig.add_subplot(gs[2, 1])
-    panels(ax, [5820, 5920], wl, flam+2E-17)
-    panels(ax, [5820, 5920], wl2, flam2)
+    panels(ax, [5875-single_width, 5875+single_width], wl, flam+2E-17)
+    panels(ax, [5875-single_width, 5875+single_width], wl2, flam2)
     plot_lines(ax, 'hei', vals.rc)
     ax.text(0.05, 0.95, r'HeI 5875', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
@@ -137,17 +147,17 @@ if __name__=="__main__":
 
     # Zoom-in of He II 4686
     ax = fig.add_subplot(gs[2, 2])
-    panels(ax, [4660, 4700], wl, flam+2E-17)
-    panels(ax, [4660, 4700], wl2, flam2)
+    panels(ax, [4686-single_width, 4686+single_width], wl, flam+2E-17)
+    panels(ax, [4686-single_width, 4686+single_width], wl2, flam2)
     plot_lines(ax, 'heii', vals.rc)
     ax.text(0.05, 0.95, r'HeII 4686', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
     ax.set_ylim(0, 1)
     ax.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
-    ax.set_xticks([4660, 4680, 4700])
-    ax.set_xticklabels([4660, 4680, 4700])
+    #ax.set_xticks([4660, 4680, 4700, 4720])
+    #ax.set_xticklabels([4660, 4680, 4700, 4720])
 
     plt.tight_layout()
-    #plt.show()
-    plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()

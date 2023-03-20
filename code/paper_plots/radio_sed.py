@@ -55,8 +55,10 @@ def plot_seds(dat, ax):
     flux = dat['Flux']
     eflux = dat['eFlux']
 
-    mins = [27,34,41,65,113]
-    maxs = [28,37,45,70,114]
+    print(dt)
+
+    mins = [26,33,40.2,64,112]
+    maxs = [27,36,44.2,69,113]
     markers = ['o', 's', 'D', '>', '*']
     sizes = [5, 5, 5, 6, 10]
 
@@ -80,11 +82,12 @@ def plot_seds(dat, ax):
         if sum(~isdet)>0:
             xval = x[~isdet][0]
             yval = ey[~isdet][0]*5
-            ax.scatter(xval, yval, marker=markers[i], c=cols[i], 
-                       s=sizes[i]*5, zorder=10)
-            ax.arrow(x[~isdet][0],ey[~isdet][0]*5,0,-0.015,
-                     length_includes_head=True,
-                     head_length=0.007, head_width=8, color=cols[i],zorder=10)
+            ax.scatter(xval, yval, marker=markers[i], 
+                       edgecolor=cols[i], facecolor='white',
+                       s=sizes[i]*10, zorder=100)
+            #ax.arrow(x[~isdet][0],ey[~isdet][0]*5,0,-0.015,
+            #         length_includes_head=True,
+            #         head_length=0.007, head_width=8, color=cols[i],zorder=10)
             ax.plot([x[isdet][-1],xval], [y[isdet][-1],yval], 
                     c=cols[i], lw=2, ls='--', zorder=10)
 
@@ -196,6 +199,6 @@ if __name__=="__main__":
     ax = axarr[1]
     plot_seds(dat,ax)
 
-    plt.show()
-    #plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.close()

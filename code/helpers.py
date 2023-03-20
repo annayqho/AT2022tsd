@@ -12,6 +12,16 @@ def logon():
     return s
 
 
+def get_pos(s, name):
+    """ Take median position from alerts """
+    det_alerts = get_dets(s, name)
+    ras = [det['candidate']['ra'] for det in det_alerts]
+    decs = [det['candidate']['dec'] for det in det_alerts]
+    ra = np.median(ras)
+    dec = np.median(decs)
+    return ra,dec
+
+
 def get_dets(s, name):
     q = {"query_type": "find",
          "query": {
