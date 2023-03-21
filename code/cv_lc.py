@@ -197,13 +197,19 @@ def analyze_lc():
                             #f_pair = np.array(f_pair) * 10**(ext)/2.5
                             #ef_pair = np.array(ef_pair) * 10**(ext)/2.5
 
-                            df = f_pair[1]-f_pair[0]
+                            # Look for points with a change of > an OOM
+                            fratio = f_pair[1]/f_pair[0]
+                            high_amp = np.logical_or(fratio>10, fratio<0.1)
+                            # and have significantly different fluxes
+                            df = np.abs(f_pair[1]-f_pair[0])
                             edf = np.sqrt(ef_pair[1]**2+ef_pair[0]**2)
-                            sig = df/edf
-                            if sig>3:
+                            sig = df/edf > 3
+                            # combined requirements
+                            if np.logical_and(high_amp, sig):
                                 print(cv, jdval)
                                 dflux.append(df)
                                 edflux.append(edf)
+                                
 
         #baseline = np.array(baseline)
         #dflux = np.array(dflux)
