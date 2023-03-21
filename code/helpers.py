@@ -40,6 +40,8 @@ def get_dets(s, name):
                      "candidate.field": 1,
                      "candidate.ra": 1,
                      "candidate.dec": 1,
+                     "candidate.distpsnr1": 1,
+                     "candidate.distnr": 1,
              }
          }
          }

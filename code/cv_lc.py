@@ -136,80 +136,105 @@ def analyze_lc():
     sfd = SFDQuery()
 
     for j,cv in enumerate(cvs['Name'].values):
-        # Construct filename
-        f = '../data/opt/ipac_cv/%s.txt' %cv
-        jd,filt,fujy,efujy,mag,emag = read_ipac_forced_phot(f)
-        # Grab obs that have another obs w/in the same night
-        jd_int = jd.astype(int)
-        jd_int_unique, counts = np.unique(jd_int, return_counts=True)
-        keep_jd = counts > 1
-        keep = np.array([jdval in jd_int_unique[keep_jd] for jdval in jd_int])
-        jd = jd[keep]
-        filt = filt[keep]
-        fujy = fujy[keep]
-        efujy = efujy[keep]
-        mag = mag[keep]
-        emag = emag[keep]
-        # For each JD, calculate the baseline
-        baseline = []
-        dflux = []
-        edflux = []
-        jd_int = jd.astype(int)
-        for jdval in np.unique(jd_int):
-            use = jd_int==jdval
-            # Get the observations for that JD 
-            jd_use = jd[use]
-            filt_use = filt[use]
-            fujy_use = fujy[use]
-            efujy_use = efujy[use]
-            mag_use = mag[use]
-            emag_use = emag[use]
-            # Check that the minimum difference is < 0.7d
-            diffs = jd_use[1:]-jd_use[0:-1]
-            if min(diffs)<0.7: # then continue
-                # Check that there is at least one detection
-                sig = fujy_use / efujy_use
-                has_det = sum(sig>5)>0
-                if has_det: # then continue
-                    # Check that there is a significant change in flux over < 0.7d
-                    # Get all pairs of JD, Flux, eFlux
-                    jd_pairs = list(itertools.combinations(jd_use, 2))
-                    f_pairs = list(itertools.combinations(fujy_use, 2))
-                    ef_pairs = list(itertools.combinations(efujy_use, 2))
-                    filt_pairs = list(itertools.combinations(filt_use, 2))
-                    for i,jd_pair in enumerate(jd_pairs):
-                        dt = jd_pair[1]-jd_pair[0]
-                        if dt < 0.7: # short enough
-                            baseline.append(dt)
-                            f_pair = f_pairs[i]
-                            ef_pair = ef_pairs[i]
+        if cv!='ZTF18aaakpbx':
+            print(j)
+            # Construct filename
+            f = '../data/opt/ipac_cv/%s.txt' %cv
+            jd,filt,fujy,efujy,mag,emag = read_ipac_forced_phot(f)
+            # Grab obs that have another obs w/in the same night
+            jd_int = jd.astype(int)
+            jd_int_unique, counts = np.unique(jd_int, return_counts=True)
+            keep_jd = counts > 1
+            keep = np.array([jdval in jd_int_unique[keep_jd] for jdval in jd_int])
+            jd = jd[keep]
+            jd_int = jd.astype(int)
+            filt = filt[keep]
+            fujy = fujy[keep]
+            efujy = efujy[keep]
+            mag = mag[keep]
+            emag = emag[keep]
+            # For each JD, calculate the baseline
+            names = []
+            jdvals = []
+            baseline = []
+            dflux = []
+            edflux = []
+            for jdval in np.unique(jd_int):
+                use = jd_int==jdval
+                # Get the observations for that JD 
+                jd_use = jd[use]
+                filt_use = filt[use]
+                fujy_use = fujy[use]
+                efujy_use = efujy[use]
+                mag_use = mag[use]
+                emag_use = emag[use]
+                # Check that the minimum difference is < 0.7d
+                diffs = jd_use[1:]-jd_use[0:-1]
+                if min(diffs)<0.7: # then continue
+                    # Check that there is at least one detection
+                    sig = fujy_use / efujy_use
+                    has_det = sum(sig>5)>0
+                    if has_det: # then continue
+                        # Check that there is a significant change in flux over < 0.7d
+                        # Get all pairs of JD, Flux, eFlux
+                        jd_pairs = list(itertools.combinations(jd_use, 2))
+                        f_pairs = list(itertools.combinations(fujy_use, 2))
+                        ef_pairs = list(itertools.combinations(efujy_use, 2))
+                        filt_pairs = list(itertools.combinations(filt_use, 2))
+                        for i,jd_pair in enumerate(jd_pairs):
+                            #print("%s/%s" %(i,len(jd_pairs)))
+                            dt = jd_pair[1]-jd_pair[0]
+                            if dt < 0.7: # short enough
+                                baseline.append(dt)
+                                f_pair = f_pairs[i]
+                                ef_pair = ef_pairs[i]
+                                filt_pair = filt_pairs[i]
 
-                            # Get extinction corrected values
-                            #ra = cvs['RA'].values[j]
-                            #dec = cvs['Dec'].values[j]
-                            #coords = SkyCoord(ra,dec,unit='deg')
-                            #ebv = sfd(coords)
-                            #a_v = ebv*2.742 
-                            #filt_pair = filt_pairs[i]
-                            #wave = [vals.ztf_pivot[val] for val in filt_pair]
-                            #ext = extinction.fitzpatrick99(
-                            #        np.array(wave),a_v,r_v=3.1,unit='aa')
-                            #f_pair = np.array(f_pair) * 10**(ext)/2.5
-                            #ef_pair = np.array(ef_pair) * 10**(ext)/2.5
+                                # Get extinction corrected values
+                                # This is important because otherwise you get a bunch of
+                                # gr pairs passing the filter
+                                ra = cvs['RA'].values[j]
+                                dec = cvs['Dec'].values[j]
+                                coords = SkyCoord(ra,dec,unit='deg')
+                                ebv = sfd(coords)
+                                a_v = ebv*2.742 
+                                wave = [vals.ztf_pivot[val] for val in filt_pair]
+                                ext = extinction.fitzpatrick99(
+                                        np.array(wave),a_v,r_v=3.1,unit='aa')
+                                f_pair = np.array(f_pair) * 10**(ext)/2.5
+                                ef_pair = np.array(ef_pair) * 10**(ext)/2.5
 
-                            # Look for points with a change of > an OOM
-                            fratio = f_pair[1]/f_pair[0]
-                            high_amp = np.logical_or(fratio>10, fratio<0.1)
-                            # and have significantly different fluxes
-                            df = np.abs(f_pair[1]-f_pair[0])
-                            edf = np.sqrt(ef_pair[1]**2+ef_pair[0]**2)
-                            sig = df/edf > 3
-                            # combined requirements
-                            if np.logical_and(high_amp, sig):
-                                print(cv, jdval)
-                                dflux.append(df)
-                                edflux.append(edf)
-                                
+                                # Look for points with a change of > an OOM
+                                fratio = np.abs(f_pair[1]/f_pair[0])
+                                high_amp = np.logical_or(fratio>10, fratio<0.1)
+                                # and have significantly different fluxes
+                                df = np.abs(f_pair[1]-f_pair[0])
+                                edf = np.sqrt(ef_pair[1]**2+ef_pair[0]**2)
+                                sig = df/edf > 3
+                                # combined requirements
+                                if np.logical_and(high_amp, sig):
+                                    print(cv, jdval)
+                                    print(fratio)
+                                    print(f_pair)
+                                    print(filt_pair)
+                                    t0 = min(jd_use)
+                                    fs = ['g', 'r', 'i']
+                                    col = ['Aquamarine', 'Crimson', 'Goldenrod']
+                                    for k,f in enumerate(fs):
+                                        choose = filt_use==f
+                                        if sum(choose)>0:
+                                            plt.errorbar((jd_use[choose]-t0)*24*60, fujy_use[choose], efujy_use[choose], fmt='o', c=col[k])
+                                    plt.xlabel("Minutes")
+                                    plt.ylabel("Flux")
+                                    #plt.show()
+                                    plt.title("filt pair: %s, %s" %(filt_pair[0], filt_pair[1]))
+                                    plt.tight_layout()
+                                    plt.savefig("sig_dflux_%s_%s.png" %(cv,jdval))
+                                    plt.close()
+                                    dflux.append(df)
+                                    edflux.append(edf)
+                                    break
+                                    
 
         #baseline = np.array(baseline)
         #dflux = np.array(dflux)

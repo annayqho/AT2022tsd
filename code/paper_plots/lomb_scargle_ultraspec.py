@@ -112,7 +112,8 @@ def plot_ls(ax, x, y, ey, c='k', lab=""):
     And the false-alarm power (2.5%)
     """
     ls = LombScargle(x, y, ey)
-    frequency, power = ls.autopower(method='slow') # floating mean
+    frequency, power = ls.autopower(
+            method='slow', maximum_frequency=30000) # floating mean
     period_d = 1/frequency
     period_m = period_d*24*60
     ax.plot(period_m, power, c=c, label=lab)
@@ -155,6 +156,6 @@ if __name__=="__main__":
     ax.legend(loc='upper left', fontsize=8)
 
     plt.tight_layout()
-    plt.savefig("lomb_scargle_periodogram.png", dpi=300)
-    plt.close()
-    #plt.show()
+    #plt.savefig("lomb_scargle_periodogram.png", dpi=300)
+    #plt.close()
+    plt.show()
