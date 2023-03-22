@@ -50,6 +50,8 @@ def read_ipac_forced_phot(inputf):
     maglim = a['diffmaglim,'].values
     zp = a['zpdiff,'].values
     programid = a['programid,'].values
+    refstart = a['refjdstart,'].values
+    refend = a['refjdend,'].values
 
     # some flux values are NaN
     nan = np.isnan(flux)
@@ -68,7 +70,8 @@ def read_ipac_forced_phot(inputf):
     zp = zp[good]
     fcqf = fcqf[good]
     programid = programid[good]
-    refjdend = a['refjdend,'].values[good]
+    refstart = refstart[good]
+    refend = refend[good]
     ufcqf = np.unique(fcqf)
 
     # Cobble together the LC
@@ -101,8 +104,10 @@ def read_ipac_forced_phot(inputf):
     mag = mag[order]
     emag = emag[order]
     filt = filt_final
+    refstart = refstart[order]
+    refend = refend[order]
 
-    return jd,filt,fujy,efujy,mag,emag
+    return jd,filt,fujy,efujy,mag,emag,refstart,refend
 
 
 def get_forced_phot_lc():
@@ -140,7 +145,8 @@ def analyze_lc():
             print(j)
             # Construct filename
             f = '../data/opt/ipac_cv/%s.txt' %cv
-            jd,filt,fujy,efujy,mag,emag = read_ipac_forced_phot(f)
+            jd,filt,fujy,efujy,mag,emag,refstart,refend = \
+                    read_ipac_forced_phot(f)
             # Grab obs that have another obs w/in the same night
             jd_int = jd.astype(int)
             jd_int_unique, counts = np.unique(jd_int, return_counts=True)
@@ -153,6 +159,7 @@ def analyze_lc():
             efujy = efujy[keep]
             mag = mag[keep]
             emag = emag[keep]
+            refstart = refstart[keep]
             # For each JD, calculate the baseline
             names = []
             jdvals = []
@@ -168,6 +175,7 @@ def analyze_lc():
                 efujy_use = efujy[use]
                 mag_use = mag[use]
                 emag_use = emag[use]
+                refstart_use = refstart[use]
                 # Check that the minimum difference is < 0.7d
                 diffs = jd_use[1:]-jd_use[0:-1]
                 if min(diffs)<0.7: # then continue
@@ -181,10 +189,13 @@ def analyze_lc():
                         f_pairs = list(itertools.combinations(fujy_use, 2))
                         ef_pairs = list(itertools.combinations(efujy_use, 2))
                         filt_pairs = list(itertools.combinations(filt_use, 2))
+                        ref_pairs = list(itertools.combinations(refstart_use, 2))
                         for i,jd_pair in enumerate(jd_pairs):
-                            #print("%s/%s" %(i,len(jd_pairs)))
+                            # only bother with the same filter
+                            same_filt = filt_pairs[0]==filt_pairs[1]
+                            same_ref = ref_pairs[0]==ref_pairs[1]
                             dt = jd_pair[1]-jd_pair[0]
-                            if dt < 0.7: # short enough
+                            if np.logical_and.reduce((same_filt, same_ref, dt < 0.7): # short enough
                                 baseline.append(dt)
                                 f_pair = f_pairs[i]
                                 ef_pair = ef_pairs[i]
