@@ -137,9 +137,6 @@ def analyze_lc():
     forcephot_done = cvs['ForcePhot'].values=='Done'
     cvs = cvs[forcephot_done]
     
-    # Prep for extinction correction
-    sfd = SFDQuery()
-
     for j,cv in enumerate(cvs['Name'].values):
         if cv!='ZTF18aaakpbx':
             print(j)
@@ -160,6 +157,7 @@ def analyze_lc():
             mag = mag[keep]
             emag = emag[keep]
             refstart = refstart[keep]
+            refend = refend[keep]
             # For each JD, calculate the baseline
             names = []
             jdvals = []
@@ -176,6 +174,7 @@ def analyze_lc():
                 mag_use = mag[use]
                 emag_use = emag[use]
                 refstart_use = refstart[use]
+                refend_use = refend[use]
                 # Check that the minimum difference is < 0.7d
                 diffs = jd_use[1:]-jd_use[0:-1]
                 if min(diffs)<0.7: # then continue
@@ -189,31 +188,23 @@ def analyze_lc():
                         f_pairs = list(itertools.combinations(fujy_use, 2))
                         ef_pairs = list(itertools.combinations(efujy_use, 2))
                         filt_pairs = list(itertools.combinations(filt_use, 2))
-                        ref_pairs = list(itertools.combinations(refstart_use, 2))
+                        refstart_pairs = list(itertools.combinations(refstart_use, 2))
+                        refend_pairs = list(itertools.combinations(refend_use, 2))
                         for i,jd_pair in enumerate(jd_pairs):
                             # only bother with the same filter
-                            same_filt = filt_pairs[0]==filt_pairs[1]
-                            same_ref = ref_pairs[0]==ref_pairs[1]
+                            filt_pair = filt_pairs[i]
+                            same_filt = filt_pair[0]==filt_pair[1]
+                            # require same ref start (to get rid of really variable things)
+                            refstart_pair = refstart_pairs[i]
+                            refend_pair = refend_pairs[i]
+                            same_ref = np.logical_and(
+                                refstart_pair[0]==refstart_pair[1],
+                                refend_pair[0]==refend_pair[1])
                             dt = jd_pair[1]-jd_pair[0]
-                            if np.logical_and.reduce((same_filt, same_ref, dt < 0.7): # short enough
+                            if np.logical_and.reduce((same_filt, same_ref, dt < 0.7)): 
                                 baseline.append(dt)
                                 f_pair = f_pairs[i]
                                 ef_pair = ef_pairs[i]
-                                filt_pair = filt_pairs[i]
-
-                                # Get extinction corrected values
-                                # This is important because otherwise you get a bunch of
-                                # gr pairs passing the filter
-                                ra = cvs['RA'].values[j]
-                                dec = cvs['Dec'].values[j]
-                                coords = SkyCoord(ra,dec,unit='deg')
-                                ebv = sfd(coords)
-                                a_v = ebv*2.742 
-                                wave = [vals.ztf_pivot[val] for val in filt_pair]
-                                ext = extinction.fitzpatrick99(
-                                        np.array(wave),a_v,r_v=3.1,unit='aa')
-                                f_pair = np.array(f_pair) * 10**(ext)/2.5
-                                ef_pair = np.array(ef_pair) * 10**(ext)/2.5
 
                                 # Look for points with a change of > an OOM
                                 fratio = np.abs(f_pair[1]/f_pair[0])
@@ -234,7 +225,11 @@ def analyze_lc():
                                     for k,f in enumerate(fs):
                                         choose = filt_use==f
                                         if sum(choose)>0:
-                                            plt.errorbar((jd_use[choose]-t0)*24*60, fujy_use[choose], efujy_use[choose], fmt='o', c=col[k])
+                                            plt.errorbar(
+                                                (jd_use[choose]-t0)*24*60, 
+                                                fujy_use[choose], 
+                                                efujy_use[choose], 
+                                                fmt='o', c=col[k])
                                     plt.xlabel("Minutes")
                                     plt.ylabel("Flux")
                                     #plt.show()

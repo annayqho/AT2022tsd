@@ -22,6 +22,30 @@ def get_pos(s, name):
     return ra,dec
 
 
+def get_ps1(s, name):
+    q = {"query_type": "find_one",
+         "query": {
+             "catalog": "ZTF_alerts",
+             "filter": {
+                     'objectId': {'$eq': name},
+                     'candidate.isdiffpos': {'$in': ['1', 't']},
+             },
+             "projection": {
+                     "_id": 0,
+                     "candidate.distpsnr1": 1,
+                     "candidate.sgmag1": 1,
+             }
+         }
+         }
+    query_result = s.query(query=q)
+    try:
+        out = query_result['data']['candidate']['distpsnr1']
+        out2 = query_result['data']['candidate']['sgmag1']
+        return out, out2
+    except:
+        return []
+
+
 def get_dets(s, name):
     q = {"query_type": "find",
          "query": {
@@ -40,8 +64,6 @@ def get_dets(s, name):
                      "candidate.field": 1,
                      "candidate.ra": 1,
                      "candidate.dec": 1,
-                     "candidate.distpsnr1": 1,
-                     "candidate.distnr": 1,
              }
          }
          }
