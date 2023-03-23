@@ -183,7 +183,7 @@ def smooth_spec(wl, flux, ivar, L):
 
 def load_spec():
     """ read in the spectrum """
-    inputf = "%s/opt/LRIS/ZTF22abftjko_20221006_Keck1_v1.ascii" %ddir
+    inputf = "%s/opt/LRIS/lris20221006_adjust.spec" %ddir
     tab = pd.read_fwf(inputf, skiprows=np.arange(150))
     wl = tab['wavelen'].values # AA
     flam = tab['flux'].values # erg/cm2/s/Ang, absolute calibration approximate
