@@ -134,8 +134,6 @@ def analyze_lc():
     """ 
     Analyze the force phot LC to look for short-timescale variability """
     cvs = pd.read_csv("cv_table.txt", delimiter=' ')
-    forcephot_done = cvs['ForcePhot'].values=='Done'
-    cvs = cvs[forcephot_done]
     
     for j,cv in enumerate(cvs['Name'].values):
         if cv!='ZTF18aaakpbx':
