@@ -41,7 +41,7 @@ def main_spec(ax, wl, flam):
     plt.minorticks_off()
     ax.set_ylim(1.27, 3)
     ax.set_xlim(2647, 8154)
-    ax.set_xlabel("Rest Wavelength ($\AA$) at $z=%s$" %vals.z)
+    ax.set_xlabel("$\lambda_\mathrm{rest}$ ($\AA$) at $z=%s$" %vals.z)
     ax.set_ylabel("Flux (arbitrary units)")#[erg/s/cm${}^2/\AA$]")
 
 
@@ -158,6 +158,6 @@ if __name__=="__main__":
     #ax.set_xticklabels([4660, 4680, 4700, 4720])
 
     plt.tight_layout()
-    plt.show()
-    #plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
