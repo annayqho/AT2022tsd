@@ -135,6 +135,8 @@ def analyze_lc():
     Analyze the force phot LC to look for short-timescale variability """
     cvs = pd.read_csv("cv_table.txt", delimiter=' ')
     
+    #nnights = np.zeros(len(cvs))
+    baseline = []
     for j,cv in enumerate(cvs['Name'].values):
         print(j)
         # Construct filename
@@ -158,7 +160,6 @@ def analyze_lc():
         # For each JD, calculate the baseline
         names = []
         jdvals = []
-        baseline = []
         dflux = []
         edflux = []
         for jdval in np.unique(jd_int):

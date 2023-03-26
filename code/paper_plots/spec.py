@@ -3,6 +3,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+from scipy.optimize import curve_fit
 import sys
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
 import matplotlib.gridspec as gridspec
@@ -12,6 +13,11 @@ from fit_spectrum import *
 
 single_width = 40
 multi_width = 130
+
+
+def gauss(x, sigma, A, b):
+    """ Gaussian distribution """
+    return A*np.exp(-(x-b)**2/(2*sigma**2))
 
 
 def main_spec(ax, wl, flam):
@@ -61,7 +67,7 @@ def plot_lines(ax, species, col, lw=1):
         ax.axvline(l, lw=lw, ymin=0.9, ymax=1, color=col)
 
 
-if __name__=="__main__":
+def fig_for_paper():
     # Get data
     wl, flam, eflam = load_spec_1()
     wl = wl/(1+vals.z)
@@ -161,3 +167,29 @@ if __name__=="__main__":
     #plt.show()
     plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
     plt.close()
+
+
+if __name__=="__main__":
+    # measure the offset in position from the HeII feature
+    fig,ax = plt.subplots(1,1)
+    #wl, flam, eflam = load_spec_1()
+    wl, flam, eflam = load_spec_2()
+    # normalize and plot
+    choose = np.logical_and(wl>4690, wl < 4720)
+    med = np.median(flam[choose])
+    flam = flam/med
+    choose = np.logical_and(wl>4660, wl < 4700)
+    ax.step(wl[choose], flam[choose]-1, where='mid', lw=0.5, c='grey')
+    # fit a Gaussian
+    popt, pcov = curve_fit(gauss, wl[choose], flam[choose]-1, p0=(5, 4, 4700))
+    xvals = np.linspace(4665, 4700)
+    yvals = gauss(xvals, *popt)
+    ax.plot(xvals, yvals, c='k', lw=2)
+    # peak of spec1: 4683.54
+    # peak of spec2: 4686.68
+
+    w = 4686
+    
+    
+
+
