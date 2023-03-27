@@ -10,7 +10,7 @@ from get_opt import *
 
 def get_flaring_lc(filt, threshold):
     """ Get the LC in the range where you think flaring is happening,
-    for a certain filter and threshold """
+    for a certain threshold """
     # Get the optical photometry
     full_lc = get_full_opt()
 
@@ -121,7 +121,6 @@ def print_table_for_paper():
 
 if __name__=="__main__":
     ### Select your parameters
-    filt = 'g'
     thresh = 24
 
     # Get the the relevant exposures 
