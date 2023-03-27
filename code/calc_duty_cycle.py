@@ -146,7 +146,7 @@ if __name__=="__main__":
     ### Select your parameters
 
     ## Set the threshold
-    thresh = 22.5
+    thresh = 24
 
     # Get the the relevant exposures 
     lc = get_flaring_lc(thresh)
@@ -156,8 +156,8 @@ if __name__=="__main__":
     T_min, T_max = get_duration(thresh)
 
     ## Set which duration to use
-    T = T_min
-    #T = T_max
+    #T = T_min
+    T = T_max
 
     ## Set which range to use
 
@@ -169,14 +169,20 @@ if __name__=="__main__":
     #avg_flare_rates = np.logspace(0.5, 2.5)#result:[,3.82]->[,0.1]
 
     # for thresh = 22.5 mag, Tmin
-    avg_flare_rates = np.logspace(1,3) 
+    #avg_flare_rates = np.logspace(1,3)  # duty cycle: [0.038,]
+    #avg_flare_rates = np.logspace(2,4)  # duty cycle: [,0.28]
     # for thresh = 22.5 mag, Tmax
-    # avg_flare_rates = np.logspace(-2, 0) 
+    # avg_flare_rates = np.logspace(-2,0) # duty cycle: [0.012,]
+    # avg_flare_rates = np.logspace(0,2)  # duty cycle: [,0.56]
 
-    # for thresh = 24 mag, Tmin
-    # avg_flare_rates = np.logspace(-2, 0) 
-    # for thresh = 24 mag, Tmax
-    # avg_flare_rates = np.logspace(-2, 0) 
+    # for thresh = 24 mag, Tmin ... didn't run
+    # because it seems to always depend on the long ones anyway
+    # avg_flare_rates = np.logspace(-2,0)  # 
+    # avg_flare_rates = np.logspace(0,2)  # 
+
+    # for thresh = 24 mag, Tmax 
+    #avg_flare_rates = np.logspace(-1,1)  # 0.029
+    avg_flare_rates = np.logspace(0,2)  #  max is > 1...
 
     # To convert from a flare rate to a duty cycle, multiply by the 
     # fraction of a day taken up by one flare. 
