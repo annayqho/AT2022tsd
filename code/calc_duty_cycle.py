@@ -83,7 +83,9 @@ def get_favg(use_lc, threshold):
     """
     nrows = len(use_lc)
     n_sensitive_exposures = nrows
+    print("Nexp, " n_sensitive_exposures)
     tot_time = sum(use_lc['exp'].values.astype(float))
+    print("Texp, " tot_time)
     if nrows>0:
         # Exposures where there was a flare this bright or brighter
         exp_on = use_lc[np.logical_and(
@@ -93,6 +95,7 @@ def get_favg(use_lc, threshold):
 
         # The ratio of the time on to the total time
         frac_time_on = time_on / tot_time
+        print("Ton/Texp, ", frac_time_on)
         return frac_time_on
     else:
         print("not enough data for this threshold")
@@ -141,6 +144,8 @@ def print_table_for_paper():
 
 if __name__=="__main__":
     ### Select your parameters
+
+    ## Set the threshold
     thresh = 21
 
     # Get the the relevant exposures 
@@ -150,14 +155,26 @@ if __name__=="__main__":
     favg = get_favg(lc, thresh) # duty cycle, avg
     T_min, T_max = get_duration(thresh)
 
-    ### Which duration to use
+    ## Set which duration to use
     T = T_min
 
-    # What spacing to try
-    avg_flare_rates = np.logspace(0, 2) #for thresh = 21 mag, Tmin
-    #avg_flare_rates = [4E-3]
-    #avg_flare_rates = np.logspace(-2, 0) #for thresh = 21 mag
-    #avg_flare_rates = np.logspace(-1, 1) #for thresh = 24 mag
+    ## Set which range to use
+
+    # for thresh = 21 mag, Tmin
+    avg_flare_rates = np.logspace(-1, 1)  # result: []
+
+    # for thresh = 21 mag, Tmax
+    # avg_flare_rates = np.logspace(-1, 1)  # result: []
+
+    # for thresh = 22.5 mag, Tmin
+    # avg_flare_rates = np.logspace(-2, 0) 
+    # for thresh = 22.5 mag, Tmax
+    # avg_flare_rates = np.logspace(-2, 0) 
+
+    # for thresh = 24 mag, Tmin
+    # avg_flare_rates = np.logspace(-2, 0) 
+    # for thresh = 24 mag, Tmax
+    # avg_flare_rates = np.logspace(-2, 0) 
 
     ### Don't change anything below
 
