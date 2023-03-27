@@ -153,12 +153,19 @@ if __name__=="__main__":
     ### Which duration to use
     T = T_min
 
+    # What spacing to try
+    avg_flare_rates = np.logspace(0, 2) #for thresh = 21 mag, Tmin
+    #avg_flare_rates = [4E-3]
+    #avg_flare_rates = np.logspace(-2, 0) #for thresh = 21 mag
+    #avg_flare_rates = np.logspace(-1, 1) #for thresh = 24 mag
+
+    ### Don't change anything below
+
     # Construct a set of burst times that obey a Poisson distribution
     # For Poisson, the time between events is exponentially distributed
     tstart = min(lc['mjdstart'])-1 # one day before the start of the window
     tend = max(lc['mjdstart'])+1  # one day after the end of the window
 
-    avg_flare_rates = np.logspace(-1, 1)
     for j,avg_flare_rate in enumerate(avg_flare_rates):
         print("running for %s mag" %(thresh))
         print("rate %s" %avg_flare_rate)
