@@ -14,6 +14,12 @@ def get_flaring_lc(filt, threshold):
     # Get the optical photometry
     full_lc = get_full_opt()
 
+    # Drop the columns you won't need
+    full_lc = full_lc.drop(
+            ['#instrument', 'flux', 'unc', 'sig', 'flare', 'emag', 
+             'flux_extcorr', 'unc_extcorr', 'mag_extcorr', 'maglim_extcorr', 
+             'nobs', 'istransient'], axis=1)
+
     # I think it's convincing that the flaring starts with the first
     # ZTF detection (aka the first flare detection).
     min_mjd = np.min(full_lc['mjdstart'][full_lc['isflare']])
@@ -29,17 +35,34 @@ def get_flaring_lc(filt, threshold):
     # Update name of filter
     lc['flt'][lc['flt']=='R'] = ['r']*len(lc[lc['flt']=='R'])
 
-    # For the filter and limiting magnitude, identify all relevant exposures
-    filt_crit = lc['flt']==filt
-    use_lc_filt = lc[filt_crit]
+    # Convert all filters to g-band using the corrections I infer from 
+    # f_nu ~ nu^{-1.6}
+    # don't use w-band because it's a very wide filter...not clear how to do
+    # the corrections. and anyway there are only a few points.
+    lc = lc[lc.flt != 'w']
+
+    lc.loc[lc['flt']=='r', 'mag'] = lc['mag'][lc['flt']=='r'] + 0.80 
+    lc.loc[lc['flt']=='r', 'flt'] = 'g'
+
+    lc.loc[lc['flt']=='i', 'mag'] = lc['mag'][lc['flt']=='i'] + 1.33
+    lc.loc[lc['flt']=='i', 'flt'] = 'g'
+
+    lc.loc[lc['flt']=='u', 'mag'] = lc['mag'][lc['flt']=='u'] - 0.81
+    lc.loc[lc['flt']=='u', 'flt'] = 'g'
+
+    # Drop the g-band filter column
+    lc = lc.drop('flt', axis=1)
+
+    # For any row where the mag is fainter than the maglim, set mag to 99
+    lc.loc[lc['mag']>lc['maglim'], 'mag'] = 99.0
 
     # To be valid for this analysis, limiting magnitude of the image has to be
     # fainter than this threshold. But you have to convert it from 3-sigma
     # to 5-sigma, since you use a 5-sigma threshold to define flares.
     conversion_value = 2.5*np.log10(5)-2.5*np.log10(3) # positive number
-    maglims = use_lc_filt['maglim'] - conversion_value # make lims shallower
+    maglims = lc['maglim'] - conversion_value # make lims shallower
     deep_enough = maglims>threshold
-    use_lc = use_lc_filt[deep_enough]
+    use_lc = lc[deep_enough]
 
     use_lc['maglim_5sig'] = maglims
 
@@ -121,7 +144,7 @@ def print_table_for_paper():
 
 if __name__=="__main__":
     ### Select your parameters
-    thresh = 24
+    thresh = 21
 
     # Get the the relevant exposures 
     lc = get_flaring_lc(filt,thresh)
