@@ -8,7 +8,7 @@ from scipy.stats import binomtest
 from get_opt import *
 
 
-def get_flaring_lc(filt, threshold):
+def get_flaring_lc(threshold):
     """ Get the LC in the range where you think flaring is happening,
     for a certain threshold """
     # Get the optical photometry
@@ -69,13 +69,12 @@ def get_flaring_lc(filt, threshold):
     return use_lc
 
 
-def get_favg(use_lc, filt, threshold):
-    """ For a given filter and limiting magnitude, return 
+def get_favg(use_lc, threshold):
+    """ For a given limiting magnitude, return 
     f_avg = T_on / T_tot 
 
     Parameters:
     -----------
-    filt: filter ('r', 'g', etc)
     threshold: the limiting magnitude
 
     Returns:
@@ -96,7 +95,7 @@ def get_favg(use_lc, filt, threshold):
         frac_time_on = time_on / tot_time
         return frac_time_on
     else:
-        print("not enough data for this filter/threshold")
+        print("not enough data for this threshold")
         return None
 
 
@@ -132,14 +131,12 @@ def get_duration(maglim):
 
 def print_table_for_paper():
     """ Print a table with all the favg values """
-    print("Band & Threshold & $N_\mathrm{exp}$ & $T_\mathrm{exp}$ & $T_\mathrm{on}$/Texp")#& $N_\mathrm{exp,on}/N_\mathrm{exp}$")
-    for filt in np.unique(lc['flt']):
-        #print("Running for %s" %filt)
-        # Choose the filter and limiting magnitude
-        for threshold in np.arange(19.5, 25, step=0.5):
-            print("$%s$ & %s & %s & %s & %s \\\\" %(
-                filt,threshold,n_sensitive_exposures,int(tot_time/60),
-                '{:.2f}'.format(frac_time_on)))#,'{:.2f}'.format(val),
+    print("Threshold & $N_\mathrm{exp}$ & $T_\mathrm{exp}$ & $T_\mathrm{on}$/Texp")#& $N_\mathrm{exp,on}/N_\mathrm{exp}$")
+    # Choose the filter and limiting magnitude
+    for threshold in np.arange(19.5, 25, step=0.5):
+        print("%s & %s & %s & %s \\\\" %(
+            threshold,n_sensitive_exposures,int(tot_time/60),
+            '{:.2f}'.format(frac_time_on)))#,'{:.2f}'.format(val),
 
 
 if __name__=="__main__":
@@ -147,10 +144,10 @@ if __name__=="__main__":
     thresh = 21
 
     # Get the the relevant exposures 
-    lc = get_flaring_lc(filt,thresh)
+    lc = get_flaring_lc(thresh)
 
     # Get basic parameters
-    favg = get_favg(lc, filt, thresh) # duty cycle, avg
+    favg = get_favg(lc, thresh) # duty cycle, avg
     T_min, T_max = get_duration(thresh)
 
     ### Which duration to use
@@ -163,7 +160,7 @@ if __name__=="__main__":
 
     avg_flare_rates = np.logspace(-1, 1)
     for j,avg_flare_rate in enumerate(avg_flare_rates):
-        print("running for %s, %s mag" %(filt, thresh))
+        print("running for %s mag" %(thresh))
         print("rate %s" %avg_flare_rate)
         duty_cycles = []
         for i in np.arange(1000):
