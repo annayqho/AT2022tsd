@@ -83,9 +83,9 @@ def get_favg(use_lc, threshold):
     """
     nrows = len(use_lc)
     n_sensitive_exposures = nrows
-    print("Nexp, " n_sensitive_exposures)
+    print("Nexp, ", n_sensitive_exposures)
     tot_time = sum(use_lc['exp'].values.astype(float))
-    print("Texp, " tot_time)
+    print("Texp, ", tot_time/60)
     if nrows>0:
         # Exposures where there was a flare this bright or brighter
         exp_on = use_lc[np.logical_and(
@@ -146,7 +146,7 @@ if __name__=="__main__":
     ### Select your parameters
 
     ## Set the threshold
-    thresh = 21
+    thresh = 22.5
 
     # Get the the relevant exposures 
     lc = get_flaring_lc(thresh)
@@ -157,17 +157,19 @@ if __name__=="__main__":
 
     ## Set which duration to use
     T = T_min
+    #T = T_max
 
     ## Set which range to use
 
     # for thresh = 21 mag, Tmin
-    avg_flare_rates = np.logspace(-1, 1)  # result: []
+    #avg_flare_rates = np.logspace(-1, 1) #result:[0.72, 7.54]->[0.005,0.05]
 
     # for thresh = 21 mag, Tmax
-    # avg_flare_rates = np.logspace(-1, 1)  # result: []
+    #avg_flare_rates = np.logspace(-1.5,0.5)#result:[0.046,]->[0.001,]
+    #avg_flare_rates = np.logspace(0.5, 2.5)#result:[,3.82]->[,0.1]
 
     # for thresh = 22.5 mag, Tmin
-    # avg_flare_rates = np.logspace(-2, 0) 
+    avg_flare_rates = np.logspace(1,3) 
     # for thresh = 22.5 mag, Tmax
     # avg_flare_rates = np.logspace(-2, 0) 
 
@@ -175,6 +177,9 @@ if __name__=="__main__":
     # avg_flare_rates = np.logspace(-2, 0) 
     # for thresh = 24 mag, Tmax
     # avg_flare_rates = np.logspace(-2, 0) 
+
+    # To convert from a flare rate to a duty cycle, multiply by the 
+    # fraction of a day taken up by one flare. 
 
     ### Don't change anything below
 
@@ -184,8 +189,9 @@ if __name__=="__main__":
     tend = max(lc['mjdstart'])+1  # one day after the end of the window
 
     for j,avg_flare_rate in enumerate(avg_flare_rates):
-        print("running for %s mag" %(thresh))
+        print("running for %s mag and duration %s min" %(thresh, T*24*60))
         print("rate %s" %avg_flare_rate)
+        print("duty cycle %s" %str(avg_flare_rate*T))
         duty_cycles = []
         for i in np.arange(1000):
             # Arrival times
