@@ -49,18 +49,16 @@ def get_data():
 def plot_seds(dat, ax):
     """ Plot a multi-panel SED thing """
     cols = cmr.take_cmap_colors(
-            'cmr.ember', 5, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
+            'cmr.ember', 6, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
     
     dt = dat['dt']
     flux = dat['Flux']
     eflux = dat['eFlux']
 
-    print(dt)
-
-    mins = [26,33,40.2,64,112]
-    maxs = [27,36,44.2,69,113]
-    markers = ['o', 's', 'D', '>', '*']
-    sizes = [5, 5, 5, 6, 10]
+    mins = [26,33,40.2,64,112,141]
+    maxs = [27,36,44.2,69,113,157]
+    markers = ['o', 's', 'D', '>', '*', '<']
+    sizes = [5, 5, 5, 6, 10, 6]
 
     for i,minval in enumerate(mins):
         choose = np.logical_and(dt>minval, dt<maxs[i])
@@ -70,8 +68,13 @@ def plot_seds(dat, ax):
         y = flux[choose].values[order]
         ey = eflux[choose].values[order]
 
+        if minval==141:
+            print(x, y, ey)
+
         # Plot detections
         isdet = y<99
+        if minval==141:
+            print(x[isdet], y[isdet], ey[isdet])
         ax.errorbar(
                 x[isdet], y[isdet], ey[isdet], 
                 fmt=markers[i], c=cols[i], lw=0.5, ms=sizes[i],
@@ -80,9 +83,11 @@ def plot_seds(dat, ax):
 
         # Plot the nondetection
         if sum(~isdet)>0:
+            print("There are non-detections")
             xval = x[~isdet][0]
-            yval = ey[~isdet][0]*5
-            ax.scatter(xval, yval, marker=markers[i], 
+            lims = ey[~isdet]*3
+            yval = lims[0] # 3-sigma limits
+            ax.scatter(x[~isdet], lims, marker=markers[i], 
                        edgecolor=cols[i], facecolor='white',
                        s=sizes[i]*10, zorder=100)
             #ax.arrow(x[~isdet][0],ey[~isdet][0]*5,0,-0.015,
@@ -90,6 +95,9 @@ def plot_seds(dat, ax):
             #         head_length=0.007, head_width=8, color=cols[i],zorder=10)
             ax.plot([x[isdet][-1],xval], [y[isdet][-1],yval], 
                     c=cols[i], lw=2, ls='--', zorder=10)
+            ax.plot([x[isdet][-1],x[~isdet][-1]], [y[isdet][-1],lims[-1]], 
+                    c=cols[i], lw=2, ls='--', zorder=10)
+            #ax.plot(x[~isdet], lims, c=cols[i], lw=2, ls='--', zorder=10)
 
     #params, cov = curve_fit(func, x, y, sigma=ey, absolute_sigma=True)
     #alpha = params[0]
@@ -119,7 +127,7 @@ def plot_seds(dat, ax):
     ax.set_yticklabels([0.02,0.05,0.1, 0.2, 0.5])
     #ax.set_ylabel(r"$f_{\nu}$ (mJy)", fontsize=10)
     ax.set_ylim(0.02,0.7)
-    ax.set_xlim(12,600)
+    ax.set_xlim(1,600)
     ax.legend(loc='lower right', fontsize=8, handletextpad=0.4,
               labelspacing=0.1)
     ax.set_xlabel(r"$\nu_\mathrm{rest}$ (GHz)", fontsize=10)

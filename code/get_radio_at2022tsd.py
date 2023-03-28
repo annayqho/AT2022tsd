@@ -24,6 +24,6 @@ def get_radio():
 
     gmrt = pd.read_csv(dd+"/gmrt.txt")
 
-    radio = pd.concat([vla,noema,alma],axis=0,ignore_index=True).sort_values('Date', ignore_index=True)
+    radio = pd.concat([gmrt,vla,noema,alma],axis=0,ignore_index=True).sort_values('Date', ignore_index=True)
     return radio
 
