@@ -166,7 +166,7 @@ def get_lulin():
     """ Get Lulin observations. Limit is 3-sigma. 
     """
     dat = pd.read_csv(ddir + "/AT2022tsd_LOT_SLT.txt", delimiter=' ',
-                      names=['MJD','ujy','dujy','filt'])
+                      names=['MJD','fujy','dfujy','filt'])
     return dat
 
 
