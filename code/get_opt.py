@@ -166,7 +166,7 @@ def get_lulin():
     """ Get Lulin observations. Limit is 3-sigma. 
     """
     dat = pd.read_csv(ddir + "/AT2022tsd_LOT_SLT.txt", delimiter=' ',
-                      names=['MJD','maglim','filt'])
+                      names=['MJD','ujy','dujy','filt'])
     return dat
 
 
@@ -337,9 +337,9 @@ def get_full_opt():
     add_dict['mjdstart'] = lulin['MJD']
     add_dict['exp'] = ['300']*len(lulin) # asking group
     add_dict['flt'] = lulin['filt']
-    add_dict['flux'] = '' # not provided
-    add_dict['unc'] = '' # not provided
-    add_dict['sig'] = [-99]*len(lulin) # not provided
+    add_dict['flux'] = lulin['fujy']
+    add_dict['unc'] = lulin['dfujy']
+    add_dict['sig'] = np.abs(lulin['fujy'].values/lulin['dfujy'].values)
     add_dict['flare'] = ['']*len(lulin) # none
     add_dict['mag'] = [99]*len(lulin) # not provided
     add_dict['emag'] = [99]*len(lulin) # not provided
