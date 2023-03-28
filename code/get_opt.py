@@ -343,13 +343,8 @@ def get_full_opt():
     add_dict['flare'] = ['']*len(lulin) # none
     add_dict['mag'] = [99]*len(lulin) # not provided
     add_dict['emag'] = [99]*len(lulin) # not provided
-    add_dict['maglim'] = lulin['maglim']
-
-    # Correct for MW extinction
-    maglim_extcorr = []
-    for i,b in enumerate(lulin['filt'].values):
-        maglim_extcorr.append(lulin['maglim'].values[i]-vals.ext[b])
-    add_dict['maglim_extcorr'] = maglim_extcorr
+    add_dict['maglim'] = [99]*len(lulin) # not provided
+    add_dict['maglim_extcorr'] = [99]*len(lulin) # not provided
 
     add_dict = pd.DataFrame(add_dict)
 

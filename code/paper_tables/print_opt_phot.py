@@ -68,12 +68,8 @@ def print_table_all():
         mag = dat['mag'][i]
         emag = float(dat['emag'][i])
         print(tel)
-        if tel in ['SLT', 'LOT']:
-            flux= -99
-            eflux = -99
-        else:
-            flux = float(dat['flux'][i])
-            eflux = float(dat['unc'][i])
+        flux = float(dat['flux'][i])
+        eflux = float(dat['unc'][i])
         limmag = dat['maglim'][i]
         isflare = dat['isflare'][i]
 
