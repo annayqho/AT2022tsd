@@ -155,8 +155,8 @@ def plot_lc(dat,ax):
             ax.text(x[0]*1.02, y[0], str(val) + 'GHz',
                     ha='left', va='top',fontsize=8,color=cols[i])
         elif val==77:
-            ax.text(x[-1], y[-1]*1.02, str(val) + 'GHz',
-                    ha='left', va='bottom',fontsize=8,color=cols[i])
+            ax.text(x[-1], ey[-1]*3*1.02, str(val) + 'GHz',
+                    ha='right', va='bottom',fontsize=8,color=cols[i])
         else:
             ax.text(x[0]/1.02, y[0], str(val) + 'GHz',
                     ha='right', va='center',fontsize=8,color=cols[i])
@@ -166,9 +166,11 @@ def plot_lc(dat,ax):
         if sum(nondet)>0:
             lim = ey[nondet][0]*3
             xval = x[nondet][0]
-            ax.scatter(xval, lim, marker=fmt, c=cols[i], s=ms*4, zorder=10)
-            ax.arrow(xval, lim, 0, -0.015, length_includes_head=True,
-                     head_length=0.007, head_width=8, color=cols[i], zorder=10)
+            ax.scatter(
+                    xval, lim, marker=fmt, edgecolor=cols[i], 
+                    facecolor='white', s=ms*6, zorder=20)
+            #ax.arrow(xval, lim, 0, -lim/5, length_includes_head=True,
+            #         head_length=lim/10, head_width=val/10, color=cols[i], zorder=10)
             last_x = x[isdet][-1]
             ax.plot(
                     [last_x,xval], [y[isdet][-1],lim], 
