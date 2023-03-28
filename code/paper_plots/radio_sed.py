@@ -143,7 +143,7 @@ def plot_lc(dat,ax):
         x = dat['dt'][choose].values
         y = dat['Flux'][choose].values
         ey = dat['eFlux'][choose].values
-        isdet = y<99
+        isdet = np.logical_and(y<99, y/ey>3)
         ax.errorbar(x[isdet], y[isdet], ey[isdet], 
                     fmt=fmt, c=cols[i], lw=lw, ms=ms, zorder=10)
         ax.plot(x[isdet], y[isdet], lw=1, c=cols[i], zorder=10)
@@ -162,9 +162,9 @@ def plot_lc(dat,ax):
                     ha='right', va='center',fontsize=8,color=cols[i])
 
         # Plot the non-detection
-        nondet = y==99
+        nondet = ~isdet
         if sum(nondet)>0:
-            lim = ey[nondet][0]*5
+            lim = ey[nondet][0]*3
             xval = x[nondet][0]
             ax.scatter(xval, lim, marker=fmt, c=cols[i], s=ms*4, zorder=10)
             ax.arrow(xval, lim, 0, -0.015, length_includes_head=True,
@@ -182,9 +182,9 @@ def plot_lc(dat,ax):
     ax.set_xlabel(r"$\Delta t_\mathrm{rest}$ (d)")
     ax.set_xscale('log')
     ax.set_yscale('log')
-    ax.set_xlim(18,130)
-    ax.set_xticks([20,30,40,60,80,120])
-    ax.set_xticklabels([20,30,40,60,80,120])
+    ax.set_xlim(18,180)
+    ax.set_xticks([20,30,40,60,80,120,180])
+    ax.set_xticklabels([20,30,40,60,80,120,180])
     ax.set_yticks([0.02,0.05,0.1, 0.2, 0.5])
     ax.set_yticklabels([0.02,0.05,0.1, 0.2, 0.5])
     ax.set_ylabel(r"$f_{\nu}$ (mJy)", fontsize=10)
@@ -199,6 +199,6 @@ if __name__=="__main__":
     ax = axarr[1]
     plot_seds(dat,ax)
 
-    #plt.show()
-    plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
