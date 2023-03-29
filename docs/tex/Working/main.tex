@@ -431,7 +431,11 @@ Finally, the optical flares we observe are very different from the minute-timesc
 
 \textcolor{red}{Should also consider M-dwarf flares, since those are known to have durations of minutes (Andreoni et al)}.
 
-Therefore, if \at\ is a foreground source, it would be a highly exotic object, and it would be unlikely for such an unusual stellar system to be aligned with a galaxy whose redshift is consistent with LFBOT-like luminosities. A simpler explanation is that \at\ is extragalactic.
+Therefore, if \at\ is a foreground source, it would be a highly exotic object, and it would be unlikely for such an unusual stellar system to be aligned with a galaxy whose redshift is consistent with LFBOT-like luminosities.
+For a crude estimate, we used the COSMOS photometric redshift catalog\cite{Ilbert2008} to estimate the sky density of galaxies brighter than 22\,mag with $0.1 \leq z \leq 0.3$. We found that the density is approximately 1000\,deg$^{-2}$.
+We used the BTS catalog to estimate the rate of dwarf nova outbursts. There were 300 sources classified as part of BTS in four years (2019--2022), giving an approximate rate of 0.02\,deg$^{-2}$\,yr$^{-1}$.
+
+A simpler explanation is that \at\ is extragalactic.
 
 \section{Flare Morphology and Periodicity Search}
 \label{sec:flare-morphology}
@@ -451,10 +455,11 @@ Several optical flares have more complex morphologies (LT, Keck $u+i$, and ULTRA
 \section{Flare Duty Cycle}
 \label{sec:flare-duty-cycle}
 
-We estimated the flare duty cycle for different limiting magnitude thresholds, assuming a Poisson distribution for the likelihood of detecting a flare in any given time interval. We performed the calculation in $g$-band, because this is the band with the largest number of detected flares at a variety of magnitude thresholds (Figure~\ref{fig:optical-lc}). 
-For each threshold, \ref{tab:flare-stats} gives the total number of exposures above that threshold (the number of exposures in which a flare brighter than the threshold could have been detected), the total exposure time of those exposures, and the fraction of time in which a flare was detected. To estimate the uncertainty on the duty cycle, we performed a simulation. We adopted a range of flare durations for each threshold (10--20\,min for 21\,mag, and 1\,min to 3\,hr for 22.5\,mag and 24\,mag), based on what we observed. For each choice of flare duration and average flare frequency, we simulated 1000 sets of flare start times from one day prior to our earliest detected flare to one day after our last detected flare. We calculated what the observed duty cycle would have been, and discarded values of average flare frequency that resulted in $<2.5\%$ of the 1000 trials being above or below our true observed value. We find that the minimum allowed flare duty cycle is $\approx3\%$, while the maximum possible flare duty cycle is 100\% (the upper bound is due to the fact that in our most sensitive set of $g$-band exposures, obtained using Keck/LRIS, a flare was detected in all images.) 
+We estimated the flare duty cycle for different limiting magnitude thresholds, assuming a Poisson distribution for the likelihood of detecting a flare in any given time interval. We performed the calculation using all images except the PS1 $w$-band images.
+We converted each detection to its estimated $g$-band value, using the measured color of the flares (Methods section~\ref{sec:flare-emission-mechanism}). 
+For each threshold, \ref{tab:flare-stats} gives the total number of exposures above that threshold (the number of exposures in which a flare brighter than the threshold could have been detected), the total exposure time of those exposures, and the fraction of time in which a flare was detected. To estimate the uncertainty on the duty cycle, we performed a simulation. We adopted a range of flare durations for each threshold (10--20\,min for 21\,mag, and 1\,min to 3\,hr for 22.5\,mag and 24\,mag), based on what we observed. For each choice of flare duration and average flare frequency, we simulated 1000 sets of flare start times from one day prior to our earliest detected flare to one day after our last detected flare. We calculated what the observed duty cycle would have been, and discarded values of average flare frequency that resulted in $<2.5\%$ of the 1000 trials being above or below our true observed value. We find that the minimum allowed flare duty cycle is $\approx0.1\%$, while the maximum possible flare duty cycle is 100\%.
 
-In summary, our data are consistent with a mechanism that is always ``on,'' producing fainter ($\gtrsim24$\,mag) flares all of the time and brighter ($<21\,$mag) flares infrequently (duty cycle 0.2--10\%). However, the data are also consistent with a mechanism that operates only 3\%--10\% of the time. 
+In summary, our data are consistent with a mechanism that is always ``on,'' producing fainter ($\gtrsim24$\,mag) flares all of the time and brighter ($<21\,$mag) flares infrequently (duty cycle 0.1--10\%). However, the data are also consistent with a mechanism that operates only 3\%--10\% of the time. 
 
 %observation-sequence durations 
 %To estimate the uncertainties on the duty cycle, we performed a simulation of flares. We assume the flares have a Gaussian profile with standard deviations ranging from $\sigma=1.5\,$minutes to $\sigma=10.2$\,minutes (Section~\ref{sec:flare-morphology}).
@@ -646,6 +651,12 @@ There remains an offset of 2\,\AA\ between the features in the two Keck spectra,
 
 % Dan: In addition to that, the line strength ratios are basically consistent.  So I think we can robustly conclude that any differences are minor and consistent with natural differences in slit positioning, calibration uncertainties, etc... and not due to z=0 HeII!
 
+\subsection{upgraded Giant Metrewave Radio Telescope}
+\label{sec:GMRT}
+
+We observed \at\ with the upgraded Giant Metrewave Radio Telescope (uGMRT) on 4 March 2023 under a Cycle 43 ToO program (PI Nayana AJ). The observations were taken in Band 3 (250--500\,MHz), Band 4 (550--900\,MHz), and Band 5 (1000--1450\,MHz). [TECHNICAL DETAILS FROM NAYANA.] 3C147 was used as a flux calibrator and 0323+055 as a phase calibrator. Data were analyzed using CASA in three steps: flagging, calibration, and imaging. 
+The source was detected in Band 5 but not detected in Bands 3 or 4.
+The uGMRT results are summarized in \ref{tab:radio-observations}.
 
 \subsection{Very Large Array}
 \label{Methods:VLA}
@@ -716,13 +727,6 @@ We searched for flux variability over the course of the two highest-S/N observat
 The UV point position for the combined data was fit separately for the LSB and the USB, in
 order to account for minor calibration errors.
 Then, point-source fits were performed to each of the five on-target scans. Each scan lasted 22.5 minutes, and the total observation window was 2.5\,hr. The S/N in each scan ranged from 3--4. No significant variability was detected.
-
-% \subsection{upgraded Giant Metrewave Radio Telescope}
-% \label{sec: GMRT}
-
-% The event \at\ was observed with the upgraded Giant Metrewave Radio Telescope (uGMRT) starting 2022 March 13 until 2022 March 26. The observations were taken in uGMRT  band 5 (1000--1450\,MHz) band 4 (550--900\,MHz) and band 3 (250--500\,MHz). The observations were two hours in duration including overheads using a bandwidth of 400 MHz for bands 4 and 5, and of 3 hours in band 3 using a bandwidth of 200 MHz. 3C 286 was used as flux, bandpass and phase calibrator due to its proximity with the event. The Common Astronomy Software Applications (CASA\cite{McMullin2007}) was used for analysing the data. The data were analyzed in three major steps, i.e flagging, calibration and imaging using the procedure laid out in (\cite{Maity2021}).
-
-% The source was not detected in any of the bands (\ref{table:radio}), consistent with the expected optically thick evolution at sub-GHz frequencies based on the higher frequency radio data with the VLA. uGMRT results are also summarized in \ref{table:radio}.
 
 
 % \subsection{GROWTH-India Telescope}
@@ -1018,14 +1022,14 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 
 \begin{center} 
 \begin{longtable}{lllll} 
-\caption{Duty cycle of $g$-band flares in \at, for different apparent-magnitude thresholds.} 
+\caption{Duty cycle of flares in \at, for different apparent-magnitude thresholds.} 
 \label{tab:flare-stats}\\ 
 \hline\hline
 Threshold (AB Mag) & $N_\mathrm{exp}$\footnote{The number of exposures brighter than the magnitude threshold.} & $T_\mathrm{exp}$ (Minutes) & $T_\mathrm{on}$/$T_\mathrm{exp}$\footnote{The fraction of the exposure time with a flare detection (defined as 5-$\sigma$).} & Bounds \\
 \hline
-21.0 & 612 & 503 & 0.04 & [0.002, 0.1] \\
-22.5 & 43 & 86 & 0.2 & [0.02, 0.7]  \\
-24.0 & 4 & 20 & 1.0 & [0.03, 1] \\
+21.0 & 1271 & 1142 & 0.02 & [0.001, 0.1] \\
+22.5 & 68 & 155 & 0.1 & [0.01, 0.6]  \\
+24.0 & 13 & 65 & 0.5 & [0.03, 1] \\
 \hline \hline
 \end{longtable}
 \end{center}
@@ -2400,86 +2404,86 @@ Start Date & $\Delta t$\footnote{Rest frame} & $t_\mathrm{exp}$ & Filter & $f_\n
 2022-12-26 14:12:37 & 110.11893 & 300.0 & $R$ & $3.72$ & $1.28$ & HCT &  \\ 
 2022-12-26 14:19:33 & 110.12374 & 300.0 & $R$ & $2.79$ & $1.18$ & HCT &  \\ 
 2022-12-26 14:26:26 & 110.12852 & 300.0 & $R$ & $2.72$ & $1.24$ & HCT &  \\ 
-2022-12-26 14:30:59 & 110.13169 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 14:30:59 & 110.13169 & 300 & $r$ & $-2.89$ & $5.35$ & SLT &  \\ 
 2022-12-26 14:33:19 & 110.13330 & 300.0 & $R$ & $3.01$ & $1.25$ & HCT &  \\ 
-2022-12-26 14:37:35 & 110.13626 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
+2022-12-26 14:37:35 & 110.13626 & 300 & $g$ & $-0.69$ & $3.93$ & LOT &  \\ 
 2022-12-26 14:40:12 & 110.13809 & 300.0 & $R$ & $1.17$ & $1.20$ & HCT &  \\ 
-2022-12-26 14:43:02 & 110.14006 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 14:47:01 & 110.14282 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 14:43:02 & 110.14006 & 300 & $g$ & $-5.29$ & $3.04$ & LOT &  \\ 
+2022-12-26 14:47:01 & 110.14282 & 300 & $r$ & $-25.28$ & $17.63$ & SLT &  \\ 
 2022-12-26 14:47:06 & 110.14288 & 300.0 & $R$ & $0.64$ & $0.94$ & HCT &  \\ 
-2022-12-26 14:49:08 & 110.14428 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 14:52:35 & 110.14668 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 14:49:08 & 110.14428 & 300 & $g$ & $4.41$ & $3.61$ & LOT &  \\ 
+2022-12-26 14:52:35 & 110.14668 & 300 & $r$ & $-3.80$ & $15.96$ & SLT &  \\ 
 2022-12-26 14:54:02 & 110.14769 & 300.0 & $R$ & $1.87$ & $0.99$ & HCT &  \\ 
-2022-12-26 14:58:06 & 110.15052 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 14:58:06 & 110.15052 & 300 & $r$ & $-4.74$ & $16.28$ & SLT &  \\ 
 2022-12-26 15:00:56 & 110.15248 & 300.0 & $R$ & $1.11$ & $0.88$ & HCT &  \\ 
-2022-12-26 15:03:39 & 110.15437 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 15:03:39 & 110.15437 & 300 & $r$ & $11.55$ & $20.97$ & SLT &  \\ 
 2022-12-26 15:07:50 & 110.15727 & 300.0 & $R$ & $1.09$ & $1.17$ & HCT &  \\ 
-2022-12-26 15:09:12 & 110.15822 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 15:09:12 & 110.15822 & 300 & $r$ & $-0.64$ & $20.10$ & SLT &  \\ 
 2022-12-26 15:14:45 & 110.16208 & 300.0 & $R$ & $2.87$ & $1.16$ & HCT &  \\ 
-2022-12-26 15:14:46 & 110.16208 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
-2022-12-26 15:20:19 & 110.16595 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 15:14:46 & 110.16208 & 300 & $r$ & $-16.91$ & $12.81$ & SLT &  \\ 
+2022-12-26 15:20:19 & 110.16595 & 300 & $r$ & $-6.11$ & $11.74$ & SLT &  \\ 
 2022-12-26 15:21:38 & 110.16686 & 300.0 & $R$ & $0.73$ & $1.00$ & HCT &  \\ 
-2022-12-26 15:24:49 & 110.16907 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 15:25:53 & 110.16980 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 15:24:49 & 110.16907 & 300 & $g$ & $4.30$ & $3.69$ & LOT &  \\ 
+2022-12-26 15:25:53 & 110.16980 & 300 & $r$ & $-10.54$ & $19.69$ & SLT &  \\ 
 2022-12-26 15:28:33 & 110.17166 & 300.0 & $R$ & $1.75$ & $0.94$ & HCT &  \\ 
-2022-12-26 15:30:09 & 110.17278 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 15:31:24 & 110.17365 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 15:30:09 & 110.17278 & 300 & $g$ & $7.35$ & $3.43$ & LOT &  \\ 
+2022-12-26 15:31:24 & 110.17365 & 300 & $r$ & $-11.39$ & $15.97$ & SLT &  \\ 
 2022-12-26 15:35:27 & 110.17645 & 300.0 & $R$ & $0.97$ & $1.15$ & HCT &  \\ 
-2022-12-26 15:35:28 & 110.17647 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 15:36:57 & 110.17750 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
-2022-12-26 15:40:49 & 110.18017 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
+2022-12-26 15:35:28 & 110.17647 & 300 & $g$ & $0.07$ & $3.27$ & LOT &  \\ 
+2022-12-26 15:36:57 & 110.17750 & 300 & $r$ & $-11.84$ & $17.80$ & SLT &  \\ 
+2022-12-26 15:40:49 & 110.18017 & 300 & $g$ & $4.62$ & $3.09$ & LOT &  \\ 
 2022-12-26 15:42:21 & 110.18124 & 300.0 & $R$ & $2.34$ & $1.29$ & HCT &  \\ 
-2022-12-26 15:42:30 & 110.18134 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
-2022-12-26 15:46:06 & 110.18385 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 15:48:02 & 110.18520 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 15:42:30 & 110.18134 & 300 & $r$ & $-11.39$ & $14.68$ & SLT &  \\ 
+2022-12-26 15:46:06 & 110.18385 & 300 & $g$ & $-0.08$ & $3.34$ & LOT &  \\ 
+2022-12-26 15:48:02 & 110.18520 & 300 & $r$ & $-2.53$ & $8.92$ & SLT &  \\ 
 2022-12-26 15:49:14 & 110.18602 & 300.0 & $R$ & $1.14$ & $1.16$ & HCT &  \\ 
-2022-12-26 15:51:24 & 110.18753 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
+2022-12-26 15:51:24 & 110.18753 & 300 & $g$ & $4.89$ & $3.14$ & LOT &  \\ 
 2022-12-26 15:56:07 & 110.19080 & 300.0 & $R$ & $0.50$ & $1.42$ & HCT &  \\ 
-2022-12-26 15:56:42 & 110.19120 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 16:02:00 & 110.19488 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
+2022-12-26 15:56:42 & 110.19120 & 300 & $g$ & $8.43$ & $3.00$ & LOT &  \\ 
+2022-12-26 16:02:00 & 110.19488 & 300 & $g$ & $-2.11$ & $3.43$ & LOT &  \\ 
 2022-12-26 16:03:00 & 110.19559 & 300.0 & $R$ & $1.80$ & $1.09$ & HCT &  \\ 
-2022-12-26 16:04:39 & 110.19674 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
-2022-12-26 16:07:17 & 110.19855 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 16:12:34 & 110.20223 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 16:15:44 & 110.20443 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 16:04:39 & 110.19674 & 300 & $r$ & $-9.82$ & $14.85$ & SLT &  \\ 
+2022-12-26 16:07:17 & 110.19855 & 300 & $g$ & $-2.29$ & $3.26$ & LOT &  \\ 
+2022-12-26 16:12:34 & 110.20223 & 300 & $g$ & $1.16$ & $3.18$ & LOT &  \\ 
+2022-12-26 16:15:44 & 110.20443 & 300 & $r$ & $-5.08$ & $9.00$ & SLT &  \\ 
 2022-12-26 16:16:52 & 110.20522 & 300.0 & $R$ & $0.14$ & $1.17$ & HCT &  \\ 
-2022-12-26 16:17:53 & 110.20593 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 16:21:17 & 110.20828 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
-2022-12-26 16:23:10 & 110.20959 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
+2022-12-26 16:17:53 & 110.20593 & 300 & $g$ & $9.73$ & $4.28$ & LOT &  \\ 
+2022-12-26 16:21:17 & 110.20828 & 300 & $r$ & $-13.28$ & $12.26$ & SLT &  \\ 
+2022-12-26 16:23:10 & 110.20959 & 300 & $g$ & $-2.63$ & $4.75$ & LOT &  \\ 
 2022-12-26 16:23:45 & 110.21000 & 300.0 & $R$ & $1.26$ & $0.83$ & HCT &  \\ 
-2022-12-26 16:26:50 & 110.21213 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
-2022-12-26 16:28:29 & 110.21329 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
+2022-12-26 16:26:50 & 110.21213 & 300 & $r$ & $-2.93$ & $7.43$ & SLT &  \\ 
+2022-12-26 16:28:29 & 110.21329 & 300 & $g$ & $3.44$ & $6.45$ & LOT &  \\ 
 2022-12-26 16:30:40 & 110.21480 & 300.0 & $R$ & $-0.14$ & $1.41$ & HCT &  \\ 
-2022-12-26 16:32:22 & 110.21597 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
-2022-12-26 16:33:48 & 110.21697 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
+2022-12-26 16:32:22 & 110.21597 & 300 & $r$ & $5.05$ & $2.33$ & SLT &  \\ 
+2022-12-26 16:33:48 & 110.21697 & 300 & $g$ & $-9.84$ & $3.48$ & LOT &  \\ 
 2022-12-26 16:37:34 & 110.21959 & 300.0 & $R$ & $1.77$ & $1.83$ & HCT &  \\ 
-2022-12-26 16:37:53 & 110.21981 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
-2022-12-26 16:39:05 & 110.22064 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 16:43:26 & 110.22367 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
-2022-12-26 16:44:24 & 110.22433 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
+2022-12-26 16:37:53 & 110.21981 & 300 & $r$ & $-26.32$ & $21.74$ & SLT &  \\ 
+2022-12-26 16:39:05 & 110.22064 & 300 & $g$ & $0.51$ & $5.85$ & LOT &  \\ 
+2022-12-26 16:43:26 & 110.22367 & 300 & $r$ & $10.41$ & $13.57$ & SLT &  \\ 
+2022-12-26 16:44:24 & 110.22433 & 300 & $g$ & $15.69$ & $5.07$ & LOT &  \\ 
 2022-12-26 16:44:27 & 110.22437 & 300.0 & $R$ & $-0.95$ & $1.23$ & HCT &  \\ 
-2022-12-26 16:48:59 & 110.22752 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
-2022-12-26 16:49:42 & 110.22802 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
+2022-12-26 16:48:59 & 110.22752 & 300 & $r$ & $11.31$ & $9.30$ & SLT &  \\ 
+2022-12-26 16:49:42 & 110.22802 & 300 & $g$ & $0.29$ & $5.48$ & LOT &  \\ 
 2022-12-26 16:51:22 & 110.22917 & 300.0 & $R$ & $-2.13$ & $1.76$ & HCT &  \\ 
-2022-12-26 16:54:33 & 110.23138 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
-2022-12-26 16:55:01 & 110.23171 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
+2022-12-26 16:54:33 & 110.23138 & 300 & $r$ & $-2.90$ & $7.49$ & SLT &  \\ 
+2022-12-26 16:55:01 & 110.23171 & 300 & $g$ & $-4.64$ & $4.00$ & LOT &  \\ 
 2022-12-26 16:58:16 & 110.23396 & 300.0 & $R$ & $1.78$ & $1.34$ & HCT &  \\ 
-2022-12-26 17:00:04 & 110.23522 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
-2022-12-26 17:00:22 & 110.23542 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
+2022-12-26 17:00:04 & 110.23522 & 300 & $r$ & $-13.50$ & $16.82$ & SLT &  \\ 
+2022-12-26 17:00:22 & 110.23542 & 300 & $g$ & $4.66$ & $4.96$ & LOT &  \\ 
 2022-12-26 17:05:10 & 110.23876 & 300.0 & $R$ & $-0.55$ & $1.71$ & HCT &  \\ 
-2022-12-26 17:05:37 & 110.23907 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
-2022-12-26 17:05:40 & 110.23911 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 17:10:59 & 110.24280 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 17:11:11 & 110.24293 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 17:05:37 & 110.23907 & 300 & $r$ & $-2.54$ & $8.60$ & SLT &  \\ 
+2022-12-26 17:05:40 & 110.23911 & 300 & $g$ & $0.78$ & $6.10$ & LOT &  \\ 
+2022-12-26 17:10:59 & 110.24280 & 300 & $g$ & $9.43$ & $5.55$ & LOT &  \\ 
+2022-12-26 17:11:11 & 110.24293 & 300 & $r$ & $-7.12$ & $10.51$ & SLT &  \\ 
 2022-12-26 17:12:04 & 110.24355 & 300.0 & $R$ & $-0.45$ & $1.47$ & HCT &  \\ 
-2022-12-26 17:16:18 & 110.24648 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 17:16:44 & 110.24678 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 17:16:18 & 110.24648 & 300 & $g$ & $5.19$ & $5.25$ & LOT &  \\ 
+2022-12-26 17:16:44 & 110.24678 & 300 & $r$ & $-9.94$ & $9.07$ & SLT &  \\ 
 2022-12-26 17:18:58 & 110.24834 & 300.0 & $R$ & $0.57$ & $1.11$ & HCT &  \\ 
-2022-12-26 17:21:35 & 110.25016 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 17:22:15 & 110.25062 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 17:21:35 & 110.25016 & 300 & $g$ & $10.67$ & $5.20$ & LOT &  \\ 
+2022-12-26 17:22:15 & 110.25062 & 300 & $r$ & $-18.31$ & $15.34$ & SLT &  \\ 
 2022-12-26 17:25:52 & 110.25313 & 300.0 & $R$ & $1.11$ & $1.04$ & HCT &  \\ 
-2022-12-26 17:26:55 & 110.25387 & 300 & $g$ & $-99.00$ & $-99.00$ & LOT &  \\ 
-2022-12-26 17:27:48 & 110.25448 & 300 & $r$ & $-99.00$ & $-99.00$ & SLT &  \\ 
+2022-12-26 17:26:55 & 110.25387 & 300 & $g$ & $13.71$ & $7.29$ & LOT &  \\ 
+2022-12-26 17:27:48 & 110.25448 & 300 & $r$ & $21.34$ & $18.78$ & SLT &  \\ 
 2022-12-26 17:32:46 & 110.25792 & 300.0 & $R$ & $1.24$ & $0.95$ & HCT &  \\ 
 2022-12-26 17:39:39 & 110.26270 & 300.0 & $R$ & $0.50$ & $1.48$ & HCT &  \\ 
 2022-12-26 17:46:33 & 110.26749 & 300.0 & $R$ & $0.25$ & $1.48$ & HCT &  \\ 
