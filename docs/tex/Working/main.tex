@@ -168,6 +168,7 @@ The detection of flares requires an outflow on-axis that is at least mildly rela
     \hline\hline
      Name & Class & Band & $L_\mathrm{flare}$ (erg\,s$^{-1}$) & Amp. & Duration \\
      \hline
+    AT\,2022tsd & ? & 500\,nm & $10^{44}$ & $\gtrsim100\times$ & 10\,min \\
     GRB\,070610 & BHB?\cite{Kasliwal2008} NS?\cite{CastroTirado2008,Stefanescu2008} & 800\,nm & $10^{35}$ & $\gtrsim100\times$ & 10\,s--mins \\
     GRS 1915+105 & BHB & 2.2\,$\mu$m\cite{Fender1997} & $\gtrsim10^{36}$ & $\lesssim 10\times$ & 10\,min \\
     GRB\,080319B & LGRB & ?\cite{Racusin2008} & $10^{50}$ & $>10\times$ & 40\,s \\
@@ -443,23 +444,10 @@ A spatial offset of 10\,kpc corresponds to $4^{\prime\prime}$ for $z=0.1$, so we
 We used the BTS catalog to estimate the rate of dwarf nova outbursts. There were 300 sources classified as CVs by the BTS in four years (2019--2022), giving an approximate rate of 0.02\,deg$^{-2}$\,yr$^{-1}$. So, in a given year, the chance of detecting a dwarf nova aligned with a $z=0.1$--0.3 galaxy is $\approx 4\times10^{-4}$; over the course of a few years in ZTF, we estimate $10^{-3}$. Assuming the flaring in \at\ occurs in 1/100 dwarf novae, we find $10^{-5}$.
 So, we conclude that the simplest explanation is that \at\ is extragalactic.
 
-\section{Flare Morphology and Periodicity Search}
-\label{sec:flare-morphology}
+\section{Flare Characteristics}
+\label{sec:flare-characteristics}
 
-The observed optical flares (Figure~\ref{fig:optical-lc}) show a variety of morphologies. The first flare was detected by ZTF on 2022-10-04, with an order-of-magnitude increase in flux from the LT and NOT detections obtained 7.2 hours prior. Information on this flare is limited, as it was only detected in one $r$-band image. However, we can estimate the fade rate using the $g$-band 15 minutes later. Assuming a spectral index of $f_\nu \propto \nu^{-1.6}$, the $r$-band flux decreased by an order of magnitude in 15 minutes.
-
-The second flare was detected by Keck/LRIS, and shows a smooth decline in both $i$-band and $g$-band. The decline is well described by a Gaussian with a constant offset (the underlying transient is contributing to the emission during this epoch; Section~\ref{sec:flare-emission-mechanism}), with $\chi^2_r=0.1$ in $g$-band and $\chi^2_r=0.8$ in $i$-band. The Gaussian has a standard deviation of $\sigma=10.2\pm5.4$ minutes in $g$-band and $\sigma=7.1\pm1.9$ minutes in $i$-band.
-
-The Magellan/IMACS flare is not well described by a Gaussian ($\chi^2_r=12.3$), even with a constant offset ($\chi^2_r=21.2$). A much better fit is obtained using a fast rise exponential decay (FRED) light curve ($\chi^2_r=0.9$), with an exponential decline timescale of $\tau=38.4\pm7.7$ minutes. 
-
-The ULTRASPEC $g$-band observation (Figure~\ref{fig:ultraspec-flare-fits}) shows a short flare, which is well described by a Gaussian with standard deviation $\sigma=1.5\pm0.1$, followed by a much longer-lasting flaring episode with total duration $\gtrsim1.5\,$hours. The episode shows a fast rise and exponential decline (FRED), with $\tau=110\pm11\,$minutes where $f_\nu\propto e^{-t/\tau}$. After subtracting the FRED light curve from the observations, the light curve shows two distinct flares, which are well described by two Gaussians (widths $\sigma=2.3\pm0.02\,$minutes and $\sigma=3.7\pm0.05\,$minutes), with their centroids separated by $11.5\pm0.1$\,minutes. A Lomb-Scargle periodogram\cite{Lomb1976,Scargle1982} revealed no significant periodicity in the ULTRASPEC light curves (\ref{fig:ultraspec-periodogram}).
-
-Several optical flares have more complex morphologies (LT, Keck $u+i$, and ULTRASPEC $r$) that cannot be fit using a simple function. The shortest measured timescale of significant (factor of a few to an order of magnitude) flux changes is 30\,s (from ULTRASPEC). The duration of these complex flaring episodes, from the first to last detection in the observation sequence, ranges from $>11.6$ minutes (LT $g$) to $\approx0.4\,$hr (24 minutes; ULTRASPEC $r$).
-
-%The first four Chandra observations show significant variability. Although the presence of distinct ``flares'' is less clear than in the optical observations, the observations appear to show several flares with widths similar to the optical flares (10--20\,min). We do not attempt to fit functions (Gaussian, exponential) to the flares due to the relatively low S/N of the data. We applied a barycenter correction to the X-ray data and constructed a Lomb-Scargle periodogram for the first four observations (which had the highest S/N, and the clearest variability). As with the optical flares, we found no significant periodicity (\ref{fig:xray-periodogram}). 
-
-\section{Flare Duty Cycle}
-\label{sec:flare-duty-cycle}
+The observed optical flares (Figure~\ref{fig:optical-lc}) show a variety of morphologies. The Magellan flare rose and declined smoothly over 20 minutes, while the ULTRASPEC $g$-band flare showed a multi-hour flaring ``episode'' with two prominent peaks and an exponential decline, as well as a short precursor flare lasting just a few minutes. The ULTRASPEC $r$-band flare was more erratic, with an abrupt turn-off rather than an exponential decline. For each flare, we measured the time interval in which 90\% of the flux was measured ($T_{90}$). The value of $T_{90}$ ranged from . A Lomb-Scargle periodogram\cite{Lomb1976,Scargle1982} revealed no significant periodicity in the ULTRASPEC light curves (\ref{fig:ultraspec-periodogram}).
 
 We estimated the flare duty cycle for different limiting magnitude thresholds, assuming a Poisson distribution for the likelihood of detecting a flare in any given time interval. We performed the calculation using all images except the PS1 $w$-band images.
 We converted each detection to its estimated $g$-band value, using the measured color of the flares (Methods section~\ref{sec:flare-emission-mechanism}). 
@@ -581,27 +569,34 @@ In addition, the high-cadence observations during the transient event show no va
 \subsection{Liverpool Telescope}
 \label{Methods: LT}
 
-We obtained $g$- and $r$-band images of \at\ using the IO:O camera on the Liverpool Telescope\cite{Steele2004} (LT) on 15 different nights, from 2022 September 23 to 2023 January 23. We performed astrometric alignment on images that had been reduced using the standard LT pipeline. Transient photometry was performed using a custom IDL routine, with seeing-matched aperture photometry fixed at the transient location, and calibrated relative to a set of SDSS secondary standard stars in the field. The LT photometry of \at\ is presented in \ref{tab:optical-photometry}.
+We obtained $g$- and $r$-band images of \at\ using the IO:O camera on the Liverpool Telescope\cite{Steele2004} (LT) on 15 different nights, from 2022 September 23 to 2023 January 23. We performed astrometric alignment on images that had been reduced using the standard LT pipeline.  Image subtraction was performed using PS1 as a reference using a custom IDL routine (the PS1 image was convolved to match the PSF of the LT image, then subtracted).  Transient photometry was performed using seeing-matched aperture photometry fixed at the transient location, and calibrated relative to a set of SDSS secondary standard stars in the field (as measured from the unsubtracted images). The LT photometry of \at\ is presented in \ref{tab:optical-photometry}.
 
 \subsection{Thai National Telescope}
 
-\at\ was observed with ULTRASPEC\cite{Dhillon2014}, a high-speed imaging photometer mounted on the 2.4\,m Thai National Telescope. Each frame had a 30\,s exposure time, with 15\,msec of dead time between frames. The first epoch was on 2022 December 19, and consisted of 406 $r$-band frames, followed by a 2\,min break to adjust the position of the lower telescope dome shutter, followed by another 161 $r$-band frames. The second epoch was on 2022 December 20, and consisted of 387 $g$-band frames, a 2\,min break, then an additional 91 frames.
+\at\ was observed with ULTRASPEC\cite{Dhillon2014}, a high-speed imaging photometer mounted on the 2.4\,m Thai National Telescope. Each frame had a 30\,s exposure time, with 15\,msec of dead time between frames. The first epoch was on 2022 December 19, and consisted of 406 $r$-band frames, followed by a 2\,min break to adjust the position of the lower telescope dome shutter, followed by another 161 $r$-band frames. The second epoch was on 2022 December 20, and consisted of 387 $g$-band frames, a 2\,min break, then an additional 91 frames.  Images were taken in $2\times2$ binning, leading to a slight undersampling of the PSF (0.9\arcsec\ pixels in $\sim$2 \arcsec\ seeing).  Image subtraction and photometry were performed relative to PS1 using the same methods and codes as the LT analysis, but with a fixed 2\arcsec\ radius aperture.
 
 \subsection{Himalayan Chandra Telescope}
 \label{sec:HCT}
 
-We observed \at\ with the 2-meter Himalayan Chandra Telescope (HCT) on 2022 December 26 under a Director's Discretionary Time proposal. We obtained a series of five-minute exposures in $R$-band from 13:47 to 20:25, covering almost all of the first Chandra observing window. We did not detect any clear flares, with a limiting magnitude per exposure of $R\gtrsim22\,$mag. It is possible that there are some weak flares at the detection threshold, but the detections are not robust due to the variable PSF size and shape over the course of the observation window.
+We observed \at\ with the 2-meter Himalayan Chandra Telescope (HCT) on 2022 December 26 under a Director's Discretionary Time proposal. We obtained a series of five-minute exposures in $R$-band from 13:47 to 20:25, covering almost all of the first Chandra observing window.  Seeing and focus were generally poor and vary greatly over the course of the observation.  A stacked subset of the best-quality images is used as a reference and all other images are differenced relative to this one by cross-convolution of the respective PSFs.   We did not detect any clear flares, with a limiting magnitude per exposure of $R\gtrsim22\,$mag. It is possible that there are some weak flares at the detection threshold, but the detections are not robust due to the variable PSF size and shape over the course of the observation window.
 
 \subsection{Magellan-Baade Telescope}
 \label{sec:magellan}
 
-Starting at 04:30 on 2022 December 15, we obtained five three-minute $g$-band exposures of \at\ using the Inamori-Magellan Areal Camera \& Spectrograph (IMACS\cite{Dressler2011}) mounted on the 6.5-meter Magellan-Baade telescope at Las Campanas Observatory.
+Starting at 04:30 on 2022 December 15, we obtained five three-minute $g$-band exposures of \at\ using the Inamori-Magellan Areal Camera \& Spectrograph (IMACS\cite{Dressler2011}) mounted on the 6.5-meter Magellan-Baade telescope at Las Campanas Observatory.  This sequence shows an unambiguous, high-S/N ($>100$) flare detection peaking in the middle of the five-exposure sequence, and is what led to our initial visual discovery of the short-timescale behaviour of this event.  Image subtraction is performed using a stack of flare-free images from Keck/LRIS taken in January (\ref{sec:Keck}) in similar filters as a reference, and forced aperture photometry is applied to the difference image.
 
 \subsection{Nordic Optical Telescope}
 \label{sec:not}
 
-Starting at 02:30 on 2022 October 4, we obtained an epoch of $ugri$ observations of \at\ using the Alhambra Faint Object Spectrograph and Camera (ALFOSC) on the 2.56\,m Nordic Optical Telescope (NOT) at the Observatorio del Roque de los Muchachos on La Palma (Spain). Following the discovery of flaring, we obtained two additional epochs of observations, the first in $g$-band (five 60\,s exposures the night of 2022 December 16) and the second in $g$- and $r$-band (5$\times$90\,s exposures in each) the night of 2022 December 23. A flare was detected in the second epoch.
+Starting at 02:30 on 2022 October 4, we obtained an epoch of $ugri$ observations of \at\ using the Alhambra Faint Object Spectrograph and Camera (ALFOSC) on the 2.56\,m Nordic Optical Telescope (NOT) at the Observatorio del Roque de los Muchachos on La Palma (Spain). Following the discovery of flaring, we obtained two additional epochs of observations, the first in $g$-band (five 60\,s exposures the night of 2022 December 16) and the second in $g$- and $r$-band (5$\times$90\,s exposures in each) the night of 2022 December 23. A flare was detected in the final $g$-band epoch.  Image subtraction in $g$-band is performed using a stack of the 2022-12-16 epoch as a reference; image subtraction in $r$-band is performed using a stack of the 2022-12-22 observations.  Individual flare-free exposures from the LRIS observations are used as references for $i$ and $u$-bands.  Photometry is performed using a fixed aperture of 1\arcsec\ radius.
 The NOT photometry is presented in Table~\ref{tab:optical-photometry}.
+
+
+\subsection{Palomar Hale 200-inch}
+\label{sec:chimera}
+
+On 2023 January 27, we observed the position of \at\ for three hours using the Caltech HIgh-speed Multi-color camERA (CHIMERA\cite{Harding2016}) on the Palomar 200-inch Hale telescope. Seeing was 2.5--3\arcsec.
+A total of 210 exposures of 50~s each were obtained simultaneously in the $g$-band and the $r$-band filters. Images were reduced using a custom pipeline modified from the ULTRACAM pipeline\cite{Dhillon2007}, and image subtraction was performed using PS1 as a reference using the same techniques as for LT and ULTRASPEC. Photometry was performed using a 2.5\arcsec\ aperture.
 
 \subsection{Lulin Observatory}
 \label{sec:lulin}
@@ -615,7 +610,7 @@ The 3-$\sigma$ upper limits for individual frames are provided in Table~\ref{tab
 \subsection{European Southern Observatory New Technology Telescope}
 \label{sec:ntt}
 
-We observed \at\ on three nights (2022 December 22, 24, and 30) in $g$ and $r$ bands using the Faint Object Spectrograph and Camera (v.2; EFOSC2\cite{Buzzoni1984}) mounted on the 3.58-meter European Southern Observatory (ESO) New Technology Telescope (NTT). On each night, the observation sequence was $5\times$95\,s exposures in $g$-band followed by $5\times$95\,s exposures in $r$-band.
+We observed \at\ on three nights (2022 December 22, 24, and 30) in $g$ and $r$ bands using the Faint Object Spectrograph and Camera (v.2; EFOSC2\cite{Buzzoni1984}) mounted on the 3.58-meter European Southern Observatory (ESO) New Technology Telescope (NTT). On each night, the observation sequence was $5\times$95\,s exposures in $g$-band followed by $5\times$95\,s exposures in $r$-band.  A flare is seen at the beginning of the $g$-band sequence from the second epoch; otherwise no variability was evident.  Image subtraction was performed using the last exposure of each sequence as a reference image; photometry was performed using a 1.0\arcsec\ aperture in all observations.
 
 \subsection{Large Array Survey Telescope}
 \label{sec:last}
@@ -649,11 +644,16 @@ The second epoch was a 40\,min exposure starting at 14:13:16 on 2022 October 6. 
 We obtained two imaging epochs in $g$- and $I$-band (PI Mansi Kasliwal), each comprising four exposures totaling 20\,min. The first epoch started at 2022 October 19 10:35 and the second epoch started at 2023 Jan 17 07:12. 
 Finally, we obtained one imaging epoch in $u$- and $I$-band (PI Jeff Cooke). The observation comprised five exposures of five minutes each, beginning at 10:36 on 2022 December 29.
 
-All spectra and images were reduced using LPipe\cite{PerleyLPipe}. In order to calibrate the $u$-band images, we obtained a $u$-band observation using LT \ayqh{need Dan to explain.} For each image sequence, we performed image subtraction using the last image of the sequence as the reference.
-Upon examination of the two LRIS spectra, a slight inconsistency between the wavelength calibrations was identified in the blue region; the wavelength calibrations were slightly different close to the red edge due to a potential arc-line misidentification, which propagated into the entire blue spectrum (because of the 5577\,\AA\ sky line used for the linear flexure correction).
-A much weaker sky line at 5200\,\AA\ (a more robustly resolved region of the spectrum) was used to calculate the shift between the two spectra, which was 2\,\AA.
-The shift of 2\,\AA\ was applied to the entire blue side of the spectrum.
-There remains an offset of 2\,\AA\ between the features in the two Keck spectra, which is apparent in all the lines. The sky line positions are consistent, however, so this. is likely due to slightly different slit positions and orientations. 
+All spectra and images were reduced using LPipe\cite{PerleyLPipe}. %In order to calibrate the $u$-band images, we obtained a $u$-band observation using LT \ayqh{need Dan to explain.} 
+For the latter two image sequences (in December and January), we performed image subtraction using the last image of the sequence as the reference; for the first (October) imaging sequence we use stacks of the January observations as a reference.  Photometry was performed using a 1.25\arcsec\ aperture.  The $g$ and $I$ images are calibrated relative to PS1.  The $u$-band image was calibrated relative to a LT-IO:O calibration of the field taken on two photometric nights in January 2023.
+
+The pipeline-reduced LRIS spectra show a slight inconsistency between the wavelength calibrations in the blue region due to flexure, which was rectified using an additional 2\AA shift calculated using the position of a weak 5200\,\AA\ night-sky line.
+%the wavelength calibrations were slightly different close to the red edge due to a potential arc-line misidentification, which propagated into the entire blue spectrum (because of the 5577\,\AA\ sky line used for the linear flexure correction).
+%A much weaker sky line at 5200\,\AA\ (a more robustly resolved region of the spectrum) was used to calculate the shift between the two spectra, which was 2\,\AA.
+%The shift of 2\,\AA\ was applied to the entire blue side of the spectrum.
+
+Even after this correction, there remains an offset of 2\,\AA\ between host emission-line features in the two Keck spectra, which is apparent in all the lines. The sky line positions are consistent, however, so this is likely due to slightly different slit positions and orientations. 
+%Dan: we probably don't really need to discuss this here?
 
 % Dan: In addition to that, the line strength ratios are basically consistent.  So I think we can robustly conclude that any differences are minor and consistent with natural differences in slit positioning, calibration uncertainties, etc... and not due to z=0 HeII!
 
@@ -850,6 +850,10 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 
 \bibitem{Ho2020_Koala} Ho, A. Y. Q., et al. The Koala: A Fast Blue Optical Transient with Luminous Radio Emission from a Starburst Dwarf Galaxy at z = 0.27. \emph{\apj}, \textbf{895}, 49 (2020). 
 
+\bibitem{Harding2016} Harding, L. K., et al. CHIMERA: a wide-field, multi-colour, high-speed photometer at the prime focus of the Hale telescope. \emph{\mnras}, \textbf{457}, 3036 (2016). 
+
+\bibitem{Dhillon2007} Dhillon, V. S., et al. ULTRACAM: an ultrafast, triple-beam CCD camera for high-speed astrophysics. \emph{\mnras}, \textbf{378}, 825 (2007). 
+
  \bibitem{Dekany2020} Dekany, R., et al. The Zwicky Transient Facility: Observing System. \emph{\pasp}, \textbf{132}, 038001 (2020). 
 
 \bibitem{Patterson2019} Patterson, M. T., et al. The Zwicky Transient Facility Alert Distribution System. \emph{\pasp}, \textbf{131}, 018001 (2019). 
@@ -885,6 +889,8 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \bibitem{Fruscione2006} Fruscione, A., et al. CIAO: Chandra's data analysis system. \emph{\procspie}, \textbf{6270}, 62701V (2006). 
 
 \bibitem{Dressler2011} Dressler, A., et al. IMACS: The Inamori-Magellan Areal Camera and Spectrograph on Magellan-Baade. \emph{\pasp}, \textbf{123}, 288 (2011). 
+
+%\bibitem{Fremling2016} Fremling, C., Sollerman, J., Taddia, F., et al.\ 2016, \aap, 593, A68. doi:10.1051/0004-6361/201628275  % new ref
 
 \bibitem{Steele2004} Steele, I. A., et al. The Liverpool Telescope: performance and first results. \emph{\procspie}, \textbf{5489}, 679 (2004). 
 
