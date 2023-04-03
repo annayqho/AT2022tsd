@@ -100,8 +100,22 @@
 
 \begin{abstract}
 
-Large-amplitude ($\gtrsim10\times$) flares have been observed in a variety of astrophysical systems involving a compact object:
-stellar-mass black hole X-ray binaries in the Milky Way\cite{Fender1997}; supermassive black holes in the Milky Way\cite{Marrone2008} or other galaxies\cite{Nesci2021}; long-duration gamma-ray bursts\cite{Racusin2008}; and magnetars\cite{Kaspi2017}. The flares in these systems have been attributed to changes in a magnetosphere, in a relativistic flow (internal shocks, turbulence), in the accretion disk powering the outflow, or in the collision between the flow and the external medium; and to geometric effects, i.e., rapid changes in viewing angle onto a collimated jet. Here we report the discovery of luminous ($\nu L_\nu \approx 10^{44}\,$erg\,s$^{-1}$) minute-duration optical flares persisting for over a hundred days following a cosmic explosion, the radio- and X-ray luminous fast blue optical transient (FBOT) AT2022tsd (the ``Tasmanian Devil'') at $z=0.2567$. The inference of dense\cite{Ho2019,Coppejans2020}, asymmetric\cite{Margutti2019,Maund2023} circumburst matter in FBOTs has led to suggestions that they are massive-star explosions occurring in binary-star systems\cite{Metzger2022}; in this picture, the discovery of flares marks the birth of a compact object. FBOTs therefore represent a new class of stellar explosions in which the newly formed compact object drives a powerful outflow, second only to long-duration gamma-ray bursts, but in which the engine duration is months rather than seconds.
+% 1-2 sentences providing a basic introduction to the field
+In the textbook story of stellar death, massive stars die violently: the star's core collapses and forms a compact object (neutron star or black hole) and the outer layers explode.
+% 2-3 sentences of more detailed background
+Most compact objects are discovered through energetic processes, including accretion of material from a companion star, mergers, and magnetospheric activity.
+In particular, large-amplitude ($\gtrsim10\times$) flares have been observed in a variety of systems: X-ray binaries\cite{Fender1997}; supermassive black holes in the Milky Way\cite{Marrone2008} or other galaxies\cite{Nesci2021}; long-duration gamma-ray bursts\cite{Racusin2008}; and magnetars\cite{Kaspi2017}. 
+Such flares have been attributed to rapid changes in a magnetosphere, in a relativistic flow (internal shocks, turbulence), in the accretion disk powering the outflow, or in the collision between the flow and the external medium; and to geometric effects, i.e., rapid changes in viewing angle onto a collimated jet. 
+% One sentence stating the general problem being addressed by this study
+Despite the variety of strategies for discovering compact objects, most are discovered long after the explosion that created them.
+% One sentence summarizing the main result ("here we show"...)
+Here we report the discovery of luminous ($\nu L_\nu \approx 10^{44}\,$erg\,s$^{-1}$) minute-duration optical flares from a compact object, persisting for months following an unusual extragalactic ($z=0.2567$) transient.
+% the radio- and X-ray luminous fast blue optical transient (FBOT) AT2022tsd (the ``Tasmanian Devil'') at $z=0.2567$. 
+% 2-3 sentences explaining what the main result reveals in direct comparison to what was previously thought, how it adds to previous knowledge
+The handful of transients with similar multiwavelength properties are thought to be massive-star explosions\cite{Perley2019,Margutti2019} occurring in binary-star systems\cite{Metzger2022} due to their locations in the outskirts of dwarf star-forming galaxies and the inference of dense\cite{Ho2019,Coppejans2020}, asymmetric\cite{Margutti2019,Maund2023} circumburst matter.
+In this picture, the discovery of flares confirms that a compact object was formed with sufficient angular momentum to power a nearly relativistic outflow; in past systems, a compact object has been inferred from X-ray variability\cite{Margutti2019,Ho2019,Pasham2021,Yao2022} but only accompanied by sub-relativistic ($v<0.1c$) outflows.
+% 1-2 sentences putting results in more general context
+Our results reveal that newborn compact objects can power highly super-Eddington outflows for months, and that minute-cadence optical observations can be used to study them.
 
 \end{abstract}
 
@@ -111,13 +125,13 @@ Forced photometry on ZTF images\cite{Masci2019} revealed that the light-curve ev
 The optical light curve and location 1.5$''$ from a catalogued\cite{Beck2021} galaxy with photometric redshift $z_\mathrm{ph}=0.44\pm0.12$ led AT2022tsd to be flagged as a transient of interest as part of ongoing efforts to discover luminous and fast-evolving optical transients (Methods section \ref{Methods:Identification}).
 
 We obtained two spectra of \at\ with the Low Resolution Imaging Spectrograph (LRIS\cite{Oke1995}) on the Keck\,I 10-m telescope (\ref{fig:spec}; Methods section \ref{sec:Keck}), and measured\cite{Ho2022_Astronote_Keck} a redshift of $z=0.2567\pm0.0001$ (luminosity distance $D_L=1.341\,$Gpc assuming a Planck cosmology\cite{Planck2020}) using prominent narrow host-galaxy emission lines (Methods section \ref{sec:redshift}). 
-The fast light-curve evolution, the implied high peak luminosity ($M_{g,\mathrm{pk}}=-20.64\pm0.13$; Methods section \ref{Methods:Identification}), and the lack of prominent spectroscopic features from the transient itself resembled radio-loud FBOTs in the literature\cite{Prentice2018,Ho2020_Koala,Perley2019,Perley2021,Yao2022} (\ref{fig:opt-phase-space}), and motivated us to trigger additional multiwavelength observations.
-The FBOT classification was supported by the detection of luminous radio (decimeter\cite{Ho2022Astronote_radio} to submillimeter) emission that peaked at hundreds of GHz for over a month in the rest frame (Methods section~\ref{Methods:VLA}; \ref{fig:radio}),
+The fast light-curve evolution, the implied high peak luminosity ($M_{g,\mathrm{pk}}=-20.64\pm0.13$; Methods section \ref{Methods:Identification}), and the lack of prominent spectroscopic features from the transient itself resembled radio-loud fast blue optical transients (FBOTs) in the literature\cite{Prentice2018,Ho2020_Koala,Perley2019,Perley2021,Yao2022} (\ref{fig:opt-phase-space}), and motivated us to trigger additional multiwavelength observations.
+The similarity to previously studied FBOTs was supported by the detection of luminous radio (decimeter\cite{Ho2022Astronote_radio} to submillimeter) emission that peaked at hundreds of GHz for over a month in the rest frame (Methods section~\ref{Methods:VLA}; \ref{fig:radio}),
 as well as luminous ($>10^{44}\,$erg\,s$^{-1}$) and steadily fading ($L_X\propto t^{-1.90\pm0.26}$; Methods section~\ref{sec:xray-decay-index}) 0.3--10\,keV X-ray emission\cite{Schulze2022Astronote_xray} (Methods section~\ref{Methods:Swift}).
 
 In a photometric optical imaging sequence starting at 04:29:57 on 15 December 2022, a hundred days (observer frame) after the initial transient event, we detected\cite{Ho2022_Astronote_Flares} a flare at the position of \at\ across five three-minute Magellan/IMACS $g$-band images, with a peak luminosity of $\nu L_\nu \approx 10^{44}\,$erg\,s$^{-1}$.
 Forced photometry on ZTF and Pan-STARRS survey images at the position of the transient revealed additional flare detections (Figure~\ref{fig:optical-lc}; Methods section \ref{sec:flare-association}).
-Following the IMACS flare detection, we obtained a total of 2470 minutes of optical observations of \at\ on 19 different nights, using nine different telescopes. The duration of each sequence ranged from 10\,min to 4.5\,hr. In total we detected approximately a dozen flares (Figure~\ref{fig:optical-lc}). ULTRASPEC observations revealed flux variations exceeding an order of magnitude on timescales shorter than 20\,s (rest frame), and complex temporal profiles that vary between flares (Figure~\ref{fig:optical-lc}; Section~\ref{sec:flare-morphology}).
+Following the IMACS flare detection, we obtained a total of 2470 minutes of optical observations of \at\ on 19 different nights, using nine different telescopes. The duration of each sequence ranged from 10\,min to 4.5\,hr. In total we detected approximately a dozen flares (Figure~\ref{fig:optical-lc}). ULTRASPEC observations revealed flux variations exceeding an order of magnitude on timescales shorter than 20\,s (rest frame), and complex temporal profiles that vary between flares (Figure~\ref{fig:optical-lc}; Section~\ref{sec:flare-characteristics}).
 Two different Keck/LRIS observations revealed red flare colors (Methods section \ref{sec:flare-emission-mechanism}):
 $u-I=1.41\pm0.31\,$mag, or $\beta=-1.6\pm0.1$ where
 $f_\nu \propto \nu^{\beta}$ (corrected for Milky Way extinction but not corrected for host attenuation).
@@ -125,14 +139,14 @@ $f_\nu \propto \nu^{\beta}$ (corrected for Milky Way extinction but not correcte
 Analysis of previously obtained \emph{Chandra} X-ray observations (Methods section \ref{sec:chandra}) revealed significant variability, possibly with flares of similar durations to the optical flares (tens of minutes; \ref{fig:xray-lc}). To search for simultaneous X-ray and optical flares,
 we were granted 40\,ksec of Chandra DD observations, divided into two windows (26 December and 29 December 2022),
 and conducted simultaneous ground-based optical observations with the Himalayan Chandra Telescope (Methods section \ref{sec:HCT}), the Lulin Observatory (Methods section \ref{sec:lulin}), and Keck/LRIS. We detected one definitive optical flare with Keck/LRIS on 29 December, with no clear X-ray flare counterpart.
-We find no clear periodicity in either the optical or X-ray emission (Methods section \ref{sec:flare-morphology}).
+We find no clear periodicity in either the optical or X-ray emission (Methods section \ref{sec:flare-characteristics}).
 
-To our knowledge, such behavior---minute-timescale optical flares at supernova-like luminosities, with order-of-magnitude amplitude variations, persisting for 100 days---has no precedent in the literature. Table~\ref{tab:flaring-classes} lists known classes of objects that exhibit large flares. Known flaring behavior is either orders of magnitude less luminous (X-ray binaries\cite{Fender1997}, Sagittarius A*\cite{Marrone2008}), persists for only a few minutes post-explosion (long-duration GRBs\cite{Racusin2008}), has much longer durations (blazars\cite{Nesci2021}), or is at much higher energies ($\gamma$-rays\cite{Hurley1999}).
+To our knowledge, such behavior---minute-timescale optical flares at supernova-like luminosities, with order-of-magnitude amplitude variations, persisting for 100 days---has no precedent in the literature. Table~\ref{tab:flaring-classes} lists known classes of objects that exhibit large flares. Known flaring behavior is either orders of magnitude less luminous (X-ray binaries\cite{Fender1997}, Sagittarius A*\cite{Marrone2008}), persists for only a few minutes post-explosion (long-duration GRBs\cite{Racusin2008}), has much longer durations (blazars\cite{Nesci2021}), or is at much higher energies (magnetars\cite{Hurley1999}).
 
 The high brightness temperature revealed by the ULTRASPEC observations, combined with the red color shown in the LRIS data, implies that the emission mechanism for the optical flares is synchrotron radiation (in the optically thin regime; Methods section \ref{sec:flare-emission-mechanism}). 
 %The optical and X-ray data are consistent with an optical to X-ray spectral index of $\beta=-1$ (Methods section~\ref{sec:flare-emission-mechanism}), suggesting that there could be a variable X-ray component arising from synchrotron radiation.
 We require fast ($v\gtrsim0.6c$; Methods section~\ref{sec:outflow-velocity}) velocities for the outflow producing the flares, but have no evidence that it is relativistic as in a gamma-ray burst, including a lack of detected variability at radio and submillimeter wavelengths (Methods section~\ref{sec:ALMA}).
-This is consistent with inferred sub-relativistic velocities from FBOT radio observations\cite{Ho2019,Margutti2019,Coppejans2020,Ho2020_Koala,Ho2022}, including VLBI\cite{Mohan2020}.
+%This is consistent with inferred sub-relativistic velocities from FBOT radio observations\cite{Ho2019,Margutti2019,Coppejans2020,Ho2020_Koala,Ho2022}, including VLBI\cite{Mohan2020}.
 We searched for flares in the aftermath of other radio-loud FBOTs, with no significant detections; if all other radio-loud FBOTs were observed off-axis then we estimate an opening angle for the outflow of 30$^{\circ}$ (Methods section~\ref{sec:beaming-fraction}).
 
 Most astrophysical systems with large-amplitude flares involve compact objects, from stellar-mass to supermassive (Table~\ref{tab:flaring-classes}). By analogy, and several lines of evidence that FBOTs are massive-star explosions, we suggest that \at\ represents the birth of a neutron star or black hole.
@@ -199,6 +213,8 @@ The detection of flares requires an outflow on-axis that is at least mildly rela
 % Custom ADS Format: \bibitem{%1H%Y} %5l %T. \emph{%j}, \textbf{%V}, %p (%Y). \n
 
 \bibitem{Ho2019} Ho, A. Y. Q., et al. AT2018cow: A Luminous Millimeter Transient. \emph{\apj}, \textbf{871}, 73 (2019). 
+
+\bibitem{Pasham2021} Pasham, D. R., et al. Evidence for a compact object in the aftermath of the extragalactic transient AT2018cow. \emph{Nature Astronomy}, \textbf{6}, 249 (2021). 
 
 \bibitem{Prentice2018} Prentice, S. J., et al. The Cow: Discovery of a Luminous, Hot, and Rapidly Evolving Transient. \emph{\apjl}, \textbf{865}, L3 (2018). 
 
@@ -385,11 +401,11 @@ should be addressed to Anna Y. Q. Ho (email: annayqho@cornell.edu).
 \section{Identification of \at}
 \label{Methods:Identification}
 
-ZTF data are analyzed daily with the goal of discovering luminous fast blue optical transients similar to AT2018cow.
+ZTF data are analyzed daily with the goal of discovering luminous fast blue optical transients (FBOTs) similar to AT2018cow\cite{Prentice2018}.
 Transients are filtered based on age, light-curve timescale, and absolute magnitude (via the best-available host-galaxy redshift estimate).
 AT2022tsd was flagged due to its proximity to a catalogued galaxy with a photometric redshift that implied a high peak luminosity, together with the relatively fast timescale of the optical light curve.
 Keck/LRIS observations enabled a redshift measurement that gave a peak absolute magnitude of $M_{g, \mathrm{peak}}=-20.64\pm0.13$, accounting for Milky Way extinction ($E_{B-V}=A_V/R_V=0.27$ where $R_V=3.1$)\cite{Finkbeiner1999,Schlegel1998,Schlafly2011} and applying a crude cosmological correction.
-With the absolute magnitude confirmed, AT2022tsd clearly lay in the part of optical-transient parameter space that included other LFBOTs (Figure~\ref{fig:opt-phase-space}) so
+With the absolute magnitude confirmed, AT2022tsd clearly lay in the part of optical-transient parameter space that included radio- and X-ray loud FBOTs (Figure~\ref{fig:opt-phase-space}) so
 multiwavelength (X-ray, decimeter, and submillimeter wavelength) observations were triggered.
 
 \section{Redshift}
@@ -407,7 +423,7 @@ The result was $z=0.2567\pm0.0001$.
 \section{Limit on an Associated GRB}
 \label{sec:grbsearch}
 
-We searched for a possible GRB counterpart in the 1.8\,d between the last ZTF non-detection (4 Sept; JD 2459826.9464) and the first ZTF detection. We did not identify any reported burst consistent with the time and position of \at\ in the GCN archive or the Fermi burst catalog. Konus-Wind was taking data throughout this interval, but detected no events consistent with the \at\ position. We adopt a  fluence and flux threshold of $10^{-6}\,$erg\,cm$^{-2}$ and $3\times10^{-7}\,$erg\,cm$^{-2}$\,s$^{-1}$, respectively\cite{Tsvetkova2017},
+We searched for a GRB counterpart in the 1.8\,d between the last ZTF non-detection (4 Sept; JD 2459826.9464) and the first ZTF detection. We did not identify any burst consistent with the time and position of \at\ in the GCN archive or the Fermi burst catalog. Konus-Wind was taking data throughout this interval, but detected no events consistent with the \at\ position. We adopt a  fluence and flux threshold of $10^{-6}\,$erg\,cm$^{-2}$ and $3\times10^{-7}\,$erg\,cm$^{-2}$\,s$^{-1}$, respectively\cite{Tsvetkova2017},
 giving upper limits of $E_\mathrm{\gamma,iso}<2\times10^{50}\,$erg and $L_{\gamma,\mathrm{iso}}<6\times10^{49}\,$erg\,s$^{-1}$.
 These limits rule out an on-axis classical long-duration GRB, but not an off-axis or low-luminosity GRB\cite{Cano2017}.
 
