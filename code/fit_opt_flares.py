@@ -6,77 +6,6 @@ from scipy.optimize import curve_fit
 from get_opt import *
 import vals
 
-def gauss(x, sigma, A, b):
-    """ Gaussian distribution """
-    return A*np.exp(-(x-b)**2/(2*sigma**2))
-
-
-def two_gaussians(x, sigma1, A1, b1, sigma2, A2, b2):
-    """ Gaussian distribution """
-    return A1*np.exp(-(x-b1)**2/(2*sigma1**2)) +\
-           A2*np.exp(-(x-b2)**2/(2*sigma2**2))
-
-
-def fred(x, a, b, c, d):
-    """ Fast rise exponential decay 
-    Functional form taken from this website: 
-    https://pygrb.readthedocs.io/en/latest/user/pulses.html"""
-    return a*np.exp(-b*(((x-c)/(d))+((d)/(x-c))))
-
-
-def exp(x, A, tau):
-    """ Fast rise exponential decay """
-    return A*np.exp(-x/tau)
-
-
-def exp_gi(x, A, tau, fac):
-    """ exponential fit, for dual band (Keck) 
-    same number of observations in both bands """
-    xg = x[0:int((len(x)+1)/2)]
-    yg = A*np.exp(-xg/tau)
-    yi = yg*fac
-    return np.hstack((yg, yi))
-
-
-def pow_gi(x, A, tau, fac):
-    """ power-law fit, for dual band (Keck) 
-    same number of observations in both bands """
-    xg = x[0:int((len(x)+1)/2)]
-    yg = A*xg**(-tau)
-    yi = yg*fac
-    return np.hstack((yg, yi))
-
-
-def gauss_gi(x, sigma, A, b, fac):
-    xg = x[0:int((len(x)+1)/2)]
-    yg = A*np.exp(-(xg-b)**2/(2*sigma**2))
-    yi = yg*fac
-    return np.hstack((yg, yi[1:]))
-
-
-def gauss_const_gi(x, sigma, A, b, fac, offset):
-    xg = x[0:int((len(x)+1)/2)]
-    yg = offset+A*np.exp(-(xg-b)**2/(2*sigma**2))
-    yi = yg*fac
-    return np.hstack((yg, yi))
-
-
-def gauss_exp_gi(x, sigma, A, b, fac, B, tau):
-    xg = x[0:int((len(x)+1)/2)]
-    yg = A*np.exp(-(xg-b)**2/(2*sigma**2)) + B*np.exp(-xg/tau)
-    yi = yg*fac
-    return np.hstack((yg, yi))
-
-
-def gauss_exp(x, sigma, A, b, B, tau):
-    """ Fit a Gaussian + exponential for a single band """
-    return A*np.exp(-(x-b)**2/(2*sigma**2)) + B*np.exp(-x/tau)
-
-
-def gauss_const(x, sigma, A, b, offset):
-    """ Fit a Gaussian + constant for a single band """
-    return A*np.exp(-(x-b)**2/(2*sigma**2)) + offset
-
 
 def ultraspec_gband_small(ax, return_residuals=False):
     """ Fit the small ULTRASPEC g-band flare """
@@ -620,5 +549,10 @@ def lt():
     plt.show()
 
 
+def calc_t90():
+    """ Calculate the T90 of a flare, aka the time in which 
+    90% of the flux was recorded """
+
+
 if __name__=="__main__":
-    lris_gi()
+    calc_t90()
