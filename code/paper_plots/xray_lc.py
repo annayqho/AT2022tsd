@@ -105,6 +105,6 @@ if __name__=="__main__":
     plot_flares(axarr)
 
     plt.tight_layout()
-    plt.show()
-    #plt.savefig("xray_flares.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("xray_flares.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
