@@ -44,8 +44,8 @@ def flare_lc():
     choose = dat_opt['flt']=='i'
     xo = dat_opt['mjdstart'][choose].values+dat_opt['exp'][choose].values/2/86400
     exo = dat_opt['exp'][choose].values/2/86400
-    yo = dat_opt['flux'][choose].values
-    eyo = dat_opt['unc'][choose].values
+    yo = dat_opt['flux_extcorr'][choose].values
+    eyo = dat_opt['unc_extcorr'][choose].values
     #plt.errorbar(xo, yo, xerr=exo, yerr=eyo, fmt='o', c='goldenrod')
 
     # Plot the X-ray count rate (500s bins)
