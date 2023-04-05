@@ -12,6 +12,10 @@ from astropy.time import Time
 from get_radio_at2022tsd import *
 import vals
 
+# Global variables
+mins = [26,33,40.2,64,112]#,141]
+maxs = [27,36,44.2,69,113]#,157]
+
 
 def func(x,alpha,y0,x0):
     return y0*(x/x0)**alpha
@@ -48,17 +52,15 @@ def get_data():
 
 def plot_seds(dat, ax):
     """ Plot a multi-panel SED thing """
-    cols = cmr.take_cmap_colors(
-            'cmr.ember', 6, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
-    
     dt = dat['dt']
     flux = dat['Flux']
     eflux = dat['eFlux']
 
-    mins = [26,33,40.2,64,112,141]
-    maxs = [27,36,44.2,69,113,157]
     markers = ['o', 's', 'D', '>', '*', '<']
     sizes = [5, 5, 5, 6, 10, 6]
+
+    cols = cmr.take_cmap_colors('cmr.ember', len(mins), 
+            cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
 
     for i,minval in enumerate(mins):
         choose = np.logical_and(dt>minval, dt<maxs[i])
@@ -127,7 +129,7 @@ def plot_seds(dat, ax):
     ax.set_yticklabels([0.02,0.05,0.1, 0.2, 0.5])
     #ax.set_ylabel(r"$f_{\nu}$ (mJy)", fontsize=10)
     ax.set_ylim(0.02,0.7)
-    ax.set_xlim(1,600)
+    ax.set_xlim(10,600)
     ax.legend(loc='lower right', fontsize=8, handletextpad=0.4,
               labelspacing=0.1)
     ax.set_xlabel(r"$\nu_\mathrm{rest}$ (GHz)", fontsize=10)
@@ -184,11 +186,11 @@ def plot_lc(dat,ax):
                     [last_x,xval], [y[isdet][-1],lim], 
                     lw=1, c=cols[i], ls='--', zorder=10)
 
-    ax.axvspan(27,28,color='lightgrey')
-    ax.axvspan(34,37,color='lightgrey')
-    ax.axvspan(41.2,45.1,color='lightgrey')
-    ax.axvspan(65,70,color='lightgrey')
-    ax.axvspan(113,114,color='lightgrey',zorder=0)
+    cols = cmr.take_cmap_colors('cmr.ember', len(mins), 
+            cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
+    for i,m in enumerate(mins):
+        ax.axvspan(m,maxs[i],color=cols[i], alpha=0.2, lw=0)
+
     ax.set_xlabel(r"$\Delta t_\mathrm{rest}$ (d)")
     ax.set_xscale('log')
     ax.set_yscale('log')
@@ -209,6 +211,6 @@ if __name__=="__main__":
     ax = axarr[1]
     plot_seds(dat,ax)
 
-    plt.show()
-    #plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.close()

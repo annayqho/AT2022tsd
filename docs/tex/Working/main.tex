@@ -534,7 +534,7 @@ AT2018cow was observed intensely by a variety of optical telescopes during the 8
 
 For CSS161010, we used the online ATLAS\cite{Tonry2018,Smith2020} forced photometry service\cite{Shingles2021} to identify 480 images within 600 days after the transient. There is no $\geq5$-$\sigma$ detection after the original transient. At the distance of CSS16010, the threshold for 24.0\,mag corresponds to 19.2\,mag. The number of images that are sufficiently sensitive, binned by hour, between 20 days and 100 days after the transient, is only 8. Therefore, we cannot exclude flaring with a duty cycle identical to that of \at.
 
-In the extreme case that all the ZTF FBOTs produced similar outflows, and that \at\ was the only member of the class viewed on-axis so far, we estimate a beaming fraction of $f_b = 1/6 = 1-\cos{\theta}$, and find $\theta\approx30^{\circ}$ for the opening angle of the outflow. This estimate of the opening angle is consistent with the current (limited) radio limits on off-axis jets in such objects: the radio emission in AT2018cow (by far the most nearby event, with the most sensitive limits) cannot rule out an off-axis jet with $\theta=30^{\circ}$ and energy $E_J<10^{51}\,$erg\cite{Margutti2019}, which is also consistent with the lack of $\gamma$-ray detection (Methods section~\ref{sec:grbsearch}).
+In the extreme case that all the ZTF FBOTs produced similar outflows, and that \at\ was the only member of the class viewed on-axis so far, we estimate a beaming fraction of $f_b = 1/6 = 1-\cos{\theta}$, and find $\theta\approx30^{\circ}$ for the opening angle of the outflow. This estimate of the opening angle is consistent with the current (limited) radio limits on off-axis jets in such objects: the radio emission in AT2018cow (by far the most nearby event, with the most sensitive limits) cannot\cite{Margutti2019} rule out an off-axis jet with $\theta=30^{\circ}$ and energy $E_J<10^{51}\,$erg, which is also consistent with the lack of $\gamma$-ray detection (Methods section~\ref{sec:grbsearch}).
 
 \section{Limit on an Associated GRB}
 \label{sec:grbsearch}
@@ -804,7 +804,7 @@ We used \texttt{specextract} to bin the spectrum (with 5 counts per bin for all 
 
 After obtaining the best-fit model of the spectrum, we used \texttt{sample\_flux} to measure the 0.5--6\,keV flux of the source. The best-fit flux measurements are listed in Table~\ref{tab:chandra} . To convert to the \emph{Swift} 0.3--10\,keV range (\ref{fig:xray-lc}) we multiplied the 0.5--6\,keV values by a factor of 1.77.
 
-For each observation, we used \texttt{dmextract} and 500\,s bins to construct a light curve of \at. We also extracted the light curve of the background region. The light curves of \at\ and the background are shown in \ref{fig:xray-lc}. 
+For each observation, we used \texttt{dmextract} and 500\,s bins to construct a light curve of \at. We also extracted the light curve of the background region. The light curves of \at\ and the background are shown in \ref{fig:xray-lc}, with 1-$\sigma$ error bars.
 
 \vspace{1in}
 \noindent{\bf References}
@@ -995,7 +995,7 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \begin{figure*}[!ht]
     \centering
     \includegraphics[width=\textwidth]{lomb_scargle_xray.png}
-    \caption{Lomb-Scargle periodogram of the first four epochs of Chandra X-ray observations. The horizontal line show the power expected for a false-alarm peak (with false alarm probability 2.5\%) under the assumption that there is no periodicity present in the data. The observed peaks arise from the 500\,s sampling and aliases (marked with vertical dotted lines).}
+    \caption{Lomb-Scargle periodogram of the first four epochs of Chandra X-ray observations. The horizontal line shows the power expected for a false-alarm peak (with false alarm probability 2.5\%) under the assumption that there is no periodicity present in the data. The observed peaks arise from the 500\,s sampling and aliases (marked with vertical dotted lines).}
     \label{fig:xray-periodogram}
 \end{figure*}
 
@@ -1017,7 +1017,7 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
  \centering
 \includegraphics[width=0.5\textwidth]{xray_fit.png}
 \includegraphics[width=1.0\textwidth]{xray_flares.png}
-  \caption{\textbf{0.3--10\,keV X-ray light curve of \at.} Top panel: The light curve is well described by a power law of $\beta=-1.90\pm0.26$ where $f_\nu \propto \nu^{\beta}$. Upper limits (3-$\sigma$) are shown with open circles. Other panels: The first few Chandra observations show significant variability. During the second-to-last Chandra observation, we detected a flare with LRIS ($i$-band data plotted) that had no obvious X-ray counterpart.}
+  \caption{\textbf{0.3--10\,keV X-ray light curve of \at.} Top panel: The light curve is well described by a power law of $\alpha=-1.90\pm0.26$ where $f_\nu \propto t^{\alpha}$. Upper limits (3-$\sigma$) are shown with open circles. Other panels: The first few Chandra observations show significant variability. During the second-to-last Chandra observation, we detected a flare with LRIS ($i$-band data plotted) that had no obvious X-ray counterpart.}
  \label{fig:xray-lc}
 \end{figure}
 
