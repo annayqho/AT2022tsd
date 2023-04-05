@@ -87,3 +87,38 @@ def load_chandra_flares(oid):
     t = t0_mjd+x
 
     return t,x,y,xerr,yerr
+
+
+def load_both():
+    # Load the Swift data
+    df = load_swift()
+    t = Time(df['!MJD    '].values, format='mjd')
+    dt = (t.jd-vals.t0)/(1+vals.z)
+    et = (df['T_+ve   '].values)/(1+vals.z)
+    L = df['L'].values/1E43
+    eL = df['Lpos'].values/1E43
+
+    # Plot the Swift data
+    isdet = eL>0
+
+    # Get Chandra
+    # WebPIMMS: the factor for going from 0.5-6 to 0.3-10 is 1.77
+    factor = 1.77
+    df = load_chandra()
+    t = Time(df['MJD'].values, format='mjd')
+    exp = (df['Exp'].values*1000)/86400 # days
+    dt_start = (t.jd-vals.t0)/(1+vals.z)
+    dt_dur = exp/(1+vals.z)
+    dt_ch = dt_start + dt_dur/2 # halfway through
+    e_dt_ch = dt_dur/2 # half the exposure
+    L_ch = 1.77*df['L'].values/1E43
+    uL_ch = 1.77*df['Lpos'].values/1E43
+    lL_ch = 1.77*df['Lneg'].values/1E43
+
+    # Concatenate
+    dt = np.hstack((dt[isdet], dt_ch))
+    L = np.hstack((L[isdet], L_ch))
+    eL = np.hstack((eL[isdet], uL_ch))
+    e_dt = np.hstack((et[isdet], e_dt_ch))
+
+    return dt, L*1E43, e_dt, eL*1E43

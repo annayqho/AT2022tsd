@@ -169,7 +169,7 @@ The detection of flares requires an outflow on-axis that is at least mildly rela
     \begin{subfigure}[t]{1.0\textwidth}
          \centering
          \includegraphics[width=0.49\textwidth]{mm_lc_100ghz.png}
-        \includegraphics[width=0.49\textwidth]{xray_lc_collage.png}
+        \includegraphics[width=0.49\textwidth]{xray_lc.png}
      \end{subfigure}
 \caption{\textbf{Millimeter (left) and X-ray (right) light curves of \at} and other radio-loud luminous fast blue optical transients (LFBOTs) compared to different classes of extragalactic transients: tidal disruption events (TDEs), long-duration gamma-ray bursts (LGRBs), low-luminosity GRBs (LLGRBs), and core-collapse supernovae (CC SNe). The millimeter and X-ray luminosity of LFBOTs resembles relativistic explosions such as LGRBs, and \at\ has the most luminous X-ray emission of any LFBOT to date. The millimeter points for AT2022tsd, and the X-ray points for AT2022tsd and FBOT AT2020xnd, are outlined in black for clarity.}
  \label{fig:mm-xray-lc}
@@ -479,7 +479,7 @@ In summary, our data are consistent with a mechanism that is always ``on,'' prod
 \label{sec:flare-emission-mechanism}
 
 The lowest frequency with detected variability is the optical band, so we use this to estimate the brightness temperature of the flares.
-From the ULTRASPEC observations, the shortest timescale of variability we resolve is $(30\,\mathrm{s})/(1+z) = 24\,$s, setting a limit on the emission region size $dR$ of $dR<7\times10^{11}\,$cm, or $d\theta < 3.6 \times 10^{-5}\,\mu$as. Taking the intensity of the brightest ULTRASPEC flare detection (52\,$\mu$Jy) we find $T_B > \frac{I_\nu c^2}{2 k\nu^2} = 8\times10^{10}\,$K.
+From the ULTRASPEC observations, the shortest timescale of variability we resolve is $(30\,\mathrm{s})/(1+z) = 24\,$s, setting a limit on the emission region size $dR$ of $dR<7\times10^{11}\,$cm, or $d\theta < 3.6 \times 10^{-5}\,\mu$as. Taking the intensity of the brightest ULTRASPEC flare detection (52\,$\mu$Jy) we find $T_B > \frac{I_\nu c^2}{2 k\nu^2} \approx 8\times10^{10}\,$K.
 
 From the Keck/LRIS observations, we can measure the optical-flare color. The Keck/LRIS $u+I$ flare detection gives $f_\nu \propto \nu^{-1.6\pm0.1}$. There was only one clear detection in both bands during this sequence, so we cannot draw conclusions about the color evolution. The Keck/LRIS $g+I$ flare detection gives $f_\nu \propto \nu^{-0.45\pm0.01}$ at the start of the sequence, with a trend towards bluer colors over the next 20 minutes (Figure~\ref{fig:keck-flare-color-evolution}); however, the color evolution likely reflects an increasing contribution from the underlying blue transient, so again we cannot draw conclusions about the evolution of the flare color.
 
@@ -524,7 +524,7 @@ Powerful outflows driven by compact objects have been observed in long-duration 
     R_T = (1.2 \times 10^{11}\,\mathrm{cm}) (v/c)^{-3}.
 \end{equation}
 
-The inferred radius from the light-crossing time, based on the shortest observed variability timescale of 20\,s, is $R_\mathrm{lc} < 7\times10^{-11}\,$cm. Requiring $R_T \leq R_\mathrm{lc}$, we find $v/c \gtrsim 0.6$. So, the outflow must be fast, but may not be fully relativistic.
+The inferred radius from the light-crossing time, based on the shortest observed variability timescale of 20\,s, is $R_\mathrm{lc} < 7\times10^{11}\,$cm. Requiring $R_T \leq R_\mathrm{lc}$, we find $v/c \gtrsim 0.6$. So, the outflow must be fast, but may not be fully relativistic.
 
 In addition, given that transients with light curves similar to \at\ (in terms of timescale and luminosity) are rare, occurring at $<0.1$ of the core-collapse supernova rate\cite{Ho2022_RET}, it seems unlikely that the outflow in \at\ is tightly collimated. From 2018--2022, we discovered six transients with similar durations and peak luminosities in ZTF survey data. We performed forced photometry on ZTF images at the position of all six objects, and identified no significant flares. 
 However, their relatively high redshifts ($z=0.14$ for AT2020mrf\cite{Yao2022} to $z=0.342$ for AT2021ahuo) means that the nominal ZTF survey data cannot be used to rule out flaring with the duty cycle of \at.
