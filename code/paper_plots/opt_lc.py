@@ -204,42 +204,9 @@ if __name__=="__main__":
     plot_xray_epochs(ax)
     plot_radio_epochs(ax)
 
-    # Make a legend
-    #ax.legend(loc='lower right', ncol=1, fontsize=8)
-
-    # Zoom in
-    #axins = ax.inset_axes([0.35, 0.15, 0.3, 0.35])
-    #plot_flares_zoom(axins)
-    #axins.set_xlabel("Minutes (obs. frame)", fontsize=8, labelpad=1)
-    #axins.set_ylabel(r"$\nu L_\nu$ (erg s$^{-1}$)", fontsize=8, labelpad=1)
-    #axins.tick_params(axis='both', labelsize=8, pad=0.5)
-    #axins.set_yscale('log')
-    #axins.set_ylim(3E42, 1E44)
-    # rect = patches.Rectangle((98.2, 19.4), 3.6, 3.6, linewidth=0.5, 
-    #                          edgecolor='grey', facecolor='none')
-    # ax.add_patch(rect)
-    # ax.plot([92.3,98.2],[21.2,19.4], c='grey', lw=0.5)
-    # ax.plot([92.3,98.2],[22.8,19.4+3.6], c='grey', lw=0.5)
-    # # Make a second x-axis
-    # axins2 = axins.twiny()
-    # axins2.set_xlabel(r"Minutes (rest frame)", fontsize=8, labelpad=1)
-    # x_f = lambda x_i: x_i/(1+float(vals.z))
-    # xmin, xmax = axins.get_xlim()
-    # axins2.set_xlim((x_f(xmin), x_f(xmax)))
-    # axins2.tick_params(axis='both', labelsize=8, pad=0.5)
-
     # Formatting
     ax.set_xlim(-5, 145)
     ax.set_ylim(24.5, 18.7)
-
-    # Make a second x-axis
-    # ax3 = ax.twiny()
-    # ax3.set_xlabel(r"Days since %s (rest frame)" %t0_str)
-    # x_f = lambda x_i: x_i/(1+float(vals.z))
-    # xmin, xmax = ax.get_xlim()
-    # ax3.set_xlim((x_f(xmin), x_f(xmax)))
-    # ax3.tick_params(axis='x', labelsize=10)
-    # ax3.plot([],[])
 
     ax.set_xlabel(
             r"Days since %s (observer frame)" %t0_str,fontsize=10,
