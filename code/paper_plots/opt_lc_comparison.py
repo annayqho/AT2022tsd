@@ -89,7 +89,7 @@ def plot_22tsd(ax, show='absolute', offset=0):
             ax.errorbar(xb, yf, eyf, fmt=ms[i], color=cs[i], zorder=10)
 
 
-def plot_18cow(ax):
+def plot_18cow(ax, show='absolute', offset=0):
     """ Plot the optical LC of AT2018cow """
     dat = pd.read_fwf("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt/at2018cow_photometry_table.dat")
     t0 = 58286
@@ -98,15 +98,17 @@ def plot_18cow(ax):
     for i in np.arange(len(dat['ABMag'])):
         if '>' in dat['ABMag'][i]:
             dat['ABMag'][i] = dat['ABMag'][i][1:]
-    M = dat['ABMag'].values.astype(float)-Planck18.distmod(z=0.0141).value
+    M = dat['ABMag'].values.astype(float)
+    if show=='absolute':
+        M = dat['ABMag'].values.astype(float)-Planck18.distmod(z=0.0141).value
     cols = [vals.gc, vals.rc]
     for i,b in enumerate(['g', 'r']):
         choose = dat['Filt'].values==b
-        ax.plot(x[choose]-t0, M[choose], c=cols[i], ls='--')
-    ax.text(2, -18, '18cow', rotation=-35, fontsize=8)
+        ax.plot(x[choose]-t0, M[choose]+offset, c=cols[i], ls='--')
+    #ax.text(2, -18, '18cow', rotation=-35, fontsize=8)
 
 
-def plot_20xnd(ax):
+def plot_20xnd(ax, show='absolute', offset=0):
     """ Plot the extinction-corrected light curve of AT2020xnd """
     dat = pd.read_fwf("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt/at2020xnd_photometry_table.dat")
     mjd = dat['#MJD']
@@ -118,12 +120,14 @@ def plot_20xnd(ax):
     for i,b in enumerate(['g', 'r']):
         choose = np.logical_and(dat['filt'].values==b, dat['merr']!='---')
         x = mjd[choose]-t0
-        y = mag[choose].astype(float)-Planck18.distmod(z=0.2442).value
+        y = mag[choose].astype(float)
+        if show=='absolute':
+            y = mag[choose].astype(float)-Planck18.distmod(z=0.2442).value+offset
         ax.plot(x/(1.2442), y, c=cols[i])
-    ax.text(15, -17, '20xnd', rotation=-35, fontsize=8)
+    #ax.text(15, -17, '20xnd', rotation=-35, fontsize=8)
 
 
-def plot_98bw(ax):
+def plot_98bw(ax, show='absolute', offset=0):
     """ Plot the LC of SN1998bw """
     dat = pd.read_csv(
             "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt/sn1998bw.dat",
@@ -137,18 +141,23 @@ def plot_98bw(ax):
     rband = rband[choose].astype(float)
     erband = erband[choose].astype(float)
     # Extinction is 0.127 in R-band in this direction
-    ax.plot(jd-jd[0], rband-dm-0.127, color=vals.rc, lw=1, ls=':')
-    ax.text(30, -18.7, '98bw', rotation=-15, fontsize=8)
+    y = rband
+    if show=='absolute':
+        y = rband-dm
+    ax.plot(jd-jd[0], y-0.127+offset, color=vals.rc, lw=1, ls=':')
+    #ax.text(30, -18.7, '98bw', rotation=-15, fontsize=8)
 
 
-def plot_sn2011kl(ax):
+def plot_sn2011kl(ax, show='absolute', offset=0):
     """ Plot the LC of the ULGRB counterpart """
-    dat = np.loadtxt("2011kl.txt")
+    z = 0.677
+    dat = np.loadtxt("../2011kl.txt")
     t = dat[:,0]
     m = dat[:,1]
-    em = dat[:,2]
-    ax.plot(t/(1.677), m, c='grey', lw=0.8)
-    ax.text(10, -20, 'SN2011kl', rotation=-15, fontsize=8)
+    dm = Planck18.distmod(z=z).value
+    if show=='apparent':
+        m = m+dm
+    ax.plot(t/(1.677), m-offset, c='grey', lw=1, ls='-.')
 
 
 def plot_cvs(ax):
