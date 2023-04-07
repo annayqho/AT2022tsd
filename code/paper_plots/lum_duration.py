@@ -493,7 +493,7 @@ def plot_afterglows(ax):
 
 
 if __name__=="__main__":
-    fig,ax = plt.subplots(1,1,figsize=(5,5))#, sharey=True)
+    fig,ax = plt.subplots(1,1,figsize=(5,5.7))#, sharey=True)
 
     # Plot BTS sources
     plot_bts(ax)

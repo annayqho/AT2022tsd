@@ -158,21 +158,33 @@ The detection of flares requires an outflow that is at least mildly relativistic
 
 \begin{figure*}
 \centering
-    \includegraphics[width=0.8\textwidth]{fig1_flare_zooms.pdf}
-\caption{\textbf{\at\ optical light curve.}
-  The original transient event (top panel, $\Delta t_\mathrm{obs}<28\,$d) was followed by prominent short-duration (minutes to hours) flares with amplitudes of a few to $100\times$. Measurements have been corrected for Milky Way extinction, and error bars are 1-$\sigma$. Upper limits (3-$\sigma$) are shown as open triangles. Epochs of follow-up observations (optical spectroscopy, X-ray, and radio) are marked in the top panel. Absolute magnitude is AB magnitudes of the rest-frame filterband blueshifted by $(1+z)$. For ULTRASPEC observations, points with S/N$>5$ are filled in, and the $g$-band inset shows the light curve smoothed using a 3-minute running average.}
+    \includegraphics[width=0.49\textwidth]{lum_time_optical.png}
+    \includegraphics[width=0.49\textwidth]{lum_tnu.png}
+\caption{\textbf{\at\ in the parameter space of optical and radio transients.}
+\emph{Left:} \at\ was discovered as an optical transient that was faster and more luminous than typical core-collapse supernovae (CC SNe), Type~Ia (thermonuclear) supernovae (SN Ia), and superluminous supernovae (SLSN). The optical emission resembled ``luminous fast blue optical transients'' (LFBOTs) of unknown origin in the literature\cite{Prentice2018,Perley2019,Perley2021,Ho2020_Koala,Yao2022,Coppejans2020,Arcavi2016,Greiner2015,Pursiainen2018}).  Calculations were performed using light curves in as close to rest-frame $g$-band as possible and absolute magnitude have a cosmological correction applied. SN light curves are from the ZTF Bright Transient Survey\cite{PerleyBTS,FremlingBTS} and dedicated searches for rapidly evolving transients\cite{Ho2022_RET}.
+\emph{Right:} The radio (decimeter and submillimeter) emission from \at\ is more luminous, and peaks at much higher frequencies, than established classes of radio-loud transients: CC SNe (Type~II and Type~Ibc), TDEs, and LLGRB-SNe. In that sense, the radio behavior is more similar to that observed in LFBOTs. 
+}
  \label{fig:optical-lc}
 \end{figure*}
 
 \begin{figure*}
 \centering
     \begin{subfigure}[t]{1.0\textwidth}
-         \centering
+         \centering        
+         \includegraphics[width=0.7\textwidth]{opt_lc.png}
          \includegraphics[width=0.49\textwidth]{mm_lc_100ghz.png}
         \includegraphics[width=0.49\textwidth]{xray_lc.png}
      \end{subfigure}
 \caption{\textbf{Millimeter (left) and X-ray (right) light curves of \at} and other radio-loud luminous fast blue optical transients (LFBOTs) compared to different classes of extragalactic transients: tidal disruption events (TDEs), long-duration gamma-ray bursts (LGRBs), low-luminosity GRBs (LLGRBs), and core-collapse supernovae (CC SNe). The millimeter and X-ray luminosity of LFBOTs resembles relativistic explosions such as LGRBs, and \at\ has the most luminous X-ray emission of any LFBOT to date. The millimeter points for AT2022tsd, and the X-ray points for AT2022tsd and FBOT AT2020xnd, are outlined in black for clarity.}
  \label{fig:mm-xray-lc}
+\end{figure*}
+
+\begin{figure*}
+\centering
+    \includegraphics[width=0.8\textwidth]{flares.png}
+\caption{\textbf{\at\ optical light curve.}
+  The original transient event (top panel, $\Delta t_\mathrm{obs}<28\,$d) was followed by prominent short-duration (minutes to hours) flares with amplitudes of a few to $100\times$. Measurements have been corrected for Milky Way extinction, and error bars are 1-$\sigma$. Upper limits (3-$\sigma$) are shown as open triangles. Epochs of follow-up observations (optical spectroscopy, X-ray, and radio) are marked in the top panel. Absolute magnitude is AB magnitudes of the rest-frame filterband blueshifted by $(1+z)$. For ULTRASPEC observations, points with S/N$>5$ are filled in, and the $g$-band inset shows the light curve smoothed using a 3-minute running average.}
+ \label{fig:optical-lc}
 \end{figure*}
 
 
@@ -963,13 +975,6 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \renewcommand{\thetable}{Extended Data Table \arabic{table}}
 \renewcommand{\tablename}{}
 \setcounter{table}{0}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.55\columnwidth]{lum_time_optical.png}
-\caption{\textbf{\at\ in the luminosity-duration parameter space of optical transients.} Core-collapse supernovae (SNe), Type~Ia (thermonuclear) supernovae (SN Ia), superluminous supernovae (SLSN), and luminous fast blue optical transients (LFBOTs\cite{Prentice2018,Perley2019,Perley2021,Ho2020_Koala,Yao2022,Coppejans2020}) are highlighted. The fast timescale and implied high peak luminosity of AT2022tsd motivated multiwavelength follow-up observations. Peak absolute magnitudes have a crude cosmological correction applied and calculations were performed using light curves in as close to rest-frame $g$-band as possible (observed $r$-band in the case of \at). SN light curves are from the ZTF Bright Transient Survey\cite{PerleyBTS,FremlingBTS} and dedicated searches for rapidly evolving transients\cite{Ho2022_RET}.}
-\label{fig:opt-phase-space}
-\end{figure}
 
 \begin{figure}[ht]
  \centering
