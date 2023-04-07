@@ -6,17 +6,53 @@ import numpy as np
 from astropy.time import Time
 from astropy.cosmology import Planck15
 import pandas as pd
+import cmasher as cmr
 from ztfquery import marshal
-from get_color_code import get_cc
-
-
-ec,fc,msize,shape = get_cc()
 
 iacol = '#003f5c'
-cccol = '#58508d'
+#cccol = '#58508d'
 aftcol = '#bc5090'
 llgrbcol = '#ff6361'
 cowcol = '#ffa600'
+
+cols = cmr.take_cmap_colors(
+    'cmr.rainforest', 5, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
+
+tde_col = cols[4]
+lgrb_col = cols[0]
+llgrb_col = cols[3]
+sn_col = 'grey'
+cow_col = cols[2]
+
+cccol = sn_col
+cowcol = cow_col
+
+
+def calc_Lpeak(Mni, tpeak):
+    """
+    Peak luminosity as a function of nickel mass and rise time
+
+    Mni: nickel mass in units of Msun
+    """
+    tauni = 8.8
+    tauco = 113.6
+    Lpeak = 2E43 * (Mni) * (3.9*np.exp(-tpeak/tauni) + \
+          0.678*(np.exp(-tpeak/tauco)-np.exp(-tpeak/tauni)))
+    return Lpeak
+
+
+def calc_Mej(tpeak):
+    """
+    The ejecta mass corresponding to rise time (Eq 2 of Kasen et al. 2017)
+    We're assuming kappa = 0.1, V9=1
+
+    Mej: in units of Msun
+    v9: in units of 1E9 cm/s
+    tpeak: in units of days
+    """
+    v9 = 1.5 # 15,000 km/s
+    Mej = ((tpeak*v9**(1/2))/14.5)**2
+    return Mej
 
 
 def plot_ztf(ax, background=False, shrink=1, text=True):
@@ -105,60 +141,17 @@ def plot_ztf(ax, background=False, shrink=1, text=True):
                     col = cccol
                 for j,name in enumerate(names[choose]):
                     print(name)
-                    #if name=='ZTF18abvkwla':
-                        #ax.text(x[j]*1.2, y[j]*1.007, 'AT2018lug', color=col,
-                        #        ha='center', va='bottom')
-                    #elif name=='ZTF20acigmel':
-                    #    ax.text(x[j], y[j]/1.007, 'AT2020xnd', color=col, va='top')
-                    #elif name=='ZTF18abcfcoo':
-                    #    ax.text(x[j]/1.2, y[j]/1.008, 'AT2018cow', color=col, va='top')
                     ax.errorbar(
                             x[j], y[j], xerr=ex[j], yerr=ey[j], 
                             label=None, mfc=col, mec=col,
-                            c=col, fmt=shape[clname], 
-                            ms=msize[clname]/shrink, zorder=zorder)
-            #else:
-            #    ax.errorbar(
-            #            x, y, xerr=ex, yerr=ey, label=None, c='lightgrey',
-            #            fmt=shape[clname], ms=msize[clname]/shrink, zorder=zorder)
-
-            # Put arrows on events with limits
-            #islim = etrise[choose]==0
-            #for ii,xval in enumerate(x[islim]):
-            #    if background is False:
-            #        ax.arrow(xval, y[islim][ii], -xval/10, 0, color=fc[clname],
-            #                head_length=xval/30, head_width=-y[islim][ii]/100, 
-            #                length_includes_head=True, zorder=zorder)
-            #    else:
-            #        ax.arrow(xval, y[islim][ii], -xval/10, 0, color='lightgrey',
-            #                head_length=xval/30, head_width=-y[islim][ii]/100, 
-            #                length_includes_head=True, zorder=zorder)
+                            c=col, fmt='>', zorder=zorder, ms=3)
 
     c = cowcol
     if background:
         c = 'lightgrey'
     # Plot label
     if text:
-        xval = 3.2
-        yval = -20.9
-        #ax.text(xval, yval, "AT2018cow", va='center', ha='left', color=c)
-        xval = 3.5
-        yval = -21.8
-        #ax.text(xval, yval, "ZTF18abvkwla", va='center', ha='center', color=c)
-        xval = 4.8
-        yval = -21.4
-        #ax.text(xval, yval, "ZTF20acigmel", va='center', ha='left', color=c)
-        #ax.text(2.3, yval, "AT2018cow-like", va='center', ha='right', color=c,
-        #        fontweight='bold')
-        ax.text(5, -22.5, "LFBOT", va='center', ha='right', color=c,
-                fontweight='bold')
-        xval = 10
-        yval = -20.2
-        xval = 12
-        yval = -19.4
-    # ax.arrow(xval, yval, -xval/10, 0, color='k',
-    #         head_length=xval/30,
-    #         head_width=-yval/100, length_includes_head=True)
+        ax.text(5, -22.5, "LFBOT", va='center', ha='right', color=c)
 
 
 def plot_comparison(ax):
@@ -242,16 +235,6 @@ def plot_snls(ax):
     ax.arrow(x, y, -x/10, 0, color='k',
             head_length=x/30, head_width=-y/100, 
             length_includes_head=True, zorder=50)
-
-
-def plot_ptf09uj(ax):
-    ec,fc,msize,shape = get_cc()
-    x = 2.04+5.05
-    ex = np.sqrt(0.76**2 + 1.92**2)
-    y = -19.09
-    ey = 0.04
-    ax.errorbar(x, y, yerr=ey, xerr=ex, fmt=shape['IIn'], c=ec['IIn'], ms=msize['IIn'], zorder=50)
-    ax.text(x, y, 'PTF09uj (IIn?)', ha='right', va='bottom', zorder=50, c='purple')
 
 
 def plot_10ah(ax):
@@ -602,26 +585,25 @@ def plot_bts(ax):
     # Show them all in grey
     #ax.scatter(dur, Mpk, facecolor='grey', edgecolor='None', marker='s', alpha=0.3)
 
-    ec,fc,msize,shape = get_cc()
     choose = np.logical_or.reduce((cl=='SN II', cl=='SN IIb', cl=='SN Ic', cl=='SN Ib',
             cl=='SN Ibn', cl=='SN Ic-BL'))
     ax.scatter(
             dur[choose], Mpk[choose], 
-            c=cccol, marker=shape['II'], zorder=2)
-    ax.text(17,-15.7,'Core-collapse',c=cccol, fontweight='bold',ha='right')
-    ax.text(13,-15.3,'SNe',c=cccol, fontweight='bold',ha='right')
+            c=cccol, marker='>', zorder=2, s=10)
+    ax.text(17,-15.7,'Core-collapse',c=cccol, ha='right')#fontweight='bold',ha='right')
+    ax.text(13,-15.3,'SNe',c=cccol, ha='right')#, fontweight='bold'
 
     choose = cl=='SN Ia'
     ax.scatter(
             dur[choose], Mpk[choose], 
-            c=iacol, marker='.', zorder=0)
-    ax.text(12,-20.2,'SN Ia',c=iacol, rotation=20, fontweight='bold')
+            c=iacol, marker='.', zorder=0, alpha=0.5, lw=0)
+    ax.text(14.8,-19.6,'SN Ia',c=iacol, rotation=35)#, fontweight='bold')
 
     choose = ['SLSN' in val for val in cl]
     ax.scatter(
             dur[choose], Mpk[choose], 
             c='grey', marker='x', zorder=0, s=10)
-    ax.text(40,-22.5,'SLSN',c='grey', fontweight='bold')
+    ax.text(40,-22.5,'SLSN',c='grey')#, fontweight='bold')
 
 
 
@@ -703,7 +685,9 @@ if __name__=="__main__":
     ax.errorbar(dur, Mpeak, xerr=edur, yerr=0.09, label=None, 
                 c=cowcol, mec='k',
                 fmt='D', ms=8, zorder=1000, lw=2)
-    ax.text(dur, Mpeak*1.01, 'AT2022tsd', va='bottom', ha='left', color='k', fontweight='bold')
+    ax.text(
+            dur, Mpeak*1.01, 'AT2022tsd', va='bottom', ha='left', 
+            color=cowcol, fontweight='bold')
 
     # Plot the afterglows
     #plot_afterglows(ax)
@@ -741,6 +725,14 @@ if __name__=="__main__":
 
     #ax.set_xticks(ticks=[3,4,5,7,10,13])
     #ax.set_xticklabels([3,4,5,7,10,13])
+
+    # Plot the Mej = Mni line
+    # Plot the Mni=Mej limit
+    tpeak = np.linspace(1, 300)
+    Mej = calc_Mej(tpeak)
+    Lpeak = calc_Lpeak(Mej, tpeak)
+    ax2.plot(tpeak, Lpeak, c='k', ls='--')
+    ax.text(2.3, -16.85, r'$M_{\mathrm{ej}}=M_{\mathrm{Ni}}$', rotation=42)
 
     plt.tight_layout()
     plt.show()
