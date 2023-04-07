@@ -94,16 +94,20 @@ def typeii(ax):
     names = ['88Z', '79C']
 
     for i,tnuval in enumerate(tnu):
+        if i==0:
+            label='SN II'
+        else:
+            label=None
         ax.scatter(
                 tnuval, lpeak[i], marker='o', edgecolor='k', 
-                facecolor='white', s=100, label='SN II')
+                facecolor='white', s=100, label=None)
         ax.text(
                 tnuval, lpeak[i]/1.2, names[i], fontsize=smallsize,
                 verticalalignment='top',
                 horizontalalignment='right')
 
 
-def lumtnu(ax):
+def first(ax):
     # FIRST transient
     tnu = 26*365*(0.3/5)
     dcm = Planck15.luminosity_distance(z=0.01957).cgs.value
@@ -113,6 +117,10 @@ def lumtnu(ax):
             verticalalignment='bottom',
             horizontalalignment='center')
 
+    # Dillon's transient
+
+
+def lumtnu(ax):
     # 2003L
     tnu = (30)*(22.5/5)
     lpeak = 3.3E28
@@ -336,13 +344,13 @@ def lumtnu(ax):
 
 
 
-
 if __name__=="__main__":
     # initialize figure
     fig,ax = plt.subplots(1,1, figsize=(5,5))
 
     # Plot each class
     typeii(ax)
+    first(ax)
 
     #lumtnu(ax)
 
