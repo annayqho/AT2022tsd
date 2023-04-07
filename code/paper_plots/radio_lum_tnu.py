@@ -309,6 +309,7 @@ def lumtnu(ax):
     dcm = Planck15.luminosity_distance(z=0.2567).cgs.value
     yf = np.array([0.6])
     y = yf*1E-3*1E-23*4*np.pi*dcm**2
+    ax.scatter(x, y, marker='s', c=col)
     ax.text(
             x[0], y[0]/1.2, "$\Delta t$=26d", fontsize=smallsize, 
             verticalalignment='top',
