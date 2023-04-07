@@ -18,8 +18,6 @@ sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code
 import vals
 from get_opt import *
 from helpers import *
-from opt_lc import *
-
 
 
 def plot_22tsd(ax, show='absolute'):

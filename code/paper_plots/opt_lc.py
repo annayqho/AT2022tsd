@@ -12,6 +12,7 @@ sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code
 from get_opt import *
 from get_radio_at2022tsd import *
 from get_xray import *
+from opt_lc_comparison import *
 import vals
 
 
@@ -191,18 +192,18 @@ if __name__=="__main__":
     dat = get_full_opt()
 
     # Get the approximate time of explosion
-    t0_str = Time(vals.t0, format='jd').isot.replace("T", " ").split('.')[0]
+    t0_str = Time(vals.t0-0.1, format='jd').isot.replace("T", " ").split('.')[0]
 
     # Initialize
     fig,ax = plt.subplots(1,1,figsize=(6,3))
 
     # Plot LC 
-    plot_full_lc(ax, dat)
+    plot_22tsd(ax, show='apparent')
 
     # Plot epochs of various things (spec, x-ray, radio)
-    plot_spec_epochs(ax)
-    plot_xray_epochs(ax)
-    plot_radio_epochs(ax)
+    #plot_spec_epochs(ax)
+    #plot_xray_epochs(ax)
+    #plot_radio_epochs(ax)
 
     # Formatting
     ax.set_xlim(-5, 145)
