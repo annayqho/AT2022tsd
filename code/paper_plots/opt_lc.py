@@ -137,20 +137,18 @@ def plot_epoch(ax, xval, txt, align='center', label=None, ymin=0, ymax=0.05, c='
     ax.axvline(
             x=xval-vals.t0, ymin=ymin, ymax=ymax, 
             c=c, ls=l, lw=lw, label=label)
-    #ax.text(
-    #        xval-vals.t0, 23.9, txt, ha=align, va='bottom',
-    #        color='grey', rotation=270, fontsize=8)
 
 
 def plot_spec_epochs(ax):
     """ Plot epochs of Keck/LRIS spectroscopy """
     start = 2459846.07834 # from reading the file from Alex's group
-    plot_epoch(ax, start, '', '', label=None, c='k', lw=2)
+    plot_epoch(ax, start, '', '', label=None, c='k', lw=2, ymin=0, ymax=0.05)
 
     # I think the second one was at 10am ET on Thursday Oct 6,
     # from looking at my email
     start = Time("2022-10-06T15:00:00", format='isot').jd
-    plot_epoch(ax, start, '', '', label='Spec.', c='k', lw=2)
+    plot_epoch(ax, start, '', '', label='Spec.', c='k', lw=2, ymin=0, ymax=0.05)
+
 
 
 def plot_xray_epochs(ax):
@@ -187,6 +185,20 @@ def plot_radio_epochs(ax):
             plot_epoch(ax, x, 'Radio', align='right', ymin=0.05, ymax=0.1, lw=1)
 
 
+def plot_flare_epochs(ax, dat):
+    jd = Time(dat['mjdstart'].values, format='mjd').jd
+    isflare = dat['isflare'].values
+    filts = dat['flt'].values
+    cs = [vals.rc, vals.gc, vals.ic, vals.uc, vals.wc]
+
+    for j,filt in enumerate(np.array(['r', 'g', 'i', 'u', 'w'])):
+        choose = np.logical_and(isflare, filts==filt)
+        flare_epochs = jd[choose]
+        for i,x in enumerate(flare_epochs):
+            plot_epoch(ax, x, 'Opt. Flare', align='right', 
+                       ymin=0.95, ymax=1, c=cs[j], lw=1)
+
+
 if __name__=="__main__":
     """ Plot the FULL light curve, with all detections """
     dat = get_full_opt()
@@ -198,15 +210,21 @@ if __name__=="__main__":
     fig,ax = plt.subplots(1,1,figsize=(6,3))
 
     # Plot LC 
-    plot_22tsd(ax, show='apparent')
+    plot_22tsd(ax, show='apparent', offset=0.11)
 
     # Plot epochs of various things (spec, x-ray, radio)
-    #plot_spec_epochs(ax)
-    #plot_xray_epochs(ax)
-    #plot_radio_epochs(ax)
+    plot_spec_epochs(ax)
+    ax.text(15, 24.4, 'Opt. spec.', fontsize=8, ha='right', c='k')
+    plot_xray_epochs(ax)
+    ax.text(24, 24.2, 'X-ray', fontsize=8, ha='right', c='k')
+    plot_radio_epochs(ax)
+    ax.text(26, 23.9, 'Radio', fontsize=8, ha='right', c='k')
+    plot_flare_epochs(ax, dat)
+    ax.text(26, 19, 'Opt. flares', fontsize=8, ha='right', c='k')
 
     # Formatting
-    ax.set_xlim(-5, 145)
+    ax.set_xlim(0.1, 210)
+    ax.set_xscale('log')
     ax.set_ylim(24.5, 18.7)
 
     ax.set_xlabel(
@@ -224,10 +242,6 @@ if __name__=="__main__":
     ax2.set_ylim((y_f(ymin), y_f(ymax)))
     ax2.tick_params(axis='y', labelsize=10)
     ax2.plot([],[])
-
-    ax.legend(loc='upper center', fontsize=7, handletextpad=0.1, 
-              bbox_to_anchor=(0.5, 1.20), 
-              ncol=6, fancybox=True)
 
     plt.tight_layout()
     plt.show()
