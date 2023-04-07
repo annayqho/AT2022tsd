@@ -342,7 +342,7 @@ if __name__=="__main__":
     fig,ax = plt.subplots(1,1, figsize=(5,5))
 
     # Plot each class
-    #typeii(ax)
+    typeii(ax)
 
     #lumtnu(ax)
 
@@ -357,7 +357,7 @@ if __name__=="__main__":
     # Add a legend
     ax.legend(bbox_to_anchor=(-0.1, 1.1), loc='upper left',
             ncol=4, fontsize=medsize, 
-            columnspacing=0.01, borderpad=0.3)#, columnspacing=0.1)
+            columnspacing=0.01, borderpad=0.3)
 
     # Formatting
     ax.set_ylabel(
