@@ -137,14 +137,18 @@ def plot_ztf(ax, background=False, shrink=1, text=True):
             if background is False:
                 if clname=='AT2018cow-like':
                     col = cowcol
+                    m = 'D'
+                    s = 5
                 else:
                     col = cccol
+                    m = '>'
+                    s = 3
                 for j,name in enumerate(names[choose]):
                     print(name)
                     ax.errorbar(
                             x[j], y[j], xerr=ex[j], yerr=ey[j], 
                             label=None, mfc=col, mec=col,
-                            c=col, fmt='>', zorder=zorder, ms=3)
+                            c=col, fmt=m, zorder=zorder, ms=s)
 
     c = cowcol
     if background:
@@ -230,11 +234,7 @@ def plot_snls(ax):
     x = 3.81+8.60
     y = -20.26
     ey = 0.03
-    ax.errorbar(x, y, yerr=ey, fmt='D', c='k', label='SNLS unclassified')
-    #ax.text(x, y/1.01, 'SNLS04D4ec', ha='center', va='top', zorder=50)
-    ax.arrow(x, y, -x/10, 0, color='k',
-            head_length=x/30, head_width=-y/100, 
-            length_includes_head=True, zorder=50)
+    ax.errorbar(x, y, yerr=ey, fmt='D', c=cowcol)#, label='SNLS unclassified')
 
 
 def plot_10ah(ax):
@@ -667,19 +667,19 @@ if __name__=="__main__":
             5.5, -21.5, 
             label=None, mfc=cowcol, mec=cowcol,
             c=cowcol, fmt='D', ms=5)
-    #ax.text(6, -21.3, 'CSS161010', va='center', ha='left', color=cowcol)
 
     # Plot AT2020mrf
     ax.errorbar(7.1, -20, 
             label=None, mfc=cowcol, mec=cowcol,
             c=cowcol, fmt='D', ms=5)
-    #ax.text(6.6, -20, 'AT2020mrf', va='top', ha='right', color=cowcol)
+
+    # Add SNLS
+    plot_snls(ax)
 
     # Plot AT2022tsd
     # 19.28 is the ext corr peak in g band
     # 19.74 is the value in r-band, which is g-band rest-frame
     Mpeak = 19.74-5*np.log10(vals.dL_mpc*1E6/10)+2.5*np.log10(1+vals.z)
-    print(Mpeak)
     dur = 7.12
     edur = 2.57
     ax.errorbar(dur, Mpeak, xerr=edur, yerr=0.09, label=None, 
@@ -689,23 +689,10 @@ if __name__=="__main__":
             dur, Mpeak*1.01, 'AT2022tsd', va='bottom', ha='left', 
             color=cowcol, fontweight='bold')
 
-    # Plot the afterglows
-    #plot_afterglows(ax)
-
-    # Add the LLGRB-SNe
-    #ax.scatter(1.0, -18.2, c=llgrbcol, marker='s', edgecolor='k')
-    #ax.scatter(1.4, -18.5, c=llgrbcol, marker='s')
-    #ax.scatter(1.4, -17.2, c=llgrbcol, marker='s')
-    #ax.scatter(1.2, -18.7, c=llgrbcol, marker='s')
-    #ax.text(0.4, -19, 'Rel. SBO', c=llgrbcol, fontweight='bold')
-
-    # Triggering criteria
-    #ax.axvline(x=6, c='grey', lw=0.5, ls='--')
-    #ax.axhline(y=-17, c='grey', lw=0.5, ls='--')
-
     ax.set_ylabel("Peak absolute mag.", fontsize=14)
     ax.set_ylim(-15,-23)
     
+    # Luminosity axis
     ax2 = ax.twinx()
     # use the g-band effective wavelength: 4722.74 AA
     y_f = lambda y_i: 4E33*10**((y_i-4.77)/(-2.5))
@@ -723,16 +710,14 @@ if __name__=="__main__":
     ax.set_xlabel("Time above half-max (rest-frame days)", fontsize=14)
     ax.tick_params(axis='both', labelsize=12)
 
-    #ax.set_xticks(ticks=[3,4,5,7,10,13])
-    #ax.set_xticklabels([3,4,5,7,10,13])
-
     # Plot the Mej = Mni line
     # Plot the Mni=Mej limit
     tpeak = np.linspace(1, 300)
     Mej = calc_Mej(tpeak)
     Lpeak = calc_Lpeak(Mej, tpeak)
     ax2.plot(tpeak, Lpeak, c='k', ls='--')
-    ax.text(2.3, -16.85, r'$M_{\mathrm{ej}}=M_{\mathrm{Ni}}$', rotation=42)
+    ax.text(2.3, -16.8, r'$M_{\mathrm{Ni}}<M_{\mathrm{ej}}$', rotation=42)
+    ax.text(2.3, -17.5, r'$M_{\mathrm{Ni}}>M_{\mathrm{ej}}$', rotation=42)
 
     plt.tight_layout()
     plt.show()
