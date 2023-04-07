@@ -292,28 +292,33 @@ def lumtnu(ax):
     dcm = Planck15.luminosity_distance(z=0.2442).cgs.value
     y1 = (0.68*1E-3*1E-23*4*np.pi*dcm**2)
     col = '#ef5675'
-    #ax.scatter(
-    #        x1, y1, marker='*', s=300, 
-    #        facecolors=col, edgecolors=col)
-    #ax.text(
-    #        x1, y1/1.2, "$\Delta t$=22d", fontsize=10, 
-    #        verticalalignment='top',
-    #        horizontalalignment='left', c=col)
-
-    x2 = 71*16/5
-    y2 = (0.5*1E-3*1E-23*4*np.pi*dcm**2)
     ax.scatter(
-            x2, y2, marker='*', s=300, 
+            x1, y1, marker='*', s=300, 
             facecolors=col, edgecolors=col)
     ax.text(
-            x2/1.1, y2/1.2, "$\Delta t$=58d", fontsize=smallsize,
+            x1, y1/1.2, "$\Delta t$=22d", fontsize=smallsize, 
             verticalalignment='top',
-            horizontalalignment='center', c=col)
+            horizontalalignment='left', c=col)
     ax.text(
-            x2*1.2, y2, "AT2020xnd", fontsize=smallsize, 
+            x1*1.2, y1, "AT2020xnd", fontsize=smallsize, 
             verticalalignment='center',
             horizontalalignment='left', color=col)
-    #plt.arrow(x1,y1,x2-x1,y2-y1, color=col, lw=2)
+
+    # AT2022tsd
+    x = 26*(250/5)
+    dcm = Planck15.luminosity_distance(z=0.2567).cgs.value
+    y = 0.6*1E-3*1E-23*4*np.pi*dcm**2
+    ax.scatter(
+            x1, y1, marker='*', s=300, 
+            facecolors=col, edgecolors=col)
+    ax.text(
+            x1, y1/1.2, "$\Delta t$=26d", fontsize=smallsize, 
+            verticalalignment='top',
+            horizontalalignment='left', c=col)
+    ax.text(
+            x1*1.2, y1, "AT2022tsd", fontsize=smallsize, 
+            verticalalignment='center',
+            horizontalalignment='left', color=col)
 
     # AT2018cow
     col = '#7a5195'
@@ -351,7 +356,7 @@ def lumtnu(ax):
         "$(\Delta t/1\,\mathrm{day})(\\nu_p/5\,\mathrm{GHz})$",
         fontsize=medsize)
 
-    
+
 fig,ax = plt.subplots(1,1, figsize=(5,5))
 lumtnu(ax)
 y = mdot_curves(ax, 550, 2.5E29, 100, label=True)
