@@ -126,7 +126,7 @@ The optical light curve and location 1.5$''$ from a catalogued\cite{Beck2021} ga
 We obtained two spectra of \at\ with the Low Resolution Imaging Spectrograph (LRIS\cite{Oke1995}) on the Keck\,I 10-m telescope (\ref{fig:spec}; Methods section \ref{sec:keck}), and measured\cite{Ho2022_Astronote_Keck} a redshift of $z=0.2567\pm0.0001$ (luminosity distance $D_L=1.341\,$Gpc assuming a Planck cosmology\cite{Planck2020}) using prominent narrow host-galaxy emission lines (Methods section \ref{sec:discovery}). 
 The fast light-curve evolution, the implied high peak luminosity ($M_{g,\mathrm{pk}}=-20.64\pm0.13$; Methods section \ref{sec:discovery}), and the lack of prominent spectroscopic features from the transient itself was unusual (Methods section~\ref{sec:multiwavelength-properties}), and motivated us to trigger additional multiwavelength observations.
 We detected luminous radio (decimeter\cite{Ho2022Astronote_radio} to submillimeter) emission that peaked at hundreds of GHz for over a month in the rest frame (Methods section~\ref{Methods:VLA}; \ref{fig:radio}),
-as well as luminous ($>10^{44}\,$erg\,s$^{-1}$) and steadily fading ($L_X\propto t^{-1.90\pm0.26}$; Methods section~\ref{sec:multiwavelength-properties}) 0.3--10\,keV X-ray emission\cite{Schulze2022Astronote_xray} (Methods section~\ref{Methods:Swift}).
+as well as luminous ($>10^{44}\,$erg\,s$^{-1}$) and steadily fading ($L_X\propto t^{-1.90\pm0.26}$; Methods section~\ref{sec:multiwavelength-properties}) 0.3--10\,keV X-ray emission\cite{Schulze2022Astronote_xray} (Methods section~\ref{sec:swift}).
 
 In a photometric optical imaging sequence starting at 04:29:57 on 15 December 2022, a hundred days (observer frame) after the initial transient event, we detected\cite{Ho2022_Astronote_Flares} a flare at the position of \at\ across five three-minute Magellan/IMACS $g$-band images, with a peak luminosity of $\nu L_\nu \approx 10^{44}\,$erg\,s$^{-1}$.
 Forced photometry on ZTF and Pan-STARRS survey images at the position of the transient revealed additional flare detections (Figure~\ref{fig:optical-lc}; Methods section \ref{sec:flare-association}).
@@ -639,9 +639,9 @@ In each image, we also performed forced photometry on all GAIA-DR3 (REF) stars
 within 500" from the transient position.
 These sources were used for the photometric calibration (see Ofek et al. [3] for details).
 
-Since in many cases, we observed the transient location simultaneously with several LAST telescopes, in Table~\ref{tab:last-photometry} we provide a 2\,min binning of the measurements. We did not detect any flares, and in Table~\ref{tab:last-maglim} we give the cumulative amount of minutes collected as a function of limiting magnitude.
+Since in many cases, we observed the transient location simultaneously with several LAST telescopes, in Table~\ref{tab:last-photometry} we provide a 2\,min binning of the unsubtracted measurements. We did not detect any flares, and in Table~\ref{tab:last-maglim} we give the cumulative amount of minutes collected as a function of limiting magnitude.
 
-\ayqh{No image subtraction was performed. Asked Eran about this.}
+%\ayqh{No image subtraction was performed. Asked Eran about this.}
 
 %Figure~X shows the limiting magnitude (5-sigma the noise) distribution if the 2-min binning.
 
@@ -724,7 +724,7 @@ and 398, 400, 410, 412\,GHz (Band 8).
 All calibration and imaging was done with CASA.
 The data were calibrated and imaged
 with the standard ALMA pipeline, using J0309+1029 to calibrate the complex gains, and using J0238+1636 (Bands 6 and 7) or J0423-0120 (Band 8) to calibrate the bandpass response and apply an absolute flux scale.
-\at\ is unresolved in the Band 6 and Band 7 data, and partially resolved in the Band 8 data (i.e., the fitted width is larger than the synthesized beam). \ayqh{Is that a showstopper?}
+\at\ is unresolved in the Band 6 and Band 7 data, and partially resolved in the Band 8 data (i.e., the fitted width is larger than the synthesized beam).
 The S/N in the resulting images is S/N=11 in Band 6, S/N=12 in Band 7, and S/N=7 in Band 8.
 The ALMA results are summarized in \ref{tab:radio-observations}.
 
@@ -736,7 +736,7 @@ Finally, the Band 8 observations started at 04:55 and ended at 08:10 on 2022-10-
 \subsection{NOrthern Extended Millimeter Array (NOEMA)}
 \label{Methods:NOEMA}
 
-We obtained five epochs of observations of \at\ with NOEMA in Band 1 (100\,GHz), Band 2 (150\,GHz), and Band 3 (230\,GHz) under the target-of-opportunity program S22BD (PI: Ho). The primary flux calibrators were MWC349 and LKHA101, and the time-dependent phase and amplitude calibrators were the quasars \ayqh{Michael to fill in}. The data reduction was done with the CLIC software (GILDAS package\cite{GILDAS}). 
+We obtained six epochs of observations of \at\ with NOEMA in Band 1 (100\,GHz), Band 2 (150\,GHz), and Band 3 (230\,GHz) under the target-of-opportunity program S22BD (PI: Ho). The primary flux calibrators were MWC349 and LKHA101, and the time-dependent phase and amplitude calibrators were the quasars. The data reduction was done with the CLIC software (GILDAS package\cite{GILDAS}). 
 Dual-polarization UV tables were written for each of the receiver sidebands. The resulting calibrated UV tables were analyzed in the MAPPING software (also from the GILDAS package) and point-source UV plane fits were performed.
 The NOEMA results are summarized in \ref{tab:radio-observations}.
 

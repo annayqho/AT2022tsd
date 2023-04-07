@@ -743,6 +743,6 @@ if __name__=="__main__":
     #ax.set_xticklabels([3,4,5,7,10,13])
 
     plt.tight_layout()
-    #plt.show()
-    plt.savefig("lum_time_optical.png", dpi=200)
-    plt.close()
+    plt.show()
+    #plt.savefig("lum_time_optical.png", dpi=200)
+    #plt.close()
