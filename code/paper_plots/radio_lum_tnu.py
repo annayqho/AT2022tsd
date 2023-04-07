@@ -7,6 +7,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from astropy.table import Table
 from astropy.cosmology import Planck15
+import cmasher as cmr
+
+cols = cmr.take_cmap_colors(
+    'cmr.rainforest', 5, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
+cow_col = cols[2]
 
 smallsize=8
 medsize=10
@@ -100,7 +105,7 @@ def typeii(ax):
             label=None
         ax.scatter(
                 tnuval, lpeak[i], marker='o', edgecolor='k', 
-                facecolor='white', s=100, label=None)
+                facecolor='white', s=100, label=label)
         ax.text(
                 tnuval, lpeak[i]/1.2, names[i], fontsize=smallsize,
                 verticalalignment='top',
@@ -120,7 +125,7 @@ def first(ax):
     # Dillon's transient
 
 
-def lumtnu(ax):
+def ibc(ax):
     # 2003L
     tnu = (30)*(22.5/5)
     lpeak = 3.3E28
@@ -132,13 +137,47 @@ def lumtnu(ax):
             verticalalignment='top',
             horizontalalignment='center')
 
+    # 11qcj
+    tnu = (100)*(5/5)
+    lpeak = 7E28
+    ax.scatter(
+            tnu, lpeak, marker='+', c='k', s=100,
+            label=None)
+    ax.text(
+            tnu/1.2, lpeak, "11qcj", fontsize=smallsize,
+            verticalalignment='center',
+            horizontalalignment='right')
+
+    # 2007bg
+    tnu = (55.9)*(8.46/5)
+    lpeak = 4.1E28
+    ax.scatter(
+            tnu, lpeak, marker='+', c='k', s=100, label=None)
+
+    # SN 2003bg
+    tnu = (35)*(22.5/5)
+    lpeak = 3.9E28
+    ax.scatter(
+            tnu, lpeak, marker='+', c='k', s=100, label=None)
+
+    # SN 2009bb
+    tnu = (20)*(6/5)
+    lpeak = 3.6E28
+    ax.scatter(
+            tnu, lpeak, marker='+', c='k', s=100)
+
+
+def lfbot(ax):
+    col = cow_col
+    m = 'D'
+    s = 30
+
     # Koala
     dcm = Planck15.luminosity_distance(z=0.2714).cgs.value
     tnu = np.array([(81/1.2714)*(10/5), (343)*(1.5/5)])/1.2714
     nu = np.array([10, 5])*1E9
     lpeak = np.array([0.364, 0.089])*1E-3*1E-23*4*np.pi*dcm**2
-    col = '#003f5c'
-    ax.scatter(tnu, lpeak, marker='D', c=col, s=100)
+    ax.scatter(tnu, lpeak, marker=m, c=col, s=s)
     ax.plot(tnu, lpeak, color=col, ls='-')
     ax.text(
             tnu[0]/1.2, lpeak[0], "$\Delta t$=64d", fontsize=smallsize,
@@ -148,18 +187,16 @@ def lumtnu(ax):
             tnu[1]*1.2, lpeak[1], "$\Delta t$=343d", fontsize=smallsize,
             verticalalignment='center',
             horizontalalignment='left', c=col)
-    ax.text(tnu[0], lpeak[0]*1.2, "Koala", fontsize=smallsize,
-            horizontalalignment='center', c=col)
+    ax.text(tnu[0], lpeak[0]*1.2, "AT2018lug", fontsize=smallsize,
+            horizontalalignment='right', c=col)
 
     # CSS 161010
-    col = '#ffa600'
     tnu = np.array([69*(5.6/5), 357*0.63/5])/1.033
     nu = np.array([5.6, 0.63])*1E9
     dcm = Planck15.luminosity_distance(z=0.033).cgs.value
     lpeak = np.array([8.8E-3, 1.2E-3])*1E-23*4*np.pi*dcm**2
     ax.scatter(
-            tnu, lpeak, marker='h', c=col, s=100, 
-            label="_none")
+            tnu, lpeak, marker=m, c=col, s=s, label="_none")
     ax.text(tnu[0], lpeak[0]*1.2, "CSS161010", fontsize=smallsize,
             horizontalalignment='right', color=col,
             verticalalignment='bottom')
@@ -173,38 +210,76 @@ def lumtnu(ax):
             verticalalignment='top',
             horizontalalignment='center', c=col)
 
-    # 11qcj
-    tnu = (100)*(5/5)
-    lpeak = 7E28
+    # AT2020xnd
+    x1 = 58*21.6/5
+    dcm = Planck15.luminosity_distance(z=0.2442).cgs.value
+    y1 = (0.68*1E-3*1E-23*4*np.pi*dcm**2)
     ax.scatter(
-            tnu, lpeak, marker='+', c='k', s=100,
-            label=None)
+            x1, y1, marker=m, s=s, facecolors=col, edgecolors=col)
     ax.text(
-            tnu/1.2, lpeak, "11qcj", fontsize=smallsize,
+            x1, y1/1.2, "$\Delta t$=22d", fontsize=smallsize, 
+            verticalalignment='top',
+            horizontalalignment='center', c=col)
+    ax.text(
+            x1/1.1, y1*1.1, "AT2020xnd", fontsize=smallsize, 
             verticalalignment='center',
-            horizontalalignment='right')
+            horizontalalignment='right', color=col)
 
+    # AT2022tsd
+    x = [26*(250/5)]
+    dcm = Planck15.luminosity_distance(z=0.2567).cgs.value
+    yf = np.array([0.6])
+    y = yf*1E-3*1E-23*4*np.pi*dcm**2
+    ax.scatter(x, y, marker=m, c=col, s=s*2, edgecolors='k',
+               facecolors=col)
+    ax.text(
+            x[0], y[0]/1.2, "$\Delta t$=26d", fontsize=smallsize, 
+            verticalalignment='top',
+            horizontalalignment='center', c=col)
+    ax.text(
+            x[0]/1.08, y[0]*1.2,"AT2022tsd",fontsize=medsize, 
+            fontweight='bold',verticalalignment='bottom',
+            horizontalalignment='center', color=col)
 
-    # 2007bg
-    tnu = (55.9)*(8.46/5)
-    lpeak = 4.1E28
+    # AT2018cow
+    x1 = 22*100/5
+    y1 = 4.4E29
     ax.scatter(
-            tnu, lpeak, marker='+', c='k', s=100, label=None)
-    #ax.text(
-    #        tnu, lpeak*1.2, "2007bg", fontsize=smallsize,
-    #        verticalalignment='bottom',
-    #        horizontalalignment='center')
+            x1, y1, marker=m, s=s, 
+            facecolors=col, edgecolors=col)
+    ax.text(
+            22*100/7*1.2, 5.5E29, "AT2018cow", fontsize=smallsize, 
+            verticalalignment='bottom',
+            horizontalalignment='left', color=col)
+    ax.text(
+            x1, y1/1.2, "$\Delta t$=22d", fontsize=smallsize, 
+            verticalalignment='top',
+            horizontalalignment='left', c=col)
+    x2 = 91*10/5
+    y2 = 4.3E28
+    ax.scatter(x2, y2, marker=m, s=s, facecolors=col, edgecolors=col,
+               label='LFBOT')
+    ax.text(
+            x2*1.1, y2*1, "$\Delta t$=91d", fontsize=smallsize,
+            verticalalignment='bottom',
+            horizontalalignment='left', c=col)
+    plt.arrow(x1,y1,x2-x1,y2-y1, color=col)
 
-    # SN 2003bg
-    tnu = (35)*(22.5/5)
-    lpeak = 3.9E28
+
+def tde(ax):
+    # ASASSN14li
+    tnu = (143)*(8.20/5)
+    lpeak = 1.8E28
     ax.scatter(
-            tnu, lpeak, marker='+', c='k', s=100, label=None)
-    #ax.text(
-    #        tnu, lpeak/1.1, "2003bg", fontsize=smallsize,
-    #        verticalalignment='top',
-    #        horizontalalignment='left')
+            tnu, lpeak, marker='o', edgecolor='k', facecolor='black', s=100,
+            label='TDE')
+    ax.text(
+            tnu, lpeak/1.3, "ASASSN14li", fontsize=smallsize,
+            verticalalignment='top',
+            horizontalalignment='center')
 
+
+def llgrb(ax):
     # SN 1998bw
     tnu = (10)*(10/5)
     lpeak = 8.2E28
@@ -229,38 +304,6 @@ def lumtnu(ax):
             verticalalignment='bottom',
             horizontalalignment='center')
 
-    # ASASSN14li
-    tnu = (143)*(8.20/5)
-    lpeak = 1.8E28
-    ax.scatter(
-            tnu, lpeak, marker='o', edgecolor='k', facecolor='black', s=100,
-            label='TDE')
-    ax.text(
-            tnu, lpeak/1.3, "ASASSN14li", fontsize=smallsize,
-            verticalalignment='top',
-            horizontalalignment='center')
-    
-    # J1644+57
-    # tnu = (22)*(80/5)
-    # lpeak = 1.1E32
-    # ax.scatter(
-    #         tnu, lpeak, marker='o', edgecolor='k', facecolor='black', s=100,
-    #         label='TDE')
-    # ax.text(
-    #         tnu, lpeak/1.3, "J1644+57 (22d)", fontsize=smallsize,
-    #         verticalalignment='top',
-    #         horizontalalignment='center')
-
-    # SN 2009bb
-    tnu = (20)*(6/5)
-    lpeak = 3.6E28
-    ax.scatter(
-            tnu, lpeak, marker='+', c='k', s=100)
-    #ax.text(
-    #        tnu/1.2, lpeak, "2009bb", fontsize=smallsize,
-    #        verticalalignment='center',
-    #        horizontalalignment='right')
-
     # SN 2006aj
     tnu = (5)*(4/5)
     lpeak = 8.3E27
@@ -284,63 +327,6 @@ def lumtnu(ax):
             horizontalalignment='center')
 
 
-    # AT2020xnd
-    x1 = 58*21.6/5
-    dcm = Planck15.luminosity_distance(z=0.2442).cgs.value
-    y1 = (0.68*1E-3*1E-23*4*np.pi*dcm**2)
-    col = '#ef5675'
-    ax.scatter(
-            x1, y1, marker='*', s=300, 
-            facecolors=col, edgecolors=col)
-    ax.text(
-            x1, y1/1.2, "$\Delta t$=22d", fontsize=smallsize, 
-            verticalalignment='top',
-            horizontalalignment='left', c=col)
-    ax.text(
-            x1*1.2, y1, "AT2020xnd", fontsize=smallsize, 
-            verticalalignment='center',
-            horizontalalignment='left', color=col)
-
-    # AT2022tsd
-    x = [26*(250/5)]
-    dcm = Planck15.luminosity_distance(z=0.2567).cgs.value
-    yf = np.array([0.6])
-    y = yf*1E-3*1E-23*4*np.pi*dcm**2
-    ax.scatter(x, y, marker='s', c=col)
-    ax.text(
-            x[0], y[0]/1.2, "$\Delta t$=26d", fontsize=smallsize, 
-            verticalalignment='top',
-            horizontalalignment='left', c=col)
-    ax.text(
-            x[0]*1.2, y[0], "AT2022tsd", fontsize=smallsize, 
-            verticalalignment='center',
-            horizontalalignment='left', color=col)
-
-    # AT2018cow
-    col = '#7a5195'
-    x1 = 22*100/5
-    y1 = 4.4E29
-    ax.scatter(
-            x1, y1, marker='o', s=200, 
-            facecolors=col, edgecolors=col)
-    ax.text(
-            22*100/7*1.2, 5.5E29, "AT2018cow", fontsize=smallsize, 
-            verticalalignment='bottom',
-            horizontalalignment='left', color=col)
-    ax.text(
-            x1, y1/1.2, "$\Delta t$=22d", fontsize=smallsize, 
-            verticalalignment='top',
-            horizontalalignment='left', c=col)
-    x2 = 91*10/5
-    y2 = 4.3E28
-    ax.scatter(
-            x2, y2, marker='o', s=50, 
-            facecolors=col, edgecolors=col)
-    ax.text(
-            x2*1.1, y2*1, "$\Delta t$=91d", fontsize=smallsize,
-            verticalalignment='bottom',
-            horizontalalignment='left', c=col)
-    plt.arrow(x1,y1,x2-x1,y2-y1, color=col)
 
 
 
@@ -351,21 +337,25 @@ if __name__=="__main__":
     # Plot each class
     typeii(ax)
     first(ax)
+    ibc(ax)
+    tde(ax)
+    llgrb(ax)
+    lfbot(ax)
 
     #lumtnu(ax)
 
     # Plot the background curves
     y = mdot_curves(ax, 550, 2.5E29, 10)
-    y = mdot_curves(ax, 58, 4E29, 0.1)
+    y = mdot_curves(ax, 58, 4E29, 0.1, label=False)
     y = mdot_curves(ax, 5.9, 6.4E29, 0.001)
     y = vel_lines(ax, 5.5, 1)
     y = vel_lines(ax, 55, 0.1)
     y = vel_lines(ax, 550, 0.01)
 
     # Add a legend
-    ax.legend(bbox_to_anchor=(-0.1, 1.1), loc='upper left',
-            ncol=4, fontsize=medsize, 
-            columnspacing=0.01, borderpad=0.3)
+    ax.legend(bbox_to_anchor=(-0.2, 1.1), loc='upper left',
+            ncol=5, fontsize=medsize, 
+            columnspacing=0.5, borderpad=0.3)
 
     # Formatting
     ax.set_ylabel(
@@ -381,19 +371,19 @@ if __name__=="__main__":
         fontsize=medsize)
 
     # make a twin axis
-    # ax2 = ax.twinx()
-    # ax2.set_ylabel(
-    #         r"$U/R$ (erg/cm) $\qquad \epsilon_e=\epsilon_B=1/3$", 
-    #         fontsize=medsize, rotation=270, labelpad=15.0)
-    # y_f = lambda y_i: 10**((14/19)*(np.log10(y_i)+14.65))
-    # ymin, ymax = ax.get_ylim()
-    # ax2.set_ylim((y_f(ymin), y_f(ymax)))
-    # ax2.plot([],[])
-    # ax2.set_yscale('log')
-    # ax2.tick_params(axis='both', labelsize=medsize)
-    # ax2.set_xlim(2,3000)
+    ax2 = ax.twinx()
+    ax2.set_ylabel(
+            r"$U/R$ (erg/cm) $\qquad \epsilon_e=\epsilon_B=1/3$", 
+            fontsize=medsize, rotation=270, labelpad=15.0)
+    y_f = lambda y_i: 10**((14/19)*(np.log10(y_i)+14.65))
+    ymin, ymax = ax.get_ylim()
+    ax2.set_ylim((y_f(ymin), y_f(ymax)))
+    ax2.plot([],[])
+    ax2.set_yscale('log')
+    ax2.tick_params(axis='both', labelsize=medsize)
+    ax2.set_xlim(2,3000)
 
     plt.tight_layout()
-    plt.show()
-    #plt.savefig("lum_tnu.png", dpi=300)
-    #plt.close()
+    #plt.show()
+    plt.savefig("lum_tnu.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
