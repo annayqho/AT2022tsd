@@ -186,8 +186,8 @@ def plot_radio_epochs(ax):
             plot_epoch(ax, x, 'Radio', align='right', ymin=0.05, ymax=0.1, lw=1)
 
 
-if __name__=="__main__":
-    # Get the full LC 
+def supplementary_figure():
+    """ Plot the FULL light curve, with all detections """
     dat = get_full_opt()
 
     # Get the approximate time of explosion
@@ -232,3 +232,51 @@ if __name__=="__main__":
     #plt.show()
     plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
     plt.close()
+
+
+if __name__=="__main__":
+    """ Plot the FULL light curve, with all detections """
+    dat = get_full_opt()
+
+    # Get the approximate time of explosion
+    t0_str = Time(vals.t0, format='jd').isot.replace("T", " ").split('.')[0]
+
+    # Initialize
+    fig,ax = plt.subplots(1,1,figsize=(6,3))
+
+    # Plot LC 
+    plot_full_lc(ax, dat)
+
+    # Plot epochs of various things (spec, x-ray, radio)
+    plot_spec_epochs(ax)
+    plot_xray_epochs(ax)
+    plot_radio_epochs(ax)
+
+    # Formatting
+    ax.set_xlim(-5, 145)
+    ax.set_ylim(24.5, 18.7)
+
+    ax.set_xlabel(
+            r"Days since %s (observer frame)" %t0_str,fontsize=10,
+            fontname='sans-serif')
+
+    ax.set_ylabel(r"Apparent Magnitude", fontsize=10,
+            fontname='sans-serif')
+
+    # Make a second y-axis
+    ax2 = ax.twinx()
+    ax2.set_ylabel("Absolute Magnitude", fontsize=10, rotation=270, labelpad=15.0)
+    y_f = lambda y_i: y_i-vals.dm+2.5*np.log10(1+vals.z)
+    ymin, ymax = ax.get_ylim()
+    ax2.set_ylim((y_f(ymin), y_f(ymax)))
+    ax2.tick_params(axis='y', labelsize=10)
+    ax2.plot([],[])
+
+    ax.legend(loc='upper center', fontsize=7, handletextpad=0.1, 
+              bbox_to_anchor=(0.5, 1.20), 
+              ncol=6, fancybox=True)
+
+    plt.tight_layout()
+    plt.show()
+    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    #plt.close()
