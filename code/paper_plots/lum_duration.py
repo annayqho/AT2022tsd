@@ -50,7 +50,7 @@ def calc_Mej(tpeak):
     v9: in units of 1E9 cm/s
     tpeak: in units of days
     """
-    v9 = 1.5 # 15,000 km/s
+    v9 = 1.2 # 12,000 km/s
     Mej = ((tpeak*v9**(1/2))/14.5)**2
     return Mej
 
@@ -138,24 +138,27 @@ def plot_ztf(ax, background=False, shrink=1, text=True):
                 if clname=='AT2018cow-like':
                     col = cowcol
                     m = 'D'
-                    s = 5
+                    s = 30
+                    label = 'LFBOT'
                 else:
                     col = cccol
                     m = '>'
-                    s = 3
+                    s = 10
                 for j,name in enumerate(names[choose]):
                     print(name)
-                    ax.errorbar(
-                            x[j], y[j], xerr=ex[j], yerr=ey[j], 
-                            label=None, mfc=col, mec=col,
-                            c=col, fmt=m, zorder=zorder, ms=s)
+                    ax.scatter(
+                            x[j], y[j], label=None, c=col, 
+                            marker=m, zorder=zorder, s=s)
+                    if name=='ZTF18abcfcoo':
+                        ax.text(x[j]*1.07, y[j]/1.005, 'AT2018cow', fontsize=8,
+                                ha='center', va='top', c=cowcol)
 
     c = cowcol
     if background:
         c = 'lightgrey'
     # Plot label
-    if text:
-        ax.text(5, -22.5, "LFBOT", va='center', ha='right', color=c)
+    #if text:
+    #    ax.text(5, -22.5, "LFBOT", va='center', ha='right', color=c)
 
 
 def plot_comparison(ax):
@@ -234,25 +237,8 @@ def plot_snls(ax):
     x = 3.81+8.60
     y = -20.26
     ey = 0.03
-    ax.errorbar(x, y, yerr=ey, fmt='D', c=cowcol)#, label='SNLS unclassified')
-
-
-def plot_10ah(ax):
-    x = 1+6.3
-    y = -17.59
-    ey = 0.11
-    ex = np.sqrt(0.1**2+0.6**2)
-    ax.errorbar(x, y, yerr=ey, xerr=ex, fmt='o', c='k', zorder=50, lw=0.3)
-    #ax.text(x*1.01, y/1.005, 'PS1-10ah', ha='left', va='top', zorder=50)
-
-
-def plot_10bjp(ax):
-    x = 1+7.7
-    y = -18.34
-    ey = 0.11
-    ex = np.sqrt(0.1**2+0.6**2)
-    ax.errorbar(x, y, yerr=ey, xerr=ex, fmt='o', c='k', zorder=50, lw=0.3)
-    #ax.text(x/1.01, y, 'PS1-10bjp', ha='right', va='top', zorder=50)
+    ax.errorbar(x, y, yerr=ey, fmt='D', c=cowcol, ms=5)
+    ax.text(x/1.01, y, 'SNLS04D4ec', fontsize=8, ha='right', va='bottom', c=cowcol)
 
 
 def plot_11qr(ax):
@@ -262,95 +248,6 @@ def plot_11qr(ax):
     ex = np.sqrt(0.1**2+0.4**2)
     ax.errorbar(x, y, yerr=ey, xerr=ex, fmt='o', c='k', zorder=50, lw=0.3)
     #ax.text(x/1.01, y, 'PS1-11qr', ha='right', va='bottom', zorder=50)
-
-
-def plot_12bb(ax):
-    x = (6.3+1.8+6.3)/2
-    ex = x-6.3
-    y = -16.97
-    ey = 0.12
-    ax.errorbar(x, y, yerr=ey, xerr=ex, fmt='o', c='k', zorder=50, label='PS1 unclassified', lw=0.3)
-    #ax.text(x/1.01, y, 'PS1-12bb', ha='right', va='bottom', zorder=50)
-
-
-def plot_12bv(ax):
-    """ <2.2; 3-9; minimum: 3...maximum: 2.2+9=11.2 """
-    x = (3+11.2)/2
-    ex = x-3
-    y = -19.49
-    ey = 0.07
-    ax.errorbar(x, y, yerr=ey, xerr=ex, fmt='o', c='k', zorder=50, lw=0.3)
-    #ax.text(x/1.01, y, 'PS1-12bv', ha='right', va='bottom', zorder=50)
-
-
-def plot_12brf(ax):
-    """ <1; 8.8+/-0.6 ... so from 8.2 to 10.4 """
-    x = (8.2+10.4)/2
-    ex = x-8.2
-    y = -18.43
-    ey = 0.08
-    ax.errorbar(x, y, yerr=ey, xerr=ex, fmt='o', c='k', zorder=50, lw=0.3)
-    #ax.text(x*1.01, y, 'PS1-12brf', ha='left', va='bottom', zorder=50)
-
-
-def plot_ptf12ldy(ax):
-    ec,fc,msize,shape = get_cc()
-    x = 3.34+7.57
-    ex = np.sqrt(0.17**2+0.29**2)
-    y = -19.20
-    ey = 0.02
-    ax.errorbar(
-            x, y, yerr=ey, xerr=ex, fmt=shape['Ibn'], 
-            mfc=fc['Ibn'], c=fc['Ibn'], zorder=50, ms=msize['Ibn'], lw=0.3)
-    #ax.text(x/1.05, y/1.005, 'PTF12ldy (Ibn)', ha='left', va='top', zorder=50)
-
-
-def plot_13dwm(ax):
-    """ <3.0; 3-7. So range is 3-10 """
-    x = (3+10)/2
-    ex = x-3
-    y = -17.63
-    ey = 0.13
-    ax.errorbar(x, y, yerr=ey, xerr=ex, fmt='o', c='k', zorder=50, lw=0.3)
-    #ax.text(x/1.01, y, 'PS1-13dwm', ha='right', va='bottom', zorder=50)
-
-
-def plot_lsq13ccw(ax):
-    ec,fc,msize,shape = get_cc()
-    x = 1.39+3.86
-    ex = np.sqrt(0.10**2+0.31**2)
-    y = -18.4
-    ey = 0.2
-    ax.errorbar(
-            x, y, yerr=ey, xerr=ex, fmt=shape['IIn/Ibn?'], 
-            mfc=fc['IIn/Ibn?'], c=fc['IIn/Ibn?'], 
-            zorder=50, ms=msize['IIn/Ibn?'])
-    ax.text(x/1.01, y, 'LSQ13ccw (IIn/Ibn?)', 
-            ha='right', va='bottom', zorder=50)
-
-
-def plot_iptf14aki(ax):
-    ec,fc,msize,shape = get_cc()
-    x = 3.34+7.58
-    ex = np.sqrt(0.17**2+0.30**2)
-    y = -19.30
-    ey = 0.03
-    ax.errorbar(
-            x, y, yerr=ey, xerr=ex, fmt=shape['Ibn'], 
-            mfc=fc['Ibn'], c=fc['Ibn'], zorder=50, ms=msize['Ibn'])
-    #ax.text(x/1.01, y, 'iPTF14aki (Ibn)', ha='right', va='bottom', zorder=50)
-
-
-def plot_iptf15akq(ax):
-    ec,fc,msize,shape = get_cc()
-    x = 3.13+8.86
-    ex = np.sqrt(0.61**2+0.80**2)
-    y = -18.62
-    ey = 0.31
-    ax.errorbar(
-            x, y, yerr=ey, xerr=ex, fmt=shape['Ibn'], 
-            mfc=fc['Ibn'], c=fc['Ibn'], zorder=50, ms=msize['Ibn'])
-    #ax.text(x/1.01, y, 'iPTF15akq (Ibn)', ha='right', va='bottom', zorder=50)
 
 
 def plot_iptf15ul(ax):
@@ -365,72 +262,14 @@ def plot_iptf15ul(ax):
     #ax.text(x/1.01, y, 'iPTF15ul (Ibn?)', ha='right', va='bottom', zorder=50)
 
 
-def plot_ksn(ax):
-    x = 1.3+5.9
-    y = -18.8
-    # need to set
-    ex = 0
-    ey = 0
-    ax.errorbar(x, y, yerr=ey, xerr=ex, fmt='*', c='k', zorder=50, ms=10)
-    ax.text(x/1.01, y, 'KSN2015K', ha='right', va='top', zorder=50)
-
-
-def plot_des(ax):
-    """ Plot all DES objects from file """
-    dat = pd.read_csv("../des_timescales.txt")
-    names = dat['Name'].values
-    grise = dat['Rise'].values
-    gfade = dat['Fade'].values
-    Mraw = dat['Peak'].values
-
-    keep = np.loadtxt("../keep_des.txt", dtype=str)
-    tokeep = np.array([val in keep for val in names])
-    names = names[tokeep]
-    grise =grise[tokeep]
-    gfade = gfade[tokeep]
-    Mraw = Mraw[tokeep]
-
-    # Munge the rises of the range events to have error bars
-    tofix = np.array(['-' in val for val in grise])
-    min_val = np.array([val.split('-')[0] for val in grise[tofix]]).astype(float)
-    max_val = np.array([val.split('-')[1] for val in grise[tofix]]).astype(float)
-    avgval = np.round((min_val+max_val)/2,2)
-    errval = avgval-min_val
-    repval = np.array(['%spm%s' %(i,j) for i,j in zip(avgval,errval)])
-    grise[tofix] = repval
-
-    # Munge the rises of the limit events
-    tofix = np.array(['<' in val for val in grise])
-    limval = np.array([val[1:] for val in grise[tofix]]).astype(float)
-    grise[tofix] = np.array(['%spm%s' %(val,0) for val in limval])
-
-    # Munge the peak mags
-    M = np.array([val.split('+/-')[0] for val in Mraw]).astype(float)
-    eM = np.array([val.split('+/-')[1] for val in Mraw]).astype(float)
-
-    # Durations
-    trise = np.array([val.split('pm')[0] for val in grise]).astype(float)
-    etrise = np.array([val.split('pm')[1] for val in grise]).astype(float)
-    tfade = np.array([val.split('pm')[0] for val in gfade]).astype(float)
-    etfade = np.array([val.split('pm')[1] for val in gfade]).astype(float)
-    dur = trise+tfade
-    edur = np.sqrt(etrise**2+etfade**2)
-
-    ax.errorbar(dur, M, yerr=eM, xerr=edur, fmt='s', c='k', 
-            zorder=10, label='DES unclassified', lw=0.3, ms=5)
-
-
-
 def plot_iptf16asu(ax):
     x = 1.14+10.62
     ex = np.sqrt(0.13**2+0.5**2)
     y = -20.3
     ey = 0.1
     ax.errorbar(
-            x, y, yerr=ey, xerr=ex, ms=msize['Ic-BL'],
-            fmt=shape['Ic-BL'], c=fc['Ic-BL'], zorder=50)
-    ax.text(x*1.01, y*1.005, 'iPTF16asu (Ic-BL)', 
-            ha='right', va='bottom', zorder=50, c='cornflowerblue')
+            x, y, yerr=ey, xerr=ex, ms=4,
+            fmt='>', c='grey', zorder=50)
 
 
 def plot_des14S2anq(ax):
@@ -590,20 +429,20 @@ def plot_bts(ax):
     ax.scatter(
             dur[choose], Mpk[choose], 
             c=cccol, marker='>', zorder=2, s=10)
-    ax.text(17,-15.7,'Core-collapse',c=cccol, ha='right')#fontweight='bold',ha='right')
-    ax.text(13,-15.3,'SNe',c=cccol, ha='right')#, fontweight='bold'
+    #ax.text(17,-15.7,'Core-collapse',c=cccol, ha='right')#fontweight='bold',ha='right')
+    #ax.text(13,-15.3,'SNe',c=cccol, ha='right')#, fontweight='bold'
 
     choose = cl=='SN Ia'
     ax.scatter(
             dur[choose], Mpk[choose], 
             c=iacol, marker='.', zorder=0, alpha=0.5, lw=0)
-    ax.text(14.8,-19.6,'SN Ia',c=iacol, rotation=35)#, fontweight='bold')
+    #ax.text(14.8,-19.6,'SN Ia',c=iacol, rotation=35)#, fontweight='bold')
 
     choose = ['SLSN' in val for val in cl]
     ax.scatter(
-            dur[choose], Mpk[choose], 
+            dur[choose], Mpk[choose],
             c='grey', marker='x', zorder=0, s=10)
-    ax.text(40,-22.5,'SLSN',c='grey')#, fontweight='bold')
+    #ax.text(40,-22.5,'SLSN',c='grey')#, fontweight='bold')
 
 
 
@@ -654,7 +493,7 @@ def plot_afterglows(ax):
 
 
 if __name__=="__main__":
-    fig,ax = plt.subplots(1,1,figsize=(5,4))#, sharey=True)
+    fig,ax = plt.subplots(1,1,figsize=(5,5))#, sharey=True)
 
     # Plot BTS sources
     plot_bts(ax)
@@ -663,18 +502,35 @@ if __name__=="__main__":
     plot_ztf(ax, background=False, shrink=2, text=True)
 
     # Plot CSS161010
-    ax.errorbar(
-            5.5, -21.5, 
+    x = 5.5
+    y = -21.5
+    ax.errorbar(x, y, 
             label=None, mfc=cowcol, mec=cowcol,
             c=cowcol, fmt='D', ms=5)
+    ax.text(x*1.05, y, 'CSS161010', fontsize=8, ha='left', va='center', c=cowcol)
 
     # Plot AT2020mrf
     ax.errorbar(7.1, -20, 
             label=None, mfc=cowcol, mec=cowcol,
             c=cowcol, fmt='D', ms=5)
+    ax.text(7.1/1.05, -20, 'AT2020mrf', fontsize=8, ha='right', va='top', c=cowcol)
 
-    # Add SNLS
+    # Plot DES16X1eho
+    x = (1.28+2.53)/2 + 1.01
+    y = -20.39
+    ax.scatter(x, y, marker='D', c=cowcol, s=30)
+    ax.text(x*1.2, y/1.005, 'DES16X1eho', fontsize=8, ha='center', va='top', c=cowcol)
+
+    # Add individual objects from my Koala paper Table 1
     plot_snls(ax)
+    # Dougie: too luminous, don't show
+    # SN 2011kl:
+    x = 4.97+17.70
+    ex = np.sqrt(1.20**2+5.82**2)
+    y = -20.31
+    ey = 0.13
+    ax.errorbar(x, y, xerr=ex, yerr=ey, fmt='D', c=cowcol, ms=5)
+    ax.text(x/1.01, y, 'SN2011kl', fontsize=8, ha='right', va='bottom', c=cowcol)
 
     # Plot AT2022tsd
     # 19.28 is the ext corr peak in g band
@@ -686,11 +542,13 @@ if __name__=="__main__":
                 c=cowcol, mec='k',
                 fmt='D', ms=8, zorder=1000, lw=2)
     ax.text(
-            dur, Mpeak*1.01, 'AT2022tsd', va='bottom', ha='left', 
+            dur, Mpeak*1.005, 'AT2022tsd', va='bottom', ha='left', 
             color=cowcol, fontweight='bold')
 
-    ax.set_ylabel("Peak absolute mag.", fontsize=14)
-    ax.set_ylim(-15,-23)
+    ax.set_ylabel("$M_{g,\mathrm{peak}}$", fontsize=14)
+    ax.set_ylim(-17.5,-21.6)
+    ax.set_yticks([-18, -19, -20, -21])
+    ax.set_yticklabels([-18, -19, -20, -21])
     
     # Luminosity axis
     ax2 = ax.twinx()
@@ -705,9 +563,9 @@ if __name__=="__main__":
             r"Peak $\nu L_\nu$ (erg s$^{-1}$)", fontsize=14, rotation=270, 
             labelpad=15.0)
 
-    ax.set_xlim(2.3,150)
+    ax.set_xlim(2.3,60)
     ax.set_xscale('log')
-    ax.set_xlabel("Time above half-max (rest-frame days)", fontsize=14)
+    ax.set_xlabel(r"$t_{1/2, \mathrm{optical}}$ (rest-frame days)", fontsize=14)
     ax.tick_params(axis='both', labelsize=12)
 
     # Plot the Mej = Mni line
@@ -716,10 +574,18 @@ if __name__=="__main__":
     Mej = calc_Mej(tpeak)
     Lpeak = calc_Lpeak(Mej, tpeak)
     ax2.plot(tpeak, Lpeak, c='k', ls='--')
-    ax.text(2.3, -16.8, r'$M_{\mathrm{Ni}}<M_{\mathrm{ej}}$', rotation=42)
-    ax.text(2.3, -17.5, r'$M_{\mathrm{Ni}}>M_{\mathrm{ej}}$', rotation=42)
+    ax.text(3.4, -17.8, r'$M_{\mathrm{Ni}}>M_{\mathrm{ej}}$', rotation=60)
+    ax.text(4.3, -17.8, r'$M_{\mathrm{Ni}}<M_{\mathrm{ej}}$', rotation=60)
 
-    plt.tight_layout()
-    plt.show()
-    #plt.savefig("lum_time_optical.png", dpi=200)
-    #plt.close()
+    ax.scatter(0, 0, marker='>', c='grey', label='CC SN')
+    ax.scatter(0, 0, marker='x', c='grey', label='SLSN')
+    ax.scatter(0, 0, marker='o', c=iacol, label='SN Ia')
+    ax.scatter(0, 0, marker='D', c=cowcol, label='LFBOT')
+    ax.legend(loc='upper center', fontsize=10, handletextpad=0.1,
+          bbox_to_anchor=(0.5, 1.10),
+          ncol=6, fancybox=True)
+
+    #plt.tight_layout()
+    #plt.show()
+    plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
