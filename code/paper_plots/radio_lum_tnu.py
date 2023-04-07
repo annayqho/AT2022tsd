@@ -50,10 +50,9 @@ def mdot_curves(ax, x, y, mdotv, label=True):
     mdotv: Mdot divided by v, in units of (10^{-4} Msol/yr) / (1000 km/s)
     x: (dt/1 day) * (nu_p / 5 GHz)
     """
-    #mdotv = mdotv_scaled * 1000 / 1E-4
     xvals = np.linspace(1,3000)
     eps_B = 1/3
-    logy = (19/4) * np.log10(0.0005/eps_B) - (19/4)*np.log10(mdotv) + \
+    logy = (19/4) * np.log10(0.00005/eps_B) - (19/4)*np.log10(mdotv) + \
             (2*19/4)*np.log10(xvals) 
     yvals = 1E26 * 10**logy
     ax.plot(xvals, yvals, ls=':', c='k', lw=0.5)
@@ -88,6 +87,22 @@ def density_curves(ax, x, ne):
     return yvals
 
 
+def typeii(ax):
+    # 88Z, 79C
+    tnu = np.array([1253*5/5, 1400*1.4/5])
+    lpeak = np.array([2.2E28, 4.3E27])
+    names = ['88Z', '79C']
+
+    for i,tnuval in enumerate(tnu):
+        ax.scatter(
+                tnuval, lpeak[i], marker='o', edgecolor='k', 
+                facecolor='white', s=100, label='SN II')
+        ax.text(
+                tnuval, lpeak[i]/1.2, names[i], fontsize=smallsize,
+                verticalalignment='top',
+                horizontalalignment='right')
+
+
 def lumtnu(ax):
     # FIRST transient
     tnu = 26*365*(0.3/5)
@@ -97,28 +112,6 @@ def lumtnu(ax):
     ax.text(tnu, lpeak*1.2, 'FIRST J1419', fontsize=smallsize,
             verticalalignment='bottom',
             horizontalalignment='center')
-
-    # 88Z
-    tnu = (1253)*(5/5)
-    lpeak = 2.2E28
-    ax.scatter(
-            tnu, lpeak, marker='o', edgecolor='k', facecolor='white', s=100,
-            label='SN II')
-    ax.text(
-            tnu, lpeak/1.2, "88Z", fontsize=smallsize,
-            verticalalignment='top',
-            horizontalalignment='right')
-
-    # 79C
-    tnu = (1400)*(1.4/5)
-    lpeak = 4.3E27
-    ax.scatter(
-            tnu, lpeak, marker='o', edgecolor='k', facecolor='white', s=100,
-            label=None)
-    ax.text(
-            tnu, lpeak/1.2, "79C", fontsize=smallsize,
-            verticalalignment='top',
-            horizontalalignment='right')
 
     # 2003L
     tnu = (30)*(22.5/5)
@@ -282,10 +275,6 @@ def lumtnu(ax):
             verticalalignment='top',
             horizontalalignment='center')
 
-    # Lines
-    y = vel_lines(ax, 5.5, 1)
-    y = vel_lines(ax, 55, 0.1)
-    y = vel_lines(ax, 550, 0.01)
 
     # AT2020xnd
     x1 = 58*21.6/5
@@ -346,6 +335,34 @@ def lumtnu(ax):
     plt.arrow(x1,y1,x2-x1,y2-y1, color=col)
 
 
+
+
+if __name__=="__main__":
+    # initialize figure
+    fig,ax = plt.subplots(1,1, figsize=(5,5))
+
+    # Plot each class
+    #typeii(ax)
+
+    #lumtnu(ax)
+
+    # Plot the background curves
+    y = mdot_curves(ax, 550, 2.5E29, 10)
+    y = mdot_curves(ax, 58, 4E29, 0.1)
+    y = mdot_curves(ax, 5.9, 6.4E29, 0.001)
+    y = vel_lines(ax, 5.5, 1)
+    y = vel_lines(ax, 55, 0.1)
+    y = vel_lines(ax, 550, 0.01)
+
+    # Add a legend
+    ax.legend(bbox_to_anchor=(-0.1, 1.1), loc='upper left',
+            ncol=4, fontsize=medsize, 
+            columnspacing=0.01, borderpad=0.3)#, columnspacing=0.1)
+
+    # Formatting
+    ax.set_ylabel(
+        r"$L_{\mathrm{radio, peak}}$ (erg s$^{-1}$ Hz$^{-1}}$)",
+        fontsize=medsize)
     ax.set_xlim(2, 3000)
     ax.set_ylim(9E26, 3E30)
     ax.set_xscale('log')
@@ -355,40 +372,20 @@ def lumtnu(ax):
         "$(\Delta t/1\,\mathrm{day})(\\nu_p/5\,\mathrm{GHz})$",
         fontsize=medsize)
 
+    # make a twin axis
+    # ax2 = ax.twinx()
+    # ax2.set_ylabel(
+    #         r"$U/R$ (erg/cm) $\qquad \epsilon_e=\epsilon_B=1/3$", 
+    #         fontsize=medsize, rotation=270, labelpad=15.0)
+    # y_f = lambda y_i: 10**((14/19)*(np.log10(y_i)+14.65))
+    # ymin, ymax = ax.get_ylim()
+    # ax2.set_ylim((y_f(ymin), y_f(ymax)))
+    # ax2.plot([],[])
+    # ax2.set_yscale('log')
+    # ax2.tick_params(axis='both', labelsize=medsize)
+    # ax2.set_xlim(2,3000)
 
-fig,ax = plt.subplots(1,1, figsize=(5,5))
-lumtnu(ax)
-y = mdot_curves(ax, 550, 2.5E29, 100, label=True)
-y = mdot_curves(ax, 58, 4E29, 1, label=False)
-y = mdot_curves(ax, 5.9, 6.4E29, 0.01)
-#y = mdot_curves(ax, 1800, 1E-4)
-ax.set_ylabel(
-    r"$L_{\mathrm{radio, peak}}$ (erg s$^{-1}$ Hz$^{-1}}$)",
-    fontsize=medsize)
-#ax.get_yaxis().set_visible(False)
-ax.legend(bbox_to_anchor=(-0.1, 1.1), loc='upper left',
-        ncol=4, fontsize=medsize, 
-        columnspacing=0.01, borderpad=0.3)#, columnspacing=0.1)
-#y = mdot_curves(ax, 700, 1E1)
-
-# make a twin axis
-ax2 = ax.twinx()
-ax2.set_ylabel(
-        r"$U/R$ (erg/cm) $\qquad \epsilon_e=\epsilon_B=1/3$", 
-        fontsize=medsize, rotation=270, labelpad=15.0)
-y_f = lambda y_i: 10**((14/19)*(np.log10(y_i)+14.65))
-ymin, ymax = ax.get_ylim()
-ax2.set_ylim((y_f(ymin), y_f(ymax)))
-ax2.plot([],[])
-ax2.set_yscale('log')
-ax2.tick_params(axis='both', labelsize=medsize)
-ax2.set_xlim(2,3000)
-
-
-plt.tight_layout()
-
-
-     
-plt.show()
-#plt.savefig("lum_tnu.png", dpi=300)
-#plt.close()
+    plt.tight_layout()
+    plt.show()
+    #plt.savefig("lum_tnu.png", dpi=300)
+    #plt.close()
