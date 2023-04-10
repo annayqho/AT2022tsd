@@ -196,10 +196,8 @@ if __name__=="__main__":
     t0_str = Time(vals.t0, format='jd').isot.replace("T", " ").split('.')[0]
 
     # Initialize
-    fig,axarr = plt.subplots(
-            1,2,figsize=(7,3),sharey=True,gridspec_kw={'width_ratios': [1.5,3]})
+    fig,ax = plt.subplots(1,1,figsize=(7,3),sharey=True)
 
-    ax = axarr[0]
     plot_22tsd(ax, show='apparent', offset=0.11)
     shift = np.abs(Planck18.distmod(z=0.0141).value-vals.dm)
     plot_18cow(ax, show='apparent', offset=shift)
@@ -220,10 +218,6 @@ if __name__=="__main__":
     ax.plot([100,100],[150,150],ls=':',c='grey',label='SN1998bw')
     ax.legend(loc='upper right', fontsize=8)
 
-    # Plot LC 
-    ax = axarr[1]
-    plot_22tsd(ax, show='apparent', offset=0.11)
-
     # Plot epochs of various things (spec, x-ray, radio)
     plot_spec_epochs(ax)
     ax.text(15.4, 22.95, 'Opt. spec.', fontsize=8, ha='right', c='k')
@@ -235,8 +229,6 @@ if __name__=="__main__":
     ax.text(26.2, 19.2, 'Opt. flares', fontsize=8, ha='right', c='k')
 
     # Formatting
-    ax.set_xlim(9, 210)
-    ax.set_xscale('log')
     ax.set_ylim(23, 19)
 
     fig.text(0.5, 0, r'$\Delta t_\mathrm{obs}$ (days)', ha='center')
@@ -259,6 +251,6 @@ if __name__=="__main__":
     ax.legend(fontsize=9)
 
     plt.subplots_adjust(wspace=0.01)
-    #plt.show()
-    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    plt.close()
+    plt.show()
+    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    #plt.close()
