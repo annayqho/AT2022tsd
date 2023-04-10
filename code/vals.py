@@ -24,6 +24,13 @@ gc = '#57C4AD'
 ic = '#EDA247'
 uc = '#E6E1BC'
 wc = 'grey'
+# Viridis colors. I got these from https://waldyrious.net/viridis-palette-generator/
+cow_col = '#fde725' # yellow
+llgrb_col = '#5ec962'
+tde_col = '#21918c'
+lgrb_col = '#3b528b'
+sn_col = '#440154'  # purple
+
 
 # Get extinction
 def get_extinction(wave):

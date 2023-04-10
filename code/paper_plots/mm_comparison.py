@@ -5,7 +5,6 @@ Plot of luminosity over time
 
 import matplotlib
 import matplotlib.pyplot as plt
-import cmasher as cmr
 import numpy as np
 import sys
 from astropy.cosmology import Planck15
@@ -330,41 +329,32 @@ def at2022cmc(ax, col, legend):
 def run(ax):
     props = dict(boxstyle='round', facecolor='white')
 
-    cols = cmr.take_cmap_colors(
-        'cmr.rainforest', 5, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
-
-    tde_col = cols[4]
-    lgrb_col = cols[0]
-    llgrb_col = cols[3]
-    sn_col = 'grey'#cols[0]
-    cow_col = cols[2]
-
     # Category: TDEs
-    j1644(ax, tde_col, legend='TDE')
-    igr(ax, tde_col, legend=None)
-    at2022cmc(ax, tde_col, legend=None)
+    j1644(ax, vals.tde_col, legend='TDE')
+    igr(ax, vals.tde_col, legend=None)
+    at2022cmc(ax, vals.tde_col, legend=None)
 
     # First category: long-duration GRBs
-    grb130427A(ax, lgrb_col, legend='LGRB')
-    grb030329(ax, lgrb_col, None)
-    grb181201A(ax, lgrb_col, None)
-    grb161219B(ax, lgrb_col, None)
+    grb130427A(ax, vals.lgrb_col, legend='LGRB')
+    grb030329(ax, vals.lgrb_col, None)
+    grb181201A(ax, vals.lgrb_col, None)
+    grb161219B(ax, vals.lgrb_col, None)
 
     # Second category: low-luminosity GRBs
-    sn1998bw(ax, llgrb_col, legend='LLGRB')
-    sn2017iuk(ax, llgrb_col, None)
+    sn1998bw(ax, vals.llgrb_col, legend='LLGRB')
+    sn2017iuk(ax, vals.llgrb_col, None)
 
     # Third category: Cow-like
-    at2018cow(ax, cow_col, 'LFBOT')
-    at2020xnd(ax, cow_col, None)
-    at2022tsd(ax, cow_col, None)
+    at2018cow(ax, vals.cow_col, 'LFBOT')
+    at2020xnd(ax, vals.cow_col, None)
+    at2022tsd(ax, vals.cow_col, None)
 
     # Final category: 'ordinary' CC SNe
-    sn1993J(ax, sn_col, 'CC SN')
-    sn2011dh(ax, sn_col, None)
-    sn2020oi(ax, sn_col, None)
-    ptf11qcj(ax, sn_col, None)
-    sn2008d(ax, sn_col, None)
+    sn1993J(ax, vals.sn_col, 'CC SN')
+    sn2011dh(ax, vals.sn_col, None)
+    sn2020oi(ax, vals.sn_col, None)
+    ptf11qcj(ax, vals.sn_col, None)
+    sn2008d(ax, vals.sn_col, None)
 
     ax.legend(fontsize=8, loc='lower left',handletextpad=0.1)
 
