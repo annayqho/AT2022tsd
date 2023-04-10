@@ -86,7 +86,8 @@ def plot_22tsd(ax, show='absolute', offset=0):
             ax.errorbar(xb/(1+vals.z), yf-vals.dm, eyf, fmt=ms[i], color=cs[i],
                         zorder=10)
         elif show=='apparent':
-            ax.errorbar(xb, yf, eyf, fmt=ms[i], color=cs[i], zorder=10)
+            ax.errorbar(xb, yf, eyf, fmt=ms[i], color=cs[i], zorder=10,
+                        mec='k', lw=0.5)
 
 
 def plot_18cow(ax, show='absolute', offset=0):

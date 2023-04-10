@@ -16,121 +16,6 @@ from opt_lc_comparison import *
 import vals
 
 
-def plot_lim(ax, x, y, band, leg=False):
-    """ Plot 5-sigma upper limits """
-    col = vals.gc
-    lw = 0.3
-    s = 10
-    lab = None
-    if band=='r':
-        col = vals.rc
-    elif band=='w':
-        col = vals.wc
-    if leg:
-        lab = '$%s$ limit' %band
-    ax.scatter(x, y, 
-        edgecolor=col, facecolor='white', marker='v', lw=lw, s=s, label=lab)
-
-
-def plot_det(ax, x, y, ey, band, lines=False, leg=False):
-    """ Plot detections """
-    col = vals.gc
-    m = 's'
-    s = 4
-    lab = None # Default is no label
-    if band=='r':
-        col = vals.rc
-        m = 'o'
-    elif band=='i':
-        col = vals.ic
-        m = 'D'
-    elif band=='u':
-        col = vals.uc
-        m = '>'
-    elif band=='w':
-        col = vals.wc
-        m = '<'
-    if lines:
-        m = '%s-'%m
-    if leg:
-        lab='$%s$' %band
-    ax.errorbar(x, y, ey, c=col, fmt=m, label=lab, ms=s, lw=0.5)
-
-
-def plot_full_lc(ax, dat):
-    """ Add all the optical photometry """
-    jd = Time(dat['mjdstart'].values, format='mjd').jd
-    dt = jd-vals.t0
-
-    isflare = dat['isflare']
-    istransient = dat['istransient']
-    mag = dat['mag_extcorr']
-    limmag = dat['maglim_extcorr']
-    emag = dat['emag']
-    filt = dat['flt']
-
-    isdet = np.logical_or(isflare, istransient)
-
-    # Plot the g-band detections
-    choose = np.logical_and(isdet, filt=='g')
-    plot_det(ax,dt[choose],mag[choose],emag[choose],'g', leg=True)
-
-    # Plot the g-band limits
-    choose = np.logical_and(~isdet, filt=='g')
-    plot_lim(ax, dt[choose], limmag[choose], 'g', leg=True)
-
-    # Now onto r-band
-    # HCT is technically R band
-    dat.loc[dat['flt']=='R', 'flt'] = 'r'
-
-    # Plot the r-band flares
-    choose = np.logical_and(isdet, filt=='r')
-    plot_det(ax,dt[choose],mag[choose],emag[choose],'r', leg=True)
-
-    # Plot the r-band limits
-    choose = np.logical_and(filt=='r', ~isdet)
-    plot_lim(ax, dt[choose], limmag[choose], 'r', leg=True)
-
-    # Plot the i-band flares ( will include PS 1)
-    choose = np.logical_and(isdet, filt=='i')
-    plot_det(ax,dt[choose],mag[choose],emag[choose],'i',
-             leg=True)
-
-    # Plot the i-band limits
-    choose = np.logical_and(filt=='i', ~isdet)
-    plot_lim(ax, dt[choose], limmag[choose], 'i', leg=True)
-
-    # Finally, w-band
-    choose = np.logical_and(isdet, filt=='w')
-    plot_det(ax,dt[choose],mag[choose],emag[choose],'w',
-             leg=True)
-    choose = np.logical_and(filt=='w', ~isdet)
-    plot_lim(ax, dt[choose], limmag[choose], 'w', leg=True)
-
-
-def plot_flares_zoom(ax):
-    """ Plot a zoom-in of the flares. Minutes timescale """
-    # Non-ZTF flares
-    tel,mjd,filt,mag,emag,limmag,flare = get_flares()
-    jd = Time(mjd, format='mjd').jd
-
-    # The Magellan flare is in g-band
-    choose = np.logical_and(flare=='*', tel=='Magellan')
-    x = (jd[choose]-vals.t0)*24*60
-    y = mag[choose]-vals.ext['g']
-    ey = emag[choose]
-
-    # Convert to luminosity
-    # Frequency: Sloan g' for IMACS
-    freq = 3E18/(4723.59) 
-    fjy = 3631*10**(y/(-2.5))
-    Lnu = fjy * 1E-23 * 4 * np.pi * (vals.dL_cm)**2
-    vLv = Lnu * freq 
-    ey = np.zeros(len(vLv))
-
-    plot_det(ax, x-x[0], vLv, ey, 'g')
-
-
 def plot_epoch(ax, xval, txt, align='center', label=None, ymin=0, ymax=0.05, c='grey', l='-', lw=2):
     """ Plot an epoch: a vertical line at x, labeled with txt 
     xval should be in JD """
@@ -287,6 +172,6 @@ if __name__=="__main__":
     ax2.yaxis.tick_right()
 
     fig.subplots_adjust(wspace=0)
-    #plt.show()
-    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    plt.close()
+    plt.show()
+    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    #plt.close()
