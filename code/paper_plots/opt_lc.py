@@ -60,6 +60,8 @@ def plot_radio_epochs(ax):
 
 
 def plot_flare_epochs(ax, dat):
+    """ Plot the flare epochs. Use a vertical line stretching from
+    the minimum value to the maximum value. """
     jd = Time(dat['mjdstart'].values, format='mjd').jd
     isflare = dat['isflare'].values
     filts = dat['flt'].values
@@ -68,9 +70,13 @@ def plot_flare_epochs(ax, dat):
     for j,filt in enumerate(np.array(['r', 'g', 'i', 'u', 'w'])):
         choose = np.logical_and(isflare, filts==filt)
         flare_epochs = jd[choose]
-        for i,x in enumerate(flare_epochs):
-            plot_epoch(ax, x, 'Opt. Flare', align='right', 
-                       ymin=0.95, ymax=1, c=cs[j], lw=1)
+        flare_epochs_int = flare_epochs.astype(int)
+        flare_epochs_int_unique = np.unique(flare_epochs_int)
+        # for each epoch,
+        for i,night in enumerate(flare_epochs_int_unique):
+            choose_data = flare_epochs_int==night
+            mags = dat['mag_extcorr'][choose].values[choose_data]
+            ax.plot([night,night], [min(mags),max(mags)], c=cs[j], lw=2)
 
 
 if __name__=="__main__":
@@ -154,9 +160,9 @@ if __name__=="__main__":
     ax.plot([100,100],[150,150],ls='-',c=vals.gc,label='AT2020xnd $g$',lw=0.5)
     ax.plot([100,100],[150,150],ls='-',c=vals.rc,label='AT2020xnd $r$',lw=0.5)
     ax.plot([100,100],[150,150],ls=':',c=vals.rc,label='SN1998bw')
-    ax.scatter(0,0,marker='s',c=vals.gc, label='AT2022tsd $g$')
-    ax.scatter(0,0,marker='o',c=vals.rc, label='AT2022tsd $r$')
-    ax.scatter(0,0,marker='D',c=vals.ic, label='AT2022tsd $i$')
+    ax.scatter(0,0,marker='s',c=vals.gc,edgecolor='k',label='AT2022tsd $g$')
+    ax.scatter(0,0,marker='o',c=vals.rc,edgecolor='k',label='AT2022tsd $r$')
+    ax.scatter(0,0,marker='D',c=vals.ic,edgecolor='k',label='AT2022tsd $i$')
     fig.legend(fontsize=8, bbox_to_anchor=(0.5,1.02), loc='upper center',
                ncol=5, handletextpad=0.1)
 
