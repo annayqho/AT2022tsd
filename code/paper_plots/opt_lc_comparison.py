@@ -104,7 +104,7 @@ def plot_18cow(ax, show='absolute', offset=0):
     cols = [vals.gc, vals.rc]
     for i,b in enumerate(['g', 'r']):
         choose = dat['Filt'].values==b
-        ax.plot(x[choose]-t0, M[choose]+offset, c=cols[i], ls='--')
+        ax.plot(x[choose]-t0-1, M[choose]+offset, c=cols[i], ls='--', lw=0.7)
     #ax.text(2, -18, '18cow', rotation=-35, fontsize=8)
 
 
@@ -123,7 +123,7 @@ def plot_20xnd(ax, show='absolute', offset=0):
         y = mag[choose].astype(float)
         if show=='absolute':
             y = mag[choose].astype(float)-Planck18.distmod(z=0.2442).value+offset
-        ax.plot(x/(1.2442), y, c=cols[i])
+        ax.plot(x[::2]/(1.2442), y[::2], c=cols[i], lw=0.5)
     #ax.text(15, -17, '20xnd', rotation=-35, fontsize=8)
 
 

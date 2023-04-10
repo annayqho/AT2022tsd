@@ -190,17 +190,25 @@ def plot_flare_epochs(ax, dat):
 
 if __name__=="__main__":
     """ Plot the FULL light curve, with all detections """
+    # Get data
     dat = get_full_opt()
 
     # Get the approximate time of explosion
     t0_str = Time(vals.t0, format='jd').isot.replace("T", " ").split('.')[0]
 
+    # Get the time where you split the axes
+    tsplit = 20
+
     # Initialize
     fig,axarr = plt.subplots(
             1,2,figsize=(7,3),sharey=True,gridspec_kw={'width_ratios': [1.5,3]})
 
+    # AT2022tsd in both panels
+    for ax in axarr:
+        plot_22tsd(ax, show='apparent', offset=0.11)
+
+    # Left panel: comparisons
     ax = axarr[0]
-    plot_22tsd(ax, show='apparent', offset=0.11)
     shift = np.abs(Planck18.distmod(z=0.0141).value-vals.dm)
     plot_18cow(ax, show='apparent', offset=shift)
     shift = np.abs(Planck18.distmod(z=0.2442).value-vals.dm)
@@ -209,22 +217,19 @@ if __name__=="__main__":
     plot_98bw(ax, show='apparent', offset=shift)
     shift = np.abs(Planck18.distmod(z=0.677).value-vals.dm)
     plot_sn2011kl(ax, show='apparent', offset=shift)
+
+    # Left panel: spec epochs
+    plot_spec_epochs(ax)
+
+    # Left panel: formatting
     ax.set_yticks([19,20,21,22,23])
     ax.set_yticklabels([19,20,21,22,23])
     ax.set_ylabel(r"$m_\mathrm{opt}$ (AB)", fontsize=10,
             fontname='sans-serif')
-    ax.set_xlim(-5,45)
-    ax.plot([100,100],[150,150],ls='-.',c='grey',label='SN2011kl')
-    ax.plot([100,100],[150,150],ls='--',c='grey',label='AT2018cow')
-    ax.plot([100,100],[150,150],ls='-',c='grey',label='AT2020xnd')
-    ax.plot([100,100],[150,150],ls=':',c='grey',label='SN1998bw')
-    ax.legend(loc='upper right', fontsize=8)
+    ax.set_xlim(-2,tsplit)
 
-    # Plot LC 
+    # Right panel: comparisons and epochs
     ax = axarr[1]
-    plot_22tsd(ax, show='apparent', offset=0.11)
-
-    # Plot epochs of various things (spec, x-ray, radio)
     plot_spec_epochs(ax)
     ax.text(15.4, 22.95, 'Opt. spec.', fontsize=8, ha='right', c='k')
     plot_xray_epochs(ax)
@@ -233,17 +238,22 @@ if __name__=="__main__":
     ax.text(26.2, 22.55, 'Radio', fontsize=8, ha='right', c='k')
     plot_flare_epochs(ax, dat)
     ax.text(26.2, 19.2, 'Opt. flares', fontsize=8, ha='right', c='k')
+    shift = np.abs(Planck18.distmod(z=0.0085).value-vals.dm)
+    plot_98bw(ax, show='apparent', offset=shift)
+    shift = np.abs(Planck18.distmod(z=0.677).value-vals.dm)
+    plot_sn2011kl(ax, show='apparent', offset=shift)
 
-    # Formatting
-    ax.set_xlim(9, 210)
+    # Formatting of the right axis
+    ax.set_xlim(tsplit, 210)
     ax.set_xscale('log')
     ax.set_ylim(23, 19)
-
-    fig.text(0.5, 0, r'$\Delta t_\mathrm{obs}$ (days)', ha='center')
+    ax.set_xticks([30,40,50,70,100,200])
+    ax.set_xticklabels([30,40,50,70,100,200])
 
     # Make a second y-axis
     ax2 = ax.twinx()
-    ax2.set_ylabel("$M_\mathrm{opt} (AB)$", fontsize=10, rotation=270, labelpad=15.0)
+    ax2.set_ylabel(
+            "$M_\mathrm{opt} (AB)$", fontsize=10, rotation=270, labelpad=15.0)
     y_f = lambda y_i: y_i-vals.dm+2.5*np.log10(1+vals.z)
     ymin, ymax = ax.get_ylim()
     ax2.set_ylim((y_f(ymin), y_f(ymax)))
@@ -253,12 +263,30 @@ if __name__=="__main__":
     ax2.plot([],[])
 
     # For the legend
-    ax.scatter(0,0,marker='s',c=vals.gc, label='$g$')
-    ax.scatter(0,0,marker='o',c=vals.rc, label='$r$')
-    ax.scatter(0,0,marker='D',c=vals.ic, label='$i$')
-    ax.legend(fontsize=9)
+    ax.plot([100,100],[150,150],ls='-.',c='grey',label='SN2011kl')
+    ax.plot([100,100],[150,150],ls='--',c=vals.gc,label='AT2018cow $g$',lw=0.5)
+    ax.plot([100,100],[150,150],ls='--',c=vals.rc,label='AT2018cow $r$',lw=0.5)
+    ax.plot([100,100],[150,150],ls='-',c=vals.gc,label='AT2020xnd $g$',lw=0.5)
+    ax.plot([100,100],[150,150],ls='-',c=vals.rc,label='AT2020xnd $r$',lw=0.5)
+    ax.plot([100,100],[150,150],ls=':',c=vals.rc,label='SN1998bw')
+    ax.scatter(0,0,marker='s',c=vals.gc, label='AT2022tsd $g$')
+    ax.scatter(0,0,marker='o',c=vals.rc, label='AT2022tsd $r$')
+    ax.scatter(0,0,marker='D',c=vals.ic, label='AT2022tsd $i$')
+    fig.legend(fontsize=8, bbox_to_anchor=(0.5,1.02), loc='upper center',
+               ncol=5, handletextpad=0.1)
 
-    plt.subplots_adjust(wspace=0.01)
-    plt.show()
-    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    #plt.close()
+    # Formatting of the whole fig
+    fig.text(0.5, 0, r'$\Delta t_\mathrm{obs}$ (days)', ha='center')
+    axarr[0].spines['right'].set_visible(False)
+    axarr[1].spines['left'].set_visible(False)
+    ax2.spines['left'].set_visible(False)
+    axarr[0].yaxis.tick_left()
+    axarr[0].tick_params(labelright='off')
+    axarr[1].yaxis.tick_right()
+    axarr[1].set_yticks([])
+    ax2.yaxis.tick_right()
+
+    fig.subplots_adjust(wspace=0)
+    #plt.show()
+    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    plt.close()
