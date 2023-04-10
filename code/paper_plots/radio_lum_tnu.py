@@ -7,11 +7,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from astropy.table import Table
 from astropy.cosmology import Planck15
-import cmasher as cmr
+import vals
 
-cols = cmr.take_cmap_colors(
-    'cmr.rainforest', 5, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
-cow_col = cols[2]
+cow_col = vals.cow_col
 
 smallsize=8
 medsize=10
@@ -104,12 +102,12 @@ def typeii(ax):
         else:
             label=None
         ax.scatter(
-                tnuval, lpeak[i], marker='o', edgecolor='k', 
+                tnuval, lpeak[i], marker='o', edgecolor=vals.sn_col, 
                 facecolor='white', s=100, label=label)
         ax.text(
-                tnuval, lpeak[i]/1.2, names[i], fontsize=smallsize,
-                verticalalignment='top',
-                horizontalalignment='right')
+                tnuval*1.2, lpeak[i]*1.1, names[i], fontsize=smallsize,
+                verticalalignment='bottom',
+                horizontalalignment='left', color=vals.sn_col)
 
 
 def first(ax):
@@ -123,6 +121,13 @@ def first(ax):
             horizontalalignment='center')
 
     # Dillon's transient
+    tnu = 4*365*(5/5)
+    dcm = Planck15.luminosity_distance(z=0.03470).cgs.value
+    lpeak = 7*1E-3*1E-23*4*np.pi*dcm**2
+    ax.scatter(tnu, lpeak, marker='X', c='k', s=50)
+    ax.text(tnu/1.3, lpeak*1.1, 'VT 1210+4956', fontsize=smallsize,
+            verticalalignment='bottom',
+            horizontalalignment='center')
 
 
 def ibc(ax):
@@ -130,41 +135,41 @@ def ibc(ax):
     tnu = (30)*(22.5/5)
     lpeak = 3.3E28
     ax.scatter(
-            tnu, lpeak, marker='+', c='k', s=100,
+            tnu, lpeak, marker='+', c=vals.sn_col, s=100,
             label="SNe Ibc")
     ax.text(
             tnu, lpeak/1.2, "2003L", fontsize=smallsize,
             verticalalignment='top',
-            horizontalalignment='center')
+            horizontalalignment='center', color=vals.sn_col)
 
     # 11qcj
     tnu = (100)*(5/5)
     lpeak = 7E28
     ax.scatter(
-            tnu, lpeak, marker='+', c='k', s=100,
+            tnu, lpeak, marker='+', c=vals.sn_col, s=100,
             label=None)
     ax.text(
             tnu/1.2, lpeak, "11qcj", fontsize=smallsize,
             verticalalignment='center',
-            horizontalalignment='right')
+            horizontalalignment='right', color=vals.sn_col)
 
     # 2007bg
     tnu = (55.9)*(8.46/5)
     lpeak = 4.1E28
     ax.scatter(
-            tnu, lpeak, marker='+', c='k', s=100, label=None)
+            tnu, lpeak, marker='+', c=vals.sn_col, s=100, label=None)
 
     # SN 2003bg
     tnu = (35)*(22.5/5)
     lpeak = 3.9E28
     ax.scatter(
-            tnu, lpeak, marker='+', c='k', s=100, label=None)
+            tnu, lpeak, marker='+', c=vals.sn_col, s=100, label=None)
 
     # SN 2009bb
     tnu = (20)*(6/5)
     lpeak = 3.6E28
     ax.scatter(
-            tnu, lpeak, marker='+', c='k', s=100)
+            tnu, lpeak, marker='+', c=vals.sn_col, s=100)
 
 
 def lfbot(ax):
@@ -271,12 +276,13 @@ def tde(ax):
     tnu = (143)*(8.20/5)
     lpeak = 1.8E28
     ax.scatter(
-            tnu, lpeak, marker='o', edgecolor='k', facecolor='black', s=100,
+            tnu, lpeak, marker='o', edgecolor=vals.tde_col, 
+            facecolor=vals.tde_col, s=100,
             label='TDE')
     ax.text(
             tnu, lpeak/1.3, "ASASSN14li", fontsize=smallsize,
             verticalalignment='top',
-            horizontalalignment='center')
+            horizontalalignment='center', color=vals.tde_col)
 
 
 def llgrb(ax):
@@ -284,12 +290,12 @@ def llgrb(ax):
     tnu = (10)*(10/5)
     lpeak = 8.2E28
     ax.scatter(
-            tnu, lpeak, marker='s', edgecolor='k', s=squaresize,
-            facecolor='k', label="LLGRB-SN")
+            tnu, lpeak, marker='s', edgecolor=vals.llgrb_col, s=squaresize,
+            facecolor=vals.llgrb_col, label="LLGRB-SN")
     ax.text(
             tnu, lpeak*1.2, "1998bw", fontsize=smallsize,
             verticalalignment='bottom',
-            horizontalalignment='center')
+            horizontalalignment='center', color=vals.llgrb_col)
 
     # GRB 171205A
     tnu = (4.3)*(6/5)
@@ -297,34 +303,34 @@ def llgrb(ax):
     # 3 mJy at 6 GHz with the VLA; Laskar et al. 2017
     lpeak = 3E-3 * 1E-23 * 4 * np.pi * dgrb**2
     ax.scatter(
-            tnu, lpeak, marker='s', edgecolor='k', s=squaresize,
-            facecolor='k', label=None)
+            tnu, lpeak, marker='s', edgecolor=vals.llgrb_col, s=squaresize,
+            facecolor=vals.llgrb_col, label=None)
     ax.text(
             tnu, lpeak*1.2, "2017iuk", fontsize=smallsize,
             verticalalignment='bottom',
-            horizontalalignment='center')
+            horizontalalignment='center', color=vals.llgrb_col)
 
     # SN 2006aj
     tnu = (5)*(4/5)
     lpeak = 8.3E27
     ax.scatter(
-            tnu, lpeak, marker='s', edgecolor='k', s=squaresize,
-            facecolor='k', label=None)
+            tnu, lpeak, marker='s', edgecolor=vals.llgrb_col, s=squaresize,
+            facecolor=vals.llgrb_col, label=None)
     ax.text(
             tnu, lpeak/1.3, "2006aj", fontsize=smallsize,
             verticalalignment='top',
-            horizontalalignment='center')
+            horizontalalignment='center', color=vals.llgrb_col)
 
     # SN 2010bh
     tnu = (30)*(5/5)
     lpeak = 1.2E28
     ax.scatter(
-            tnu, lpeak, marker='s', edgecolor='k', s=squaresize,
-            facecolor='k', label=None)
+            tnu, lpeak, marker='s', edgecolor=vals.llgrb_col, s=squaresize,
+            facecolor=vals.llgrb_col, label=None)
     ax.text(
             tnu, lpeak/1.3, "2010bh", fontsize=smallsize,
             verticalalignment='top',
-            horizontalalignment='center')
+            horizontalalignment='center', color=vals.llgrb_col)
 
 
 
@@ -345,9 +351,9 @@ if __name__=="__main__":
     #lumtnu(ax)
 
     # Plot the background curves
-    y = mdot_curves(ax, 550, 2.5E29, 10)
-    y = mdot_curves(ax, 58, 4E29, 0.1, label=False)
-    y = mdot_curves(ax, 5.9, 6.4E29, 0.001)
+    y = mdot_curves(ax, 253, 3E27, 10)
+    y = mdot_curves(ax, 25, 3.5E27, 0.1)
+    y = mdot_curves(ax, 2.4, 3.5E27, 0.001)
     y = vel_lines(ax, 5.5, 1)
     y = vel_lines(ax, 55, 0.1)
     y = vel_lines(ax, 550, 0.01)

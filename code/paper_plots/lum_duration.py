@@ -9,23 +9,14 @@ import pandas as pd
 import cmasher as cmr
 from ztfquery import marshal
 
-iacol = '#003f5c'
-#cccol = '#58508d'
-aftcol = '#bc5090'
-llgrbcol = '#ff6361'
-cowcol = '#ffa600'
 
-cols = cmr.take_cmap_colors(
-    'cmr.rainforest', 5, cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
-
-tde_col = cols[4]
-lgrb_col = cols[0]
-llgrb_col = cols[3]
-sn_col = 'grey'
-cow_col = cols[2]
-
-cccol = sn_col
-cowcol = cow_col
+tde_col = vals.tde_col
+lgrb_col = vals.lgrb_col
+llgrb_col = vals.llgrb_col
+iacol = 'grey'
+slsncol = vals.sn_col
+cccol = vals.sn_col
+cowcol = vals.cow_col
 
 
 def calc_Lpeak(Mni, tpeak):
@@ -436,60 +427,12 @@ def plot_bts(ax):
     ax.scatter(
             dur[choose], Mpk[choose], 
             c=iacol, marker='.', zorder=0, alpha=0.5, lw=0)
-    #ax.text(14.8,-19.6,'SN Ia',c=iacol, rotation=35)#, fontweight='bold')
 
     choose = ['SLSN' in val for val in cl]
     ax.scatter(
             dur[choose], Mpk[choose],
-            c='grey', marker='x', zorder=0, s=10)
-    #ax.text(40,-22.5,'SLSN',c='grey')#, fontweight='bold')
+            c=slsncol, marker='x', zorder=0, s=10)
 
-
-
-def plot_afterglows(ax):
-    """ Add afterglows to the plot """
-    x = 0.3
-    y = -24.4
-    ax.scatter(x, y, c=aftcol, edgecolor='k') 
-    #ax.text(0.3, -24.4, 'ZTF19abvizsw', c=aftcol) 
-
-    x = 0.64
-    y = -26
-    ax.scatter(x, y, c=aftcol, zorder=10) 
-    ax.arrow(x, y, -x/3, 0, length_includes_head=True,
-            head_width=np.abs(y/50), head_length=x/10, color=aftcol) 
-    ax.arrow(x, y, 0, -np.abs(y)/50, length_includes_head=True,
-            head_width=np.abs(x/5), head_length=np.abs(y/100), color=aftcol) 
-    #ax.text(x, y, 'PTF11agg', c=aftcol, va='top') 
-
-    x = 0.2
-    y = -25.9
-    ax.scatter(x, y, c=aftcol, edgecolor='k', zorder=10) 
-    ax.arrow(x, y, -x/3, 0, length_includes_head=True,
-            head_width=np.abs(y/50), head_length=x/10, color=aftcol) 
-    ax.arrow(x, y, 0, -np.abs(y)/50, length_includes_head=True,
-            head_width=np.abs(x/5), head_length=np.abs(y/100), color=aftcol) 
-    #ax.text(x, y, 'ZTF20aajnksq', c=aftcol, va='top') 
-
-    x = 0.05
-    y = -27.3
-    ax.scatter(x, y, c=aftcol, edgecolor='k', zorder=10) 
-    ax.arrow(x, y, -x/3, 0, length_includes_head=True,
-            head_width=np.abs(y/50), head_length=x/10, color=aftcol) 
-    ax.arrow(x, y, 0, -np.abs(y)/50, length_includes_head=True,
-            head_width=np.abs(x/5), head_length=np.abs(y/100), color=aftcol) 
-    #ax.text(x, y, 'ZTF21aaeyldq', c=aftcol, va='top') 
-
-    x = 0.1
-    y = -25
-    ax.scatter(x, y, c=aftcol, edgecolor='k', zorder=10) 
-    ax.arrow(x, y, -x/3, 0, length_includes_head=True,
-            head_width=np.abs(y/50), head_length=x/10, color=aftcol) 
-    ax.arrow(x, y, 0, -np.abs(y)/50, length_includes_head=True,
-            head_width=np.abs(x/5), head_length=np.abs(y/100), color=aftcol) 
-    #ax.text(x, y, 'ZTF21aayokph', c=aftcol, va='top') 
-
-    ax.text(0.08, -27.2, 'Orphan Afterglows', color=aftcol, fontweight='bold')
 
 
 if __name__=="__main__":
@@ -577,8 +520,8 @@ if __name__=="__main__":
     ax.text(3.4, -17.8, r'$M_{\mathrm{Ni}}>M_{\mathrm{ej}}$', rotation=60)
     ax.text(4.3, -17.8, r'$M_{\mathrm{Ni}}<M_{\mathrm{ej}}$', rotation=60)
 
-    ax.scatter(0, 0, marker='>', c='grey', label='CC SN')
-    ax.scatter(0, 0, marker='x', c='grey', label='SLSN')
+    ax.scatter(0, 0, marker='>', c=cccol, label='CC SN')
+    ax.scatter(0, 0, marker='x', c=slsncol, label='SLSN')
     ax.scatter(0, 0, marker='o', c=iacol, label='SN Ia')
     ax.scatter(0, 0, marker='D', c=cowcol, label='LFBOT')
     ax.legend(loc='upper center', fontsize=10, handletextpad=0.1,

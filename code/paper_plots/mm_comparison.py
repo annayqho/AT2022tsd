@@ -374,9 +374,9 @@ if __name__=="__main__":
     ax.set_yscale('log')
     ax.set_xlabel(r"$\Delta t_\mathrm{obs}$ (d)", fontsize=10)
 
-    plt.tight_layout()
-    plt.show()
-    #plt.savefig(
-    #        "mm_lc_100ghz.png", dpi=300, 
-    #        bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.tight_layout()
+    #plt.show()
+    plt.savefig(
+            "mm_lc_100ghz.png", dpi=300, 
+            bbox_inches='tight', pad_inches=0.1)
+    plt.close()
