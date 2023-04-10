@@ -76,7 +76,15 @@ def plot_flare_epochs(ax, dat):
         for i,night in enumerate(flare_epochs_int_unique):
             choose_data = flare_epochs_int==night
             mags = dat['mag_extcorr'][choose].values[choose_data]
-            ax.plot([night,night], [min(mags),max(mags)], c=cs[j], lw=2)
+            emags = dat['emag'][choose].values[choose_data]
+            dt_night = night-vals.t0
+            if len(mags)>1:
+                ax.plot([dt_night,dt_night], [min(mags),max(mags)], 
+                        c=cs[j], lw=2)
+            else:
+                ax.plot([dt_night,dt_night], 
+                        [mags[0]-emags[0],mags[0]+emags[0]], c=cs[j], lw=2)
+
 
 
 if __name__=="__main__":
@@ -137,7 +145,7 @@ if __name__=="__main__":
     # Formatting of the right axis
     ax.set_xlim(tsplit, 210)
     ax.set_xscale('log')
-    ax.set_ylim(23, 19)
+    ax.set_ylim(23.5, 18.8)
     ax.set_xticks([30,40,50,70,100,200])
     ax.set_xticklabels([30,40,50,70,100,200])
 
@@ -171,10 +179,9 @@ if __name__=="__main__":
     axarr[0].spines['right'].set_visible(False)
     axarr[1].spines['left'].set_visible(False)
     ax2.spines['left'].set_visible(False)
-    axarr[0].yaxis.tick_left()
     axarr[0].tick_params(labelright='off')
     axarr[1].yaxis.tick_right()
-    axarr[1].set_yticks([])
+    #axarr[1].set_yticks([])
     ax2.yaxis.tick_right()
 
     fig.subplots_adjust(wspace=0)
