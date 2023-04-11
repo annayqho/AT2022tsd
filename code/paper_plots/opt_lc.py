@@ -86,6 +86,34 @@ def plot_flare_epochs(ax, dat):
                         [mags[0]-emags[0],mags[0]+emags[0]], c=cs[j], lw=2)
 
 
+def plot_nonflare_epochs(ax, dat):
+    """ Plot the non-flare epochs. Show an upper limit
+    corresponding to the median limit or something like that. """
+    jd = Time(dat['mjdstart'].values, format='mjd').jd
+    isflare = dat['isflare'].values
+    istransient = dat['istransient'].values
+    nonflare = np.logical_and.reduce((~istransient, ~isflare, jd > 59856.4))
+    filts = dat['flt'].values
+    cs = [vals.rc, vals.gc, vals.ic, vals.uc, vals.wc]
+
+    for j,filt in enumerate(np.array(['r', 'g', 'i', 'u', 'w'])):
+        choose = np.logical_and(~isflare, filts==filt)
+        flare_epochs = jd[choose]
+        flare_epochs_int = flare_epochs.astype(int)
+        flare_epochs_int_unique = np.unique(flare_epochs_int)
+        # for each epoch,
+        for i,night in enumerate(flare_epochs_int_unique):
+            choose_data = flare_epochs_int==night
+            mags = dat['mag_extcorr'][choose].values[choose_data]
+            emags = dat['emag'][choose].values[choose_data]
+            dt_night = night-vals.t0
+            if len(mags)>1:
+                ax.plot([dt_night,dt_night], [min(mags),max(mags)], 
+                        c=cs[j], lw=2)
+            else:
+                ax.plot([dt_night,dt_night], 
+                        [mags[0]-emags[0],mags[0]+emags[0]], c=cs[j], lw=2)
+
 
 if __name__=="__main__":
     """ Plot the FULL light curve, with all detections """
@@ -136,7 +164,10 @@ if __name__=="__main__":
     plot_radio_epochs(ax)
     ax.text(26.2, 22.55, 'Radio', fontsize=8, ha='right', c='k')
     plot_flare_epochs(ax, dat)
-    ax.text(26.2, 19.2, 'Opt. flares', fontsize=8, ha='right', c='k')
+    ax.text(26.6, 19.1, '$i$-band flare', fontsize=8, ha='right', c=vals.ic)
+    ax.text(25.8, 20.1, '$r$-band flare', fontsize=8, ha='right', c=vals.rc)
+    ax.text(68, 21.1, '$w$-band flare', fontsize=8, ha='right', c=vals.wc)
+    ax.text(97, 20, '$g$-band flare', fontsize=8, ha='right', c=vals.gc)
     shift = np.abs(Planck18.distmod(z=0.0085).value-vals.dm)
     plot_98bw(ax, show='apparent', offset=shift)
     shift = np.abs(Planck18.distmod(z=0.677).value-vals.dm)
@@ -185,6 +216,6 @@ if __name__=="__main__":
     ax2.yaxis.tick_right()
 
     fig.subplots_adjust(wspace=0)
-    plt.show()
-    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    #plt.close()
+    #plt.show()
+    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    plt.close()
