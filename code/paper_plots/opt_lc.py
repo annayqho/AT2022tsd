@@ -93,8 +93,7 @@ def plot_nonflare_epochs(ax, dat):
     jd = Time(mjd, format='mjd').jd
     isflare = dat['isflare'].values
     istransient = dat['istransient'].values
-    #nonflare = np.logical_and.reduce((~istransient, ~isflare, mjd > 59856.4))
-    nonflare = np.logical_and.reduce((~istransient, ~isflare))#, mjd > 59856.4))
+    nonflare = np.logical_and.reduce((~istransient, ~isflare))
     filts = dat['flt'].values
     cs = [vals.rc, vals.gc, vals.ic, vals.uc, vals.wc]
 
