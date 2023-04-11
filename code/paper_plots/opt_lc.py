@@ -158,11 +158,11 @@ if __name__=="__main__":
     # Right panel: comparisons and epochs
     ax = axarr[1]
     plot_spec_epochs(ax)
-    ax.text(15.4, 22.95, 'Opt. spec.', fontsize=8, ha='right', c='k')
+    ax.text(16, 23.45, 'Opt. spec.', fontsize=8, ha='right', c='k')
     plot_xray_epochs(ax)
-    ax.text(24, 22.75, 'X-ray', fontsize=8, ha='right', c='k')
+    ax.text(24.3, 23.25, 'X-ray', fontsize=8, ha='right', c='k')
     plot_radio_epochs(ax)
-    ax.text(26.2, 22.55, 'Radio', fontsize=8, ha='right', c='k')
+    ax.text(26.7, 23, 'Radio', fontsize=8, ha='right', c='k')
     plot_flare_epochs(ax, dat)
     ax.text(26.6, 19.1, '$i$-band flare', fontsize=8, ha='right', c=vals.ic)
     ax.text(25.8, 20.1, '$r$-band flare', fontsize=8, ha='right', c=vals.rc)
