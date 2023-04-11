@@ -93,24 +93,29 @@ def plot_nonflare_epochs(ax, dat):
     jd = Time(mjd, format='mjd').jd
     isflare = dat['isflare'].values
     istransient = dat['istransient'].values
-    nonflare = np.logical_and.reduce((~istransient, ~isflare, mjd > 59856.4))
+    #nonflare = np.logical_and.reduce((~istransient, ~isflare, mjd > 59856.4))
+    nonflare = np.logical_and.reduce((~istransient, ~isflare))#, mjd > 59856.4))
     filts = dat['flt'].values
     cs = [vals.rc, vals.gc, vals.ic, vals.uc, vals.wc]
 
     for j,filt in enumerate(np.array(['r', 'g', 'i', 'u', 'w'])):
+        # Identify nights with NO flares
+        has_flare = np.logical_and(isflare, filts==filt)
+        night_has_flare = np.unique(jd[has_flare].astype(int))
         choose = np.logical_and(~isflare, filts==filt)
         flare_epochs = jd[choose]
         flare_epochs_int = flare_epochs.astype(int)
         flare_epochs_int_unique = np.unique(flare_epochs_int)
         # for each epoch,
         for i,night in enumerate(flare_epochs_int_unique):
-            choose_data = flare_epochs_int==night
-            mags = dat['maglim_extcorr'][choose].values[choose_data]
-            dt_night = night-vals.t0
-            if len(mags)>1:
-                ax.scatter(dt_night,np.median(mags), c=cs[j], marker='v')
-            else:
-                ax.scatter(dt_night,mags[0], c=cs[j], marker='v')
+            if night not in night_has_flare:
+                choose_data = flare_epochs_int==night
+                mags = dat['maglim_extcorr'][choose].values[choose_data]
+                dt_night = night-vals.t0
+                if len(mags)>1:
+                    ax.scatter(dt_night,np.median(mags), c=cs[j], marker='v')
+                else:
+                    ax.scatter(dt_night,mags[0], c=cs[j], marker='v')
 
 
 if __name__=="__main__":
@@ -162,6 +167,7 @@ if __name__=="__main__":
     plot_radio_epochs(ax)
     ax.text(26.7, 23, 'Radio', fontsize=8, ha='right', c='k')
     plot_flare_epochs(ax, dat)
+    plot_nonflare_epochs(ax, dat)
     ax.text(26.6, 19.1, '$i$-band flare', fontsize=8, ha='right', c=vals.ic)
     ax.text(25.8, 20.1, '$r$-band flare', fontsize=8, ha='right', c=vals.rc)
     ax.text(68, 21.1, '$w$-band flare', fontsize=8, ha='right', c=vals.wc)
