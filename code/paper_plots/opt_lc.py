@@ -137,6 +137,7 @@ if __name__=="__main__":
     # AT2022tsd in both panels
     for ax in axarr:
         plot_22tsd(ax, show='apparent', offset=0.11)
+        plot_nonflare_epochs(ax, dat)
 
     # Left panel: comparisons
     ax = axarr[0]
@@ -164,11 +165,10 @@ if __name__=="__main__":
     plot_spec_epochs(ax)
     ax.text(16, 23.45, 'Opt. spec.', fontsize=8, ha='right', c='k')
     plot_xray_epochs(ax)
-    ax.text(24.3, 23.25, 'X-ray', fontsize=8, ha='right', c='k')
+    ax.text(24.3, 23.25, 'X-ray', fontsize=8, ha='right', c='grey')
     plot_radio_epochs(ax)
     ax.text(26.7, 23, 'Radio', fontsize=8, ha='right', c='k')
     plot_flare_epochs(ax, dat)
-    plot_nonflare_epochs(ax, dat)
     ax.text(26.6, 19.1, '$i$-band flare', fontsize=8, ha='right', c=vals.ic)
     ax.text(25.8, 20.1, '$r$-band flare', fontsize=8, ha='right', c=vals.rc)
     ax.text(68, 21.1, '$w$-band flare', fontsize=8, ha='right', c=vals.wc)
@@ -207,7 +207,7 @@ if __name__=="__main__":
     ax.scatter(0,0,marker='s',c=vals.gc,edgecolor='k',label='AT2022tsd $g$')
     ax.scatter(0,0,marker='o',c=vals.rc,edgecolor='k',label='AT2022tsd $r$')
     ax.scatter(0,0,marker='D',c=vals.ic,edgecolor='k',label='AT2022tsd $i$')
-    fig.legend(fontsize=8, bbox_to_anchor=(0.5,1.02), loc='upper center',
+    fig.legend(fontsize=8, bbox_to_anchor=(0.5,1.04), loc='upper center',
                ncol=5, handletextpad=0.1)
 
     # Formatting of the whole fig
@@ -221,6 +221,6 @@ if __name__=="__main__":
     ax2.yaxis.tick_right()
 
     fig.subplots_adjust(wspace=0)
-    plt.show()
-    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    #plt.close()
+    #plt.show()
+    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    plt.close()
