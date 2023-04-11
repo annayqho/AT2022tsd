@@ -111,10 +111,12 @@ def plot_nonflare_epochs(ax, dat):
                 choose_data = flare_epochs_int==night
                 mags = dat['maglim_extcorr'][choose].values[choose_data]
                 dt_night = night-vals.t0
+                show_maglim = mags[0]
                 if len(mags)>1:
-                    ax.scatter(dt_night,np.median(mags), c=cs[j], marker='v')
-                else:
-                    ax.scatter(dt_night,mags[0], c=cs[j], marker='v')
+                    show_maglim = np.median(mags)
+                ax.scatter(dt_night, show_maglim, edgecolor=cs[j], marker='v',
+                           facecolor='white', zorder=0, lw=0.5, s=5)
+                          
 
 
 if __name__=="__main__":
