@@ -89,10 +89,11 @@ def plot_flare_epochs(ax, dat):
 def plot_nonflare_epochs(ax, dat):
     """ Plot the non-flare epochs. Show an upper limit
     corresponding to the median limit or something like that. """
-    jd = Time(dat['mjdstart'].values, format='mjd').jd
+    mjd = dat['mjdstart'].values
+    jd = Time(mjd, format='mjd').jd
     isflare = dat['isflare'].values
     istransient = dat['istransient'].values
-    nonflare = np.logical_and.reduce((~istransient, ~isflare, jd > 59856.4))
+    nonflare = np.logical_and.reduce((~istransient, ~isflare, mjd > 59856.4))
     filts = dat['flt'].values
     cs = [vals.rc, vals.gc, vals.ic, vals.uc, vals.wc]
 
@@ -104,15 +105,12 @@ def plot_nonflare_epochs(ax, dat):
         # for each epoch,
         for i,night in enumerate(flare_epochs_int_unique):
             choose_data = flare_epochs_int==night
-            mags = dat['mag_extcorr'][choose].values[choose_data]
-            emags = dat['emag'][choose].values[choose_data]
+            mags = dat['maglim_extcorr'][choose].values[choose_data]
             dt_night = night-vals.t0
             if len(mags)>1:
-                ax.plot([dt_night,dt_night], [min(mags),max(mags)], 
-                        c=cs[j], lw=2)
+                ax.scatter(dt_night,np.median(mags), c=cs[j], marker='v')
             else:
-                ax.plot([dt_night,dt_night], 
-                        [mags[0]-emags[0],mags[0]+emags[0]], c=cs[j], lw=2)
+                ax.scatter(dt_night,mags[0], c=cs[j], marker='v')
 
 
 if __name__=="__main__":
@@ -216,6 +214,6 @@ if __name__=="__main__":
     ax2.yaxis.tick_right()
 
     fig.subplots_adjust(wspace=0)
-    #plt.show()
-    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    plt.close()
+    plt.show()
+    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    #plt.close()
