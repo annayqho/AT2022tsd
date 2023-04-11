@@ -31,28 +31,6 @@ def plot_22tsd(ax, show='absolute', offset=0):
     emag = opt_transient[choose]['emag'].values
     filt = opt_transient['flt'].values
 
-    # Add the extinction-corrected Keck data
-    t = 59871.44599
-    dtval = Time(t,format='mjd').jd-vals.t0
-
-    g = 1.85
-    eg = 0.14
-    mg = -2.5*np.log10(g*1E-6)+8.90-vals.ext['g']
-    emg = (2.5/np.log(10)) * (eg/g)
-    dt = np.append(dt, dtval)
-    mag = np.append(mag, mg)
-    emag = np.append(emag, emg)
-    filt = np.append(filt, 'g')
-
-    i = 2.75
-    ei = 0.15
-    mi = -2.5*np.log10(i*1E-6)+8.90-vals.ext['i']
-    emi = (2.5/np.log(10)) * (ei/i)
-    dt = np.append(dt, dtval)
-    mag = np.append(mag, mi)
-    emag = np.append(emag, emi)
-    filt = np.append(filt, 'i')
-
     # Keep the detections
     isdet = mag < 99
     dt = dt[isdet]
