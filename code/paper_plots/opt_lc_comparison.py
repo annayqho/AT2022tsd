@@ -39,10 +39,10 @@ def plot_22tsd(ax, show='absolute', offset=0):
     filt = filt[isdet]
 
     # Plot the LC binned by one day
-    ms = ['s', 'o', 'D']
-    cs = [vals.gc, vals.rc, vals.ic]
+    ms = ['s', 'o', 'D', '>']
+    cs = [vals.gc, vals.rc, vals.ic, vals.wc]
 
-    for i,b in enumerate(np.array(['g', 'r', 'i'])):
+    for i,b in enumerate(np.array(['g', 'r', 'i', 'w'])):
         # Get the LC in that filter
         choose = filt==b
         x = dt[choose]
@@ -243,7 +243,7 @@ def compare_opt_lc():
             ha='right', transform=ax.transAxes, fontsize=9)
 
     plt.tight_layout()
-    #plt.show()
-    plt.savefig("compare_opt_lc.png", dpi=200)
-    plt.close()
+    plt.show()
+    #plt.savefig("compare_opt_lc.png", dpi=200)
+    #plt.close()
 
