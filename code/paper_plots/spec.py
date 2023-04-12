@@ -20,25 +20,26 @@ def gauss(x, sigma, A, b):
     return A*np.exp(-(x-b)**2/(2*sigma**2))
 
 
-def main_spec(ax, wl, flam, wl2, flam2):
+def main_spec(ax, wl, flam, ivar, wl2, flam2, ivar2):
     """ The main spectrum panel """
+    labels = ['Keck+LRIS Sept. 23 ($\Delta t_\mathrm{rest}=13\,$d)',
+              'Keck+LRIS Oct. 6 ($\Delta t_\mathrm{rest}=23\,$d)']
+    label_offsets = [0.1, 0.03]
+    offsets = [2, 1.4]
+    x = [wl, wl1]
+    y = [flam, flam2]
+    iv = [ivar, ivar2]
 
-    # Plot
-    offset = 2
-    ax.step(wl, flam/1E-16+offset, where='mid', c='k', lw=0.5)#, alpha=0.5)
-    ax.text(8000, offset-0.1, 
-            'Keck+LRIS Sept. 23 ($\Delta t_\mathrm{rest}=13\,$d)', 
-            ha='right', va='top')
-
-    # Plot
-    offset = 1.4
-    ax.step(wl2, flam2/1E-16+offset, where='mid', c='k', lw=0.5)
-    ax.text(8000, offset-0.03, 
-            'Keck+LRIS Oct. 6 ($\Delta t_\mathrm{rest}=23\,$d)', 
-            ha='right', va='top')
+    for i in np.arange(2):
+        # Plot
+        ax.step(x[i], y[i]/1E-16+offsets[i], where='mid', c=lightgrey, lw=0.5)
+        ysm = load_smoothed_spec(x[i], y[i]/1E-16+offsets[i], iv[i])
+        ax.step(x[i], ysm, where='mid', c='k', lw=0.5)
+        ax.text(8000, offsets[i]-label_offsets[i], 
+                'Keck+LRIS Sept. 23 ($\Delta t_\mathrm{rest}=13\,$d)', 
+                ha='right', va='top')
 
     # Formatting, labeling
-    #ax.set_yscale('log')
     plt.yticks([])
     plt.minorticks_off()
     ax.set_ylim(1.27, 3)
@@ -77,7 +78,7 @@ def fig_for_paper():
     gs = gridspec.GridSpec(3, 3, height_ratios=(1,2,1))
 
     ax = fig.add_subplot(gs[1, :])
-    main_spec(ax, wl, flam, wl2, flam2)
+    main_spec(ax, wl, flam, eflam, wl2, flam2, eflam2)
     ax.axvspan(3700, 3760, alpha=0.2, color='grey', lw=0)
     ax.axvspan(4800, 5050, alpha=0.2, color='grey', lw=0)
     ax.axvspan(6510, 6770, alpha=0.2, color='grey', lw=0)

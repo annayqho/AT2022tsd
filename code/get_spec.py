@@ -3,6 +3,12 @@
 import pandas as pd
 import numpy as np
 ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data"
+sys.path.append("/Users/annaho/Dropbox/astro/tools/Spectra")
+from normalize import smooth_spec
+
+
+def load_smoothed_spec(x, y, ivar):
+    smoothed = smooth_spec(x, y, ivar, res=1)
 
 
 def load_spec_1():
