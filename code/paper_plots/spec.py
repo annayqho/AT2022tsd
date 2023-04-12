@@ -63,6 +63,7 @@ def panels(ax, wl_range, wl, flam):
 
 
 def plot_lines(ax, species, col, lw=1):
+    wl_lines = get_rest_wl()
     for l in wl_lines[species]:
         ax.axvline(l, lw=lw, ymin=0.9, ymax=1, color=col)
 
