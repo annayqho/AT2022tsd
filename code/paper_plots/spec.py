@@ -20,21 +20,24 @@ def gauss(x, sigma, A, b):
     return A*np.exp(-(x-b)**2/(2*sigma**2))
 
 
-def main_spec(ax, wl, flam, ivar, wl2, flam2, ivar2):
+def main_spec(ax, wl, flam, eflam, wl2, flam2, eflam2):
     """ The main spectrum panel """
     labels = ['Keck+LRIS Sept. 23 ($\Delta t_\mathrm{rest}=13\,$d)',
               'Keck+LRIS Oct. 6 ($\Delta t_\mathrm{rest}=23\,$d)']
     label_offsets = [0.1, 0.03]
     offsets = [2, 1.4]
-    x = [wl, wl1]
+    x = [wl, wl2]
     y = [flam, flam2]
-    iv = [ivar, ivar2]
+    iv = [1/eflam**2, 1/eflam2**2]
 
     for i in np.arange(2):
+        print(i)
         # Plot
-        ax.step(x[i], y[i]/1E-16+offsets[i], where='mid', c=lightgrey, lw=0.5)
-        ysm = load_smoothed_spec(x[i], y[i]/1E-16+offsets[i], iv[i])
-        ax.step(x[i], ysm, where='mid', c='k', lw=0.5)
+        yscaled = y[i]/1E-16+offsets[i]
+        ax.step(x[i],yscaled,where='mid',c='lightgrey',lw=0.5)
+        ysm = load_smoothed_spec(x[i], y[i], iv[i])
+        ysmscaled = ysm/1E-16+offsets[i]
+        ax.step(x[i], ysmscaled, where='mid', c='k', lw=0.5)
         ax.text(8000, offsets[i]-label_offsets[i], 
                 'Keck+LRIS Sept. 23 ($\Delta t_\mathrm{rest}=13\,$d)', 
                 ha='right', va='top')

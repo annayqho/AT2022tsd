@@ -1,6 +1,7 @@
 """ Get the spectra """
 
 import pandas as pd
+import sys
 import numpy as np
 ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data"
 sys.path.append("/Users/annaho/Dropbox/astro/tools/Spectra")
@@ -8,7 +9,8 @@ from normalize import smooth_spec
 
 
 def load_smoothed_spec(x, y, ivar):
-    smoothed = smooth_spec(x, y, ivar, res=1)
+    smoothed = smooth_spec(x, y, ivar, 1)
+    return smoothed
 
 
 def load_spec_1():
@@ -18,6 +20,8 @@ def load_spec_1():
     wl = tab['# wavelen'].values # AA
     # erg/cm2/s/Ang, absolute calibration approximate
     flam = tab['flux'].values 
+    eflam[flam<0] = 1E8
+    flam[flam<0] = 0
     eflam = tab['flux_unc'].values
     return wl, flam, eflam
 
@@ -30,5 +34,7 @@ def load_spec_2():
     wl = tab['wavelen'].values # AA
     # erg/cm2/s/Ang, absolute calibration approximate
     flam = tab['flux'].values 
+    eflam[flam<0] = 1E8
+    flam[flam<0] = 0
     eflam = tab['flux_unc'].values
     return wl, flam, eflam
