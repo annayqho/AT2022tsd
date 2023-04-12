@@ -20,7 +20,7 @@ def gauss(x, sigma, A, b):
     return A*np.exp(-(x-b)**2/(2*sigma**2))
 
 
-def main_spec(ax, wl, flam):
+def main_spec(ax, wl, flam, wl2, flam2):
     """ The main spectrum panel """
 
     # Plot
@@ -30,19 +30,15 @@ def main_spec(ax, wl, flam):
             'Keck+LRIS Sept. 23 ($\Delta t_\mathrm{rest}=13\,$d)', 
             ha='right', va='top')
 
-    # Get second epoch
-    wl, flam, eflam = load_spec_2()
-    wl = wl/(1+vals.z)
-
     # Plot
     offset = 1.4
-    ax.step(wl, flam/1E-16+offset, where='mid', c='k', lw=0.5)
+    ax.step(wl2, flam2/1E-16+offset, where='mid', c='k', lw=0.5)
     ax.text(8000, offset-0.03, 
             'Keck+LRIS Oct. 6 ($\Delta t_\mathrm{rest}=23\,$d)', 
             ha='right', va='top')
 
     # Formatting, labeling
-    ax.set_yscale('log')
+    #ax.set_yscale('log')
     plt.yticks([])
     plt.minorticks_off()
     ax.set_ylim(1.27, 3)
@@ -81,7 +77,7 @@ def fig_for_paper():
     gs = gridspec.GridSpec(3, 3, height_ratios=(1,2,1))
 
     ax = fig.add_subplot(gs[1, :])
-    main_spec(ax, wl, flam)
+    main_spec(ax, wl, flam, wl2, flam2)
     ax.axvspan(3700, 3760, alpha=0.2, color='grey', lw=0)
     ax.axvspan(4800, 5050, alpha=0.2, color='grey', lw=0)
     ax.axvspan(6510, 6770, alpha=0.2, color='grey', lw=0)
@@ -91,8 +87,8 @@ def fig_for_paper():
     panels(ax, [3725-single_width, 3725+single_width], wl, flam+2E-17)
     panels(ax, [3725-single_width, 3725+single_width], wl2, flam2)
     plot_lines(ax, 'oii', vals.gc)
-    ax.text(0.05, 0.95, '[O II]', ha='left', va='top', transform=ax.transAxes,
-            color=vals.gc)
+    ax.text(0.05, 0.95, '[O II]', ha='left', va='top', 
+            transform=ax.transAxes, color=vals.gc)
     ax.set_ylim(0, 1)
 
     # Zoom-in of the middle lines
