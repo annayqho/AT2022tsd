@@ -146,7 +146,6 @@ def plot_ztf(ax, background=False, shrink=1, text=True):
                     m = '>'
                     s = 10
                 for j,name in enumerate(names[choose]):
-                    print(name)
                     ax.scatter(
                             x[j], y[j], label=None, c=col, 
                             marker=m, zorder=zorder, s=s)
@@ -256,12 +255,13 @@ def plot_afterglows(ax):
     """ Add LGRB afterglows from the Kann sample """
     lc = load_kann_lc()
     for key,value in lc.items():
-        print(key)
         z = float(value['z'])
         dm = Planck15.distmod(z=z).value
         if len(value['t'])>1:
             t = value['t'].astype(float) / (1+z)
             mag = value['mag'].astype(float)
+            # Upon visual inspection, these have well-resolved peaks 
+            # but observations only started after 100s
             keep_list = ['070419A', '070612A', '60707', '70802', '80710']
             if np.logical_or(sum(t<100/86400)>0, key in keep_list):
                 #fig = plt.figure()
@@ -275,7 +275,8 @@ def plot_afterglows(ax):
                 peakm = np.min(mag)
                 peakM = peakm-dm-2.5*np.log10(1+z)
                 dur = min(t[mag>peakm+0.75])
-                print(dur,peakM)
+                if dur>1E-1:
+                    print(key)
                 ax.scatter(dur, peakM, c=lgrb_col, marker='+', s=20)
 
 
@@ -285,8 +286,8 @@ def plot_AT2019pim(ax):
     y = 1.8E45
     x = 0.36
     ax.scatter(x, y, marker='*', s=40, edgecolor=lgrb_col, facecolor='white')
-    ax.text(x*1.3, y, 'Orphan Afterglow', fontsize=8, c=lgrb_col)
-    ax.text(x*1.2, y/2, '(AT2019pim)', fontsize=8, c=lgrb_col)
+    ax.text(x/1.3, y*2, 'Orphan', fontsize=8, c=lgrb_col, ha='right')
+    ax.text(x/1.2, y, '(AT2019pim)', fontsize=8, c=lgrb_col, ha='right')
 
 
 def plot_snls(ax):
@@ -521,6 +522,13 @@ def plot_panel(ax, zoom=False):
     ax.scatter(1.4, -17.2, c=llgrb_col, marker='s', s=10)
     ax.scatter(1.2, -18.7, c=llgrb_col, marker='s', s=10)
 
+    # Plot ZTF21abbxiyd
+    x = 3
+    y = -23.8
+    ax.scatter(x, y, marker='D', s=10, c=cowcol)
+    #ax.text(x/1.5,y/1.02,'AT2021ahuo', fontsize=labelsize,
+    #        ha='center', va='top', color='red', fontweight='bold')
+
     # Plot CSS161010
     x = 5.5
     y = -21.5
@@ -539,8 +547,10 @@ def plot_panel(ax, zoom=False):
 
     # Plot GW170817
     if zoom==False:
-        ax.scatter(0.6, -16, c='white', marker='*', edgecolor='k', facecolor='white',s=40)
-        ax.text(0.5, -16, 'AT2017gfo', ha='right', va='center', c='k', fontsize=8)
+        ax.scatter(0.6, -16, c='white', marker='*', 
+                   edgecolor='grey', facecolor='white',s=40)
+        ax.text(0.5, -16, 'AT2017gfo', ha='right', va='center', 
+                c='grey', fontsize=8)
 
     # Plot DES16X1eho
     x = (1.28+2.53)/2 + 1.01
@@ -616,10 +626,10 @@ def plot_panel(ax, zoom=False):
         ax2.text(60/86400, 1E50, 'LGRB 080319B Prompt Flash', fontsize=8, c=lgrb_col)
 
     # Plot blazar flare
-    ax2.scatter(30, 1E46, marker='*', edgecolor='k', facecolor='white')
+    ax2.scatter(30, 1E46, marker='*', edgecolor='grey', facecolor='white')
     if zoom==False:
-        ax2.text(160, 2.8E46, 'S5 1803+784', fontsize=8, c='k', ha='right')
-        ax2.text(160, 1.5E46, 'Blazar Flare', fontsize=8, c='k', ha='right')
+        ax2.text(160, 2.8E46, 'S5 1803+784', fontsize=8, c='grey', ha='right')
+        ax2.text(160, 1.5E46, 'Blazar Flare', fontsize=8, c='grey', ha='right')
 
     if zoom==False:
         # Plot afterglows
@@ -669,6 +679,6 @@ if __name__=="__main__":
 
     #plt.tight_layout()
     fig.subplots_adjust(wspace=0.4)
-    plt.show()
-    #plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
