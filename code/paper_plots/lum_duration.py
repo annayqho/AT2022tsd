@@ -148,9 +148,6 @@ def plot_ztf(ax, background=False, shrink=1, text=True):
                     ax.scatter(
                             x[j], y[j], label=None, c=col, 
                             marker=m, zorder=zorder, s=s)
-                    if name=='ZTF18abcfcoo':
-                        ax.text(x[j]*1.07, y[j]/1.005, 'AT2018cow', fontsize=8,
-                                ha='center', va='top', c=cowcol)
 
     c = cowcol
     if background:
@@ -240,8 +237,7 @@ def plot_afterglow(ax, name, x, y):
     """
     z = float(get_z(name))
     xplt = x/(1+z)
-    else:
-        ax.scatter(x, y, c=lgrb_col, marker='*', s=80)
+    ax.scatter(x, y, c=lgrb_col, marker='*', s=80)
     if name!='ZTF19abvizsw':
         ax.arrow(x, y, -x/2, 0, length_includes_head=True,
                  head_width=np.abs(y/3), head_length=x/6, color=lgrb_col)
@@ -315,17 +311,12 @@ def plot_afterglows(ax):
     x = (15-9.7)/24
     plot_afterglow(ax, 'ZTF21abfmpwn', x, y)
 
-    ax.text(
-            1, 1E46, 'ZTF Afterglows',
-            color=lgrb_col, fontweight='bold', fontsize=9)
-
 
 def plot_snls(ax):
     x = 3.81+8.60
     y = -20.26
     ey = 0.03
     ax.errorbar(x, y, yerr=ey, fmt='D', c=cowcol, ms=5)
-    ax.text(x/1.01, y, 'SNLS04D4ec', fontsize=8, ha='right', va='bottom', c=cowcol)
 
 
 def plot_11qr(ax):
@@ -567,6 +558,8 @@ def plot_panel(ax, zoom=False):
 
     # Add individual objects from my Koala paper Table 1
     plot_snls(ax)
+    if zoom:
+        ax.text(x/1.01, y, 'SNLS04D4ec', fontsize=8, ha='right', va='bottom', c=cowcol)
     # Dougie: too luminous, don't show
     # SN 2011kl:
     x = 4.97+17.70
