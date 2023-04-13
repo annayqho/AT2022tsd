@@ -148,6 +148,10 @@ def plot_ztf(ax, background=False, shrink=1, text=True):
                     ax.scatter(
                             x[j], y[j], label=None, c=col, 
                             marker=m, zorder=zorder, s=s)
+                    if text:
+                        if name=='ZTF18abcfcoo':
+                            ax.text(x[j]*1.07, y[j], 'AT2018cow', fontsize=8,
+                                    ha='left', va='bottom', c=cowcol)
 
     c = cowcol
     if background:
@@ -237,10 +241,10 @@ def plot_afterglow(ax, name, x, y):
     """
     z = float(get_z(name))
     xplt = x/(1+z)
-    ax.scatter(x, y, c=lgrb_col, marker='*', s=80)
+    ax.scatter(x, y, c=lgrb_col, marker='P', s=20)
     if name!='ZTF19abvizsw':
-        ax.arrow(x, y, -x/2, 0, length_includes_head=True,
-                 head_width=np.abs(y/3), head_length=x/6, color=lgrb_col)
+        ax.arrow(x, y, -x/3, 0, length_includes_head=True,
+                 head_width=np.abs(y/3), head_length=x/8, color=lgrb_col)
         ax.arrow(x, y, 0, np.abs(y)/1.3, length_includes_head=True,
                  head_width=np.abs(x/3.5), head_length=np.abs(y/2.5),
                  color=lgrb_col)
@@ -317,6 +321,7 @@ def plot_snls(ax):
     y = -20.26
     ey = 0.03
     ax.errorbar(x, y, yerr=ey, fmt='D', c=cowcol, ms=5)
+    return x,y
 
 
 def plot_11qr(ax):
@@ -527,11 +532,18 @@ def plot_panel(ax, zoom=False):
     If zoom=True, plot the zoom-in of the LFBOTs with the Mni line,
     labeling individual events.
     """
+
+    # Plot the AT2022tsd flares
+    #ax.scatter()
+
     # Plot BTS sources
     plot_bts(ax)
 
     # Plot ZTF sources
-    plot_ztf(ax, background=False, shrink=2, text=True)
+    if zoom:
+        plot_ztf(ax, background=False, shrink=2, text=True)
+    else:
+        plot_ztf(ax, background=False, shrink=2, text=False)
 
     # Plot CSS161010
     x = 5.5
@@ -540,7 +552,7 @@ def plot_panel(ax, zoom=False):
             label=None, mfc=cowcol, mec=cowcol,
             c=cowcol, fmt='D', ms=5)
     if zoom:
-        ax.text(x*1.05, y, 'CSS161010', fontsize=8, ha='left', va='center', c=cowcol)
+        ax.text(x*1.06, y, 'CSS161010', fontsize=8, ha='left', va='center', c=cowcol)
 
     # Plot AT2020mrf
     ax.errorbar(7.1, -20, 
@@ -549,17 +561,22 @@ def plot_panel(ax, zoom=False):
     if zoom:
         ax.text(7.1/1.05, -20, 'AT2020mrf', fontsize=8, ha='right', va='top', c=cowcol)
 
+    # Plot GW170817
+    ax.scatter(0.6, -16, c='white', marker='s', edgecolor='k', facecolor='white')
+    ax.text(0.5, -16, 'AT2017gfo', ha='right', va='center', c='k', fontsize=9)
+
     # Plot DES16X1eho
     x = (1.28+2.53)/2 + 1.01
     y = -20.39
     ax.scatter(x, y, marker='D', c=cowcol, s=30)
     if zoom:
-        ax.text(x*1.2, y/1.005, 'DES16X1eho', fontsize=8, ha='center', va='top', c=cowcol)
+        ax.text(x*1.05, y, 'DES16X1eho', fontsize=8, 
+                ha='left', va='bottom', c=cowcol)
 
     # Add individual objects from my Koala paper Table 1
-    plot_snls(ax)
+    x,y = plot_snls(ax)
     if zoom:
-        ax.text(x/1.01, y, 'SNLS04D4ec', fontsize=8, ha='right', va='bottom', c=cowcol)
+        ax.text(x/1.05, y, 'SNLS04D4ec', fontsize=8, ha='right', va='top', c=cowcol)
     # Dougie: too luminous, don't show
     # SN 2011kl:
     x = 4.97+17.70
@@ -568,7 +585,7 @@ def plot_panel(ax, zoom=False):
     ey = 0.13
     ax.errorbar(x, y, xerr=ex, yerr=ey, fmt='D', c=cowcol, ms=5)
     if zoom:
-        ax.text(x/1.01, y, 'SN2011kl', fontsize=8, ha='right', va='bottom', c=cowcol)
+        ax.text(x/1.05, y, 'SN2011kl', fontsize=8, ha='right', va='bottom', c=cowcol)
 
     # Plot AT2022tsd
     # 19.28 is the ext corr peak in g band
@@ -581,14 +598,14 @@ def plot_panel(ax, zoom=False):
                 fmt='D', ms=8, zorder=1000, lw=2)
     if zoom:
         ax.text(
-                dur, Mpeak*1.005, 'AT2022tsd', va='bottom', ha='left', 
+                dur*1.03, Mpeak*1.001, 'AT2022tsd', va='bottom', ha='left', 
                 color=cowcol, fontweight='bold')
 
-    ax.set_ylim(-17.5,-29)
+    ax.set_ylim(-15,-28.5)
     if zoom:
-        ax.set_ylim(-17.5, -21.5)
-        ax.set_yticks([-18, -19, -20, -21])
-        ax.set_yticklabels([-18, -19, -20, -21])
+        ax.set_ylim(-19.5, -21.7)
+        ax.set_yticks([-20, -21])
+        ax.set_yticklabels([-20, -21])
     
     # Luminosity axis
     ax2 = ax.twinx()
@@ -610,9 +627,11 @@ def plot_panel(ax, zoom=False):
         ax.set_ylabel("$M_{g,\mathrm{peak}}$", fontsize=14)
 
     ax.set_xlim(1E-2,200)
-    if zoom:
-        ax.set_xlim(1.7,70)
     ax.set_xscale('log')
+    if zoom:
+        ax.set_xlim(2.5,40)
+        ax.set_xticks([4,10,20,40])
+        ax.set_xticklabels([4,10,20,40])
     ax.set_xlabel(r"$t_{1/2, \mathrm{optical}}$ (rest-frame days)", fontsize=14)
     ax.tick_params(axis='both', labelsize=12)
 
@@ -623,11 +642,11 @@ def plot_panel(ax, zoom=False):
         Mej = calc_Mej(tpeak)
         Lpeak = calc_Lpeak(Mej, tpeak)
         ax2.plot(tpeak, Lpeak, c='k', ls='--')
-        ax.text(3.4, -17.8, r'$M_{\mathrm{Ni}}>M_{\mathrm{ej}}$', rotation=60)
-        ax.text(4.3, -17.8, r'$M_{\mathrm{Ni}}<M_{\mathrm{ej}}$', rotation=60)
+        ax.text(11.4, -19.8, r'$M_{\mathrm{Ni}}>M_{\mathrm{ej}}$', rotation=60)
+        ax.text(13.3, -19.7, r'$M_{\mathrm{Ni}}<M_{\mathrm{ej}}$', rotation=60)
 
         ax.scatter(0, 0, marker='>', c=cccol, label='CC SN')
-        ax.scatter(0, 0, marker='*', c=lgrb_col, label='Afterglows')
+        ax.scatter(0, 0, marker='P', c=lgrb_col, label='Afterglows')
         ax.scatter(0, 0, marker='x', c=slsncol, label='SLSN')
         ax.scatter(0, 0, marker='o', c=iacol, label='SN Ia')
         ax.scatter(0, 0, marker='D', c=cowcol, label='LFBOT')
@@ -635,7 +654,7 @@ def plot_panel(ax, zoom=False):
 
 
 if __name__=="__main__":
-    fig,axarr = plt.subplots(1,2,figsize=(8,4))#, sharey=True)
+    fig,axarr = plt.subplots(1,2,figsize=(8,3.5))#, sharey=True)
 
     ax = axarr[0]
     plot_panel(ax)
@@ -647,6 +666,7 @@ if __name__=="__main__":
           ncol=6, fancybox=True)
 
     #plt.tight_layout()
+    fig.subplots_adjust(wspace=0.4)
     plt.show()
     #plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
     #plt.close()
