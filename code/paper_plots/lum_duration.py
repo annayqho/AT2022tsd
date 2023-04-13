@@ -9,6 +9,7 @@ import pandas as pd
 import cmasher as cmr
 from ztfquery import marshal
 
+cowms=3
 
 tde_col = vals.tde_col
 lgrb_col = vals.lgrb_col
@@ -137,7 +138,7 @@ def plot_ztf(ax, background=False, shrink=1, text=True):
                 if clname=='AT2018cow-like':
                     col = cowcol
                     m = 'D'
-                    s = 30
+                    s = 10
                     label = 'LFBOT'
                 else:
                     col = cccol
@@ -320,7 +321,7 @@ def plot_snls(ax):
     x = 3.81+8.60
     y = -20.26
     ey = 0.03
-    ax.errorbar(x, y, yerr=ey, fmt='D', c=cowcol, ms=5)
+    ax.errorbar(x, y, yerr=ey, fmt='D', c=cowcol, ms=cowms)
     return x,y
 
 
@@ -533,9 +534,6 @@ def plot_panel(ax, zoom=False):
     labeling individual events.
     """
 
-    # Plot the AT2022tsd flares
-    #ax.scatter()
-
     # Plot BTS sources
     plot_bts(ax)
 
@@ -550,25 +548,26 @@ def plot_panel(ax, zoom=False):
     y = -21.5
     ax.errorbar(x, y, 
             label=None, mfc=cowcol, mec=cowcol,
-            c=cowcol, fmt='D', ms=5)
+            c=cowcol, fmt='D', ms=cowms)
     if zoom:
         ax.text(x*1.06, y, 'CSS161010', fontsize=8, ha='left', va='center', c=cowcol)
 
     # Plot AT2020mrf
     ax.errorbar(7.1, -20, 
             label=None, mfc=cowcol, mec=cowcol,
-            c=cowcol, fmt='D', ms=5)
+            c=cowcol, fmt='D', ms=cowms)
     if zoom:
         ax.text(7.1/1.05, -20, 'AT2020mrf', fontsize=8, ha='right', va='top', c=cowcol)
 
     # Plot GW170817
-    ax.scatter(0.6, -16, c='white', marker='s', edgecolor='k', facecolor='white')
-    ax.text(0.5, -16, 'AT2017gfo', ha='right', va='center', c='k', fontsize=9)
+    if zoom==False:
+        ax.scatter(0.6, -16, c='white', marker='s', edgecolor='k', facecolor='white')
+        ax.text(0.5, -16, 'AT2017gfo', ha='right', va='center', c='k', fontsize=8)
 
     # Plot DES16X1eho
     x = (1.28+2.53)/2 + 1.01
     y = -20.39
-    ax.scatter(x, y, marker='D', c=cowcol, s=30)
+    ax.scatter(x, y, marker='D', c=cowcol, s=10)
     if zoom:
         ax.text(x*1.05, y, 'DES16X1eho', fontsize=8, 
                 ha='left', va='bottom', c=cowcol)
@@ -583,7 +582,7 @@ def plot_panel(ax, zoom=False):
     ex = np.sqrt(1.20**2+5.82**2)
     y = -20.31
     ey = 0.13
-    ax.errorbar(x, y, xerr=ex, yerr=ey, fmt='D', c=cowcol, ms=5)
+    ax.errorbar(x, y, xerr=ex, yerr=ey, fmt='D', c=cowcol, ms=cowms)
     if zoom:
         ax.text(x/1.05, y, 'SN2011kl', fontsize=8, ha='right', va='bottom', c=cowcol)
 
@@ -595,13 +594,13 @@ def plot_panel(ax, zoom=False):
     edur = 2.57
     ax.errorbar(dur, Mpeak, xerr=edur, yerr=0.09, label=None, 
                 c=cowcol, mec='k',
-                fmt='D', ms=8, zorder=1000, lw=2)
+                fmt='D', ms=6, zorder=1000, lw=2)
     if zoom:
         ax.text(
                 dur*1.03, Mpeak*1.001, 'AT2022tsd', va='bottom', ha='left', 
                 color=cowcol, fontweight='bold')
 
-    ax.set_ylim(-15,-28.5)
+    ax.set_ylim(-15,-37.5)
     if zoom:
         ax.set_ylim(-19.5, -21.7)
         ax.set_yticks([-20, -21])
@@ -621,12 +620,32 @@ def plot_panel(ax, zoom=False):
                 r"Peak $\nu L_\nu$ (erg s$^{-1}$)", fontsize=14, rotation=270, 
                 labelpad=15.0)
 
+    # Plot the AT2022tsd flares
+    ax.scatter(1E-2, -21, marker='*', s=60, c=cowcol, edgecolor='k')
+    ax.scatter(3E-2, -21, marker='*', s=60, c=cowcol, edgecolor='k')
+    ax.scatter(1E-2, -20.8, marker='*', s=60, c=cowcol, edgecolor='k')
+    ax.scatter(1E-2, -20, marker='*', s=60, c=cowcol, edgecolor='k')
+    ax.scatter(1E-2, -19, marker='*', s=60, c=cowcol, edgecolor='k')
+    if zoom==False:
+        ax.text(1E-2, -21.6, 'AT2022tsd Flares', fontsize=10, c=cowcol,
+                fontweight='bold', ha='center')
+
+    # Plot GRB optical flash
+    ax2.scatter(40/86400, 1E50, marker='*', edgecolor=lgrb_col, facecolor='white')
+    if zoom==False:
+        ax2.text(50/86400, 1E50, 'LGRB Optical Flash', fontsize=8, c=lgrb_col)
+
+    # Plot blazar flare
+    ax2.scatter(30, 1E46, marker='*', edgecolor='k', facecolor='white')
+    if zoom==False:
+        ax2.text(30, 1.5E46, 'Blazar Flare', fontsize=8, c='k', ha='center')
+
     if zoom==False:
         # Plot afterglows
         plot_afterglows(ax2)
         ax.set_ylabel("$M_{g,\mathrm{peak}}$", fontsize=14)
 
-    ax.set_xlim(1E-2,200)
+    ax.set_xlim(2E-4,200)
     ax.set_xscale('log')
     if zoom:
         ax.set_xlim(2.5,40)
@@ -646,7 +665,7 @@ def plot_panel(ax, zoom=False):
         ax.text(13.3, -19.7, r'$M_{\mathrm{Ni}}<M_{\mathrm{ej}}$', rotation=60)
 
         ax.scatter(0, 0, marker='>', c=cccol, label='CC SN')
-        ax.scatter(0, 0, marker='P', c=lgrb_col, label='Afterglows')
+        ax.scatter(0, 0, marker='P', c=lgrb_col, label='LGRB Afterglows')
         ax.scatter(0, 0, marker='x', c=slsncol, label='SLSN')
         ax.scatter(0, 0, marker='o', c=iacol, label='SN Ia')
         ax.scatter(0, 0, marker='D', c=cowcol, label='LFBOT')
@@ -667,6 +686,6 @@ if __name__=="__main__":
 
     #plt.tight_layout()
     fig.subplots_adjust(wspace=0.4)
-    plt.show()
-    #plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
