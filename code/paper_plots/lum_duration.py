@@ -260,21 +260,23 @@ def plot_afterglows(ax):
         z = float(value['z'])
         dm = Planck15.distmod(z=z).value
         if len(value['t'])>1:
-            t = value['t'].astype(float)
+            t = value['t'].astype(float) / (1+z)
             mag = value['mag'].astype(float)
-            # Only compute for the ones with data within the first day
-            if sum(t<1)>0:
+            keep_list = ['070419A', '070612A', '60707', '70802', '80710']
+            if np.logical_or(sum(t<100/86400)>0, key in keep_list):
                 #fig = plt.figure()
-                #plt.plot(t, mag-dm)
-                #plt.gca().invert_yaxis()
-                #plt.title(key)
-                #plt.savefig("%s.png" %key)
-                #plt.close()
+                # plt.plot(t, mag-dm)
+                # plt.gca().invert_yaxis()
+                # plt.xscale('log')
+                # plt.axvline(x=100/86400, lw=0.5)
+                # plt.title(key)
+                # plt.savefig("afterglow_lc/%s.png" %key)
+                # plt.close()
                 peakm = np.min(mag)
                 peakM = peakm-dm-2.5*np.log10(1+z)
                 dur = min(t[mag>peakm+0.75])
                 print(dur,peakM)
-                ax.scatter(dur, peakM, c=lgrb_col)
+                ax.scatter(dur, peakM, c=lgrb_col, marker='+', s=20)
 
 
 def plot_AT2019pim(ax):
@@ -282,9 +284,9 @@ def plot_AT2019pim(ax):
     # we use the TESS LC fit from Dan's paper
     y = 1.8E45
     x = 0.36
-    plot_afterglow(ax, 'ZTF19abvizsw', x, y)
-    ax.text(x*1.01, y*2, 'Orphan Afterglow', fontsize=8, c=lgrb_col)
-    ax.text(x*1.1, y, '(AT2019pim)', fontsize=8, c=lgrb_col)
+    ax.scatter(x, y, marker='*', s=40, edgecolor=lgrb_col, facecolor='white')
+    ax.text(x*1.3, y, 'Orphan Afterglow', fontsize=8, c=lgrb_col)
+    ax.text(x*1.2, y/2, '(AT2019pim)', fontsize=8, c=lgrb_col)
 
 
 def plot_snls(ax):
@@ -513,6 +515,12 @@ def plot_panel(ax, zoom=False):
     else:
         plot_ztf(ax, background=False, shrink=2, text=False)
 
+    # Plot the first peaks of the LLGRB-SNe
+    ax.scatter(1.0, -18.2, c=llgrb_col, marker='s', s=10)
+    ax.scatter(1.4, -18.5, c=llgrb_col, marker='s', s=10)
+    ax.scatter(1.4, -17.2, c=llgrb_col, marker='s', s=10)
+    ax.scatter(1.2, -18.7, c=llgrb_col, marker='s', s=10)
+
     # Plot CSS161010
     x = 5.5
     y = -21.5
@@ -531,7 +539,7 @@ def plot_panel(ax, zoom=False):
 
     # Plot GW170817
     if zoom==False:
-        ax.scatter(0.6, -16, c='white', marker='s', edgecolor='k', facecolor='white')
+        ax.scatter(0.6, -16, c='white', marker='*', edgecolor='k', facecolor='white',s=40)
         ax.text(0.5, -16, 'AT2017gfo', ha='right', va='center', c='k', fontsize=8)
 
     # Plot DES16X1eho
@@ -601,22 +609,25 @@ def plot_panel(ax, zoom=False):
                 fontweight='bold', ha='center')
 
     # Plot GRB optical flash
-    ax2.scatter(40/86400, 1E50, marker='*', edgecolor=lgrb_col, facecolor='white')
+    ax2.scatter(
+            40/86400, 1E50, marker='*', edgecolor=lgrb_col, facecolor='white',
+            zorder=500)
     if zoom==False:
-        ax2.text(50/86400, 1E50, 'LGRB 080319B Prompt Flash', fontsize=8, c=lgrb_col)
+        ax2.text(60/86400, 1E50, 'LGRB 080319B Prompt Flash', fontsize=8, c=lgrb_col)
 
     # Plot blazar flare
     ax2.scatter(30, 1E46, marker='*', edgecolor='k', facecolor='white')
     if zoom==False:
-        ax2.text(25, 2.8E46, 'S5 1803+784', fontsize=8, c='k', ha='center')
-        ax2.text(25, 1.5E46, 'Blazar Flare', fontsize=8, c='k', ha='center')
+        ax2.text(160, 2.8E46, 'S5 1803+784', fontsize=8, c='k', ha='right')
+        ax2.text(160, 1.5E46, 'Blazar Flare', fontsize=8, c='k', ha='right')
 
     if zoom==False:
         # Plot afterglows
         plot_afterglows(ax)
+        plot_AT2019pim(ax2)
         ax.set_ylabel("$M_{g,\mathrm{peak}}$", fontsize=14)
 
-    ax.set_xlim(2E-4,200)
+    ax.set_xlim(7E-5,200)
     ax.set_xscale('log')
     if zoom:
         ax.set_xlim(2.5,40)
@@ -640,6 +651,7 @@ def plot_panel(ax, zoom=False):
         ax.scatter(0, 0, marker='x', c=slsncol, label='SLSN')
         ax.scatter(0, 0, marker='o', c=iacol, label='SN Ia')
         ax.scatter(0, 0, marker='D', c=cowcol, label='LFBOT')
+        ax.scatter(0, 0, marker='s', c=llgrb_col, label='LLGRB-SN First Peak')
 
 
 
