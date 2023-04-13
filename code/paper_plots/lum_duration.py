@@ -19,6 +19,14 @@ cccol = vals.sn_col
 cowcol = vals.cow_col
 
 
+def get_z(name):
+    """ Get afterglow redshifts """
+    dat = pd.read_csv("afterglows.txt")
+    z = dat['z'][dat['Name']==name].values[0]
+    return z
+
+
+
 def calc_Lpeak(Mni, tpeak):
     """
     Peak luminosity as a function of nickel mass and rise time
@@ -222,6 +230,94 @@ def plot_comparison(ax):
         ax.arrow(xval, peak[islim][ii], -xval/10, 0, color='grey',
                 head_length=xval/30,
                 head_width=-peak[islim][ii]/100, length_includes_head=True, zorder=0)
+
+
+def plot_afterglow(ax, name, x, y):
+    """ Plot single event
+    name: so that I can get the redshift
+    x: duration in observer-frame
+    y: luminosity in rest-frame g
+    """
+    z = float(get_z(name))
+    xplt = x/(1+z)
+    else:
+        ax.scatter(x, y, c=lgrb_col, marker='*', s=80)
+    if name!='ZTF19abvizsw':
+        ax.arrow(x, y, -x/2, 0, length_includes_head=True,
+                 head_width=np.abs(y/3), head_length=x/6, color=lgrb_col)
+        ax.arrow(x, y, 0, np.abs(y)/1.3, length_includes_head=True,
+                 head_width=np.abs(x/3.5), head_length=np.abs(y/2.5),
+                 color=lgrb_col)
+
+
+def plot_afterglows(ax):
+    """ Add afterglows to the plot """
+
+    # ZTF19abvizsw: we use the TESS LC fit from Dan's paper
+    y = 1.8E45
+    x = 0.36
+    plot_afterglow(ax, 'ZTF19abvizsw', x, y)
+
+    # ZTF20aajnksq: we use the first r-band detection
+    # and for the duration, the time from estimated t0 to first det (2.4 hr)
+    # + the approximate time to half-max assuming the power law (8.6hr)
+    y = 9.4E45
+    x = (11/24)
+    plot_afterglow(ax, 'ZTF20aajnksq', x, y)
+
+    # ZTF21aaeyldq: we use the first r-band detection
+    # and for the duration, the time from estimated t0 to first det (14 min)
+    # plus the time from peak to half-max using the power law (36 min)
+    # so total time is 50 min = 50/60/24
+    y = 3.8E46
+    x = (50/60/24)
+    plot_afterglow(ax, 'ZTF21aaeyldq', x, y)
+
+    # ZTF21aayokph:
+    # time from t0 to first det: 0.98d
+    # estimated time of fade: 1.3d...2.25d
+    y = 2.8E45
+    x = 2.25
+    plot_afterglow(ax, 'ZTF21aayokph', x, y)
+
+    # iPTF14yb
+    # time from GRB to first det: 14.7 minutes
+    # time to from first det to half: .04d
+    y = 5.1E45
+    x = ((14.7/60/24) + 0.04)
+    plot_afterglow(ax, 'iPTF14yb', x, y)
+
+    # AT2020kym
+    # time from GRB to first det: 1.8hr
+    # time from first det to half-max: 0.034d
+    y = 1.3E46
+    x = ((1.8/24) + 0.034)
+    plot_afterglow(ax, 'ZTF20abbiixp', x, y)
+
+    # ZTF20acozryr
+    # time from GRB to first det: 0.6d
+    # time to half-max: 1 day
+    y = 1.6E45
+    x = 1.6
+    plot_afterglow(ax, 'ZTF20acozryr', x, y)
+
+    # ZTF21aagwbjr
+    # time from GRB to first det: 43 minutes
+    # time to half-max: 137 minutes (from t0)
+    y = 6.4E45
+    x = (137-43)/60/24
+    plot_afterglow(ax, 'ZTF21aagwbjr', x, y)
+
+    # ZTF21abfmpwn
+    # time from GRB to first det: 9.7 hr
+    # time to half-max: 15 hours (from t0)
+    y = 4.7E45
+    x = (15-9.7)/24
+    plot_afterglow(ax, 'ZTF21abfmpwn', x, y)
+
+    ax.text(
+            1, 1E46, 'ZTF Afterglows',
+            color=lgrb_col, fontweight='bold', fontsize=9)
 
 
 def plot_snls(ax):
@@ -435,9 +531,11 @@ def plot_bts(ax):
 
 
 
-if __name__=="__main__":
-    fig,ax = plt.subplots(1,1,figsize=(5,5.7))#, sharey=True)
-
+def plot_panel(ax, zoom=False):
+    """ Plot the luminosity-duration plot 
+    If zoom=True, plot the zoom-in of the LFBOTs with the Mni line,
+    labeling individual events.
+    """
     # Plot BTS sources
     plot_bts(ax)
 
@@ -450,19 +548,22 @@ if __name__=="__main__":
     ax.errorbar(x, y, 
             label=None, mfc=cowcol, mec=cowcol,
             c=cowcol, fmt='D', ms=5)
-    ax.text(x*1.05, y, 'CSS161010', fontsize=8, ha='left', va='center', c=cowcol)
+    if zoom:
+        ax.text(x*1.05, y, 'CSS161010', fontsize=8, ha='left', va='center', c=cowcol)
 
     # Plot AT2020mrf
     ax.errorbar(7.1, -20, 
             label=None, mfc=cowcol, mec=cowcol,
             c=cowcol, fmt='D', ms=5)
-    ax.text(7.1/1.05, -20, 'AT2020mrf', fontsize=8, ha='right', va='top', c=cowcol)
+    if zoom:
+        ax.text(7.1/1.05, -20, 'AT2020mrf', fontsize=8, ha='right', va='top', c=cowcol)
 
     # Plot DES16X1eho
     x = (1.28+2.53)/2 + 1.01
     y = -20.39
     ax.scatter(x, y, marker='D', c=cowcol, s=30)
-    ax.text(x*1.2, y/1.005, 'DES16X1eho', fontsize=8, ha='center', va='top', c=cowcol)
+    if zoom:
+        ax.text(x*1.2, y/1.005, 'DES16X1eho', fontsize=8, ha='center', va='top', c=cowcol)
 
     # Add individual objects from my Koala paper Table 1
     plot_snls(ax)
@@ -473,7 +574,8 @@ if __name__=="__main__":
     y = -20.31
     ey = 0.13
     ax.errorbar(x, y, xerr=ex, yerr=ey, fmt='D', c=cowcol, ms=5)
-    ax.text(x/1.01, y, 'SN2011kl', fontsize=8, ha='right', va='bottom', c=cowcol)
+    if zoom:
+        ax.text(x/1.01, y, 'SN2011kl', fontsize=8, ha='right', va='bottom', c=cowcol)
 
     # Plot AT2022tsd
     # 19.28 is the ext corr peak in g band
@@ -484,14 +586,16 @@ if __name__=="__main__":
     ax.errorbar(dur, Mpeak, xerr=edur, yerr=0.09, label=None, 
                 c=cowcol, mec='k',
                 fmt='D', ms=8, zorder=1000, lw=2)
-    ax.text(
-            dur, Mpeak*1.005, 'AT2022tsd', va='bottom', ha='left', 
-            color=cowcol, fontweight='bold')
+    if zoom:
+        ax.text(
+                dur, Mpeak*1.005, 'AT2022tsd', va='bottom', ha='left', 
+                color=cowcol, fontweight='bold')
 
-    ax.set_ylabel("$M_{g,\mathrm{peak}}$", fontsize=14)
-    ax.set_ylim(-17.5,-21.6)
-    ax.set_yticks([-18, -19, -20, -21])
-    ax.set_yticklabels([-18, -19, -20, -21])
+    ax.set_ylim(-17.5,-29)
+    if zoom:
+        ax.set_ylim(-17.5, -21.5)
+        ax.set_yticks([-18, -19, -20, -21])
+        ax.set_yticklabels([-18, -19, -20, -21])
     
     # Luminosity axis
     ax2 = ax.twinx()
@@ -502,33 +606,54 @@ if __name__=="__main__":
     ax2.plot([],[])
     ax2.set_yscale('log')
     ax2.tick_params(axis='both', labelsize=12)
-    ax2.set_ylabel(
-            r"Peak $\nu L_\nu$ (erg s$^{-1}$)", fontsize=14, rotation=270, 
-            labelpad=15.0)
+    if zoom:
+        ax2.set_ylabel(
+                r"Peak $\nu L_\nu$ (erg s$^{-1}$)", fontsize=14, rotation=270, 
+                labelpad=15.0)
 
-    ax.set_xlim(2.3,60)
+    if zoom==False:
+        # Plot afterglows
+        plot_afterglows(ax2)
+        ax.set_ylabel("$M_{g,\mathrm{peak}}$", fontsize=14)
+
+    ax.set_xlim(1E-2,200)
+    if zoom:
+        ax.set_xlim(1.7,70)
     ax.set_xscale('log')
     ax.set_xlabel(r"$t_{1/2, \mathrm{optical}}$ (rest-frame days)", fontsize=14)
     ax.tick_params(axis='both', labelsize=12)
 
-    # Plot the Mej = Mni line
-    # Plot the Mni=Mej limit
-    tpeak = np.linspace(1, 300)
-    Mej = calc_Mej(tpeak)
-    Lpeak = calc_Lpeak(Mej, tpeak)
-    ax2.plot(tpeak, Lpeak, c='k', ls='--')
-    ax.text(3.4, -17.8, r'$M_{\mathrm{Ni}}>M_{\mathrm{ej}}$', rotation=60)
-    ax.text(4.3, -17.8, r'$M_{\mathrm{Ni}}<M_{\mathrm{ej}}$', rotation=60)
+    if zoom:
+        # Plot the Mej = Mni line
+        # Plot the Mni=Mej limit
+        tpeak = np.linspace(1, 300)
+        Mej = calc_Mej(tpeak)
+        Lpeak = calc_Lpeak(Mej, tpeak)
+        ax2.plot(tpeak, Lpeak, c='k', ls='--')
+        ax.text(3.4, -17.8, r'$M_{\mathrm{Ni}}>M_{\mathrm{ej}}$', rotation=60)
+        ax.text(4.3, -17.8, r'$M_{\mathrm{Ni}}<M_{\mathrm{ej}}$', rotation=60)
 
-    ax.scatter(0, 0, marker='>', c=cccol, label='CC SN')
-    ax.scatter(0, 0, marker='x', c=slsncol, label='SLSN')
-    ax.scatter(0, 0, marker='o', c=iacol, label='SN Ia')
-    ax.scatter(0, 0, marker='D', c=cowcol, label='LFBOT')
-    ax.legend(loc='upper center', fontsize=10, handletextpad=0.1,
-          bbox_to_anchor=(0.5, 1.10),
+        ax.scatter(0, 0, marker='>', c=cccol, label='CC SN')
+        ax.scatter(0, 0, marker='*', c=lgrb_col, label='Afterglows')
+        ax.scatter(0, 0, marker='x', c=slsncol, label='SLSN')
+        ax.scatter(0, 0, marker='o', c=iacol, label='SN Ia')
+        ax.scatter(0, 0, marker='D', c=cowcol, label='LFBOT')
+
+
+
+if __name__=="__main__":
+    fig,axarr = plt.subplots(1,2,figsize=(8,4))#, sharey=True)
+
+    ax = axarr[0]
+    plot_panel(ax)
+    ax = axarr[1]
+    plot_panel(ax, zoom=True)
+
+    fig.legend(loc='upper center', fontsize=10, handletextpad=0.1,
+          bbox_to_anchor=(0.5, 1.00),
           ncol=6, fancybox=True)
 
     #plt.tight_layout()
-    #plt.show()
-    plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
