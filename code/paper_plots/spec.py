@@ -24,8 +24,8 @@ def main_spec(ax, wl, flam, eflam, wl2, flam2, eflam2):
     """ The main spectrum panel """
     labels = ['Keck+LRIS Sept. 23 ($\Delta t_\mathrm{rest}=13\,$d)',
               'Keck+LRIS Oct. 6 ($\Delta t_\mathrm{rest}=23\,$d)']
-    label_offsets = [0.1, 0.03]
-    offsets = [2, 1.4]
+    label_offsets = [0.00, 0.03]
+    offsets = [2, 1]
     x = [wl, wl2]
     y = [flam, flam2]
     iv = [1/eflam**2, 1/eflam2**2]
@@ -33,20 +33,20 @@ def main_spec(ax, wl, flam, eflam, wl2, flam2, eflam2):
     for i in np.arange(2):
         print(i)
         # Plot
-        yscaled = y[i]/1E-16+offsets[i]
+        fac = max(y[i][x[i]>6000]) # scale by peak of Halpha
+        yscaled = y[i]/fac+offsets[i]
         ax.step(x[i],yscaled,where='mid',c='lightgrey',lw=0.5)
         ysm = load_smoothed_spec(x[i], y[i], iv[i])
-        ysmscaled = ysm/1E-16+offsets[i]
+        ysmscaled = ysm/fac+offsets[i]
         ax.step(x[i], ysmscaled, where='mid', c='k', lw=0.5)
-        ax.text(8000, offsets[i]-label_offsets[i], 
-                'Keck+LRIS Sept. 23 ($\Delta t_\mathrm{rest}=13\,$d)', 
+        ax.text(8000, offsets[i]-label_offsets[i], labels[i],
                 ha='right', va='top')
 
     # Formatting, labeling
     plt.yticks([])
     plt.minorticks_off()
-    ax.set_ylim(1.27, 3)
-    ax.set_xlim(2647, 8154)
+    ax.set_ylim(0.77, 3)
+    ax.set_xlim(2450, 8160)
     ax.set_xlabel("$\lambda_\mathrm{rest}$ ($\AA$) at $z=%s$" %vals.z)
     ax.set_ylabel("Flux (arbitrary units)")#[erg/s/cm${}^2/\AA$]")
 
