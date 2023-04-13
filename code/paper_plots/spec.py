@@ -51,15 +51,16 @@ def main_spec(ax, wl, flam, eflam, wl2, flam2, eflam2):
     ax.set_ylabel("Flux (arbitrary units)")#[erg/s/cm${}^2/\AA$]")
 
 
-def panels(ax, wl_range, wl, flam):
+def panels(ax, wl_range, wl, flam, shift):
     """ Smaller panels with zoom-ins """
     choose = np.logical_and(wl>wl_range[0], wl<wl_range[1])
     x = wl[choose]
-    y = flam[choose]/1E-16
-    ax.step(x, y, where='mid', c='k', lw=0.5)
+    y = flam[choose]/max(flam[choose])
+    ax.step(x, y-shift, where='mid', c='k', lw=0.5)
     plt.yticks([])
-    ax.set_ylim(min(y), max(y)+0.15)
-    ax.set_xlim(min(x), max(x))
+    ax.set_ylim(-1, 1.3)
+    xmin, xmax = ax.get_xlim()
+    ax.set_xlim(xmin+5, xmax-5)
 
 
 def plot_lines(ax, species, col, lw=1):
@@ -88,29 +89,27 @@ def fig_for_paper():
 
     # Zoom-in of the OII (left-most) doublet
     ax = fig.add_subplot(gs[0, 0])
-    panels(ax, [3725-single_width, 3725+single_width], wl, flam+2E-17)
-    panels(ax, [3725-single_width, 3725+single_width], wl2, flam2)
+    panels(ax, [3725-single_width, 3725+single_width], wl, flam, 0)
+    panels(ax, [3725-single_width, 3725+single_width], wl2, flam2, 1)
     plot_lines(ax, 'oii', vals.gc)
     ax.text(0.05, 0.95, '[O II]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.gc)
-    ax.set_ylim(0, 1)
 
     # Zoom-in of the middle lines
     ax = fig.add_subplot(gs[0, 1])
-    panels(ax, [4930-multi_width, 4930+multi_width], wl, flam+2E-17)
-    panels(ax, [4930-multi_width, 4930+multi_width], wl2, flam2)
+    panels(ax, [4930-multi_width, 4930+multi_width], wl, flam, 0)
+    panels(ax, [4930-multi_width, 4930+multi_width], wl2, flam2, 1)
     plot_lines(ax, 'oiii', vals.gc)
     ax.text(0.35, 0.95, '[O III]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.gc)
     plot_lines(ax, 'hb', vals.rc, lw=2)
     ax.text(0.00, 0.95, r'[H$\beta$]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
-    ax.set_ylim(0, 0.8)
 
     # Zoom-in of the right lines
     ax = fig.add_subplot(gs[0, 2])
-    panels(ax, [6640-multi_width, 6640+multi_width], wl, flam+2E-17)
-    panels(ax, [6640-multi_width, 6640+multi_width], wl2, flam2)
+    panels(ax, [6640-multi_width, 6640+multi_width], wl, flam, 0)
+    panels(ax, [6640-multi_width, 6640+multi_width], wl2, flam2, 1)
     plot_lines(ax, 'ha', vals.rc, lw=2)
     ax.text(0.01, 0.9, r'[H$\alpha$]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
@@ -119,7 +118,6 @@ def fig_for_paper():
             transform=ax.transAxes, color=vals.gc)
     plot_lines(ax, 'sii', 'grey', lw=3)
     ax.text(6725, 0.85, r'[S II]', ha='center', va='top', color='grey')
-    ax.set_ylim(0, 1.2)
 
     # Get data assuming z=0
     wl, flam, eflam = load_spec_1()
@@ -128,24 +126,22 @@ def fig_for_paper():
 
     # Zoom-in of H-alpha at z=0 (6563 AA)
     ax = fig.add_subplot(gs[2, 0])
-    panels(ax, [6560-single_width, 6560+single_width], wl, flam+0.7E-17)
-    panels(ax, [6560-single_width, 6560+single_width], wl2, flam2)
+    panels(ax, [6560-single_width, 6560+single_width], wl, flam, 0)
+    panels(ax, [6560-single_width, 6560+single_width], wl2, flam2, 1)
     plot_lines(ax, 'ha', vals.rc)
     ax.text(0.05, 0.95, r'H$\alpha$', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
     #ax.set_xticks([6520, 6550, 6580])
     #ax.set_xticklabels([6520, 6550, 6580])
-    ax.set_ylim(0, 0.35)
     ax.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
 
     # Zoom-in of He I 5875
     ax = fig.add_subplot(gs[2, 1])
-    panels(ax, [5875-single_width, 5875+single_width], wl, flam+2E-17)
-    panels(ax, [5875-single_width, 5875+single_width], wl2, flam2)
+    panels(ax, [5875-single_width, 5875+single_width], wl, flam, 0)
+    panels(ax, [5875-single_width, 5875+single_width], wl2, flam2, 1)
     plot_lines(ax, 'hei', vals.rc)
     ax.text(0.05, 0.95, r'HeI 5875', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
-    ax.set_ylim(0, 0.6)
     ax.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
     #ax.set_xticks([5400, 5700, 6200])
     #ax.set_xticklabels([5400, 5700, 6200])
@@ -154,20 +150,19 @@ def fig_for_paper():
 
     # Zoom-in of He II 4686
     ax = fig.add_subplot(gs[2, 2])
-    panels(ax, [4686-single_width, 4686+single_width], wl, flam+2E-17)
-    panels(ax, [4686-single_width, 4686+single_width], wl2, flam2)
+    panels(ax, [4686-single_width, 4686+single_width], wl, flam, 0)
+    panels(ax, [4686-single_width, 4686+single_width], wl2, flam2, 1)
     plot_lines(ax, 'heii', vals.rc)
     ax.text(0.05, 0.95, r'HeII 4686', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
-    ax.set_ylim(0, 1)
     ax.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
     #ax.set_xticks([4660, 4680, 4700, 4720])
     #ax.set_xticklabels([4660, 4680, 4700, 4720])
 
     plt.tight_layout()
-    plt.show()
-    #plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
 
 
 if __name__=="__main__":
