@@ -148,7 +148,7 @@ We require fast ($v\gtrsim0.6c$; Methods section~\ref{sec:outflow-velocity}) vel
 Most astrophysical systems with large-amplitude flares involve compact objects, from stellar-mass to supermassive (Table~\ref{tab:flaring-classes}).
 In addition, the unusual multiwavelength properties of \at\ most closely resemble the mysterious ``fast blue optical transients'' AT2018cow and AT2020xnd (Methods section~\ref{sec:multiwavelength-properties}), which have been argued to be massive-star explosions.
 By analogy, and the similarity to FBOTs, we suggest that \at\ represents the birth of a neutron star or black hole.
-The detection of flares requires an outflow that is at least mildly relativistic, and powered by the newborn black hole for several months post-explosion. In the only other known such system, long-duration $\gamma$-ray bursts, the newborn compact object powers the outflow for only a few seconds. Given the lack of luminous $\gamma$-rays observed in association with \at\ (Methods section~\ref{sec:grbsearch}), the discovery of \at\ suggests that existence of a class of compact object-driven explosions that are most effectively discovered outside the $\gamma$-ray band, whose outflows can be studied using very high-cadence (seconds to minutes) optical observations.
+The detection of flares requires an outflow that is at least mildly relativistic, and powered by the newborn compact object for several months post-explosion. In the only other known such system, long-duration $\gamma$-ray bursts, the newborn compact object is thought to be active for up to a day (from the detection of X-ray flares\cite{Kumar2015}). Given the lack of luminous $\gamma$-rays observed in association with \at\ (Methods section~\ref{sec:grbsearch}), the discovery of \at\ suggests that existence of a class of compact object-driven explosions that are most effectively discovered outside the $\gamma$-ray band, whose outflows can be studied using very high-cadence (seconds to minutes) optical observations.
 
 \newpage
 %%%%%%%%%%%%%
@@ -195,7 +195,7 @@ The detection of flares requires an outflow that is at least mildly relativistic
     AT\,2022tsd & ? & 500\,nm & $10^{43}$--$10^{44}$ & $\gtrsim100\times$ & 10--80\,min \\
     GRB\,070610 & BHB?\cite{Kasliwal2008} NS?\cite{CastroTirado2008,Stefanescu2008} & 800\,nm & $10^{35}$ & $\gtrsim100\times$ & 10\,s--mins \\
     GRS 1915+105 & BHB & 2.2\,$\mu$m\cite{Fender1997} & $\gtrsim10^{36}$ & $\lesssim 10\times$ & 10\,min \\
-    GRB\,080319B & LGRB & ?\cite{Racusin2008} & $10^{50}$ & $>10\times$ & 40\,s \\
+    GRB\,080319B & LGRB & 500\,nm\cite{Racusin2008} & $10^{50}$ & $>10\times$ & 40\,s \\
     Sagittarius A* & SMBH & 2.1$\mu$m\cite{Marrone2008} & $10^{34}$ & $\lesssim 10\times$ & 30\,min \\
     S5 1803+784 & SMBH (blazar) & 600\,nm\cite{Nesci2021} & $10^{46}$ & $10\times$ & $\gtrsim1\,$month \\
     SGR 1900+14\cite{Hurley1999} & SGR Giant Flare: Spike & 25--150\,keV & $\gtrsim2\times10^{43}$ & $\gtrsim600\times$ & 1\,s \\
@@ -469,7 +469,7 @@ We concluded that if \at\ is a foreground source, it would be a highly exotic ob
 For a crude estimate, we used the COSMOS photometric redshift catalog\cite{Ilbert2008} to estimate the sky density of galaxies brighter than 22\,mag with $0.1 \leq z \leq 0.3$. We found that the number density is approximately 1000\,deg$^{-2}$.
 A spatial offset of 10\,kpc corresponds to $4^{\prime\prime}$ for $z=0.1$, so we estimate an areal density of 0.02\,deg$^{-2}$.
 We used the BTS catalog to estimate the rate of dwarf nova outbursts. There were 300 sources classified as CVs by the BTS in four years (2019--2022), giving an approximate rate of 0.02\,deg$^{-2}$\,yr$^{-1}$. So, in a given year, the chance of detecting a dwarf nova aligned with a $z=0.1$--0.3 galaxy is $\approx 4\times10^{-4}$; over the course of a few years in ZTF, we estimate $10^{-3}$. Assuming the flaring in \at\ occurs in 1/100 dwarf novae, we find $10^{-5}$.
-So, we conclude that the simplest explanation is that \at\ is extragalactic.
+So, we conclude that the most likely explanation is that \at\ is extragalactic.
 
 \section{Flare Characteristics}
 \label{sec:flare-characteristics}
@@ -482,18 +482,15 @@ For each threshold, \ref{tab:flare-stats} gives the total number of exposures ab
 
 In summary, our data are consistent with a mechanism that is always ``on,'' producing fainter ($\gtrsim24$\,mag) flares all of the time and brighter ($<21\,$mag) flares infrequently (duty cycle 0.1--10\%). However, the data are also consistent with a mechanism that operates only 3\%--10\% of the time. 
 
-%observation-sequence durations 
-%To estimate the uncertainties on the duty cycle, we performed a simulation of flares. We assume the flares have a Gaussian profile with standard deviations ranging from $\sigma=1.5\,$minutes to $\sigma=10.2$\,minutes (Section~\ref{sec:flare-morphology}).
-
 \section{Flare Spectral Index and Emission Mechanism}
 \label{sec:flare-emission-mechanism}
 
 The lowest frequency with detected variability is the optical band, so we use this to estimate the brightness temperature of the flares.
 From the ULTRASPEC observations, the shortest timescale of variability we resolve is $(30\,\mathrm{s})/(1+z) = 24\,$s, setting a limit on the emission region size $dR$ of $dR<7\times10^{11}\,$cm, or $d\theta < 3.6 \times 10^{-5}\,\mu$as. Taking the intensity of the brightest ULTRASPEC flare detection (52\,$\mu$Jy) we find $T_B > \frac{I_\nu c^2}{2 k\nu^2} \approx 8\times10^{10}\,$K.
 
-From the Keck/LRIS observations, we can measure the optical-flare color. The Keck/LRIS $u+I$ flare detection gives $f_\nu \propto \nu^{-1.6\pm0.1}$. There was only one clear detection in both bands during this sequence, so we cannot draw conclusions about the color evolution. The Keck/LRIS $g+I$ flare detection gives $f_\nu \propto \nu^{-0.45\pm0.01}$ at the start of the sequence, with a trend towards bluer colors over the next 20 minutes; however, the color evolution likely reflects an increasing contribution from the underlying blue transient, so again we cannot draw conclusions about the evolution of the flare color.
-
-The blackbody temperature inferred from the ULTRASPEC observations would result in very blue optical emission ($f_\nu\propto\nu^2$), yet all of the observed optical-flare colors are significantly redder. Therefore, the emission is more likely to be non-thermal. Given the measured spectral indices we suggest that the optical flares arise from optically thin synchrotron radiation. 
+From the Keck/LRIS observations, we can measure the optical-flare color. The $g+I$ flare detection on 2022 October 19 gives $f_\nu \propto \nu^{-0.45\pm0.01}$ at the start of the sequence, with a trend towards bluer colors over the next 20 minutes. The color evolution may be due to an increasing contribution from the underlying blue transient, rather than a color change inherent to the flare mechanism.
+The $u+I$ flare detection on 2022 December 29 gives $f_\nu \propto \nu^{-1.6\pm0.1}$. There was only one clear detection in both bands during the $u+I$ sequence, so we cannot draw conclusions about the color evolution using the $u+I$ observations. 
+The limiting blackbody temperature that would be inferred from the ULTRASPEC variability time would result in very blue optical emission ($f_\nu\propto\nu^2$), yet all of the observed optical-flare colors are significantly redder. Therefore, the emission is more likely to be non-thermal. Given the measured spectral indices we suggest that the optical flares arise from optically thin synchrotron radiation. 
 
 We have simultaneous X-ray and optical observations during one flare (\ref{fig:xray-lc}). We detected an optical flare with LRIS at 10:10 on 2022-12-19, with significant emission lasting for approximately 20\,min. We have no constraint on the start time of the optical flare (the previous optical observation ended three days prior). There is no obvious X-ray excess at the time of observed optical peak. The average X-ray luminosity during this epoch is $10^{43}\,$erg\,s$^{-1}$, while the peak observed optical luminosity was $\approx 10^{42}$\,erg\,s$^{-1}$.
 Adopting $10^{17}\,$Hz for the X-ray frequency and $10^{14}\,$Hz for the optical frequency, we rule out a mechanism with an optical to X-ray spectral index shallower than $\beta=-4/3$ where $L_\nu = \nu^{\beta}$. %This suggests that any X-ray component of the synchrotron emission is above the cooling break.
@@ -604,7 +601,7 @@ We observed \at\ with the 2-meter Himalayan Chandra Telescope (HCT) on 2022 Dece
 \subsection{Magellan-Baade Telescope}
 \label{sec:magellan}
 
-Starting at 04:30 on 2022 December 15, we obtained five three-minute $g$-band exposures of \at\ using the Inamori-Magellan Areal Camera \& Spectrograph (IMACS\cite{Dressler2011}) mounted on the 6.5-meter Magellan-Baade telescope at Las Campanas Observatory.  This sequence shows an unambiguous, high-S/N ($>100$) flare detection peaking in the middle of the five-exposure sequence, and is what led to our initial visual discovery of the short-timescale behavior of this event.  Image subtraction is performed using a stack of flare-free $g$-band images from Keck/LRIS taken in January (\ref{sec:Keck}) as a reference, and forced aperture photometry is applied to the difference image.
+Starting at 04:30 on 2022 December 15, we obtained five three-minute $g$-band exposures of \at\ using the Inamori-Magellan Areal Camera \& Spectrograph (IMACS\cite{Dressler2011}) mounted on the 6.5-meter Magellan-Baade telescope at Las Campanas Observatory.  This sequence shows an unambiguous, high-S/N ($\approx70$) flare detection peaking in the middle of the five-exposure sequence, and is what led to our initial visual discovery of the short-timescale behavior of this event.  Image subtraction is performed using a stack of flare-free $g$-band images from Keck/LRIS taken in January (\ref{sec:Keck}) as a reference, and forced aperture photometry is applied to the difference image.
 
 \subsection{Nordic Optical Telescope}
 \label{sec:not}
@@ -658,9 +655,9 @@ Since in many cases, we observed the transient location simultaneously with seve
 \subsection{W.~M. Keck Observatory}
 \label{sec:keck}
 
-We obtained five epochs of observations of \at\ using the Low Resolution Imaging Spectrometer (LRIS) at the W.~M.~Keck Observatory. The first epoch was a 40-min exposure starting at 13:52:48.69 on 2022 September 23. The setup was a 1'' slit, blue grism 600/4000, red grating 400/8500, and dichroic 560. Binning was 1$\times1$ in both red and blue. The wavelength coverage was 3138--10259\,\AA. The data were obtained as part of a program with PI: A. V. Filippenko.
+We obtained five epochs of observations of \at\ using the Low Resolution Imaging Spectrometer (LRIS) at the W.~M.~Keck Observatory. The first epoch, obtained as part of a program with PI A. V. Filippenko, was a 40-min exposure starting at 13:52:48.69 on 2022 September 23. The setup was a 1'' slit, blue grism 600/4000, red grating 400/8500, and dichroic 560. Binning was 1$\times1$ in both red and blue, and the position angle of the slit was 30$^\circ$ counterclockwise from North. The wavelength coverage was 3138--10259\,\AA. 
 
-The second epoch was a 40\,min exposure starting at 14:13:16 on 2022 October 6. The setup was a 1'' slit, blue grism 400/3400, red grating 400/8500, and dichroic 560. Binning was 1$\times2$ (spatial, spectral) in the blue and $1\times1$ in the red. The wavelength coverage was 3109--9646\,\AA. The data were obtained as part of a ToO program with PI: R. Margutti. 
+The second epoch was a 40\,min exposure starting at 14:13:16 on 2022 October 6. The setup was a 1'' slit, blue grism 400/3400, red grating 400/8500, and dichroic 560. Binning was 1$\times2$ (spatial, spectral) in the blue and $1\times1$ in the red, and the position angle of the slit was 61$^\circ$ counterclockwise from North. The wavelength coverage was 3109--9646\,\AA. The data were obtained as part of a ToO program with PI: R. Margutti. 
 
 We obtained two imaging epochs in $g$- and $I$-band (PI Mansi Kasliwal), each comprising four exposures totaling 20\,min. The first epoch started at 2022 October 19 10:35 and the second epoch started at 2023 Jan 17 07:12. 
 Finally, we obtained one imaging epoch in $u$- and $I$-band (PI Jeff Cooke). The observation comprised five exposures of five minutes each, beginning at 10:36 on 2022 December 29.
