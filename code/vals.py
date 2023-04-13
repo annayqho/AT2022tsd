@@ -26,9 +26,9 @@ uc = '#E6E1BC'
 wc = 'grey'
 # Viridis colors. I got these from https://waldyrious.net/viridis-palette-generator/
 cow_col = '#fca50a' # yellow
-llgrb_col = '#dd513a'
+lgrb_col = '#dd513a'
 tde_col = '#932667'
-lgrb_col = '#420a68'
+llgrb_col = '#420a68'
 sn_col = '#000004'  # purple
 
 
