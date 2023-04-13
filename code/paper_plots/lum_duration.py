@@ -258,63 +258,65 @@ def plot_afterglows(ax):
     y = 1.8E45
     x = 0.36
     plot_afterglow(ax, 'ZTF19abvizsw', x, y)
+    ax.text(x*1.01, y*2, 'Orphan Afterglow', fontsize=8, c=lgrb_col)
+    ax.text(x*1.1, y, '(AT2019pim)', fontsize=8, c=lgrb_col)
 
     # ZTF20aajnksq: we use the first r-band detection
     # and for the duration, the time from estimated t0 to first det (2.4 hr)
     # + the approximate time to half-max assuming the power law (8.6hr)
-    y = 9.4E45
-    x = (11/24)
-    plot_afterglow(ax, 'ZTF20aajnksq', x, y)
+    # y = 9.4E45
+    # x = (11/24)
+    # plot_afterglow(ax, 'ZTF20aajnksq', x, y)
 
     # ZTF21aaeyldq: we use the first r-band detection
     # and for the duration, the time from estimated t0 to first det (14 min)
     # plus the time from peak to half-max using the power law (36 min)
     # so total time is 50 min = 50/60/24
-    y = 3.8E46
-    x = (50/60/24)
-    plot_afterglow(ax, 'ZTF21aaeyldq', x, y)
+    # y = 3.8E46
+    # x = (50/60/24)
+    # plot_afterglow(ax, 'ZTF21aaeyldq', x, y)
 
     # ZTF21aayokph:
     # time from t0 to first det: 0.98d
     # estimated time of fade: 1.3d...2.25d
-    y = 2.8E45
-    x = 2.25
-    plot_afterglow(ax, 'ZTF21aayokph', x, y)
+    # y = 2.8E45
+    # x = 2.25
+    # plot_afterglow(ax, 'ZTF21aayokph', x, y)
 
     # iPTF14yb
     # time from GRB to first det: 14.7 minutes
     # time to from first det to half: .04d
-    y = 5.1E45
-    x = ((14.7/60/24) + 0.04)
-    plot_afterglow(ax, 'iPTF14yb', x, y)
+    # y = 5.1E45
+    # x = ((14.7/60/24) + 0.04)
+    # plot_afterglow(ax, 'iPTF14yb', x, y)
 
     # AT2020kym
     # time from GRB to first det: 1.8hr
     # time from first det to half-max: 0.034d
-    y = 1.3E46
-    x = ((1.8/24) + 0.034)
-    plot_afterglow(ax, 'ZTF20abbiixp', x, y)
+    # y = 1.3E46
+    # x = ((1.8/24) + 0.034)
+    # plot_afterglow(ax, 'ZTF20abbiixp', x, y)
 
     # ZTF20acozryr
     # time from GRB to first det: 0.6d
     # time to half-max: 1 day
-    y = 1.6E45
-    x = 1.6
-    plot_afterglow(ax, 'ZTF20acozryr', x, y)
+    # y = 1.6E45
+    # x = 1.6
+    # plot_afterglow(ax, 'ZTF20acozryr', x, y)
 
     # ZTF21aagwbjr
     # time from GRB to first det: 43 minutes
     # time to half-max: 137 minutes (from t0)
-    y = 6.4E45
-    x = (137-43)/60/24
-    plot_afterglow(ax, 'ZTF21aagwbjr', x, y)
+    # y = 6.4E45
+    # x = (137-43)/60/24
+    # plot_afterglow(ax, 'ZTF21aagwbjr', x, y)
 
     # ZTF21abfmpwn
     # time from GRB to first det: 9.7 hr
     # time to half-max: 15 hours (from t0)
-    y = 4.7E45
-    x = (15-9.7)/24
-    plot_afterglow(ax, 'ZTF21abfmpwn', x, y)
+    # y = 4.7E45
+    # x = (15-9.7)/24
+    # plot_afterglow(ax, 'ZTF21abfmpwn', x, y)
 
 
 def plot_snls(ax):
@@ -519,7 +521,7 @@ def plot_bts(ax):
     choose = cl=='SN Ia'
     ax.scatter(
             dur[choose], Mpk[choose], 
-            c=iacol, marker='.', zorder=0, alpha=0.5, lw=0)
+            c=iacol, marker='.', zorder=50, alpha=0.5, lw=0)
 
     choose = ['SLSN' in val for val in cl]
     ax.scatter(
@@ -548,14 +550,14 @@ def plot_panel(ax, zoom=False):
     y = -21.5
     ax.errorbar(x, y, 
             label=None, mfc=cowcol, mec=cowcol,
-            c=cowcol, fmt='D', ms=cowms)
+            c=cowcol, fmt='D', ms=cowms, zorder=500)
     if zoom:
         ax.text(x*1.06, y, 'CSS161010', fontsize=8, ha='left', va='center', c=cowcol)
 
     # Plot AT2020mrf
     ax.errorbar(7.1, -20, 
             label=None, mfc=cowcol, mec=cowcol,
-            c=cowcol, fmt='D', ms=cowms)
+            c=cowcol, fmt='D', ms=cowms, zorder=500)
     if zoom:
         ax.text(7.1/1.05, -20, 'AT2020mrf', fontsize=8, ha='right', va='top', c=cowcol)
 
@@ -582,7 +584,7 @@ def plot_panel(ax, zoom=False):
     ex = np.sqrt(1.20**2+5.82**2)
     y = -20.31
     ey = 0.13
-    ax.errorbar(x, y, xerr=ex, yerr=ey, fmt='D', c=cowcol, ms=cowms)
+    ax.errorbar(x, y, xerr=ex, yerr=ey, fmt='D', c=cowcol, ms=cowms, zorder=500)
     if zoom:
         ax.text(x/1.05, y, 'SN2011kl', fontsize=8, ha='right', va='bottom', c=cowcol)
 
@@ -633,12 +635,13 @@ def plot_panel(ax, zoom=False):
     # Plot GRB optical flash
     ax2.scatter(40/86400, 1E50, marker='*', edgecolor=lgrb_col, facecolor='white')
     if zoom==False:
-        ax2.text(50/86400, 1E50, 'LGRB Optical Flash', fontsize=8, c=lgrb_col)
+        ax2.text(50/86400, 1E50, 'LGRB 080319B Prompt Flash', fontsize=8, c=lgrb_col)
 
     # Plot blazar flare
     ax2.scatter(30, 1E46, marker='*', edgecolor='k', facecolor='white')
     if zoom==False:
-        ax2.text(30, 1.5E46, 'Blazar Flare', fontsize=8, c='k', ha='center')
+        ax2.text(25, 2.8E46, 'S5 1803+784', fontsize=8, c='k', ha='center')
+        ax2.text(25, 1.5E46, 'Blazar Flare', fontsize=8, c='k', ha='center')
 
     if zoom==False:
         # Plot afterglows
@@ -686,6 +689,6 @@ if __name__=="__main__":
 
     #plt.tight_layout()
     fig.subplots_adjust(wspace=0.4)
-    #plt.show()
-    plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()

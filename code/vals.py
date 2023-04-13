@@ -25,11 +25,11 @@ ic = '#EDA247'
 uc = '#E6E1BC'
 wc = 'grey'
 # Viridis colors. I got these from https://waldyrious.net/viridis-palette-generator/
-cow_col = '#f9cb35' # yellow
-llgrb_col = '#5ec962'
-tde_col = '#21918c'
-lgrb_col = '#3b528b'
-sn_col = '#440154'  # purple
+cow_col = '#fca50a' # yellow
+llgrb_col = '#dd513a'
+tde_col = '#932667'
+lgrb_col = '#420a68'
+sn_col = '#000004'  # purple
 
 
 # Get extinction
