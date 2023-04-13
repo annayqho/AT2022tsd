@@ -8,6 +8,7 @@ from astropy.cosmology import Planck15
 import pandas as pd
 import cmasher as cmr
 from ztfquery import marshal
+from read_kann_lc import *
 
 cowms=3
 
@@ -252,71 +253,38 @@ def plot_afterglow(ax, name, x, y):
 
 
 def plot_afterglows(ax):
-    """ Add afterglows to the plot """
+    """ Add LGRB afterglows from the Kann sample """
+    lc = load_kann_lc()
+    for key,value in lc.items():
+        print(key)
+        z = float(value['z'])
+        dm = Planck15.distmod(z=z).value
+        if len(value['t'])>1:
+            t = value['t'].astype(float)
+            mag = value['mag'].astype(float)
+            # Only compute for the ones with data within the first day
+            if sum(t<1)>0:
+                #fig = plt.figure()
+                #plt.plot(t, mag-dm)
+                #plt.gca().invert_yaxis()
+                #plt.title(key)
+                #plt.savefig("%s.png" %key)
+                #plt.close()
+                peakm = np.min(mag)
+                peakM = peakm-dm-2.5*np.log10(1+z)
+                dur = min(t[mag>peakm+0.75])
+                print(dur,peakM)
+                ax.scatter(dur, peakM, c=lgrb_col)
 
-    # ZTF19abvizsw: we use the TESS LC fit from Dan's paper
+
+def plot_AT2019pim(ax):
+    """ Add AT2019pim to the plot """
+    # we use the TESS LC fit from Dan's paper
     y = 1.8E45
     x = 0.36
     plot_afterglow(ax, 'ZTF19abvizsw', x, y)
     ax.text(x*1.01, y*2, 'Orphan Afterglow', fontsize=8, c=lgrb_col)
     ax.text(x*1.1, y, '(AT2019pim)', fontsize=8, c=lgrb_col)
-
-    # ZTF20aajnksq: we use the first r-band detection
-    # and for the duration, the time from estimated t0 to first det (2.4 hr)
-    # + the approximate time to half-max assuming the power law (8.6hr)
-    # y = 9.4E45
-    # x = (11/24)
-    # plot_afterglow(ax, 'ZTF20aajnksq', x, y)
-
-    # ZTF21aaeyldq: we use the first r-band detection
-    # and for the duration, the time from estimated t0 to first det (14 min)
-    # plus the time from peak to half-max using the power law (36 min)
-    # so total time is 50 min = 50/60/24
-    # y = 3.8E46
-    # x = (50/60/24)
-    # plot_afterglow(ax, 'ZTF21aaeyldq', x, y)
-
-    # ZTF21aayokph:
-    # time from t0 to first det: 0.98d
-    # estimated time of fade: 1.3d...2.25d
-    # y = 2.8E45
-    # x = 2.25
-    # plot_afterglow(ax, 'ZTF21aayokph', x, y)
-
-    # iPTF14yb
-    # time from GRB to first det: 14.7 minutes
-    # time to from first det to half: .04d
-    # y = 5.1E45
-    # x = ((14.7/60/24) + 0.04)
-    # plot_afterglow(ax, 'iPTF14yb', x, y)
-
-    # AT2020kym
-    # time from GRB to first det: 1.8hr
-    # time from first det to half-max: 0.034d
-    # y = 1.3E46
-    # x = ((1.8/24) + 0.034)
-    # plot_afterglow(ax, 'ZTF20abbiixp', x, y)
-
-    # ZTF20acozryr
-    # time from GRB to first det: 0.6d
-    # time to half-max: 1 day
-    # y = 1.6E45
-    # x = 1.6
-    # plot_afterglow(ax, 'ZTF20acozryr', x, y)
-
-    # ZTF21aagwbjr
-    # time from GRB to first det: 43 minutes
-    # time to half-max: 137 minutes (from t0)
-    # y = 6.4E45
-    # x = (137-43)/60/24
-    # plot_afterglow(ax, 'ZTF21aagwbjr', x, y)
-
-    # ZTF21abfmpwn
-    # time from GRB to first det: 9.7 hr
-    # time to half-max: 15 hours (from t0)
-    # y = 4.7E45
-    # x = (15-9.7)/24
-    # plot_afterglow(ax, 'ZTF21abfmpwn', x, y)
 
 
 def plot_snls(ax):
@@ -645,7 +613,7 @@ def plot_panel(ax, zoom=False):
 
     if zoom==False:
         # Plot afterglows
-        plot_afterglows(ax2)
+        plot_afterglows(ax)
         ax.set_ylabel("$M_{g,\mathrm{peak}}$", fontsize=14)
 
     ax.set_xlim(2E-4,200)
