@@ -171,7 +171,7 @@ Minute-cadence optical observations provide a direct way to study long-lived com
         \includegraphics[width=0.49\textwidth]{xray_lc.png}
      \end{subfigure}
 \caption{\textbf{Millimeter (left) and X-ray (right) light curves of \at} and other radio-loud luminous fast blue optical transients (LFBOTs) compared to different classes of extragalactic transients: tidal disruption events (TDEs), long-duration gamma-ray bursts (LGRBs), low-luminosity GRBs (LLGRBs), and core-collapse supernovae (CC SNe). The millimeter and X-ray luminosity of LFBOTs resembles relativistic explosions such as LGRBs, and \at\ has the most luminous X-ray emission of any LFBOT to date. The millimeter points for AT2022tsd, and the X-ray points for AT2022tsd and FBOT AT2020xnd, are outlined in black for clarity.}
- \label{fig:mm-xray-lc}
+ \label{fig:opt-mm-xray-lc}
 \end{figure*}
 
 \begin{figure*}
@@ -408,10 +408,12 @@ should be addressed to Anna Y. Q. Ho (email: annayqho@cornell.edu).
 \section{Identification of \at\ and Redshift Measurement}
 \label{sec:discovery}
 
-The discovery of the extragalactic transient AT2018cow\cite{Prentice2018} and several events with similar multiwavelength properties\cite{Coppejans2020,Ho2020_Koala,Yao2022,Perley2021} established a new class of cosmic explosions dubbed luminous fast blue optical transients (LFBOTs\cite{Metzger2022}). Following the discovery of AT2018cow, we implemented a filter to discover additional LFBOTs by searching for transients with fast (duration above half-maximum light $\lesssim12\,$d\cite{Drout2014}) optical light curves in the ZTF alert stream\cite{Ho2022_RET}.
+The discovery of the extragalactic transient AT2018cow\cite{Prentice2018} and several events with similar multiwavelength properties\cite{Coppejans2020,Ho2020_Koala,Yao2022,Perley2021} established a new class of cosmic explosions dubbed luminous fast blue optical transients (LFBOTs\cite{Metzger2022}).
+In the optical band, LFBOTs are characterized by a light curve whose duration and luminosity cannot be explained by the standard supernova powering mechanism of radioactive decay (\ref{fig:opt-phase-space}).
+Following the discovery of AT2018cow, we implemented a filter to discover additional LFBOTs by searching for transients with fast (duration above half-maximum light $\lesssim12\,$d\cite{Drout2014}) optical light curves in the ZTF alert stream\cite{Ho2022_RET}.
 Transients are filtered based on age, light-curve timescale, and absolute magnitude (via the best-available host-galaxy redshift estimate).
-On 2022 September 22, \at\ was flagged due to its proximity to a catalogued galaxy in Pan-STARRS ($g=21.74\pm0.03$\,mag, $r=21.23\pm0.06$\,mag) with a photometric redshift that implied a high peak luminosity, together with the relatively fast timescale of the optical light curve.
 
+On 2022 September 22, \at\ was flagged due to its proximity to a catalogued galaxy in Pan-STARRS ($g=21.74\pm0.03$\,mag, $r=21.23\pm0.06$\,mag) with a photometric redshift that implied a high peak luminosity, together with the relatively fast timescale of the optical light curve.
 The following night (2022 September 23) we observed the position of \at\ using Keck/LRIS (\ref{fig:spec}; Methods section~\ref{sec:keck}).
 In a 40-min exposure, we did not detect any features from the transient itself (\at\ was $r\approx21.5\pm0.2$\,mag at the time, and the slit contained $\approx20\%$ of the host-galaxy flux). We identified a series of prominent host-galaxy emission lines at a consistent redshift. We fit a Gaussian independently to the following emission lines (wavelength given as rest wavelength in air): H$\alpha$ $\lambda$6562.819, H$\beta$ $\lambda$4861.333, 
 %[OII]$\lambda$$\lambda$3726.032,3728.815, 
@@ -421,12 +423,28 @@ We measured the redshift by taking the average redshift from the independent fit
 The result was $z=0.2564\pm0.0001$.
 
 Assuming the transient occurred in the galaxy, the implied peak absolute magnitude was $M_{\mathrm{peak}}=-20.64\pm0.13$ (at a rest wavelength of 3800\AA), accounting for Milky Way extinction ($E_{B-V}=A_V/R_V=0.27$ where $R_V=3.1$)\cite{Finkbeiner1999,Schlegel1998,Schlafly2011}.
-The absolute magnitude put AT2022tsd in the part of optical-transient parameter space that included radio- and X-ray loud FBOTs (\ref{fig:opt-phase-space}), and the lack of spectroscopic features argued against a traditional supernova origin (Methods section~\ref{sec:multiwavelength-properties}). Due to the unusual photometric and spectroscopic properties, we triggered multiwavelength (X-ray, decimeter, and submillimeter wavelength) observations.
+The timescale and absolute magnitude of \at\ put it in the LFBOT region of optical transient parameter space (\ref{fig:opt-phase-space}), and the lack of spectroscopic features argued against a traditional supernova origin (Methods section~\ref{sec:multiwavelength-properties}). Due to the photometric and spectroscopic properties, we triggered additional optical observations as well as X-ray, decimeter, and submillimeter wavelength observations.
 
 \section{Multiwavelength Properties of \at}
 \label{sec:multiwavelength-properties}
 
-In addition to the Keck/LRIS spectrum on 2022 September 23 (Methods section~\ref{sec:discovery}), we obtained a second Keck/LRIS spectrum on 2022 October 6, corresponding to $\Delta t=13\,$d and $\Delta t=23$\,d post-discovery (rest frame). The spectra are characterized by a blue continuum down to $\approx3000$\AA\ in the rest frame, and we do not identify any features from the transient itself. The featureless blue continuum and lack of drop from 3000-4000\AA\ is unusual for extragalactic transients (in Methods section~\ref{sec:flare-association} we show that it is highly likely that the transient occurred in the galaxy and is not a foreground object). To our knowledge, there are four fast and luminous transients whose spectra exhibited a mostly featureless continuum at a similar phase: AT2018cow\cite{Perley2019} (which had a largely featureless continuum at $\Delta t=8$\,d, with a weak likely HeII feature appearing from days 9--14); SN\,2011kl, which was associated with the ultra-long duration GRB\,111209A\cite{Greiner2015} (from a spectrum at $\Delta t=12$\,d); PTF10iam\cite{Arcavi2016} (from a spectrum at $\Delta t=12$\,d; this object had distinct features in the next spectrum, which was obtained at $\Delta t=38$\,d); and PS1-12bb\cite{Drout2014} (at $\Delta t=33$\,d). 
+We obtained several epochs of optical photometry of \at, and recovered two additional epochs in Pan-STARRS survey data.
+The early optical epochs show no short-timescale variability.
+At peak light, four 45\,s Pan-STARRS $i$-band detections (4-$\sigma$) were obtained in a span of 47 minutes, and show no significant variability.
+Two weeks later ($\Delta t_\mathrm{rest}$=14\,d), four 45\,s Pan-STARRS $w$-band detections (4-$\sigma$) were obtained in a span of 59 minutes, and show no significant variability.
+A sequence of LT $r$-band exposures spanning 62 minutes was obtained at $\Delta t_\mathrm{rest}=19\,$d, and a sequence spanning 22 minutes was obtained at $\Delta t_\mathrm{rest}=22$\,d; neither show significant variability.
+As we discuss in Section~\ref{sec:flare-association}, significant variability was detected starting at $\Delta t_\mathrm{rest}=21$\,d,
+but the lack of variability in these early epochs suggests that \at\ was a genuine weeks-duration transient. 
+
+The rise rate, peak luminosity, and blue peak colors of \at's optical light curve are most similar to the radio- and X-ray loud LFBOTs AT2018cow and AT2020xnd (Figure~\ref{fig:opt-mm-xray-lc}). However, the fade rate is significantly slower than these two objects. Instead, the fade rate of \at\ is most similar to that of SN\,2011kl, a luminous blue transient observed in the aftermath of the ultra-long duration GRB\,111209A\cite{Greiner2015}.
+The optical light curves of AT2018cow and SN\,2011kl have been shown to be similar to transients discovered in optical-survey data but which had limited follow-up observations \cite{Arcavi2016,Pursiainen2018,Drout2014}.
+
+In addition to the Keck/LRIS spectrum on 2022 September 23 (Methods section~\ref{sec:discovery}), we obtained a second 40-minute Keck/LRIS spectrum on 2022 October 6, when \at\ was $r=22.73\pm0.09\,$mag). 
+The phases of the two spectra were $\Delta t_\mathrm{rest}=13\,$d and $\Delta t_\mathrm{rest}=23$\,d after peak optical light.
+The spectra are characterized by a blue continuum down to $\approx3000$\AA\ in the rest frame, and we do not identify any features from the transient itself. The featureless blue continuum so long after peak light, when the light curve has faded by 2--3 magnitudes, is unusual for extragalactic transients but has been seen in other FBOTs (in Methods section~\ref{sec:flare-association} we show that it is highly likely that the transient occurred in the galaxy and is not a foreground object).
+The most similar spectral evolution was seen in AT2018cow\cite{Perley2019}, which had a featureless continuum at $\Delta t=8$\,d, a weak feature at 4850\,\AA\ from $\Delta t=9$\,d to $\Delta t=14$\,d (attributed to He 4686\AA), and a variety of other lines appearing between 20--30\,d. 
+Only one spectrum was obtained of SN\,2011kl: it showed a predominantly featureless spectrum at $\Delta t=12$\,d (time since the GRB), corresponding to two days prior to peak light of the supernova.
+The FBOT PTF10iam\cite{Arcavi2016} had a featureless spectrum at $\Delta t=12$\,d but distinct features in the next spectrum at $\Delta t=38$\,d; and the FBOT PS1-12bb\cite{Drout2014} showed a featureless blue continuum at $\Delta t=33$\,d.
 
 The X-ray luminosity of \at\ (Methods section~\ref{sec:swift}) is similar to that of long-duration gamma-ray burst afterglows ($10^{44}\,$erg\,s$^{-1}$; Figure~\ref{fig:mm-xray-lc}). We fit the Swift/XRT and Chandra/ACIS detections to a power law using the \texttt{curve\_fit} module in \texttt{scipy}, assuming a $t_0$ equal to the first ZTF detection. The best-fit power-law index (Figure~\ref{fig:xray-lc}) is $\alpha=-1.90\pm0.26$ where $L_X \propto t^{\alpha}$.
 Changing the $t_0$ value to the last ZTF non-detection gives $\alpha=-1.97\pm0.25$.
