@@ -36,6 +36,7 @@ import warnings
 from specutils.fitting import fit_generic_continuum
 from astropy.coordinates import SkyCoord
 import vals 
+from get_spec import *
 
 # Direc with all the data we'll use in this code
 ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data"
@@ -78,9 +79,9 @@ def fit_redshift(wl_all, flux_all, eflux_all, l0, z0, window):
     flux = flux_all[choose]
     eflux = eflux_all[choose]
 
-    #plt.step(wl_all,flux_all,lw=0.5,c='grey')
-    #plt.plot(wl, flux)
-    #plt.axhline(y=np.median(flux))
+    plt.step(wl_all,flux_all,lw=0.5,c='grey')
+    plt.plot(wl, flux)
+    plt.axhline(y=np.median(flux))
 
     # local continuum
     cont_range = np.logical_or(
@@ -89,7 +90,7 @@ def fit_redshift(wl_all, flux_all, eflux_all, l0, z0, window):
             np.logical_and(wl_all > (lm + 2),
                             wl_all < (lm + window)))
     cont = np.median(flux_all[cont_range])
-    #plt.axhline(y=cont)
+    plt.axhline(y=cont)
     #plt.show()
     
     # Normalize
@@ -102,11 +103,11 @@ def fit_redshift(wl_all, flux_all, eflux_all, l0, z0, window):
             sigma=eflux, absolute_sigma=True)
 
     # Plot the fit
-    # plt.axvline(x=lm, lw=0.5, c='grey') # guess
-    # plt.plot(wl, flux_norm, c='k')
-    # xfit = np.linspace(min(wl), max(wl), 1000)
-    # yfit = gaussian(xfit, best_vals[0], best_vals[1], best_vals[2])
-    # plt.plot(xfit, yfit, c='r')
+    plt.axvline(x=lm, lw=0.5, c='grey') # guess
+    plt.plot(wl, flux_norm, c='k')
+    xfit = np.linspace(min(wl), max(wl), 1000)
+    yfit = gaussian(xfit, best_vals[0], best_vals[1], best_vals[2])
+    plt.plot(xfit, yfit, c='r')
 
     # Convert the best-fit into an actual redshift
     center = best_vals[1]
@@ -181,16 +182,6 @@ def smooth_spec(wl, flux, ivar, L):
     return smoothed
 
 
-def load_spec():
-    """ read in the spectrum """
-    inputf = "%s/opt/LRIS/lris20221006_adjust.spec" %ddir
-    tab = pd.read_fwf(inputf, skiprows=np.arange(150))
-    wl = tab['wavelen'].values # AA
-    flam = tab['flux'].values # erg/cm2/s/Ang, absolute calibration approximate
-    eflam = tab['flux_unc'].values
-    return wl, flam, eflam
-
-
 def ext_corr(wl, flam):
     """ correct for Galactic extinction
     from the IRSA service, Schlafly & Finkbeiner """
@@ -235,28 +226,11 @@ def get_spec_mags():
     return spec_obs_mAB
 
 
-def run_smooth_spec():
-    """ Apply the spectrum smoothing. Currently not working... """
-    wl, flam, eflam = load_spec()
-    eflam[flam < 0] = 1E8
-    flam[flam < 0] = min(flam[flam>0])
-    flam = flam / 1E-17
-    eflam = eflam / 1E-17
-    ivar = 1/eflam**2
-    ivar[ivar<1] = 1
-
-    smoothed_spec = smooth_spec(wl, flam, ivar, L=10)
-    norm_flux = flam / smoothed_spec
-    norm_ivar = ivar * smoothed_spec**2
-    plt.plot(wl ,flam, c='grey', lw=0.5)
-    plt.plot(wl, smoothed_spec, c='red', lw=0.5)
-
-
 def fit_z():
     """ Fit for the redshift """
 
     # Load spectrum 
-    wl,f,ef = load_spec()
+    wl,f,ef = load_spec_1()
 
     # Initial guess
     z0 = 0.2565
@@ -269,9 +243,7 @@ def fit_z():
     zall = []
     ezall = []
     for key,val in wl_lines.items():
-        if key=='sii':
-            use = val[0:-1] # only fit the first SII line
-        elif key=='oii':
+        if key=='oii':
             use = [] # doublet, makes things confusing
         else:
             use = val
