@@ -13,15 +13,8 @@ Commonly observed galaxy emission lines
     NII
     Doublets fixed at theoretical flux ratio of 3:
         OI (6300,6364), OIII (4959, 5007), NII (6548, 6583)
-Calculate line ratios, uncertainties by performing 1E4 Monte Carlo trials
-using measured flux uncertainties
 
-Use the 10-06 spectrum since it has clearer lines. This is very close to the
-NOT photometry, which was on 10-04. So, let's use that as a reference.
-Those filters are sdssr, sdssi, and sdssg. 
-
-The spectra we have still have a lot of transient flux, so there's no point
-in trying to fit the continuum. Just solve for the redshift for now.
+Use the first spectrum since it has clearer lines. 
 """
 
 import numpy as np
@@ -259,6 +252,10 @@ def fit_z():
     zmean = np.average(zall, weights=w)
     ezmean = np.std(zall)
     print("%s +/- %s" %(np.round(zmean,7), np.round(ezmean, 7)))
+
+
+def fit_continuum():
+    """ Fit the slope of the extinction-corrected spectrum """
 
 
 if __name__=="__main__":
