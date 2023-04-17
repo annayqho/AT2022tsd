@@ -81,11 +81,12 @@ def plot_flares(axarr):
             ax.errorbar((xo-t0)*24*60, yo/250, xerr=(exo/2)*60, yerr=eyo/250,
                         fmt='D', color=vals.ic, ms=4, label='LRIS $i$-band ($\mu$Jy/250)')
             ax.legend(loc='upper left', fontsize=8, handletextpad=0.1)
+
+        tstr = Time(t[i], format='mjd').isot
+        ax.set_xlabel("Minutes since %s" %tstr.split('.')[0].replace('T', ' '))
             
 
     axarr.flatten()[-1].axis('off')
 
     for ax in axarr[:,0]:
         ax.set_ylabel("Count Rate")
-    for ax in axarr[-1,:]:
-        ax.set_xlabel("Minutes")
