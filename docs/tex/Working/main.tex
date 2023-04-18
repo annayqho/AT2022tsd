@@ -96,7 +96,7 @@ providing a new diagnostic of the compact objects powering nature's most energet
 
 \end{abstract}
 
-In a 30\,s exposure beginning at 11:21:22 on 7 September 2022 (UTC), the Zwicky Transient Facility (ZTF\cite{Graham2019,Bellm2019}) detected a new optical transient (internal name ZTF22abftjko; Figure~\ref{fig:optical-lc}) as part of its public two-day cadence all-sky survey.
+In a 30\,s exposure beginning at 11:21:22 on 7 September 2022 (UTC), the Zwicky Transient Facility (ZTF\cite{Graham2019,Bellm2019}) detected a new optical transient (internal name ZTF22abftjko) as part of its public two-day cadence all-sky survey.
 The transient was reported\cite{Munoz-Arancibia2022} to the Transient Name Server by the Automatic Learning for the Rapid Classification of Events (ALeRCE) Alert Broker\cite{Forster2021} and designated AT2022tsd.
 Forced photometry on ZTF images\cite{Masci2019} revealed that the light-curve evolution was faster than that of typical supernovae.
 The optical light curve and location 1.5$''$ from a catalogued\cite{Beck2021} galaxy with photometric redshift $z_\mathrm{ph}=0.44\pm0.12$ led AT2022tsd to be flagged as a transient of interest as part of ongoing efforts to discover luminous and fast-evolving optical transients (Methods section \ref{sec:discovery}).
@@ -276,11 +276,16 @@ The flares observed for months after the initial transient are the fastest extra
 
 \bibitem{Bellm2019} Bellm, E. C., et al. The Zwicky Transient Facility: System Overview, Performance, and First Results. \emph{\pasp}, \textbf{131}, 018002 (2019). 
 
-% Discovery, reporting
+% Discovery, reporting, forced photometry
 
 \bibitem{Munoz-Arancibia2022} Munoz-Arancibia, A., et al. ALeRCE/ZTF Transient Discovery Report for 2022-09-07. \emph{Transient Name Server Discovery Report}, \textbf{2022-2602}, 1 (2022). 
 
 \bibitem{Forster2021} Förster, F., et al. The Automatic Learning for the Rapid Classification of Events (ALeRCE) Alert Broker. \emph{\aj}, \textbf{161}, 242 (2021). 
+
+\bibitem{Masci2019} Masci, F. J., et al. The Zwicky Transient Facility: Data Processing, Products, and Archive. \emph{\pasp}, \textbf{131}, 018003 (2019). 
+
+\bibitem{Beck2021} Beck, R., et al. PS1-STRM: neural network source classification and photometric redshift catalogue for PS1 3$\pi$ DR1. \emph{\mnras}, \textbf{500}, 1633 (2021). 
+
 
 
 \bibitem{Kumar2015} Kumar, P., \& Zhang, B. The physics of gamma-ray bursts \& relativistic jets. \emph{\physrep}, \textbf{561}, 1 (2015). 
@@ -297,9 +302,6 @@ The flares observed for months after the initial transient are the fastest extra
 
 \bibitem{Kaspi2017} Kaspi, V. M., \& Beloborodov, A. M. Magnetars. \emph{\araa}, \textbf{55}, 261 (2017). 
 
-\bibitem{Masci2019} Masci, F. J., et al. The Zwicky Transient Facility: Data Processing, Products, and Archive. \emph{\pasp}, \textbf{131}, 018003 (2019). 
-
-\bibitem{Beck2021} Beck, R., et al. PS1-STRM: neural network source classification and photometric redshift catalogue for PS1 3$\pi$ DR1. \emph{\mnras}, \textbf{500}, 1633 (2021). 
 
 \bibitem{Ho2020Koala} Ho, A. Y. Q., et al. The Koala: A Fast Blue Optical Transient with Luminous Radio Emission from a Starburst Dwarf Galaxy at z = 0.27. \emph{\apj}, \textbf{895}, 49 (2020). 
 
@@ -819,11 +821,11 @@ To measure the uncertainty on the flux density we measured the root-mean-square 
 To search for short-timescale variability, we imaged each scan of the 15\,GHz observations individually. We chose 15\,GHz because the VLA is more sensitive at this frequency than at higher frequencies, and because the length of the cycle time is well suited to searching for variability on the timescale of the observed \at\ flares. Each observation had 6--8 scans, each scan lasted approximately 7\,min, and scans were typically separated by 1\,min. The resulting S/N per scan ranged from $<3$-$\sigma$ (no detection, most common in Epoch 1 and Epoch 2) to S/N=8 (in Epochs 5 and 6).
 We did not detect any definitive variability. The strongest variations we measured were during Epoch 3 (when the source apparently brightened from $28\pm8\,\mu$Jy to $45\pm8\,\mu$Jy, then faded to non-detection with RMS $8\,\mu$Jy) and Epoch 6 (when the source apparently faded from $70\pm9\,\mu$Jy to $37\pm8\,\mu$Jy across two scans). However, these variations are fairly marginal; in the Epoch 6 observation, the corresponding flux density of another source in the field was $65\,\mu$Jy then $75\,\mu$Jy, suggesting that the true uncertainty is approximately 10$\,\mu$Jy. In that case, the fading is only $\approx3$-$\sigma$.
 
-% The A-configuration Ku observations provide a highly accurate measurement of the source location: 
-% standard equinox J2000 right ascension $\alpha$ =
-% $13^{\rm{h}}34^{\rm{m}}43^{\rm{s}}.20232$
-% and declination $\delta$ = $+33^{\circ} 13' 00''.6565$ 
-% (uncertainty 0.01$''$).
+Using the B-configuration Ku-band observation, we obtain the following measurement of the position of \at:
+standard equinox J2000 right ascension $\alpha$ =
+$03^{\rm{h}}20^{\rm{m}}10^{\rm{s}}.873$
+and declination $\delta$ = $+08^{\circ} 44' 55''.739$ 
+(uncertainty $0''.009$).
 
 \subsection{Submillimeter Array}
 \label{Methods:SMA}
