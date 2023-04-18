@@ -40,7 +40,7 @@ def vel_lines(ax, x, v):
     ax.plot(xvals, yvals, ls='--', c='k', lw=0.5)
     rotangle = 65
     ax.text(
-            x, 4E27, "$R/\Delta t = %sc$" %v, 
+            x, 2E28, "$R/\Delta t = %sc$" %v, 
             fontsize=smallsize, rotation=rotangle,
             horizontalalignment='center', verticalalignment='top', c='grey')
     return yvals
@@ -105,7 +105,7 @@ def typeii(ax):
                 tnuval, lpeak[i], marker='o', edgecolor=vals.sn_col, 
                 facecolor='white', s=100, label=label)
         ax.text(
-                tnuval*1.2, lpeak[i]*1.1, names[i], fontsize=smallsize,
+                tnuval*1.1, lpeak[i]*1.1, names[i], fontsize=smallsize,
                 verticalalignment='bottom',
                 horizontalalignment='left', color=vals.sn_col)
 
@@ -280,7 +280,7 @@ def tde(ax):
             facecolor=vals.tde_col, s=100,
             label='TDE')
     ax.text(
-            tnu, lpeak/1.3, "ASASSN14li", fontsize=smallsize,
+            tnu*1.2, lpeak/1.3, "ASASSN14li", fontsize=smallsize,
             verticalalignment='top',
             horizontalalignment='center', color=vals.tde_col)
 
@@ -328,7 +328,7 @@ def llgrb(ax):
             tnu, lpeak, marker='s', edgecolor=vals.llgrb_col, s=squaresize,
             facecolor=vals.llgrb_col, label=None)
     ax.text(
-            tnu, lpeak/1.3, "2010bh", fontsize=smallsize,
+            tnu/1.1, lpeak/1.3, "2010bh", fontsize=smallsize,
             verticalalignment='top',
             horizontalalignment='center', color=vals.llgrb_col)
 
@@ -338,7 +338,7 @@ def llgrb(ax):
 
 if __name__=="__main__":
     # initialize figure
-    fig,ax = plt.subplots(1,1, figsize=(5,5))
+    fig,ax = plt.subplots(1,1, figsize=(5,4.4))
 
     # Plot each class
     typeii(ax)
@@ -351,12 +351,12 @@ if __name__=="__main__":
     #lumtnu(ax)
 
     # Plot the background curves
-    y = mdot_curves(ax, 253, 3E27, 10)
-    y = mdot_curves(ax, 25, 3.5E27, 0.1)
-    y = mdot_curves(ax, 2.4, 3.5E27, 0.001)
-    y = vel_lines(ax, 5.5, 1)
-    y = vel_lines(ax, 55, 0.1)
-    y = vel_lines(ax, 550, 0.01)
+    y = mdot_curves(ax, 500, 1.5E29, 10)
+    y = mdot_curves(ax, 40, 2E28, 0.1)
+    y = mdot_curves(ax, 4.5, 5E28, 0.001)
+    y = vel_lines(ax, 12, 1)
+    y = vel_lines(ax, 110, 0.1)
+    y = vel_lines(ax, 1100, 0.01)
 
     # Add a legend
     ax.legend(bbox_to_anchor=(-0.2, 1.1), loc='upper left',
@@ -368,7 +368,7 @@ if __name__=="__main__":
         r"$L_{\mathrm{radio, peak}}$ (erg s$^{-1}$ Hz$^{-1}}$)",
         fontsize=medsize)
     ax.set_xlim(2, 3000)
-    ax.set_ylim(9E26, 3E30)
+    ax.set_ylim(3E27, 3E30)
     ax.set_xscale('log')
     ax.set_yscale('log')
     ax.tick_params(axis='both', labelsize=medsize)
