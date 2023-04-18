@@ -360,7 +360,7 @@ def run(ax):
 
 
 if __name__=="__main__":
-    fig,ax = plt.subplots(1,1,figsize=(3.5,4.4))
+    fig,ax = plt.subplots(1,1,figsize=(3.5,3.5))
     run(ax)
     # Formatting
     ax.set_ylabel(
