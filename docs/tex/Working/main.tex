@@ -99,15 +99,15 @@ providing a new diagnostic of the compact objects powering nature's most energet
 In a 30\,s exposure beginning at 11:21:22 on 7 September 2022 (UTC), the Zwicky Transient Facility (ZTF\cite{Graham2019,Bellm2019}) detected a new optical transient (internal name ZTF22abftjko) at right ascension $\alpha$ = $03^{\rm{h}}20^{\rm{m}}10^{\rm{s}}.873$ and declination $\delta$ = $+08^{\circ} 44' 55''.739$ 
 (J2000; uncertainty $0.009''$ from Methods section~\ref{sec:VLA}) as part of its public two-day cadence all-sky survey.
 The transient was reported\cite{Munoz-Arancibia2022} to the Transient Name Server by the Automatic Learning for the Rapid Classification of Events (ALeRCE) Alert Broker\cite{Forster2021} and designated AT2022tsd.
-Forced photometry on ZTF images\cite{Masci2019} revealed that the light-curve evolution was faster than that of typical supernovae.
+Forced photometry on ZTF images\cite{Masci2019} revealed that the light-curve evolution was faster than that of typical supernovae (Figure~\ref{fig:transient-parameter-space}, Methods section~\ref{sec:discovery}--\ref{sec:multiwavelength-properties}).
 The optical light curve and location 1.5$''$ from a catalogued\cite{Beck2021} galaxy with photometric redshift $z_\mathrm{ph}=0.44\pm0.12$ led AT2022tsd to be flagged as a transient of interest as part of ongoing efforts to discover luminous and fast-evolving optical transients (Methods section \ref{sec:discovery}).
 
 We obtained two spectra of \at\ with the Low Resolution Imaging Spectrograph (LRIS\cite{Oke1995}) on the Keck\,I 10-m telescope (\ref{fig:spec}; Methods section \ref{sec:keck}), and measured\cite{Ho2022_Astronote_Keck} a redshift of $z=0.2564\pm0.0001$ (luminosity distance $D_L=1.341\,$Gpc assuming a Planck cosmology\cite{Planck2020}) using prominent narrow host-galaxy emission lines (Methods section \ref{sec:discovery}). 
 The fast light-curve evolution, the implied high peak luminosity ($M_{g,\mathrm{pk}}=-20.64\pm0.13$; Methods section \ref{sec:discovery}), and the lack of prominent spectroscopic features from the transient itself was unusual (Methods section~\ref{sec:multiwavelength-properties}), and motivated us to trigger additional multiwavelength observations.
-We detected luminous radio (decimeter\cite{Ho2022Astronote_radio} to submillimeter) emission that peaked at hundreds of GHz for over a month in the rest frame (Methods section~\ref{Methods:VLA}; \ref{fig:radio}),
+We detected luminous radio (decimeter\cite{Ho2022Astronote_radio} to submillimeter) emission that peaked at hundreds of GHz for over a month in the rest frame (Methods section~\ref{sec:VLA}; \ref{fig:radio}),
 as well as luminous ($>10^{44}\,$erg\,s$^{-1}$) and steadily fading ($L_X\propto t^{-1.90\pm0.26}$; Methods section~\ref{sec:multiwavelength-properties}) 0.3--10\,keV X-ray emission\cite{Schulze2022Astronote_xray} (Methods section~\ref{sec:swift}).
 
-In a photometric optical imaging sequence starting at 04:29:57 on 15 December 2022, a hundred days (observer frame) after the initial transient event, we detected\cite{Ho2022_Astronote_Flares} a flare at the position of \at\ across five three-minute Magellan/IMACS $g$-band images, with a peak luminosity of $\nu L_\nu \approx 10^{44}\,$erg\,s$^{-1}$.
+In a photometric optical imaging sequence starting at 04:29:57 on 15 December 2022, a hundred days (observer frame) after the initial transient event, we detected\cite{Ho2022_Astronote_Flares} a flare at the position of \at\ across five three-minute Magellan/IMACS $g$-band images, with a peak luminosity of $\nu L_\nu \approx 10^{44}\,$erg\,s$^{-1}$ (Figure~\ref{fig:transient-parameter-space}, Figure~\ref{fig:flare-images-lc}).
 Forced photometry on ZTF and Pan-STARRS survey images at the position of the transient revealed additional flare detections (Figure~\ref{fig:optical-lc}; Methods section \ref{sec:flare-association}).
 Following the IMACS flare detection, we obtained a total of 2470 minutes of optical observations of \at\ on 19 different nights, using nine different telescopes. The duration of each sequence ranged from 10\,min to 4.5\,hr. In total we detected approximately a dozen flares (Figure~\ref{fig:optical-lc}). ULTRASPEC observations revealed flux variations exceeding an order of magnitude on timescales shorter than 20\,s (rest frame), and complex temporal profiles that vary between flares (Figure~\ref{fig:optical-lc}; Methods section~\ref{sec:flare-characteristics}).
 Two different Keck/LRIS observations revealed red flare colors (Methods section~\ref{sec:flare-emission-mechanism}):
@@ -148,7 +148,7 @@ Minute-cadence optical observations provide a direct way to study long-lived com
 The flares observed for months after the initial transient are the fastest extragalactic optical transients with the exception of long-duration $\gamma$-ray burst (GRB) counterparts\cite{Racusin2008,Kann2010}.
 \emph{Bottom:} The radio emission from \at\ is more luminous, and has a higher peak frequency $\nu_p$ at a fixed time post-explosion $\Delta t$, than that of CC SNe (Type~II and Type~Ibc), tidal disruption events (TDEs), and SNe associated with low-luminosity GRBs (LLGRB-SNe). The optical and radio properties of \at\ most closely resemble mysterious ``luminous fast blue optical transients'' (LFBOTs) in the literature \cite{Prentice2018,Perley2019,Perley2021,Ho2020_Koala,Yao2022,Coppejans2020,Arcavi2016,Greiner2015,Pursiainen2018}.
 }
- \label{fig:optical-lc}
+ \label{fig:transient-parameter-space}
 \end{figure*}
 
 \begin{figure*}
@@ -170,7 +170,7 @@ The flares observed for months after the initial transient are the fastest extra
 \caption{\textbf{Selected images from two flares in the \at\ light curve, $\approx100\,$d after the original transient event.}
 \emph{Top:} A flare was detected across five Magellan/IMACS $g$-band images, which can be clearly seen in the science images (``new'') as well as the subtractions (``sub''). The light curve brightened by an order of magnitude in ten minutes, then faded on a similar timescale.
 \emph{Bottom:} A flare lasting 30\,min was detected in a 2\,hr ULTRASPEC $r$-band observation with 30\,sec cadence. The flare showed significant variability from one exposure to the next. The peak luminosity of both flares was $M\approx-21\,$mag, or $\nu L_\nu\approx10^{44}\,$erg\,s$^{-1}$.}
- \label{fig:optical-lc}
+ \label{fig:flare-images-lc}
 \end{figure*}
 
 \begin{table}
@@ -277,7 +277,7 @@ The flares observed for months after the initial transient are the fastest extra
 
 \bibitem{Bellm2019} Bellm, E. C., et al. The Zwicky Transient Facility: System Overview, Performance, and First Results. \emph{\pasp}, \textbf{131}, 018002 (2019). 
 
-% Discovery, reporting, forced photometry
+% Discovery, reporting, forced photometry, facilities
 
 \bibitem{Munoz-Arancibia2022} Munoz-Arancibia, A., et al. ALeRCE/ZTF Transient Discovery Report for 2022-09-07. \emph{Transient Name Server Discovery Report}, \textbf{2022-2602}, 1 (2022). 
 
@@ -287,6 +287,17 @@ The flares observed for months after the initial transient are the fastest extra
 
 \bibitem{Beck2021} Beck, R., et al. PS1-STRM: neural network source classification and photometric redshift catalogue for PS1 3$\pi$ DR1. \emph{\mnras}, \textbf{500}, 1633 (2021). 
 
+\bibitem{Oke1995} Oke, J. B., et al. The Keck Low-Resolution Imaging Spectrometer. \emph{\pasp}, \textbf{107}, 375 (1995). 
+
+\bibitem{Ho2022_Astronote_Keck} Ho, A. Y. Q., et al. Keck/LRIS Observations of AT2022tsd, a Fast-Rising Optical Transient Coincident with a z=0.256 Galaxy. \emph{Transient Name Server AstroNote}, \textbf{199}, 1 (2022). 
+
+\bibitem{Planck2020} Planck Collaboration, et al. Planck 2018 results. VI. Cosmological parameters. \emph{\aap}, \textbf{641}, A6 (2020). 
+
+\bibitem{Ho2022Astronote_radio} Ho, A. Y. Q., \& Perley, D. A. VLA Ku-band Detection of AT2022tsd. \emph{Transient Name Server AstroNote}, \textbf{205}, 1 (2022). 
+
+\bibitem{Schulze2022Astronote_xray} Schulze, S., Ho, A. Y. Q., Perley, D. A., Yan, L., \& Fremling, C. Swift X-ray Detection of AT2022tsd. \emph{Transient Name Server AstroNote}, \textbf{207}, 1 (2022). 
+
+\bibitem{Ho2022_Astronote_Flares} Ho, A. Y. Q., et al. Discovery of Minute-timescale Optical Flares with Supernova-like Luminosities at the Position of the Luminous Fast Blue Optical Transient AT2022tsd (the ``Tasmanian Devil"). \emph{Transient Name Server AstroNote}, \textbf{267}, 1 (2022). 
 
 
 \bibitem{Kumar2015} Kumar, P., \& Zhang, B. The physics of gamma-ray bursts \& relativistic jets. \emph{\physrep}, \textbf{561}, 1 (2015). 
@@ -303,20 +314,6 @@ The flares observed for months after the initial transient are the fastest extra
 
 \bibitem{Kaspi2017} Kaspi, V. M., \& Beloborodov, A. M. Magnetars. \emph{\araa}, \textbf{55}, 261 (2017). 
 
-
-\bibitem{Ho2020Koala} Ho, A. Y. Q., et al. The Koala: A Fast Blue Optical Transient with Luminous Radio Emission from a Starburst Dwarf Galaxy at z = 0.27. \emph{\apj}, \textbf{895}, 49 (2020). 
-
-\bibitem{Oke1995} Oke, J. B., et al. The Keck Low-Resolution Imaging Spectrometer. \emph{\pasp}, \textbf{107}, 375 (1995). 
-
-\bibitem{Ho2022_Astronote_Keck} Ho, A. Y. Q., et al. Keck/LRIS Observations of AT2022tsd, a Fast-Rising Optical Transient Coincident with a z=0.256 Galaxy. \emph{Transient Name Server AstroNote}, \textbf{199}, 1 (2022). 
-
-\bibitem{Planck2020} Planck Collaboration, et al. Planck 2018 results. VI. Cosmological parameters. \emph{\aap}, \textbf{641}, A6 (2020). 
-
-\bibitem{Ho2022Astronote_radio} Ho, A. Y. Q., \& Perley, D. A. VLA Ku-band Detection of AT2022tsd. \emph{Transient Name Server AstroNote}, \textbf{205}, 1 (2022). 
-
-\bibitem{Schulze2022Astronote_xray} Schulze, S., Ho, A. Y. Q., Perley, D. A., Yan, L., \& Fremling, C. Swift X-ray Detection of AT2022tsd. \emph{Transient Name Server AstroNote}, \textbf{207}, 1 (2022). 
-
-\bibitem{Ho2022_Astronote_Flares} Ho, A. Y. Q., et al. Discovery of Minute-timescale Optical Flares with Supernova-like Luminosities at the Position of the Luminous Fast Blue Optical Transient AT2022tsd (the ``Tasmanian Devil"). \emph{Transient Name Server AstroNote}, \textbf{267}, 1 (2022). 
 
 \bibitem{Maund2023} Maund, J. R., et al. A flash of polarized optical light points to an aspherical 'cow'. \emph{\mnras}, \textbf (2023). 
 
