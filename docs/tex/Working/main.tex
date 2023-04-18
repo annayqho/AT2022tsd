@@ -153,11 +153,12 @@ Minute-cadence optical observations provide a direct way to study long-lived com
 
 \begin{figure*}
 \centering
-    \includegraphics[width=1.0\textwidth]{lum_time_optical.png}
+    \includegraphics[width=1.0\textwidth]{lum_duration_cartoon.pdf}
     \includegraphics[width=0.49\textwidth]{lum_tnu.png}
 \caption{\textbf{\at\ in the parameter space of optical and radio transients.}
-\emph{Left:} \at\ was discovered as an optical transient that was faster and more luminous than typical core-collapse supernovae (CC SNe), Type~Ia (thermonuclear) supernovae (SN Ia), and superluminous supernovae (SLSN). The optical emission resembled ``luminous fast blue optical transients'' (LFBOTs) of unknown origin in the literature\cite{Prentice2018,Perley2019,Perley2021,Ho2020_Koala,Yao2022,Coppejans2020,Arcavi2016,Greiner2015,Pursiainen2018}).  Calculations were performed using light curves in as close to rest-frame $g$-band as possible and absolute magnitude have a cosmological correction applied. SN light curves are from the ZTF Bright Transient Survey\cite{PerleyBTS,FremlingBTS} and dedicated searches for rapidly evolving transients\cite{Ho2022_RET}.
-\emph{Right:} The radio (decimeter and submillimeter) emission from \at\ is more luminous, and peaks at much higher frequencies, than established classes of radio-loud transients: CC SNe (Type~II and Type~Ibc), TDEs, and LLGRB-SNe. In that sense, the radio behavior is more similar to that observed in LFBOTs. 
+\emph{Top:} \at\ was discovered as an optical transient that was faster (duration above half-maximum light $t_{1/2}$) and/or more luminous (peak absolute magnitude in $g$-band $M_{g}$) than core-collapse supernovae (CC SNe\cite{PerleyBTS,Ho2022_RET}), Type~Ia SNe\cite{PerleyBTS}), and superluminous SNe (SLSN\cite{PerleyBTS}). The light curve is not powered by radioactive decay; the nickel mass $M_\mathrm{Ni}$ would exceed\cite{Kasen2017} the ejecta mass $M_\mathrm{ej}$.
+The flares observed for months after the initial transient are the fastest extragalactic optical transients with the exception of long-duration $\gamma$-ray burst (GRB) counterparts\cite{Racusin2008,Kann2010}.
+\emph{Bottom:} The radio emission from \at\ is more luminous, and has a higher peak frequency $\nu_p$ at a fixed time post-explosion $\Delta t$, than that of CC SNe (Type~II and Type~Ibc), tidal disruption events (TDEs), and SNe associated with low-luminosity GRBs (LLGRB-SNe). The optical and radio properties of \at\ most closely resemble mysterious ``luminous fast blue optical transients'' (LFBOTs) in the literature \cite{Prentice2018,Perley2019,Perley2021,Ho2020_Koala,Yao2022,Coppejans2020,Arcavi2016,Greiner2015,Pursiainen2018}.
 }
  \label{fig:optical-lc}
 \end{figure*}
@@ -223,6 +224,13 @@ Minute-cadence optical observations provide a direct way to study long-lived com
 
 \bibitem{Pasham2021} Pasham, D. R., et al. Evidence for a compact object in the aftermath of the extragalactic transient AT2018cow. \emph{Nature Astronomy}, \textbf{6}, 249 (2021). 
 
+\bibitem{Greiner2015} Greiner, J., et al. A very luminous magnetar-powered supernova associated with an ultra-long $\gamma$-ray burst. \emph{\nat}, \textbf{523}, 189 (2015). 
+
+\bibitem{Pursiainen2018} Pursiainen, M., et al. Rapidly evolving transients in the Dark Energy Survey. \emph{\mnras}, \textbf{481}, 894 (2018). 
+
+\bibitem{Arcavi2016} Arcavi, I., et al. Rapidly Rising Transients in the Supernova—Superluminous Supernova Gap. \emph{\apj}, \textbf{819}, 35 (2016). 
+
+
 \bibitem{Prentice2018} Prentice, S. J., et al. The Cow: Discovery of a Luminous, Hot, and Rapidly Evolving Transient. \emph{\apjl}, \textbf{865}, L3 (2018). 
 
 \bibitem{Margutti2019} Margutti, R., et al. An Embedded X-Ray Source Shines through the Aspherical AT 2018cow: Revealing the Inner Workings of the Most Luminous Fast-evolving Optical Transients. \emph{\apj}, \textbf{872}, 18 (2019). 
@@ -234,6 +242,8 @@ Minute-cadence optical observations provide a direct way to study long-lived com
 \bibitem{Bellm2019} Bellm, E. C., et al. The Zwicky Transient Facility: System Overview, Performance, and First Results. \emph{\pasp}, \textbf{131}, 018002 (2019). 
 
 \bibitem{Kaspi2017} Kaspi, V. M., \& Beloborodov, A. M. Magnetars. \emph{\araa}, \textbf{55}, 261 (2017). 
+
+
 
 \bibitem{Munoz-Arancibia2022} Munoz-Arancibia, A., et al. ALeRCE/ZTF Transient Discovery Report for 2022-09-07. \emph{Transient Name Server Discovery Report}, \textbf{2022-2602}, 1 (2022). 
 
@@ -487,10 +497,12 @@ A spatial offset of 10\,kpc corresponds to $4^{\prime\prime}$ for $z=0.1$, so fo
 During the second year of ZTF, 372 CV candidates were discovered\cite{Szkody2021}, most of which were dwarf novae; we estimate a rate of 400 per year in the 15,000\,deg$^{2}$ of the ZTF public survey, or 0.02\,deg$^{-2}$\,yr$^{-1}$. So, in a given year, the chance of detecting a dwarf nova aligned with a $z=0.1$--0.3 galaxy is $\approx 8\times10^{-5}$; over the course of a few years in ZTF, we estimate $4\times10^{-4}$. Assuming the flaring in \at\ occurs in 1/100 dwarf novae, we find $4\times10^{-6}$.
 So, we conclude that the most likely explanation is that \at\ is extragalactic.
 
-\section{Flare Characteristics}
+\section{Flare Observational Characteristics}
 \label{sec:flare-characteristics}
 
 The observed optical flares (Figure~\ref{fig:optical-lc}) show a variety of morphologies. The ULTRASPEC $g$-band flare showed a multi-hour flaring ``episode'' with two prominent peaks superimposed on an exponential decline, as well as a short precursor flare lasting just a few minutes. The ULTRASPEC $r$-band flare was more erratic, with an abrupt turn-off rather than an exponential decline. For each flare, we measured the time interval in which 90\% of the flux was measured ($T_{90}$). The value of $T_{90}$ ranged from $\approx10$\,min (the LT flare, and the small ULTRASPEC $g$-band flare prior to the large flaring episode) to 80\,min (the large ULTRASPEC $g$-band flare). A Lomb-Scargle periodogram\cite{Lomb1976,Scargle1982} revealed no significant periodicity in the ULTRASPEC light curves (\ref{fig:ultraspec-periodogram}).
+
+The ULTRASPEC $r$-band flare shows strong variability, with order-of-magnitude changes in flux on timescales much shorter than the overall duration of the outburst. The time to change by order unity $\delta t$ is limited by the 30\,s cadence of the observations. The ratio of this variability time to the overall duration of the burst is $\delta t/T<2\times10^{-2}$. For the ULTRASPEC $g$-band flares, the time to change by a factor of order unity is resolved by the individual observations, and is approximately a few minutes. We find $\delta t/T<4\times10^{-2}$.
 
 We estimated the flare duty cycle for different limiting magnitude thresholds, assuming a Poisson distribution for the likelihood of detecting a flare in any given time interval. We performed the calculation using all images except the PS1 $w$-band images.
 We converted each detection to its estimated $g$-band value, using the measured color of the flares (Methods section~\ref{sec:flare-emission-mechanism}). 
@@ -542,7 +554,7 @@ If \at\ ultimately arises from a jet powered by spindown or accretion, the ``eng
 
 The lack of prompt $\gamma$-ray emission associated with the \at\ suggests that the jet was not as relativistic as in a classical GRB. Our constraints from the optical-flare properties only require a mildly relativistic, not a fully relativistic, outflow.
 
-Given that the flares are likely nonthermal, there are several possible origins for the variable optical emission: it could arise from shocks, from magnetic reconnection events, or from turbulence in the jet; the flares themselves could also arise from geometry (jet precession, orbital motion in the case of a binary). If the emission is shock-powered, the variability timescale means it would have to arise from internal rather than external shocks, following similar arguments made for GRBs flares.
+Given that the flares are likely nonthermal, there are several possible origins for the variable optical emission: it could arise from shocks, from magnetic reconnection events, or from turbulence in the jet; the flares themselves could also arise from geometry (jet precession, orbital motion in the case of a binary). If the emission is shock-powered, the variability timescale means it would have to arise from internal rather than external shocks, following similar arguments made for GRBs flares (that external shocks cannot produce bursts with $\delta t\ll T$).
 We do not observe any strict periodicity to the optical flares, so it seems unlikely that they arise from purely orbital motion in a binary.
 It could take the jet some time to break out from the extended progenitor, which could be related to the timescale on which the flares began.
 However, it does seem odd to have such strong amplitude variations from a jet that is always on-axis.
