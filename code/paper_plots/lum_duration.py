@@ -605,7 +605,7 @@ def plot_panel(ax, zoom=False):
     ax2.tick_params(axis='both', labelsize=12)
     if zoom:
         ax2.set_ylabel(
-                r"Peak $\nu L_\nu$ (erg s$^{-1}$)", fontsize=14, rotation=270, 
+                r"Peak $\nu L_\nu$ (erg s$^{-1}$)", fontsize=11, rotation=270, 
                 labelpad=15.0)
 
     # Plot the AT2022tsd flares
@@ -627,15 +627,31 @@ def plot_panel(ax, zoom=False):
 
     # Plot blazar flare
     ax2.scatter(30, 1E46, marker='*', edgecolor='grey', facecolor='white')
+
+    # Plot AT2022cmc
+    zcmc = 1.1930
+    dm = Planck15.distmod(z=zcmc).value
+    Mpeak = 19.25-dm+2.5*np.log10(1+zcmc)
+    x = 0.31+0.89
+    ax.scatter(x,Mpeak,marker='o',s=20, zorder=500,c=vals.tde_col)
+
+    # Plot ASASSN-14ko 
+    #ax2.scatter(10, 1E43, marker='*', edgecolor='grey', facecolor='white')
+    
     if zoom==False:
         ax2.text(160, 2.8E46, 'S5 1803+784', fontsize=8, c='grey', ha='right')
         ax2.text(160, 1.5E46, 'Blazar Flare', fontsize=8, c='grey', ha='right')
+        ax.text(x/1.1,Mpeak*1.01,'AT2022cmc',c=vals.tde_col,
+                ha='left',va='bottom',fontsize=7)
+        #ax2.text(160, 2.8E46, 'ASASSN-14ko', fontsize=8, c='grey', ha='right')
+        #ax2.text(50, 1.5E43, 'Partial SMBH TDE?', fontsize=8, 
+        #         c='grey', ha='right')
 
     if zoom==False:
         # Plot afterglows
         plot_afterglows(ax)
         plot_AT2019pim(ax2)
-        ax.set_ylabel("$M_{g,\mathrm{peak}}$", fontsize=14)
+        ax.set_ylabel("$M_{g,\mathrm{peak}}$", fontsize=11)
 
     ax.set_xlim(7E-5,200)
     ax.set_xscale('log')
@@ -643,7 +659,7 @@ def plot_panel(ax, zoom=False):
         ax.set_xlim(2.5,40)
         ax.set_xticks([4,10,20,40])
         ax.set_xticklabels([4,10,20,40])
-    ax.set_xlabel(r"$t_{1/2, \mathrm{optical}}$ (rest-frame days)", fontsize=14)
+    ax.set_xlabel(r"$t_{1/2, \mathrm{optical}}$ (rest-frame days)", fontsize=11)
     ax.tick_params(axis='both', labelsize=12)
 
     if zoom:
@@ -662,6 +678,7 @@ def plot_panel(ax, zoom=False):
         ax.scatter(0, 0, marker='o', c=iacol, label='SN Ia')
         ax.scatter(0, 0, marker='D', c=cowcol, label='LFBOT')
         ax.scatter(0, 0, marker='s', c=llgrb_col, label='LLGRB-SN First Peak')
+        ax.scatter(0, 0, marker='o', c=vals.tde_col, label='TDE')
 
 
 
@@ -675,7 +692,7 @@ if __name__=="__main__":
 
     fig.legend(loc='upper center', fontsize=10, handletextpad=0.1,
           bbox_to_anchor=(0.5, 1.00),
-          ncol=6, fancybox=True)
+          ncol=7, fancybox=True, columnspacing=0.4)
 
     #plt.tight_layout()
     fig.subplots_adjust(wspace=0.4)
