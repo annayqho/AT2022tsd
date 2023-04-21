@@ -159,7 +159,7 @@ Within this volume, adopting an LFBOT volumetric rate of 0.01\% of the core-coll
 \caption{\textbf{\at\ falls in a similar region of optical and radio transient parameter space to the mysterious ``luminous fast blue optical transients'' (LFBOTs)\cite{Prentice2018,Perley2019,Ho2019,Margutti2019,Perley2021,Ho2020_Koala,Yao2022,Coppejans2020,Ho2022_AT2020xnd,Arcavi2016,Greiner2015,Pursiainen2018}.}
 \emph{Top:} \at\ was discovered as an optical transient that was faster (duration above half-maximum light $t_{1/2}$) and/or more luminous (peak absolute magnitude in $g$-band $M_{g}$) than core-collapse supernovae (CC SNe\cite{PerleyBTS,Ho2022_RET}), Type~Ia SNe\cite{PerleyBTS}), and superluminous SNe (SLSN\cite{PerleyBTS}). The light curve is not powered by radioactive decay; the nickel mass $M_\mathrm{Ni}$ would exceed\cite{Kasen2017} the ejecta mass $M_\mathrm{ej}$.
 The flares observed for months after the initial transient are the fastest observed extragalactic optical transients\cite{Kasliwal2017,Villar2017,Cowperthwaite2017,Drout2017,Ho2020_SN2020bvc,Nesci2021,Andreoni2022} with the exception of long-duration $\gamma$-ray burst (GRB) counterparts\cite{Racusin2008,Kann2010}.
-\emph{Bottom:} The radio emission from \at\ is more luminous, and has a higher peak frequency $\nu_p$ at a fixed time post-explosion $\Delta t$, than any other known extragalactic transient\cite{Ho2019,Dong2021}: CC SNe (Type~II and Type~Ibc), tidal disruption events (TDEs), and SNe associated with low-luminosity GRBs (LLGRB-SNe).
+\emph{Bottom:} The radio emission from \at\ is more luminous, and has a higher peak frequency $\nu_p$ at a fixed time post-explosion $\Delta t$, than any other known extragalactic transient\cite{Chevalier1998,Ho2019,Dong2021}: CC SNe (Type~II and Type~Ibc), tidal disruption events (TDEs), and SNe associated with low-luminosity GRBs (LLGRB-SNe). Lines of constant shock speed ($R/\Delta t$) are shown, as well as lines of constant mass-loss rate $\dot{M}$ (scaled to wind velocity $v$) in units of $10^{-4}\,M_\odot$\,yr$^{-1}/1000\,$km\,s$^{-1}$. The lines assume that the radio peak is due to synchrotron self-absorption\cite{Chevalier1998}.
 }
  \label{fig:transient-parameter-space}
 \end{figure*}
@@ -381,7 +381,10 @@ The flares observed for months after the initial transient are the fastest obser
  % For table captions
  
  % Figure 1, FBOT
+ \bibitem{PerleyBTS} Perley, D. A., et al. The Zwicky Transient Facility Bright Transient Survey. II. A Public Statistical Sample for Exploring Supernova Demographics. \emph{\apj}, \textbf{904}, 35 (2020). 
+ 
  \bibitem{Kasen2017} Kasen, D. Unusual Supernovae and Alternative Power Sources. \emph{Handbook of Supernovae}, \textbf 939 (2017). 
+ 
  
  % Figure 1, flares
  
@@ -426,6 +429,8 @@ The flares observed for months after the initial transient are the fastest obser
 \bibitem{Andreoni2022} Andreoni, I., et al. A very luminous jet from the disruption of a star by a massive black hole. \emph{\nat}, \textbf{612}, 430 (2022). 
 
 % Figure 1, radio
+ 
+ \bibitem{Chevalier1998} Chevalier, R. A. Synchrotron Self-Absorption in Radio Supernovae. \emph{\apj}, \textbf{499}, 810 (1998). 
  
   \bibitem{Dong2021} Dong, D. Z., et al. A transient radio source consistent with a merger-triggered core collapse supernova. \emph{Science}, \textbf{373}, 1125 (2021). 
   
@@ -639,9 +644,11 @@ Two other FBOTs had featureless spectra significantly after peak: PTF10iam\cite{
 The X-ray luminosity and fade rate of \at\ (Methods section~\ref{sec:swift}) is similar to that of long-duration $\gamma$-ray burst (GRB) afterglows ($10^{44}\,$erg\,s$^{-1}$; Figure~\ref{fig:opt-mm-xray-lc}). We fit the Swift/XRT and Chandra/ACIS detections of \at\ to a power law using the \texttt{curve\_fit} module in \texttt{scipy}, assuming a $t_0$ equal to the first ZTF detection. The best-fit power-law index (\ref{fig:xray-lc}) is $\alpha=-1.90\pm0.26$ where $L_X \propto t^{\alpha}$.
 Changing the $t_0$ value to the last ZTF non-detection gives $\alpha=-1.97\pm0.25$.
 The fade rate is consistent with the $t^{-5/3}$ power law expected for fallback accretion\cite{Phinney1989}, as well as the $t^{-2}$ power law expected for magnetar spindown.
-Binning the Chandra observations in time revealed significant variability, with flux variations of factors of a few on timescales of tens of minutes (\ref{fig:xray-lc}). Fast X-ray variability has been observed in the FBOTs AT2018cow\cite{RiveraSandoval2018,Margutti2019,Ho2019} and AT2022mrf\cite{Yao2022}, as well as in jetted TDEs\cite{Zauderer2011}.
+Binning the Chandra observations in time revealed significant variability, with flux variations of factors of a few on timescales of tens of minutes (\ref{fig:xray-lc}). Prolonged phases of rapid X-ray variability have been observed in FBOTs\cite{RiveraSandoval2018,Margutti2019,Ho2019,Yao2022} as well as in jetted TDEs\cite{Levan2011,Burrows2011,Cenko2012}.
 
-Unlike the vast majority of extragalactic transients, the radio emission from \at\ peaked at hundreds of GHz for months post-discovery (\ref{fig:radio}). To our knowledge, as shown in Figure~\ref{fig:mm-xray-lc}, the only published extragalactic transients with millimeter-wave (100\,GHz) light curves that peak weeks to months post-discovery are the FBOTs AT2018cow\cite{Ho2019} and AT2020xnd\cite{Ho2022,Bright2022}. 
+Unlike the vast majority of extragalactic transients, the spectral energy distribution (SED) of the radio emission from \at\ peaked at hundreds of GHz for months post-discovery (\ref{fig:radio}). To our knowledge, as shown in Figure~\ref{fig:opt-mm-xray-lc}, the only known extragalactic transients with similar behavior are the FBOTs AT2018cow\cite{Ho2019} and AT2020xnd\cite{Ho2022_AT2020xnd,Bright2022}.
+In addition, the slope of \at's radio SED is significantly shallower than the $f_\nu \propto \nu^{5/2}$ expected from synchrotron self-absorption\cite{Rybicki1986}; the value is closer to $f_\nu \propto \nu^{1}$. A similarly shallow radio SED was observed in AT2018cow\cite{Nayana2021}, and attributed to inhomogeneities in the emitting region or circumburst medium\cite{Nayana2021}.
+Similarly shallow radio SEDs are also observed in stellar-mass and supermassive black hole flaring systems, particularly X-ray binaries\cite{Fender??} and blazars\cite{??}
 
 In summary, among extragalactic transients, the multiwavelength properties of \at\ are similar to several different classes of transients thought to be powered by central engines. The rise time and peak luminosity of the optical light curve is similar to AT2018cow; the decline rate is similar to the GRB-associated SN\,2011kl. The featureless optical spectra are similar to AT2018cow and SN\,2011kl. The X-ray luminosity and decline rate is most similar to long-duration GRB afterglows. The radio SED is most similar to AT2018cow and AT2020xnd in that it peaks in the submillimeter bands.
 
@@ -1061,18 +1068,38 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \providecommand{\bibinfo}[2]{#2}
 \providecommand{\eprint}[2][]{\url{#2}}
 \makeatletter
-\addtocounter{\@listctr}{72}
+\addtocounter{\@listctr}{74}
 \makeatother
 
 % Custom ADS Format: \bibitem{%1H%Y} %5l %T. \emph{%j}, \textbf{%V}, %p (%Y). \n
 
- \bibitem{Finkbeiner1999} Finkbeiner, D. P., Davis, M., \& Schlegel, D. J. Extrapolation of Galactic Dust Emission at 100 Microns to Cosmic Microwave Background Radiation Frequencies Using FIRAS. \emph{\apj}, \textbf{524}, 867 (1999). 
+% Optical properties
 
-\bibitem{Phinney1989} Phinney, E. S. Manifestations of a Massive Black Hole in the Galactic Center. \emph{The Center of the Galaxy}, \textbf{136}, 543 (1989). 
+ \bibitem{Finkbeiner1999} Finkbeiner, D. P., Davis, M., \& Schlegel, D. J. Extrapolation of Galactic Dust Emission at 100 Microns to Cosmic Microwave Background Radiation Frequencies Using FIRAS. \emph{\apj}, \textbf{524}, 867 (1999). 
  
  \bibitem{Schlegel1998} Schlegel, D. J., Finkbeiner, D. P., \& Davis, M. Maps of Dust Infrared Emission for Use in Estimation of Reddening and Cosmic Microwave Background Radiation Foregrounds. \emph{\apj}, \textbf{500}, 525 (1998). 
 
  \bibitem{Schlafly2011} Schlafly, E. F., \& Finkbeiner, D. P. Measuring Reddening with Sloan Digital Sky Survey Stellar Spectra and Recalibrating SFD. \emph{\apj}, \textbf{737}, 103 (2011). 
+ 
+ % X-ray properties
+ 
+ \bibitem{Phinney1989} Phinney, E. S. Manifestations of a Massive Black Hole in the Galactic Center. \emph{The Center of the Galaxy}, \textbf{136}, 543 (1989). 
+ 
+ \bibitem{Levan2011} Levan, A. J., et al. An Extremely Luminous Panchromatic Outburst from the Nucleus of a Distant Galaxy. \emph{Science}, \textbf{333}, 199 (2011). 
+
+ \bibitem{Burrows2011} Burrows, D. N., et al. Relativistic jet activity from the tidal disruption of a star by a massive black hole. \emph{\nat}, \textbf{476}, 421 (2011). 
+
+\bibitem{Cenko2012} Cenko, S. B., et al. Swift J2058.4+0516: Discovery of a Possible Second Relativistic Tidal Disruption Flare?. \emph{\apj}, \textbf{753}, 77 (2012). 
+
+% Radio properties
+
+\bibitem{Rybicki1986} Rybicki, G. B., \& Lightman, A. P. Radiative Processes in Astrophysics. \emph{Radiative Processes in Astrophysics}, \textbf 400 (1986). 
+
+\bibitem{Nayana2021} Nayana, A. J., \& Chandra, P. uGMRT Observations of a Fast and Blue Optical Transient—AT 2018cow. \emph{\apjl}, \textbf{912}, L9 (2021). 
+
+
+ \bibitem{Longair2011} Longair, M. S. High Energy Astrophysics. \emph{High Energy Astrophysics}, \textbf (2011). 
+
 
 \bibitem{Bruch2021} Bruch, A. A comparative study of the strength of flickering in cataclysmic variables. \emph{\mnras}, \textbf{503}, 953 (2021). 
 
@@ -1081,8 +1108,6 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \bibitem{Perley2011} Perley, R. A., Chandler, C. J., Butler, B. J., \& Wrobel, J. M. The Expanded Very Large Array: A New Telescope for New Science. \emph{\apjl}, \textbf{739}, L1 (2011). 
 
 \bibitem{McMullin2007} McMullin, J. P., Waters, B., Schiebel, D., Young, W., \& Golap, K. CASA Architecture and Applications. \emph{Astronomical Data Analysis Software and Systems XVI}, \textbf{376}, 127 (2007). 
-
-\bibitem{PerleyBTS} Perley, D. A., et al. The Zwicky Transient Facility Bright Transient Survey. II. A Public Statistical Sample for Exploring Supernova Demographics. \emph{\apj}, \textbf{904}, 35 (2020). 
 
 \bibitem{FremlingBTS} Fremling, C., et al. The Zwicky Transient Facility Bright Transient Survey. I. Spectroscopic Classification and the Redshift Completeness of Local Galaxy Catalogs. \emph{\apj}, \textbf{895}, 32 (2020).
 
@@ -1176,6 +1201,21 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
  \label{fig:spec}
 \end{figure}
 
+\begin{figure}[!ht]
+ \centering
+\includegraphics[width=0.5\textwidth]{xray_fit.png}
+\includegraphics[width=1.0\textwidth]{xray_flares.png}
+  \caption{\textbf{0.3--10\,keV X-ray light curve of \at.} Top panel: The light curve is well described by a power law of $\alpha=-1.90\pm0.26$ where $f_\nu \propto t^{\alpha}$. Upper limits (3-$\sigma$) are shown with open circles. Other panels: The first few Chandra observations show significant variability. During the second-to-last Chandra observation, we detected a flare with LRIS ($i$-band data plotted) that had no obvious X-ray counterpart.}
+ \label{fig:xray-lc}
+\end{figure}
+
+\begin{figure}[!ht]
+ \centering
+\includegraphics[width=1.0\textwidth]{radio.png}
+  \caption{\textbf{Radio evolution of \at.} The left panel shows selected single-band radio light curves from the VLA (15--45\,GHz), NOEMA (77--207\,GHz) and ALMA ($350$\,GHz). The right panel show rest-frame SEDs from five time ranges, which are marked by vertical shaded regions in the left panel. Upper limits are shown with unfilled symbols, and are connected to detections with a dashed line.}
+ \label{fig:radio}
+\end{figure}
+
 \begin{figure}[ht]
  \centering
 \includegraphics[width=0.9\textwidth]{flares.png}
@@ -1203,21 +1243,6 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
     \caption{Lomb-Scargle periodogram of the first four epochs of Chandra X-ray observations. The horizontal line shows the power expected for a false-alarm peak (with false alarm probability 2.5\%) under the assumption that there is no periodicity present in the data. The observed peaks arise from the 500\,s sampling and aliases (marked with vertical dotted lines).}
     \label{fig:xray-periodogram}
 \end{figure*}
-
-\begin{figure}[!ht]
- \centering
-\includegraphics[width=1.0\textwidth]{radio.png}
-  \caption{\textbf{Radio evolution of \at.} The left panel shows selected single-band radio light curves from the VLA (15--45\,GHz), NOEMA (77--207\,GHz) and ALMA ($350$\,GHz). The right panel show rest-frame SEDs from five time ranges, which are marked by vertical shaded regions in the left panel. Upper limits are shown with unfilled symbols, and are connected to detections with a dashed line.}
- \label{fig:radio}
-\end{figure}
-
-\begin{figure}[!ht]
- \centering
-\includegraphics[width=0.5\textwidth]{xray_fit.png}
-\includegraphics[width=1.0\textwidth]{xray_flares.png}
-  \caption{\textbf{0.3--10\,keV X-ray light curve of \at.} Top panel: The light curve is well described by a power law of $\alpha=-1.90\pm0.26$ where $f_\nu \propto t^{\alpha}$. Upper limits (3-$\sigma$) are shown with open circles. Other panels: The first few Chandra observations show significant variability. During the second-to-last Chandra observation, we detected a flare with LRIS ($i$-band data plotted) that had no obvious X-ray counterpart.}
- \label{fig:xray-lc}
-\end{figure}
 
 % \begin{figure}[t]
 %  \centering
