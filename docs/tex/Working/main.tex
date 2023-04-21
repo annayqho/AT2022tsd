@@ -907,7 +907,7 @@ In each image, we also performed forced photometry on all GAIA-DR3 (REF) stars
 within 500" from the transient position.
 These sources were used for the photometric calibration.
 
-Since in many cases, we observed the transient location simultaneously with several LAST telescopes, in \ref{tab:last-photometry} we provide a 2\,min binning of the unsubtracted measurements. We did not detect any flares, and in Table~\ref{tab:last-maglim} we give the cumulative amount of minutes collected as a function of limiting magnitude.
+Since in many cases, we observed the transient location simultaneously with several LAST telescopes, in \ref{tab:last-photometry} we provide a 2\,min binning of the unsubtracted measurements. We did not detect any flares.
 
 %\ayqh{No image subtraction was performed. Asked Eran about this.}
 
@@ -1319,47 +1319,40 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
     \label{fig:xray-periodogram}
 \end{figure*}
 
-% \begin{figure}[t]
-%  \centering
-% \includegraphics[width=0.6\textwidth]{opt_lc_fit.png}
-%   \caption{\textbf{Power-law fit to the optical light curve of \at.} The best-fit temporal decay indices are in agreement between the $g$-band and $r$-band light curves, but significantly shallower than the shallowest value ($\alpha=-1.6$) permitted by the X-ray observations.}
-%  \label{fig:opt-lc-fit}
-% \end{figure}
-%
-%\begin{table}
-%\centering
-%\begin{tabular}{lllll}
-%\caption{Duty cycle of flares in \at, for different apparent-magnitude thresholds.} 
-%\label{tab:flare-stats}\\ 
-%\hline\hline
-%Threshold (AB Mag) & $N_\mathrm{exp}$\footnote{The number of exposures brighter than the magnitude threshold.} & $T_\mathrm{exp}$ (Minutes) & $T_\mathrm{on}$/$T_\mathrm{exp}$\footnote{The fraction of the exposure time with a flare detection (defined as 5-$\sigma$).} & Bounds \\
-%\hline
-%21.0 & 1271 & 1142 & 0.02 & [0.001, 0.1] \\
-%22.5 & 68 & 155 & 0.1 & [0.01, 0.6]  \\
-%24.0 & 13 & 65 & 0.5 & [0.03, 1] \\
-%\hline \hline
-%\end{tabular}
-%\end{center}
+\begin{table}
+\begin{center}
+\caption{Duty cycle of flares in \at, for different apparent-magnitude thresholds.}
+\label{tab:flare-stats}
+\begin{tabular}{ccccc} 
+\hline\hline
+Threshold (AB Mag) & $N_\mathrm{exp}$\footnote{The number of exposures brighter than the magnitude threshold.} & $T_\mathrm{exp}$ (Minutes) & $T_\mathrm{on}$/$T_\mathrm{exp}$\footnote{The fraction of the exposure time with a flare detection (defined as 5-$\sigma$).} & Bounds \\
+\hline
+21.0 & 1271 & 1142 & 0.02 & [0.001, 0.1] \\
+22.5 & 68 & 155 & 0.1 & [0.01, 0.6]  \\
+24.0 & 13 & 65 & 0.5 & [0.03, 1] \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
-%\begin{table} 
-%\centering
-%\begin{tabular}{lll}
-%\caption{Host-galaxy photometry for \at.} 
-%\label{tab:host-photometry}\\ 
-%\hline\hline
-%Survey & Filter & Brightness (AB mag) \\
-%\hline
-%PanSTARRS & $g$               &$ 21.321 \pm 0.102 $\\
-%PanSTARRS & $i$               &$ 20.668 \pm 0.051 $\\
-%PanSTARRS & $r$               &$ 20.589 \pm 0.069 $\\
-%PanSTARRS & $y$               &$ 20.140 \pm 0.095 $\\
-%PanSTARRS& $z$               &$ 20.873 \pm 0.360 $\\
-%\hline \hline
-%\end{tabular}
-%\end{center}
+\begin{table}
+\begin{center}
+\caption{Host-galaxy photometry for \at, not corrected for Milky Way extinction.}
+\label{tab:host-photometry}
+\begin{tabular}{ccc} 
+\hline\hline
+Survey & Filter & Brightness (AB mag) \\
+\hline
+PanSTARRS & $g$               &$ 21.321 \pm 0.102 $\\
+PanSTARRS & $i$               &$ 20.668 \pm 0.051 $\\
+PanSTARRS & $r$               &$ 20.589 \pm 0.069 $\\
+PanSTARRS & $y$               &$ 20.140 \pm 0.095 $\\
+PanSTARRS& $z$               &$ 20.873 \pm 0.360 $\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
-
-(not MW extinction corrected)
 
 \end{extended_data}
 
