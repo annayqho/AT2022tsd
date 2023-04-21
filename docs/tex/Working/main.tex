@@ -703,17 +703,80 @@ For each threshold, \ref{tab:flare-stats} gives the total number of exposures ab
 Finally, we searched for periodicity in the flare occurrence times. The longest continuously observed interval without a flare detection is three hours (\ref{fig:flare-collage}), while the shortest interval between detected flares is one day (between the NOT and NTT flares; \ref{fig:flare-collage}). We folded the optical light curve by periods between 3 hours and one day, in five-minute steps.
 We did not identify any clear period that aligned the flares.
 A period of 10.2 hours put the bright flares in two distinct phase intervals: the ULTRASPEC $r$-band, NOT, and PS1 flare at a phase of 0.1, and the remaining bright flares at a phase between 0.6 and 0.8 (a faint Keck flare did not fall into either of these intervals).  
-A period of 13.6 hours put all the flares between a phase of 0.1 and 0.6. 
+A period of 13.6 hours put all the flares between a phase of 0.1 and 0.6.
+
+\section{Search for Flares in other LFBOTs}
+\label{sec:flare-search}
+
+The discovery of flares in the aftermath of \at\ (Methods section~\ref{sec:flare-association}) raises the question of whether there could have been flares associated with other LFBOTs. 
+From 2018--2022, we discovered six transients with similar durations and peak luminosities in ZTF survey data. We performed forced photometry on ZTF images at the position of all six objects, and identified no significant flares. 
+However, their relatively high redshifts ($z=0.14$ for AT2020mrf\cite{Yao2022} to $z=0.342$ for AT2021ahuo) means that the nominal ZTF survey data cannot be used to rule out flaring with the duty cycle of \at.
+
+We also performed forced photometry at the position of the radio-loud transients AT2018cow\cite{Prentice2018} ($z=0.014$) and CSS161010\cite{Coppejans2020} ($z=0.033$). 
+AT2018cow was observed intensely by a variety of optical telescopes during the 80 days post-discovery\cite{Perley2019}. The 964 photometric points can be binned into 257 1-hr blocks. At the distance of AT2018cow, the threshold of 24.0\,mag for \at\ corresponds to a threshold of 17.4\,mag. We rule out flares this bright for all images. For 257 trials, a lack of detections gives an upper limit on the duty cycle of 1.4\%, lower than the 3\% bound for the equivalent threshold in \at. Therefore, we conclude that AT2018cow did not exhibit flaring behavior with the same duty cycle as \at.
+
+For CSS161010, we used the online ATLAS\cite{Tonry2018,Smith2020} forced photometry service\cite{Shingles2021} to identify 480 images within 600 days after the transient. There is no $\geq5$-$\sigma$ detection after the original transient. At the distance of CSS16010, the threshold for 24.0\,mag corresponds to 19.2\,mag. The number of images that are sufficiently sensitive, binned by hour, between 20 days and 100 days after the transient, is only 8. Therefore, we cannot exclude flaring with a duty cycle identical to that of \at.
 
 \section{Physical Origin of \at's Flares}
 \label{sec:at2022tsd-origin}
 
-The lowest frequency with detected variability is the optical band, so we use this to estimate the brightness temperature of the flares.
+In this section, we use the observational characteristics of the \at\ flares (Methods section~\ref{sec:flare-characteristics}) to set constraints on their physical origin.
+
+The lowest frequency with clear detected variability is the optical band, so we use this to estimate the brightness temperature of the flares.
 From the ULTRASPEC observations, the shortest timescale of variability we resolve is $(30\,\mathrm{s})/(1+z) = 24\,$s, setting a limit on the emission region size $dR$ of $dR<7\times10^{11}\,$cm, or $d\theta < 3.6 \times 10^{-5}\,\mu$as. Taking the intensity of the brightest ULTRASPEC flare detection (52\,$\mu$Jy) we find $T_B > \frac{I_\nu c^2}{2 k\nu^2} \approx 8\times10^{10}\,$K.
+This limiting blackbody temperature would result in very blue optical emission ($f_\nu\propto\nu^2$), yet all of the observed optical-flare colors are significantly redder. Therefore, the emission is more likely to be non-thermal. 
 
-The limiting blackbody temperature that would be inferred from the ULTRASPEC variability time would result in very blue optical emission ($f_\nu\propto\nu^2$), yet all of the observed optical-flare colors are significantly redder. Therefore, the emission is more likely to be non-thermal. 
+Optically thin synchrotron radiation is a possible candidate for the non-thermal flare emission. The flux density from a population of synchrotron-emitting electrons in a power-law energy distribution $N(E)dE = \kappa E^{-p} dE$, where $N(E)dE$ is the number density of electrons in the energy interval $E$ to $E+dE$, is\cite{Longair2011}
 
-\textbf{Maybe do this by comparison to the other flaring systems in your table, rather than trying to invent a mechanism from scratch. Say it could be an analog of any of these, and conclude which one is most likely.}
+\begin{equation}
+\label{eq:synchrotron-flux}
+J(\nu) = 2.344\times10^{-25} a(p) B^{(p+1)/2} \kappa \left( \frac{1.253\times10^{37}}{\nu} \right)^{(p-1)/2}\,\mathrm{W}\,\mathrm{m}^{-3}\,\mathrm{Hz}^{-1},
+\end{equation}
+
+\noindent where $B$ is the magnetic field strength and $\nu$ is the observed frequency. The optical depth to synchrotron self-absorption at a given frequency is $\tau_\nu = \chi_\nu R$ where $R$ is the line-of-sight path length and 
+
+\begin{equation}
+\label{eq:synchrotron-tau}
+\chi_\nu = 3.354\times10^{-9} \kappa B^{(p+2)/2} (3.54\times10^{18})^p b(p) \nu^{-(p+4)/2}\,\mathrm{m}^{-1},
+\end{equation}
+
+We assume $p=2.5$, which corresponds to\cite{Longair2011} $a(p)=0.359$ and $b(p)=0.244$. Adopting the observed peak flux density of the Keck/LRIS $u+I$ flare, and the inferred size from the variability timescale $R=10^{12}\,\mathrm{cm}$, we find that the frequency at which the optical depth is unity (the synchrotron self-absorption frequency $\nu_\mathrm{SSA}$) is
+
+\begin{equation}
+\nu_\mathrm{SSA} = (2\times10^{14}\,\mathrm{Hz}) \left(\frac{B}{\mathrm{G}} \right)^{0.14}.
+\end{equation}
+
+\noindent Therefore, given the observed characteristics of the \at\ flares, the inferred synchrotron self-absorption frequency is very close to the optical band, consistent with our observation of optically thin emission. If the flares are synchrotron emission, we can  
+estimate the equipartition energy $U_\mathrm{eq}$ and magnetic field strength $B_\mathrm{eq}$. The magnetic field strength is
+
+\begin{equation}
+B_\mathrm{eq} = \left( \frac{8\pi A g(\alpha) L}{V} \right)^{2/7}
+\end{equation}
+
+\noindent where $A=1.586\times10^{12}$ in cgs units, $g(\alpha)$ is a function of the spectral index $\alpha$ and frequency range for the power law, $L$ is the luminosity, and $V$ is the volume of the synchrotron-emitting electrons. Adopting $L=10^{43}\,$erg\,s$^{-1}$, a power-law index of $\alpha=-1.6$, a frequency range from $10^{13}$\,Hz to $10^{15}$\,Hz, and a radius of the synchrotron-emitting electron sphere of 1\,light-minute, we find $B_\mathrm{eq}\approx10^{4}\,\mathrm{G}$ and $U_\mathrm{eq}\approx10^{43}\,$erg. The Lorentz factor of the particles emitting at $10^{15}$\,Hz (the optical band) would be $\gamma_e\approx10^{6}$.
+
+Finally, we estimate the velocity of the flare-emitting outflow. Assuming that the kinetic energy of the outflow in \at\ is on the order of the observed optical flare luminosity, we have $L_\mathrm{opt} \approx 10^{44}\,$erg\,s$^{-1} \lesssim \dot{M}v^2$ where $\dot{M}$ and $v$ are the mass-loss rate and velocity of the outflow, respectively. In this case, the observed nonthermal emission must arise from a radius that is larger than the Thomson scattering photosphere $R_T$, defined as
+
+\begin{equation}
+    \tau_T = \sigma_T R_T n_e
+\end{equation}
+
+\noindent where 
+
+\begin{equation}
+    n_e = \frac{\dot{M}}{4\pi m_p R^2 v}.
+\end{equation}
+
+\noindent Solving for $R_T$, we find
+
+\begin{equation}
+    R_T = (1.2 \times 10^{11}\,\mathrm{cm}) (v/c)^{-3}.
+\end{equation}
+
+The inferred radius from the light-crossing time, based on the shortest observed variability timescale of 20\,s, is $R_\mathrm{lc} < 7\times10^{11}\,$cm. Requiring $R_T \leq R_\mathrm{lc}$, we find $v/c \gtrsim 0.6$. So, the outflow must be fast, but need not be fully relativistic.
+
+In addition, given that transients with light curves similar to \at\ (in terms of timescale and luminosity) are rare, occurring at $<0.1\%$ of the core-collapse supernova rate\cite{Ho2022_RET}, it seems unlikely that the outflow in \at\ is tightly collimated. 
+In the extreme case that all the ZTF LFBOTs produced similar outflows, and that \at\ was the only member of the class viewed on-axis so far, we estimate a beaming fraction of $f_b = 1/6 = 1-\cos{\theta}$, and find $\theta\approx30^{\circ}$ for the opening angle of the outflow. This estimate of the opening angle is consistent with the current (limited) radio limits on off-axis jets in such objects: the radio emission in AT2018cow (by far the most nearby event, with the most sensitive limits) cannot\cite{Margutti2019} rule out an off-axis jet with $\theta=30^{\circ}$ and energy $E_J<10^{51}\,$erg, which is also consistent with the lack of $\gamma$-ray detection (Methods section~\ref{sec:grbsearch}).
 
 \section{Origin of \at\ and its Flares}
 \label{sec:at2022tsd-origin}
@@ -753,38 +816,7 @@ In that case, off-axis jet can't be ruled out.
 Also, in AT2018cow several lines of evidence---a flash of polarized light, the shape of the optical spectroscopic features, the presence of several emission components with different velocities---supports a highly asymmetric configuration, such as a disk.
 This has been used to argue in favor of something more like a binary merger rather than a single-star collapse, which is also an old model for GRBs.
 
-\section{Properties of the Engine-driven Outflow}
-\label{sec:outflow-velocity}
 
-Powerful outflows driven by compact objects have been observed in long-duration gamma-ray bursts and tidal disruption events; in both cases they range from mildly to fully relativistic. The detection of luminous optical flares in \at\ provides a new line of evidence for such behavior. Assuming that the kinetic energy of the outflow in \at\ is on the order of the observed optical flare luminosity, we have $L_\mathrm{opt} \approx 10^{44}\,$erg\,s$^{-1} \lesssim \dot{M}v^2$. In this case, the observed nonthermal emission must arise from a radius that is larger than the Thomson scattering photosphere $R_T$, defined as
-
-\begin{equation}
-    \tau_T = \sigma_T R_T n_e
-\end{equation}
-
-\noindent where 
-
-\begin{equation}
-    n_e = \frac{\dot{M}}{4\pi m_p R^2 v}.
-\end{equation}
-
-\noindent Solving for $R_T$, we find
-
-\begin{equation}
-    R_T = (1.2 \times 10^{11}\,\mathrm{cm}) (v/c)^{-3}.
-\end{equation}
-
-The inferred radius from the light-crossing time, based on the shortest observed variability timescale of 20\,s, is $R_\mathrm{lc} < 7\times10^{11}\,$cm. Requiring $R_T \leq R_\mathrm{lc}$, we find $v/c \gtrsim 0.6$. So, the outflow must be fast, but may not be fully relativistic.
-
-In addition, given that transients with light curves similar to \at\ (in terms of timescale and luminosity) are rare, occurring at $<0.1\%$ of the core-collapse supernova rate\cite{Ho2022_RET}, it seems unlikely that the outflow in \at\ is tightly collimated. From 2018--2022, we discovered six transients with similar durations and peak luminosities in ZTF survey data. We performed forced photometry on ZTF images at the position of all six objects, and identified no significant flares. 
-However, their relatively high redshifts ($z=0.14$ for AT2020mrf\cite{Yao2022} to $z=0.342$ for AT2021ahuo) means that the nominal ZTF survey data cannot be used to rule out flaring with the duty cycle of \at.
-
-We also performed forced photometry at the position of the radio-loud transients AT2018cow\cite{Prentice2018} ($z=0.014$) and CSS161010\cite{Coppejans2020} ($z=0.033$). 
-AT2018cow was observed intensely by a variety of optical telescopes during the 80 days post-discovery\cite{Perley2019}. The 964 photometric points can be binned into 257 1-hr blocks. At the distance of AT2018cow, the threshold of 24.0\,mag for \at\ corresponds to a threshold of 17.4\,mag. We rule out flares this bright for all images. For 257 trials, a lack of detections gives an upper limit on the duty cycle of 1.4\%, lower than the 3\% bound for the equivalent threshold in \at. Therefore, we conclude that AT2018cow did not exhibit flaring behavior with the same duty cycle as \at.
-
-For CSS161010, we used the online ATLAS\cite{Tonry2018,Smith2020} forced photometry service\cite{Shingles2021} to identify 480 images within 600 days after the transient. There is no $\geq5$-$\sigma$ detection after the original transient. At the distance of CSS16010, the threshold for 24.0\,mag corresponds to 19.2\,mag. The number of images that are sufficiently sensitive, binned by hour, between 20 days and 100 days after the transient, is only 8. Therefore, we cannot exclude flaring with a duty cycle identical to that of \at.
-
-In the extreme case that all the ZTF LFBOTs produced similar outflows, and that \at\ was the only member of the class viewed on-axis so far, we estimate a beaming fraction of $f_b = 1/6 = 1-\cos{\theta}$, and find $\theta\approx30^{\circ}$ for the opening angle of the outflow. This estimate of the opening angle is consistent with the current (limited) radio limits on off-axis jets in such objects: the radio emission in AT2018cow (by far the most nearby event, with the most sensitive limits) cannot\cite{Margutti2019} rule out an off-axis jet with $\theta=30^{\circ}$ and energy $E_J<10^{51}\,$erg, which is also consistent with the lack of $\gamma$-ray detection (Methods section~\ref{sec:grbsearch}).
 
 \section{Limit on an Associated GRB}
 \label{sec:grbsearch}

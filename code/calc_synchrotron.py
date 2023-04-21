@@ -15,10 +15,10 @@ import numpy as np
 # obs_nu = 1.4E14
 
 # Input: our values
-R = 1E12
+R = 7E11
 L = 1E44
-alpha = -1.6
-nu1 = 1E15
+alpha = -0.9
+nu1 = 1E16
 nu2 = 1E12
 obs_nu = 1E15
 
@@ -43,9 +43,10 @@ print(U)
 # at optical frequencies, say 1E15 Hz?
 nu_g = (2.8 / B)*1E6 # nu_g = 2.8 MHz / Gauss; this value is in Hz
 gamma_e = np.sqrt((obs_nu/nu_g))
+print(gamma_e/1E6)
 particle_energy_erg = gamma_e * 9E-28 * (3E10)**2
 particle_energy_eV = particle_energy_erg*6.242E11
-print(particle_energy_eV/1E9)
+#print(particle_energy_eV/1E9)
 
 tcool = 6*np.pi*9E-28*3E10 / (6.65E-25 * B**2 * gamma_e)
-print(tcool) # cooling time in hours
+#print(tcool) # cooling time in hours
