@@ -621,7 +621,7 @@ The timescale and absolute magnitude of \at\ put it in the LFBOT region of optic
 \label{sec:multiwavelength-properties}
 
 We obtained several epochs of optical photometry of \at, and recovered two additional epochs in Pan-STARRS survey data.
-The first definitive flare was detected at $\Delta t_\mathrm{rest}=21$\,d, and we searched the observations of the original transient for short-timescale variability.
+The first definitive flare (the association between the flares and \at\ is discussed in Methods section~\ref{sec:flare-association}) was detected at $\Delta t_\mathrm{rest}=21$\,d, and we searched the observations of the original transient for short-timescale variability.
 We searched four 45\,s Pan-STARRS $i$-band detections (4-$\sigma$) obtained in a span of 47 minutes near peak light,
 four 45\,s Pan-STARRS $w$-band detections (4-$\sigma$) obtained two weeks later with a timespan of 59 minutes,
 a sequence of LT $r$-band exposures spanning 62 minutes obtained at $\Delta t_\mathrm{rest}=19\,$d,
@@ -648,17 +648,17 @@ Binning the Chandra observations in time revealed significant variability, with 
 
 Unlike the vast majority of extragalactic transients, the spectral energy distribution (SED) of the radio emission from \at\ peaked at hundreds of GHz for months post-discovery (\ref{fig:radio}). To our knowledge, as shown in Figure~\ref{fig:opt-mm-xray-lc}, the only known extragalactic transients with similar behavior are the FBOTs AT2018cow\cite{Ho2019} and AT2020xnd\cite{Ho2022_AT2020xnd,Bright2022}.
 In addition, the slope of \at's radio SED is significantly shallower than the $f_\nu \propto \nu^{5/2}$ expected from synchrotron self-absorption\cite{Rybicki1986}; the value is closer to $f_\nu \propto \nu^{1}$. A similarly shallow radio SED was observed in AT2018cow\cite{Nayana2021}, and attributed to inhomogeneities in the emitting region or circumburst medium\cite{Nayana2021}.
-The shallow spectrum, and the persistent peak in the sub-mm bands, makes the SED of \at\ more similar to X-ray binaries\cite{Fender2001,Tetarenko2021,Fender2023} and low-luminosity AGN such as Sagittarius A*\cite{Falcke1998} than to explosive transients such as supernovae. In the XRB and AGN contexts, the shallow mm-peaking SED is often interpreted as the superposition of self-absorbed components along a continuously powered relativistic jet\cite{Blandford1979}, which we discuss in more detail in Methods section~\ref{sec:at2022tsd-origin}.
+The shallow spectrum, and the persistent peak in the sub-mm bands, makes the SED of \at\ more similar to X-ray binaries\cite{Fender2001,Tetarenko2021,Fender2023} and low-luminosity AGN such as Sagittarius A*\cite{Falcke1998} than to explosive transients such as supernovae. The comparison is particularly appealing given the prevalence of fast-timescale flares in these systems (Table~\ref{tab:flaring-classes}). In the XRB and AGN contexts, the shallow mm-peaking SED is often interpreted as the superposition of self-absorbed components along a continuously powered relativistic jet\cite{Blandford1979}, which we discuss in more detail in Methods section~\ref{sec:at2022tsd-origin}.
 
 \section{Flare Association and Extragalactic Origin}
 \label{sec:flare-association}
 
-A hundred days after the initial transient event, we detected a minute-timescale flare at the position of \at\ across five three-minute Magellan/IMACS $g$-band images (Methods section~\ref{sec:magellan}). A retrospective search of ZTF, Pan-STARRS, and Keck/LRIS data (Methods section~\ref{sec:keck}) revealed additional flare detections. We searched for a history of detections at the position of \at\ using ZTF and Pan-STARRS, as might be expected if the flares arose from a foreground Galactic object. There were 190 images obtained by Pan-STARRS going back 3000 days prior to the first detection of \at, with no significant ($>1.4$-$\sigma$) excess\cite{Fulton2022}. There were 647 images obtained by ZTF going back 1600 days prior to the first detection of \at, with one image having a $>3$-$\sigma$ excess (3.2-$\sigma$). The probability of finding at least one image above 3-$\sigma$ in 647 images is 60\% (from binomial statistics), so this is not statistically significant. By contrast, of the 65 ZTF exposures obtained from JD 2459856.9 to JD 2459969.7, three showed $>3$-$\sigma$ excesses (7.4-$\sigma$, 10.1-$\sigma$, and 3.5-$\sigma$). The probability of finding at least three images above 3-$\sigma$ in 65 images is 0.01\%; the probability of finding at least two images above 5-$\sigma$ (our formal definition of a flare in Table~\ref{tab:optical-photometry}) is $1.7\times10^{-8}$. Therefore, it is highly likely that the initial FBOT, the multiwavelength (X-ray and radio) emission, and the flares are all associated. 
+A hundred days after the initial transient event (FBOT), we detected\cite{Ho2022_Flares} a minute-timescale flare at the position of \at\ across five three-minute Magellan/IMACS $g$-band images (Figure~\ref{fig:flare-images-lc}, Methods section~\ref{sec:magellan}). A retrospective search of ZTF, Pan-STARRS, and Keck/LRIS data (Methods section~\ref{sec:keck}) revealed additional flare detections. We searched for pre-FBOT flare detections using ZTF and Pan-STARRS, as might be expected if the flares arose from a foreground Galactic object. There were 190 images obtained by Pan-STARRS going back 3000 days prior to the FBOT, with no significant ($>1.4$-$\sigma$) flux excess\cite{Fulton2022}. There were 647 images obtained by ZTF going back 1600 days prior to the FBOT, with one image having a $>3$-$\sigma$ flux excess (3.2-$\sigma$). The probability of finding at least one image above 3-$\sigma$ in 647 images is 60\% (from binomial statistics), so this is not statistically significant. By contrast, of the 65 ZTF exposures obtained from JD 2459856.9 to JD 2459969.7 (all after the FBOT), three showed $>3$-$\sigma$ excesses (7.4-$\sigma$, 10.1-$\sigma$, and 3.5-$\sigma$). The probability of finding at least three images above 3-$\sigma$ in 65 images is 0.01\%; the probability of finding at least two images above 5-$\sigma$ (our formal definition of a flare in \ref{tab:optical-photometry}) is $1.7\times10^{-8}$. Therefore, it is highly likely that the FBOT, the multiwavelength (X-ray and radio) emission, and the flares are all associated. 
 
 %The best-fit position of the optical flare is \textcolor{red}{Dan to-do from Magellan}. This is consistent with the best-fit position of the radio emission (\textcolor{red}{Anna to-do}), the best-fit position of the X-ray emission (\textcolor{red}{Anna to-do}), and the best-fit position of the original optical transient (the LFBOT; \textcolor{red}{Anna to-do}). 
 
-Given the lack of clear spectroscopic features from the transient itself (Methods section~\ref{sec:discovery}), we considered whether the FBOT, multiwavelength emission, and flares could all arise from a foreground source, i.e., whether the coincidence with the $z=0.2564$ galaxy could be a chance alignment. 
-We note that the Galactic latitude of \at\ is 39.2\,deg, and that there is no counterpart recorded in SIMBAD within 30$^{\prime\prime}$. From our imaging sequence, we estimate that any foreground counterpart would have to be $g \gtrsim 24\,$mag. We considered two classes of events that have optical light curves with similar timescales (\ref{fig:opt-lc-comparison}): classical novae and dwarf novae.
+Given the lack of clear spectroscopic features from the transient itself (Methods section~\ref{sec:multiwavelength-properties}), we considered whether the FBOT, multiwavelength emission, and flares could all arise from a foreground source, i.e., whether the proximity to a $z=0.2564$ galaxy could be a chance alignment. 
+We note that the Galactic latitude of \at\ is 39.2\,deg, and that there is no counterpart recorded in SIMBAD within 30$^{\prime\prime}$. From our imaging sequence, we estimate that any foreground counterpart would have to be $g \gtrsim 24\,$mag. We considered two classes of events that have optical light curves with similar timescales: classical novae and dwarf novae.
 
 Classical novae can produce fast optical light curves and multiwavelength emission\cite{Chomiuk2021}. However, we find a classical nova unlikely for several reasons: the peak absolute magnitude of novae ($-5\,$mag to $-10\,$mag\cite{Chomiuk2021}) implies a distance of 1--10\,Mpc for \at, yet there is no galaxy at or near this position; novae typically show prominent spectroscopic features of H$\alpha$ and other species after maximum optical light\cite{Chomiuk2021}, and the LRIS spectra of \at\ show no such features at $z\approx0$ (\ref{fig:spec}); and the optical to X-ray luminosity ratio of novae is typically $L_\mathrm{opt}/L_X=10^{5}$--$10^{6}$ (for $>1\,$keV X-rays, which typically become detectable one month post-eruption\cite{Chomiuk2021}) whereas in \at\ we observe $L_\mathrm{opt}/L_X\lesssim1$. 
 
@@ -1105,14 +1105,37 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 
  \bibitem{Blandford1979} Blandford, R. D., \& Königl, A. Relativistic jets as compact radio sources.. \emph{\apj}, \textbf{232}, 34 (1979). 
 
-% 
+% Flare discovery and association, rule out CVs
 
- \bibitem{Longair2011} Longair, M. S. High Energy Astrophysics. \emph{High Energy Astrophysics}, \textbf (2011). 
+\bibitem{Ho2022_Flares} Ho, A. Y. Q., et al. Discovery of Minute-timescale Optical Flares with Supernova-like Luminosities at the Position of the Luminous Fast Blue Optical Transient AT2022tsd (the "Tasmanian Devil"). \emph{Transient Name Server AstroNote}, \textbf{267}, 1 (2022). 
 
+\bibitem{Fulton2022} Fulton, M., et al. Pan-STARRS observations of AT2022tsd. \emph{Transient Name Server AstroNote}, \textbf{206}, 1 (2022). 
+
+\bibitem{Chomiuk2021} Chomiuk, L., Metzger, B. D., \& Shen, K. J. New Insights into Classical Novae. \emph{\araa}, \textbf{59}, 391 (2021). 
+
+\bibitem{Szkody2021} Szkody, P., et al. Cataclysmic Variables in the Second Year of the Zwicky Transient Facility. \emph{\aj}, \textbf{162}, 94 (2021). 
+
+\bibitem{Polzin2022} Polzin, A., et al. The Luminosity Phase Space of Galactic and Extragalactic X-ray Transients Out to Intermediate Redshifts. \emph{arXiv e-prints}, \textbf arXiv:2211.01232 (2022). 
+
+\bibitem{Coppejans2020_CV} Coppejans, D. L., \& Knigge, C. The case for jets in cataclysmic variables. \emph{\nar}, \textbf{89}, 101540 (2020). 
+
+\bibitem{Morales-Rueda2002} Morales-Rueda, L., \& Marsh, T. R. Spectral atlas of dwarf novae in outburst. \emph{\mnras}, \textbf{332}, 814 (2002). 
+
+\bibitem{Han2020} Han, Z., et al. Spectroscopic properties of the dwarf nova-type cataclysmic variables observed by LAMOST. \emph{\pasj}, \textbf{72}, 76 (2020). 
+
+\bibitem{Fertig2011} Fertig, D., Mukai, K., Nelson, T., \& Cannizzo, J. K. The Fall and the Rise of X-Rays from Dwarf Novae in Outburst: RXTE Observations of VW Hydri and WW Ceti. \emph{\pasp}, \textbf{123}, 1054 (2011). 
 
 \bibitem{Bruch2021} Bruch, A. A comparative study of the strength of flickering in cataclysmic variables. \emph{\mnras}, \textbf{503}, 953 (2021). 
 
-\bibitem{Szkody2021} Szkody, P., et al. Cataclysmic Variables in the Second Year of the Zwicky Transient Facility. \emph{\aj}, \textbf{162}, 94 (2021). 
+\bibitem{Ilbert2008} Ilbert, O., et al. Photometric Redshifts and Stellar Mass Assembly in the 2-deg$^2$ COSMOS Field. \emph{Panoramic Views of Galaxy Formation and Evolution}, \textbf{399}, 169 (2008). 
+
+% Flare observational characteristics
+
+\bibitem{Lomb1976} Lomb, N. R. Least-Squares Frequency Analysis of Unequally Spaced Data. \emph{\apss}, \textbf{39}, 447 (1976). 
+
+\bibitem{Scargle1982} Scargle, J. D. Studies in astronomical time series analysis. II. Statistical aspects of spectral analysis of unevenly spaced data.. \emph{\apj}, \textbf{263}, 835 (1982). 
+
+ \bibitem{Longair2011} Longair, M. S. High Energy Astrophysics. \emph{High Energy Astrophysics}, \textbf (2011). 
 
 \bibitem{Perley2011} Perley, R. A., Chandler, C. J., Butler, B. J., \& Wrobel, J. M. The Expanded Very Large Array: A New Telescope for New Science. \emph{\apjl}, \textbf{739}, L1 (2011). 
 
@@ -1139,9 +1162,6 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \bibitem{Roming2005} Roming, P. W. A., et al. The Swift Ultra-Violet/Optical Telescope. \emph{\ssr}, \textbf{120}, 95 (2005).
 
 \bibitem{GILDAS} Gildas Team GILDAS: Grenoble Image and Line Data Analysis Software. \emph{Astrophysics Source Code Library}, \textbf ascl:1305.010 (2013). 
-
-\bibitem{Fulton2022} Fulton, M., et al. Pan-STARRS observations of AT2022tsd. \emph{Transient Name Server AstroNote}, \textbf{206}, 1 (2022). 
-
 \bibitem{Willingale2013} Willingale, R., Starling, R. L. C., Beardmore, A. P., Tanvir, N. R., \& O'Brien, P. T. Calibration of X-ray absorption in our Galaxy. \emph{\mnras}, \textbf{431}, 394 (2013). 
 
 \bibitem{Evans2007} Evans, P. A., et al. An online repository of Swift/XRT light curves of $\gamma$-ray bursts. \emph{\aap}, \textbf{469}, 379 (2007). 
@@ -1167,22 +1187,6 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \bibitem{Ofek2014} Ofek, E. O. MAAT: MATLAB Astronomy and Astrophysics Toolbox. \emph{Astrophysics Source Code Library}, \textbf ascl:1407.005 (2014). 
 
 \bibitem{Ofek2019} Ofek, E. O. A Code for Robust Astrometric Solution of Astronomical Images. \emph{\pasp}, \textbf{131}, 054504 (2019). 
-
-\bibitem{Chomiuk2021} Chomiuk, L., Metzger, B. D., \& Shen, K. J. New Insights into Classical Novae. \emph{\araa}, \textbf{59}, 391 (2021). 
-
-\bibitem{Polzin2022} Polzin, A., et al. The Luminosity Phase Space of Galactic and Extragalactic X-ray Transients Out to Intermediate Redshifts. \emph{arXiv e-prints}, \textbf arXiv:2211.01232 (2022). 
-
-\bibitem{Coppejans2020_CV} Coppejans, D. L., \& Knigge, C. The case for jets in cataclysmic variables. \emph{\nar}, \textbf{89}, 101540 (2020). 
-
-\bibitem{Morales-Rueda2002} Morales-Rueda, L., \& Marsh, T. R. Spectral atlas of dwarf novae in outburst. \emph{\mnras}, \textbf{332}, 814 (2002). 
-
-\bibitem{Han2020} Han, Z., et al. Spectroscopic properties of the dwarf nova-type cataclysmic variables observed by LAMOST. \emph{\pasj}, \textbf{72}, 76 (2020). 
-
-\bibitem{Fertig2011} Fertig, D., Mukai, K., Nelson, T., \& Cannizzo, J. K. The Fall and the Rise of X-Rays from Dwarf Novae in Outburst: RXTE Observations of VW Hydri and WW Ceti. \emph{\pasp}, \textbf{123}, 1054 (2011). 
-
-\bibitem{Lomb1976} Lomb, N. R. Least-Squares Frequency Analysis of Unequally Spaced Data. \emph{\apss}, \textbf{39}, 447 (1976). 
-
-\bibitem{Scargle1982} Scargle, J. D. Studies in astronomical time series analysis. II. Statistical aspects of spectral analysis of unevenly spaced data.. \emph{\apj}, \textbf{263}, 835 (1982). 
 
 
 \end{thebibliography}
@@ -1230,13 +1234,6 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \includegraphics[width=0.9\textwidth]{flares.png}
   \caption{\textbf{Collage of \at\ flares.} The main panel shows the two spectra obtained with Keck/LRIS. The top panels show zoom-ins of identified narrow host-galaxy emission lines, which were used to measure the best-fit redshift of $z=0.2564\pm0.0001$. The bottom panels show zoom-ins of expected regions for $z=0$ emission lines, as would be expected from a foreground Galactic transient. Line identifications are marked.}
  \label{fig:flare-collage}
-\end{figure}
-
-\begin{figure}[ht]
- \centering
-\includegraphics[width=1.0\textwidth]{compare_opt_lc.png}
-  \caption{\textbf{Comparison between the light curve of \at\ and other classes of transients:} extragalactic transients (left), dwarf nova outbursts (middle), and classical novae (right). For extragalactic transients, we include FBOTs AT2018cow\cite{Perley2019} and AT2020xnd\cite{Perley2021}; the unusual transient SN\,2011kl accompanying the ultra-long duration GRB\,111209A; and SN\,1998bw, the supernova accompanying the long-duration GRB\,980425. The dwarf nova and classical nova light curves are from the ZTF Bright Transient Survey\cite{Perley2020}.}
- \label{fig:opt-lc-comparison}
 \end{figure}
 
 \begin{figure*}[ht]
