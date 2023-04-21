@@ -145,7 +145,7 @@ The lack of detected flares in AT2018cow could be due to viewing angle: AT2018co
 If this association is correct, high-cadence follow-up optical observations of future FBOTs will reveal the beaming angle of their outflows.
 
 Regardless of their physical origin, the flares in the aftermath of \at\ are a new phenomenon in the minute-timescale optical sky, which is only just beginning to be explored by wide-field optical surveys\cite{Andreoni2020,Richmond2020,Corbett2023}.
-The Transiting Exoplanet Survey Satellite (TESS\cite{Ricker2015}) and the Argus Array\cite{Law2022} are ongoing and planned wide-field surveys, respectively, with sufficiently fast cadences to detect \at-like flares. Both surveys reach a limiting magnitude of $\approx19.5$\,mag per frame, and could therefore detect a flare more luminous than $-21$\,mag ($-20$\,mag) out to $z=0.24$ ($z=0.16$).
+The Transiting Exoplanet Survey Satellite (TESS\cite{Ricker2015}) and the Argus Array\cite{Law2022} are ongoing and planned wide-field surveys, respectively, with sufficiently fast cadences to resolve \at-like flares. Both surveys reach a limiting magnitude of $\approx19.5$\,mag per frame, and could therefore detect a flare more luminous than $-21$\,mag ($-20$\,mag) out to $z=0.24$ ($z=0.16$).
 Within this volume, adopting an LFBOT volumetric rate of 0.01\% of the core-collapse supernova rate\cite{Ho2022_RET} and assuming that 10\% of LFBOTs produce flares, we expect 6 (1) flaring LFBOTs to occur, for a range of 0.06--0.3\,yr$^{-1}$ in the TESS field of view and a range of 0.2--1\,yr$^{-1}$ in the Argus field of view. However, as each LFBOT could produce ten or even a hundred flares over a timescale of a hundred days, the number of detected flares by each facility could be 1--2 orders of magnitude higher.
 
 \newpage
@@ -617,6 +617,13 @@ The result was $z=0.2564\pm0.0001$.
 Assuming the transient occurred in the galaxy, the implied peak absolute magnitude was $M_{\mathrm{peak}}=-20.64\pm0.13$ (at a rest wavelength of 3800\AA), accounting for Milky Way extinction ($E_{B-V}=A_V/R_V=0.27$ where $R_V=3.1$)\cite{Finkbeiner1999,Schlegel1998,Schlafly2011}.
 The timescale and absolute magnitude of \at\ put it in the LFBOT region of optical transient parameter space (Figure~\ref{fig:transient-parameter-space}), and the lack of spectroscopic features argued against a traditional supernova origin (Methods section~\ref{sec:multiwavelength-properties}). Due to the photometric and spectroscopic properties, we triggered additional optical observations as well as X-ray, decimeter, and submillimeter wavelength observations.
 
+\section{Limit on an Associated GRB}
+\label{sec:grbsearch}
+
+We searched for a GRB counterpart in the 1.8\,d between the last ZTF non-detection (4 Sept; JD 2459826.9464) and the first ZTF detection of \at. We did not identify any burst consistent with the time and position of \at\ in the GCN archive or the Fermi burst catalog. Konus-Wind was taking data throughout this interval, but detected no events consistent with the \at\ position. We adopt a fluence and flux threshold of $10^{-6}\,$erg\,cm$^{-2}$ and $3\times10^{-7}\,$erg\,cm$^{-2}$\,s$^{-1}$, respectively\cite{Tsvetkova2017},
+giving upper limits of $E_\mathrm{\gamma,iso}<2\times10^{50}\,$erg and $L_{\gamma,\mathrm{iso}}<6\times10^{49}\,$erg\,s$^{-1}$.
+These limits rule out an on-axis classical long-duration GRB coincident with the initial FBOT, but not an off-axis or low-luminosity GRB\cite{Cano2017}.
+
 \section{Multiwavelength Properties of \at\ Compared to Other Extragalactic Transients}
 \label{sec:multiwavelength-properties}
 
@@ -718,7 +725,7 @@ AT2018cow was observed intensely by a variety of optical telescopes during the 8
 For CSS161010, we used the online ATLAS\cite{Tonry2018,Smith2020} forced photometry service\cite{Shingles2021} to identify 480 images within 600 days after the transient. There is no $\geq5$-$\sigma$ detection after the original transient. At the distance of CSS16010, the threshold for 24.0\,mag corresponds to 19.2\,mag. The number of images that are sufficiently sensitive, binned by hour, between 20 days and 100 days after the transient, is only 8. Therefore, we cannot exclude flaring with a duty cycle identical to that of \at.
 
 \section{Physical Origin of \at's Flares}
-\label{sec:at2022tsd-origin}
+\label{sec:flare-origin}
 
 In this section, we use the observational characteristics of the \at\ flares (Methods section~\ref{sec:flare-characteristics}) to set constraints on their physical origin.
 
@@ -775,55 +782,34 @@ Finally, we estimate the velocity of the flare-emitting outflow. Assuming that t
 
 The inferred radius from the light-crossing time, based on the shortest observed variability timescale of 20\,s, is $R_\mathrm{lc} < 7\times10^{11}\,$cm. Requiring $R_T \leq R_\mathrm{lc}$, we find $v/c \gtrsim 0.6$. So, the outflow must be fast, but need not be fully relativistic.
 
-In addition, given that transients with light curves similar to \at\ (in terms of timescale and luminosity) are rare, occurring at $<0.1\%$ of the core-collapse supernova rate\cite{Ho2022_RET}, it seems unlikely that the outflow in \at\ is tightly collimated. 
-In the extreme case that all the ZTF LFBOTs produced similar outflows, and that \at\ was the only member of the class viewed on-axis so far, we estimate a beaming fraction of $f_b = 1/6 = 1-\cos{\theta}$, and find $\theta\approx30^{\circ}$ for the opening angle of the outflow. This estimate of the opening angle is consistent with the current (limited) radio limits on off-axis jets in such objects: the radio emission in AT2018cow (by far the most nearby event, with the most sensitive limits) cannot\cite{Margutti2019} rule out an off-axis jet with $\theta=30^{\circ}$ and energy $E_J<10^{51}\,$erg, which is also consistent with the lack of $\gamma$-ray detection (Methods section~\ref{sec:grbsearch}).
+Given that LFBOTs with light curves similar to \at\ are rare, occurring at $<0.1\%$ of the core-collapse supernova rate\cite{Ho2022_RET}, it seems unlikely that the outflow in \at\ is tightly collimated. 
+In the extreme case that all the ZTF LFBOTs produced similar outflows, and that \at\ was the only member of the class viewed on-axis so far (although flares cannot be ruled out for all but one of the previously discovered LFBOTs; Methods section~\ref{sec:flare-search}), we estimate a beaming fraction of $f_b = 1/6 = 1-\cos{\theta}$, and find $\theta\approx30^{\circ}$ for the opening angle of the outflow. This estimate of the opening angle is consistent with the current (limited) radio limits on off-axis jets in such objects: the radio emission in AT2018cow (by far the most nearby event, with the most sensitive limits) cannot\cite{Margutti2019} rule out an off-axis jet with $\theta=30^{\circ}$ and energy $E_J<10^{51}\,$erg.%, which is also consistent with the lack of $\gamma$-ray detection (Methods section~\ref{sec:grbsearch}).
+
+\section{Host Galaxy of \at}
+\label{sec:hostgalaxy}
+
+To derive the properties of the host galaxy of \at, we retrieved science-ready coadded images from the Pan-STARRS DR1\cite{Chambers2016}. Following procedures in the literature\cite{Schulze2021}, we used the software package LAMBDAR\cite{Wright2016}  (Lambda Adaptive Multi-Band Deblending Algorithm in R) to measure the brightness of the host galaxy. All measurements are summarized in \ref{tab:host-photometry}. The spectral energy distribution was modeled with the software package \texttt{Prospector}\footnote{\href{https://github.com/bd-j/prospector}{https://github.com/bd-j/prospector}} version 0.3 \cite{Johnson2021}. We adopted a linear-exponential star-formation history, an initial mass function\cite{Chabrier2003}, an attenuation model\cite{Calzetti2000}, and a model\cite{Byler2017} for the ionized gas contribution. 
+The best-fit parameters are a stellar mass of $\log(M/M_\odot)=9.31^{+0.24}_{-0.36}$, and a star-formation rate of $3.34^{+4.60}_{-1.34}\,M_\odot\,$yr$^{-1}$.
 
 \section{Origin of \at\ and its Flares}
 \label{sec:at2022tsd-origin}
 
-With some basic considerations, we can set constraints on the physical origin of \at.
-Considering the location of \at\ ($\approx10\,$kpc from the center of a dwarf starforming galaxy),
-the luminosity of the X-ray emission and optical flares ($10^{44}\,$erg\,s$^{-1}$) is super-Eddington for a compact object of any reasonable mass: $L=10^{6}\,L_\mathrm{Edd}\,(M/M_\odot)$.
-If \at\ involves a stellar-mass ($M<100\,M_\odot$) compact object, then such a highly super-Eddington luminosity likely involves a jet, powered by rotational energy (in the case of a neutron star) or accretion (in the case of a black hole).
-Another argument in favor of a jet is the energy. 
-SGR giant flares are thought to be magnetospheric in origin; however, in \at, the total radiated energy in X-rays alone exceeds $10^{50}\,$erg, while the energy in each flare is $\approx10^{47}\,$erg. Explaining this energy from the magnetic energy budget of a magnetar would be challenging: $U_B = (2\times10^{49}\,$erg)$(B/10^{16}\,\mathrm{G})^3 (R/10\,\mathrm{km})^3$.
+The fast timescale of the LFBOT, the luminous and variable X-ray emission, the shallow radio SED peaking in the sub-mm bands, and the characteristics of the optical flares (Methods section~\ref{sec:multiwavelength-properties}, Methods section~\ref{sec:flare-origin}) all support the idea that \at\ involves a near-relativistic outflow powered by a compact object for months. In this section we discuss the implications for the physical origin of \at\ and other LFBOTs. The location of \at\ $\approx10\,$kpc from the center of a dwarf starforming galaxy (Methods section~\ref{sec:hostgalaxy}), and the fast timescale of the LFBOT, strongly disfavor a supermassive black hole as the compact object. So, we consider stellar- and intermediate-mass black hole engines, both of which have been proposed to explain LFBOTs\cite{Perley2019,Margutti2019,Metzger2022,Chen2023}. 
 
-If \at\ ultimately arises from a jet powered by spindown or accretion, the ``engine'' must be long-lived: for 100 days, \at\ produced optical flares and the X-rays decayed smoothly as $t^{-2}$. A very similar timescale was required for the TDE candidate J1644+57, which was also argued to be a possible massive-star collapse event: a GRB with much longer duration and lower power. In that case, it was found that for black-hole accretion, a highly extended progenitor (red supergiant) would be required to explain the long duration. A similar argument would hold for \at. 
+The first possibility we consider is that \at\ is powered by a stellar-mass compact object. LFBOTs have been argued to arise from failed supernovae\cite{Perley2019,Margutti2019} and the merger of a compact object with a star\cite{Metzger2022}. In these scenarios, there could be three possible energy sources: magnetospheric activity, rotational spindown (for a neutron star), or accretion (for a black hole). We strongly disfavor a magnetospheric energy origin: the total radiated energy in X-rays alone exceeds $10^{50}\,$erg, while the energy in each flare is $\approx10^{47}\,$erg, and the magnetic energy budget of a magnetar would be challenging: $U_B = (2\times10^{49}\,$erg)$(B/10^{16}\,\mathrm{G})^3 (R/10\,\mathrm{km})^3$. However, both rotation or accretion could be possible, very similar to what was argued to explain the TDE candidate J1644+57 as a massive-star collapse event\cite{Quataert2012}. 
 
-The lack of prompt $\gamma$-ray emission associated with the \at\ suggests that the jet was not as relativistic as in a classical GRB. Our constraints from the optical-flare properties only require a mildly relativistic, not a fully relativistic, outflow.
+For a stellar-mass compact object, the luminosity of the X-ray emission and optical flares ($10^{44}\,$erg\,s$^{-1}$) is highly super-Eddington: $L=10^{6}\,L_\mathrm{Edd}\,(M/M_\odot)$. Such a highly super-Eddington luminosity is compatible with our inference of a near-relativistic outflow, or jet. As in J1644+57, the jet would have to be powered for 100 days, which means that for a core collapse followed by black-hole accretion scenario, the progenitor would have to be extended (a red supergiant\cite{Quataert2012}). Therefore, the failed explosion of a rapidly rotating red supergiant is one plausible progenitor. The prolonged high accretion rate would also be compatible with the merger and tidal disruption scenario\cite{Metzger2022}.
 
-Given that the flares are likely nonthermal, there are several possible origins for the variable optical emission: it could arise from shocks, from magnetic reconnection events, or from turbulence in the jet; the flares themselves could also arise from geometry (jet precession, orbital motion in the case of a binary). If the emission is shock-powered, the variability timescale means it would have to arise from internal rather than external shocks, following similar arguments made for GRBs flares (that external shocks cannot produce bursts with $\delta t\ll T$).
-We do not observe any strict periodicity to the optical flares, so it seems unlikely that they arise from purely orbital motion in a binary.
-It could take the jet some time to break out from the extended progenitor, which could be related to the timescale on which the flares began.
-However, it does seem odd to have such strong amplitude variations from a jet that is always on-axis.
-
-Another constraint is that the timescale between flares is presumably not set by any process occurring close to the compact object. For Sgr A*, flares are thought to be produced by variability close to the black hole, from the rapid dissipation of magnetic energy. The time between flares is $10^{3}$--$10^{4}\times$ the light-crossing time $t_\mathrm{cross}$, which is $t_\mathrm{cross}=\frac{2GM}{c^3}=10\,\mathrm{s}$ for a $10^6\,M_\odot$ black hole.
+A challenge for the stellar-mass compact object scenario is the minute- to hour-timescale of the flares. By analogy to known flaring systems (Table~\ref{tab:flaring-classes}), possible flare mechanisms are shocks\footnote{If the emission is shock-powered, the variability timescale means it would have to arise from internal rather than external shocks: external shocks cannot\cite{Kumar2015} produce bursts with $\delta t\ll T$).
+}, magnetic reconnection events, or turbulence in the jet; the flares themselves could also arise from geometry (jet precession, orbital motion in the case of a binary). For most of these physical mechanisms, the flare duration should scale with the black-hole mass, and the duration should be related to the light-crossing time of the black hole. 
+For example, for Sagittarius A* the time between flares is $10^{3}$--$10^{4}\times$ the light-crossing time $t_\mathrm{cross}$, which is $t_\mathrm{cross}=\frac{2GM}{c^3}=10\,\mathrm{s}$ for a $10^6\,M_\odot$ black hole.
 So, a supermassive black hole can have time intervals as long as a day; scaling this down to 1--$10^2\,M_\odot$ would give 1--10\,sec as the time between flares, which is clearly far too short.
-For this process to work, an intermediate-mass black hole would be required. 
+To explain the long flare durations, the source of the variability would have to be far from the compact object, likely in the outer regions of an accretion disk\cite{Metzger2022}. This could also be a reason to favor an accretion source for the energy, rather than rotation.
 
-Another possible explanation for the time between flares is jet precession. Changes in jet orientation on timescales of minutes to hours have bene inferred for the stellar-mass black hole binary V404 Cygni; in that case, precession is due to a misalignment between the spin of the black hole and the orbital plane of the binary. 
+Another solution to the flare duration challenge is to invoke an intermediate-mass black hole as the central engine. An intermediate-mass black hole TDE was found to be consistent with the FBOT observed in AT2018cow\cite{Kuin2019,Perley2019}, and an accretion disk around an intermediate-mass black hole was found to be a more natural explanation for the long-lived UV transient than a stellar-mass black hole\cite{Chen2023}. The variable X-ray light curve decaying as $t^{-2}$ is similar to what has been observed in relativistic SMBH TDEs. However, the IMBH picture for AT2018cow is challenged\cite{Metzger2022} by the presence of extended dense circumburst matter\cite{Ho2019,Nayana2021}, and the occurrence of LFBOTs in host-galaxy environments that resemble other engine-powered massive-star explosions such as GRBs and superluminous supernovae\cite{Lyman2020}. 
 
-Following the derivation for GRS 1915+105, assuming that these are synchrotron-emitting blobs, adopting a power-law spectrum of $\nu^{-1.5}$ from $10^{13}$\,Hz to $10^{15}\,$Hz, and assuming a radius of the synchrotron-emitting electron sphere of 1 light-minute, we get a magnetic field strength of $B_\mathrm{eq}=10^{4}\,$G and minimum energy of $U_\mathrm{eq}=10^{44}\,$erg. 
-The Lorentz factor of the emitting particles would be $\gamma_e=10^{3}$, and their synchrotron cooling time would be extremely fast (fraction of a second). Therefore, the decay mechanism would have to be adiabatic expansion rather than synchrotron cooling.
-
-
-In conclusion, we find that the properties of \at\ are consistent with being a very long-duration GRB analog, as has been argued for J1644+57 and ultra-long duration GRBs. 
-Spindown or accretion of the remnant of an extended massive-star progenitor such as a red supergiant could drive an outflow or jet with a wider opening angle and larger Lorentz factor than that observed in classical GRBs.
-It is possible that \at\ has a similar origin to the FBOT 
-AT2018cow, which was at a much lower redshift ($z=0.014$) and therefore has much more detailed data. 
-In that case, several lines of evidence support long-lasting accretion, such as a luminous UV source lasting 2--3 years post-discovery.
-In that case, off-axis jet can't be ruled out.
-Also, in AT2018cow several lines of evidence---a flash of polarized light, the shape of the optical spectroscopic features, the presence of several emission components with different velocities---supports a highly asymmetric configuration, such as a disk.
-This has been used to argue in favor of something more like a binary merger rather than a single-star collapse, which is also an old model for GRBs.
-
-
-
-\section{Limit on an Associated GRB}
-\label{sec:grbsearch}
-
-We searched for a GRB counterpart in the 1.8\,d between the last ZTF non-detection (4 Sept; JD 2459826.9464) and the first ZTF detection of \at. We did not identify any burst consistent with the time and position of \at\ in the GCN archive or the Fermi burst catalog. Konus-Wind was taking data throughout this interval, but detected no events consistent with the \at\ position. We adopt a fluence and flux threshold of $10^{-6}\,$erg\,cm$^{-2}$ and $3\times10^{-7}\,$erg\,cm$^{-2}$\,s$^{-1}$, respectively\cite{Tsvetkova2017},
-giving upper limits of $E_\mathrm{\gamma,iso}<2\times10^{50}\,$erg and $L_{\gamma,\mathrm{iso}}<6\times10^{49}\,$erg\,s$^{-1}$.
-These limits rule out an on-axis classical long-duration GRB coincident with the initial optical ``FBOT,'' but not an off-axis or low-luminosity GRB\cite{Cano2017}.
+Although IMBH TDEs remain a possibility, we consider the simplest explanation for LFBOTs to be massive-star explosions. In this scenario, \at\ involves a near-relativistic outflow powered by accretion onto a stellar-mass compact object, i.e., a very long-duration GRB analog\cite{Quataert2012}, with high angular momentum from the collapse and accretion of an outer envelope in the failed explosion of an extended star\cite{Perley2021,Metzger2022}, or from the merger between the compact object and a stellar companion\cite{Metzger2022}. The accretion disk gives rise to the significant asphericity\cite{Maund2023} observed\cite{Metzger2022}, and the flares arise from a process occurring far from the compact object, such as in the outer edges of the accretion disk, or where the outflow dissipates its kinetic energy into radiation. The lack of detected flares in AT2018cow (Methods section~\ref{sec:flare-search}) could be due to viewing angle: AT2018cow is thought to be observed close to the plane of the circumburst ``disk,'' rather than face-on\cite{Margutti2019,Chen2023}. A different viewing angle for \at\ could also help to explain the significantly more luminous X-ray emission.
+If this association is correct, high-cadence follow-up optical observations of future FBOTs could reveal the beaming angle of their outflows.
 
 \section{Observations and Data Processing}
 
@@ -842,7 +828,7 @@ PSF-fit forced photometry was performed on archived difference images from the Z
 Observations obtained $\geq$ 15 days prior to the first ZTF alert for \at\ all originated from the same ZTF field (506), CCD ID (03), and CCD quadrant (03). 
 
 We followed forced-photometry service guidelines\footnote{\url{https://irsa.ipac.caltech.edu/data/ZTF/docs/forcedphot.pdf}} to further process the data.
-We verified that the $r$- and $g$-band reference images were constructed using ZTF images from 2018, years prior to the transient. The $i$-band reference image was constructed using ZTF images from as late as 30 September 2022, but since reference images are constructed using outlier-trimmed averaging\cite{Masci2018} this is unlikely to affect our results; the only $i$-band detection was a flare detected in a single image. 
+We verified that the $r$- and $g$-band reference images were constructed using ZTF images from 2018, years prior to the transient. The $i$-band reference image was constructed using ZTF images from as late as 30 September 2022, but since reference images are constructed using outlier-trimmed averaging\cite{Masci2019} this is unlikely to affect our results; the only $i$-band detection was a flare detected in a single image. 
 Four of the observations obtained $\geq$ 15 days prior to the first ZTF alert for \at\ were flagged as being possibly impacted by bad pixels (with the \texttt{procstatus==56} warning.
 Two of the four images were available via IPAC; visual inspection showed that the bad-pixel region was 8$''$ from the transient position, sufficiently far away to not impact the photometry, so we kept them in our measurements.
 The remaining two images were not available, so we removed them to be conservative.
@@ -877,13 +863,13 @@ We observed \at\ with the 2-meter Himalayan Chandra Telescope (HCT) on 2022 Dece
 \subsection{Magellan-Baade Telescope}
 \label{sec:magellan}
 
-Starting at 04:30 on 2022 December 15, we obtained five three-minute $g$-band exposures of \at\ using the Inamori-Magellan Areal Camera \& Spectrograph (IMACS\cite{Dressler2011}) mounted on the 6.5-meter Magellan-Baade telescope at Las Campanas Observatory.  This sequence shows an unambiguous, high-S/N ($\approx70$) flare detection peaking in the middle of the five-exposure sequence, and is what led to our initial visual discovery of the short-timescale behavior of this event.  Image subtraction is performed using a stack of flare-free $g$-band images from Keck/LRIS taken in January (\ref{sec:Keck}) as a reference, and forced aperture photometry is applied to the difference image.
+Starting at 04:30 on 2022 December 15, we obtained five three-minute $g$-band exposures of \at\ using the Inamori-Magellan Areal Camera \& Spectrograph (IMACS\cite{Dressler2011}) mounted on the 6.5-meter Magellan-Baade telescope at Las Campanas Observatory.  This sequence shows an unambiguous, high-S/N ($\approx70$) flare detection peaking in the middle of the five-exposure sequence, and is what led to our initial visual discovery of the short-timescale behavior of this event.  Image subtraction is performed using a stack of flare-free $g$-band images from Keck/LRIS taken in January as a reference, and forced aperture photometry is applied to the difference image.
 
 \subsection{Nordic Optical Telescope}
 \label{sec:not}
 
 Starting at 02:30 on 2022 October 4, we obtained an epoch of $ugri$ observations of \at\ using the Alhambra Faint Object Spectrograph and Camera (ALFOSC) on the 2.56\,m Nordic Optical Telescope (NOT) at the Observatorio del Roque de los Muchachos on La Palma (Spain). Following the discovery of flaring, we obtained two additional epochs of observations, the first in $g$-band (five 60\,s exposures the night of 2022 December 16) and the second in $g$- and $r$-band (5$\times$90\,s exposures in each) the night of 2022 December 23. A flare was detected in the final $g$-band epoch.  Image subtraction in $g$-band is performed using a stack of the 2022-12-16 epoch as a reference; image subtraction in $r$-band is performed using a stack of the 2022-12-22 observations.  Individual flare-free exposures from the LRIS observations are used as references for $i$ and $u$-bands.  Photometry is performed using a fixed aperture of 1\arcsec\ radius.
-The NOT photometry is presented in Table~\ref{tab:optical-photometry}.
+The NOT photometry is presented in \ref{tab:optical-photometry}.
 
 
 \subsection{Palomar Hale 200-inch}
@@ -909,20 +895,19 @@ We observed \at\ on three nights (2022 December 22, 24, and 30) in $g$ and $r$ b
 \subsection{Large Array Survey Telescope}
 \label{sec:last}
 
-We observed \at\ using eight telescopes in the Large Array Survey Telescope (LAST; Ofek et al.[1]; Ben-Ami et al.[2]).
+We observed \at\ using eight telescopes in the Large Array Survey Telescope (LAST\cite{Ofek2023,BenAmi2023}).
 The target was observed on 2023 Jan 12, 13 and 15, and also on several nights during December 2022.
 The 2022 observations were taken under poor conditions and are not reported here.
 We obtained 20\,s exposures in continuous mode (i.e., no dead time between images).
 A total of 10.9\,hours of observations in 3 nights were obtained.
-The observations were reduced using the LAST pipeline
-(Ofek et al.[3], \cite{Ofek2014,Ofek2019}), and forced PSF photometry was conducted on the individual images
+The observations were reduced using the LAST pipeline \cite{Ofek2014,Ofek2019,Ofek2023}), and forced PSF photometry was conducted on the individual images
 in the SN position. 
 The source position was fitted but it was forced to be within 0.5 pixels (0.62'') of the initial position.
 In each image, we also performed forced photometry on all GAIA-DR3 (REF) stars
 within 500" from the transient position.
-These sources were used for the photometric calibration (see Ofek et al. [3] for details).
+These sources were used for the photometric calibration.
 
-Since in many cases, we observed the transient location simultaneously with several LAST telescopes, in Table~\ref{tab:last-photometry} we provide a 2\,min binning of the unsubtracted measurements. We did not detect any flares, and in Table~\ref{tab:last-maglim} we give the cumulative amount of minutes collected as a function of limiting magnitude.
+Since in many cases, we observed the transient location simultaneously with several LAST telescopes, in \ref{tab:last-photometry} we provide a 2\,min binning of the unsubtracted measurements. We did not detect any flares, and in Table~\ref{tab:last-maglim} we give the cumulative amount of minutes collected as a function of limiting magnitude.
 
 %\ayqh{No image subtraction was performed. Asked Eran about this.}
 
@@ -951,12 +936,12 @@ Even after this correction, there remains an offset of 2\,\AA\ between host emis
 
 % Dan: In addition to that, the line strength ratios are basically consistent.  So I think we can robustly conclude that any differences are minor and consistent with natural differences in slit positioning, calibration uncertainties, etc... and not due to z=0 HeII!
 
-\subsection{Upgraded Giant Metrewave Radio Telescope}
-\label{sec:GMRT}
-
-We observed \at\ with the upgraded Giant Metrewave Radio Telescope (uGMRT) on 4 March 2023 under a Cycle 43 ToO program (PI Nayana AJ). The observations were taken in Band 3 (250--500\,MHz), Band 4 (550--900\,MHz), and Band 5 (1000--1450\,MHz). [TECHNICAL DETAILS FROM NAYANA.] 3C147 was used as a flux calibrator and 0323+055 as a phase calibrator. Data were analyzed using CASA in three steps: flagging, calibration, and imaging. 
-The source was detected in Band 5 but not detected in Bands 3 or 4.
-The uGMRT results are summarized in \ref{tab:radio-observations}.
+%\subsection{Upgraded Giant Metrewave Radio Telescope}
+%\label{sec:GMRT}
+%
+%We observed \at\ with the upgraded Giant Metrewave Radio Telescope (uGMRT) on 4 March 2023 under a Cycle 43 ToO program (PI Nayana AJ). The observations were taken in Band 3 (250--500\,MHz), Band 4 (550--900\,MHz), and Band 5 (1000--1450\,MHz). [TECHNICAL DETAILS FROM NAYANA.] 3C147 was used as a flux calibrator and 0323+055 as a phase calibrator. Data were analyzed using CASA in three steps: flagging, calibration, and imaging. 
+%The source was detected in Band 5 but not detected in Bands 3 or 4.
+%The uGMRT results are summarized in \ref{tab:radio-observations}.
 
 \subsection{Very Large Array}
 \label{sec:VLA}
@@ -1070,7 +1055,7 @@ Then, point-source fits were performed to each of the five on-target scans. Each
 
 \at\ was observed by the X-ray Telescope (XRT\cite{Burrows2005}) on board the Neil Gehrels Swift Observatory under a series of time-of-opportunity (ToO) requests, with a total of 14 segments. The first segment began at 09:13 on 2022 October 4 ($\Delta t=28.2\,$d, observer frame), and the last segment ended at 21:10 on 2022 December 17 ($\Delta t=102.7\,$d, observer frame). The source was not detected in the last segment, so we did not pursue further XRT observations.
 All XRT observations were obtained in the photon-counting mode, and are summarized in \ref{tab:xray-observations}.
-%and the Ultra-Violet/Optical Telescope (UVOT\cite{Roming2005}) 
+The transient was also observed by the Ultra-Violet/Optical Telescope (UVOT\cite{Roming2005}), but the only emission detected was from the host galaxy. 
 
 To measure the count rate from each observation, we used the analysis tools developed by the Swift team\cite{Evans2007,Evans2009}.
 We used iterative centroiding and binned by observation. 
@@ -1083,7 +1068,7 @@ giving a 0.3--10\,keV count rate to flux conversion factor of $5.10\times 10^{-1
 \at\ was observed by the \emph{Chandra} X-ray Observatory under two programs (Proposal 24500280, PI Matthews; DDT Proposal 23508884, PI Ho) for a total of seven epochs. The first epoch began on 2022 October 16 and the most recent epoch began on 2023 January 30. Exposure times ranged from 16\,ks to 40\,ks.
 
 We reduced each epoch using the Chandra Interactive Analysis of Observations (CIAO\cite{Fruscione2006}) software package (v4.15). We extracted counts from \at\ using a circle with radius 2'', and measured background counts in source-free regions near \at.
-We used \texttt{specextract} to bin the spectrum (with 5 counts per bin for all epochs). We used \texttt{sherpa} to fit the spectrum from 0.5--6\,keV, with the background subtracted, using a model with photoelectric absorption and a single-component power law (\texttt{xsphabs.abs1 $\times$ powlaw1d.p1}). We set the Galactic hydrogen density to be the same as for the \emph{Swift} observations (Section~\ref{Methods:Swift}). In all epochs, the data were well described by a power law (reduced $\chi^2=0.2$--1.2). In the highest-S/N observation, we found $\Gamma=1.98\pm0.23$; all other epochs had a best-fit $\Gamma$ consistent with this value.
+We used \texttt{specextract} to bin the spectrum (with 5 counts per bin for all epochs). We used \texttt{sherpa} to fit the spectrum from 0.5--6\,keV, with the background subtracted, using a model with photoelectric absorption and a single-component power law (\texttt{xsphabs.abs1 $\times$ powlaw1d.p1}). We set the Galactic hydrogen density to be the same as for the \emph{Swift} observations. In all epochs, the data were well described by a power law (reduced $\chi^2=0.2$--1.2). In the highest-S/N observation, we found $\Gamma=1.98\pm0.23$; all other epochs had a best-fit $\Gamma$ consistent with this value.
 
 After obtaining the best-fit model of the spectrum, we used \texttt{sample\_flux} to measure the 0.5--6\,keV flux of the source. The best-fit flux measurements are listed in Table~\ref{tab:chandra} . To convert to the \emph{Swift} 0.3--10\,keV range (\ref{fig:xray-lc}) we multiplied the 0.5--6\,keV values by a factor of 1.77.
 
@@ -1172,19 +1157,40 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 
 \bibitem{Scargle1982} Scargle, J. D. Studies in astronomical time series analysis. II. Statistical aspects of spectral analysis of unevenly spaced data.. \emph{\apj}, \textbf{263}, 835 (1982). 
 
+% Search for flares in other FBOTs
+
+ \bibitem{Tonry2018} Tonry, J. L., et al. ATLAS: A High-cadence All-sky Survey System. \emph{\pasp}, \textbf{130}, 064505 (2018). 
+
+\bibitem{Smith2020} Smith, K. W., et al. Design and Operation of the ATLAS Transient Science Server. \emph{\pasp}, \textbf{132}, 085002 (2020). 
+
+\bibitem{Shingles2021} Shingles, L., et al. Release of the ATLAS Forced Photometry server for public use. \emph{Transient Name Server AstroNote}, \textbf{7}, 1 (2021). 
+
+% Flare physical characteristics
  \bibitem{Longair2011} Longair, M. S. High Energy Astrophysics. \emph{High Energy Astrophysics}, \textbf (2011). 
+ 
+ % Host galaxy
+ 
+ \bibitem{Wright2016} Wright, A. H., et al. Galaxy And Mass Assembly: accurate panchromatic photometry from optical priors using LAMBDAR. \emph{\mnras}, \textbf{460}, 765 (2016). 
+ 
+  \bibitem{Chabrier2003} Chabrier, G. Galactic Stellar and Substellar Initial Mass Function. \emph{\pasp}, \textbf{115}, 763 (2003). 
 
-\bibitem{Perley2011} Perley, R. A., Chandler, C. J., Butler, B. J., \& Wrobel, J. M. The Expanded Very Large Array: A New Telescope for New Science. \emph{\apjl}, \textbf{739}, L1 (2011). 
+\bibitem{Calzetti2000} Calzetti, D., et al. The Dust Content and Opacity of Actively Star-forming Galaxies. \emph{\apj}, \textbf{533}, 682 (2000). 
 
-\bibitem{McMullin2007} McMullin, J. P., Waters, B., Schiebel, D., Young, W., \& Golap, K. CASA Architecture and Applications. \emph{Astronomical Data Analysis Software and Systems XVI}, \textbf{376}, 127 (2007). 
+\bibitem{Schulze2021} Schulze, S., et al. The Palomar Transient Factory Core-collapse Supernova Host-galaxy Sample. I. Host-galaxy Distribution Functions and Environment Dependence of Core-collapse Supernovae. \emph{\apjs}, \textbf{255}, 29 (2021). 
 
-\bibitem{FremlingBTS} Fremling, C., et al. The Zwicky Transient Facility Bright Transient Survey. I. Spectroscopic Classification and the Redshift Completeness of Local Galaxy Catalogs. \emph{\apj}, \textbf{895}, 32 (2020).
+ \bibitem{Johnson2021} Johnson, B. D., Leja, J., Conroy, C., \& Speagle, J. S. Stellar Population Inference with Prospector. \emph{\apjs}, \textbf{254}, 22 (2021). 
+ 
+ \bibitem{Byler2017} Byler, N., Dalcanton, J. J., Conroy, C., \& Johnson, B. D. Nebular Continuum and Line Emission in Stellar Population Synthesis Models. \emph{\apj}, \textbf{840}, 44 (2017). 
+ 
+ % Conclusions
+ 
+ \bibitem{Lyman2020} Lyman, J. D., et al. Studying the environment of AT 2018cow with MUSE. \emph{\mnras}, \textbf{495}, 992 (2020). 
 
-\bibitem{Harding2016} Harding, L. K., et al. CHIMERA: a wide-field, multi-colour, high-speed photometer at the prime focus of the Hale telescope. \emph{\mnras}, \textbf{457}, 3036 (2016). 
+% Observations and data processing
 
-\bibitem{Dhillon2007} Dhillon, V. S., et al. ULTRACAM: an ultrafast, triple-beam CCD camera for high-speed astrophysics. \emph{\mnras}, \textbf{378}, 825 (2007). 
+% optical
 
- \bibitem{Dekany2020} Dekany, R., et al. The Zwicky Transient Facility: Observing System. \emph{\pasp}, \textbf{132}, 038001 (2020). 
+\bibitem{Dekany2020} Dekany, R., et al. The Zwicky Transient Facility: Observing System. \emph{\pasp}, \textbf{132}, 038001 (2020). 
 
 \bibitem{Patterson2019} Patterson, M. T., et al. The Zwicky Transient Facility Alert Distribution System. \emph{\pasp}, \textbf{131}, 018001 (2019). 
 
@@ -1192,18 +1198,50 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 
 \bibitem{Tachibana2018} Tachibana, Y., \& Miller, A. A. A Morphological Classification Model to Identify Unresolved PanSTARRS1 Sources: Application in the ZTF Real-time Pipeline. \emph{\pasp}, \textbf{130}, 128001 (2018). 
 
+\bibitem{Steele2004} Steele, I. A., et al. The Liverpool Telescope: performance and first results. \emph{\procspie}, \textbf{5489}, 679 (2004). 
+
+\bibitem{Dressler2011} Dressler, A., et al. IMACS: The Inamori-Magellan Areal Camera and Spectrograph on Magellan-Baade. \emph{\pasp}, \textbf{123}, 288 (2011). 
+
+\bibitem{Harding2016} Harding, L. K., et al. CHIMERA: a wide-field, multi-colour, high-speed photometer at the prime focus of the Hale telescope. \emph{\mnras}, \textbf{457}, 3036 (2016). 
+
+\bibitem{Dhillon2007} Dhillon, V. S., et al. ULTRACAM: an ultrafast, triple-beam CCD camera for high-speed astrophysics. \emph{\mnras}, \textbf{378}, 825 (2007). 
+
+\bibitem{Buzzoni1984} Buzzoni, B., et al. The ESO Faint Object Spectrograph and Camera / EFOSC. \emph{The Messenger}, \textbf{38}, 9 (1984). 
+
+ \bibitem{Ofek2023} Ofek, E. O., et al. The Large Array Survey Telescope -- System Overview and Performances. \emph{arXiv e-prints}, \textbf arXiv:2304.04796 (2023). 
+
+\bibitem{BenAmi2023} Ben-Ami, S., et al. The Large Array Survey Telescope -- Science Goals. \emph{arXiv e-prints}, \textbf arXiv:2304.02719 (2023). 
+
+\bibitem{Ofek2014} Ofek, E. O. MAAT: MATLAB Astronomy and Astrophysics Toolbox. \emph{Astrophysics Source Code Library}, \textbf ascl:1407.005 (2014). 
+
+\bibitem{Ofek2019} Ofek, E. O. A Code for Robust Astrometric Solution of Astronomical Images. \emph{\pasp}, \textbf{131}, 054504 (2019). 
+
 \bibitem{PerleyLPipe} Perley, D. A. Fully Automated Reduction of Longslit Spectroscopy with the Low Resolution Imaging Spectrometer at the Keck Observatory. \emph{\pasp}, \textbf{131}, 084503 (2019). 
+
+% Radio 
+
+\bibitem{Perley2011} Perley, R. A., Chandler, C. J., Butler, B. J., \& Wrobel, J. M. The Expanded Very Large Array: A New Telescope for New Science. \emph{\apjl}, \textbf{739}, L1 (2011). 
+
+\bibitem{McMullin2007} McMullin, J. P., Waters, B., Schiebel, D., Young, W., \& Golap, K. CASA Architecture and Applications. \emph{Astronomical Data Analysis Software and Systems XVI}, \textbf{376}, 127 (2007). 
+
+\bibitem{GILDAS} Gildas Team GILDAS: Grenoble Image and Line Data Analysis Software. \emph{Astrophysics Source Code Library}, \textbf ascl:1305.010 (2013). 
+\bibitem{Willingale2013} Willingale, R., Starling, R. L. C., Beardmore, A. P., Tanvir, N. R., \& O'Brien, P. T. Calibration of X-ray absorption in our Galaxy. \emph{\mnras}, \textbf{431}, 394 (2013). 
+
+ % X-ray
 
 \bibitem{Burrows2005} Burrows, D. N., et al. The Swift X-Ray Telescope. \emph{\ssr}, \textbf{120}, 165 (2005). 
 
 \bibitem{Roming2005} Roming, P. W. A., et al. The Swift Ultra-Violet/Optical Telescope. \emph{\ssr}, \textbf{120}, 95 (2005).
 
-\bibitem{GILDAS} Gildas Team GILDAS: Grenoble Image and Line Data Analysis Software. \emph{Astrophysics Source Code Library}, \textbf ascl:1305.010 (2013). 
-\bibitem{Willingale2013} Willingale, R., Starling, R. L. C., Beardmore, A. P., Tanvir, N. R., \& O'Brien, P. T. Calibration of X-ray absorption in our Galaxy. \emph{\mnras}, \textbf{431}, 394 (2013). 
-
 \bibitem{Evans2007} Evans, P. A., et al. An online repository of Swift/XRT light curves of $\gamma$-ray bursts. \emph{\aap}, \textbf{469}, 379 (2007). 
 
 \bibitem{Evans2009} Evans, P. A., et al. Methods and results of an automatic analysis of a complete sample of Swift-XRT observations of GRBs. \emph{\mnras}, \textbf{397}, 1177 (2009). 
+
+\bibitem{Fruscione2006} Fruscione, A., et al. CIAO: Chandra's data analysis system. \emph{\procspie}, \textbf{6270}, 62701V (2006). 
+
+
+
+\bibitem{FremlingBTS} Fremling, C., et al. The Zwicky Transient Facility Bright Transient Survey. I. Spectroscopic Classification and the Redshift Completeness of Local Galaxy Catalogs. \emph{\apj}, \textbf{895}, 32 (2020).
 
 \bibitem{Coppejans2022} Coppejans, D., et al. GOTO early photometry of AT2022tsd on 6 Sept. \emph{Transient Name Server AstroNote}, \textbf{208}, 1 (2022). 
 
@@ -1211,20 +1249,7 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 
 \bibitem{Cano2017} Cano, Z., Wang, S.-Q., Dai, Z.-G., \& Wu, X.-F. The Observer's Guide to the Gamma-Ray Burst Supernova Connection. \emph{Advances in Astronomy}, \textbf{2017}, 8929054 (2017). 
 
-\bibitem{Fruscione2006} Fruscione, A., et al. CIAO: Chandra's data analysis system. \emph{\procspie}, \textbf{6270}, 62701V (2006). 
-
-\bibitem{Dressler2011} Dressler, A., et al. IMACS: The Inamori-Magellan Areal Camera and Spectrograph on Magellan-Baade. \emph{\pasp}, \textbf{123}, 288 (2011). 
-
 %\bibitem{Fremling2016} Fremling, C., Sollerman, J., Taddia, F., et al.\ 2016, \aap, 593, A68. doi:10.1051/0004-6361/201628275  % new ref
-
-\bibitem{Steele2004} Steele, I. A., et al. The Liverpool Telescope: performance and first results. \emph{\procspie}, \textbf{5489}, 679 (2004). 
-
-\bibitem{Buzzoni1984} Buzzoni, B., et al. The ESO Faint Object Spectrograph and Camera / EFOSC. \emph{The Messenger}, \textbf{38}, 9 (1984). 
-
-\bibitem{Ofek2014} Ofek, E. O. MAAT: MATLAB Astronomy and Astrophysics Toolbox. \emph{Astrophysics Source Code Library}, \textbf ascl:1407.005 (2014). 
-
-\bibitem{Ofek2019} Ofek, E. O. A Code for Robust Astrometric Solution of Astronomical Images. \emph{\pasp}, \textbf{131}, 054504 (2019). 
-
 
 \end{thebibliography}
 
@@ -1300,20 +1325,41 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 %   \caption{\textbf{Power-law fit to the optical light curve of \at.} The best-fit temporal decay indices are in agreement between the $g$-band and $r$-band light curves, but significantly shallower than the shallowest value ($\alpha=-1.6$) permitted by the X-ray observations.}
 %  \label{fig:opt-lc-fit}
 % \end{figure}
+%
+%\begin{table}
+%\centering
+%\begin{tabular}{lllll}
+%\caption{Duty cycle of flares in \at, for different apparent-magnitude thresholds.} 
+%\label{tab:flare-stats}\\ 
+%\hline\hline
+%Threshold (AB Mag) & $N_\mathrm{exp}$\footnote{The number of exposures brighter than the magnitude threshold.} & $T_\mathrm{exp}$ (Minutes) & $T_\mathrm{on}$/$T_\mathrm{exp}$\footnote{The fraction of the exposure time with a flare detection (defined as 5-$\sigma$).} & Bounds \\
+%\hline
+%21.0 & 1271 & 1142 & 0.02 & [0.001, 0.1] \\
+%22.5 & 68 & 155 & 0.1 & [0.01, 0.6]  \\
+%24.0 & 13 & 65 & 0.5 & [0.03, 1] \\
+%\hline \hline
+%\end{tabular}
+%\end{center}
 
-\begin{center} 
-\begin{longtable}{lllll}
-\caption{Duty cycle of flares in \at, for different apparent-magnitude thresholds.} 
-\label{tab:flare-stats}\\ 
-\hline\hline
-Threshold (AB Mag) & $N_\mathrm{exp}$\footnote{The number of exposures brighter than the magnitude threshold.} & $T_\mathrm{exp}$ (Minutes) & $T_\mathrm{on}$/$T_\mathrm{exp}$\footnote{The fraction of the exposure time with a flare detection (defined as 5-$\sigma$).} & Bounds \\
-\hline
-21.0 & 1271 & 1142 & 0.02 & [0.001, 0.1] \\
-22.5 & 68 & 155 & 0.1 & [0.01, 0.6]  \\
-24.0 & 13 & 65 & 0.5 & [0.03, 1] \\
-\hline \hline
-\end{longtable}
-\end{center}
+%\begin{table} 
+%\centering
+%\begin{tabular}{lll}
+%\caption{Host-galaxy photometry for \at.} 
+%\label{tab:host-photometry}\\ 
+%\hline\hline
+%Survey & Filter & Brightness (AB mag) \\
+%\hline
+%PanSTARRS & $g$               &$ 21.321 \pm 0.102 $\\
+%PanSTARRS & $i$               &$ 20.668 \pm 0.051 $\\
+%PanSTARRS & $r$               &$ 20.589 \pm 0.069 $\\
+%PanSTARRS & $y$               &$ 20.140 \pm 0.095 $\\
+%PanSTARRS& $z$               &$ 20.873 \pm 0.360 $\\
+%\hline \hline
+%\end{tabular}
+%\end{center}
+
+
+(not MW extinction corrected)
 
 \end{extended_data}
 
@@ -3615,23 +3661,23 @@ Date & $\Delta t$\footnote{Rest frame} & Flux\footnote{Not corrected for Galacti
 \end{center} 
 
 
-
-\begin{table}
-    \centering
-    \begin{tabular}{ll}
-    \hline \hline
- Limiting Magnitude ($B_p$ AB) & Minutes \\
-    \hline
-         19.5    &      646\\
-           20    &      606\\
-         20.5    &      450\\
-           21     &     246\\
-         21.5     &      42   \\
-         \hline
-   \end{tabular}
-\caption{Cumulative number of minutes collected to limiting magnitude, for LAST observations of \at\ (Section~\ref{sec:last}.}
-\label{tab:last-maglim}
-\end{table}
+%
+%\begin{table}
+%    \centering
+%    \begin{tabular}{ll}
+%    \hline \hline
+% Limiting Magnitude ($B_p$ AB) & Minutes \\
+%    \hline
+%         19.5    &      646\\
+%           20    &      606\\
+%         20.5    &      450\\
+%           21     &     246\\
+%         21.5     &      42   \\
+%         \hline
+%   \end{tabular}
+%\caption{Cumulative number of minutes collected to limiting magnitude, for LAST observations of \at\ (Section~\ref{sec:last}.}
+%\label{tab:last-maglim}
+%\end{table}
 
 \clearpage
 
