@@ -82,6 +82,7 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     maglim = a['diffmaglim,'].values
     zp = a['zpdiff,'].values
     exp = a['exptime,'].values
+    programid = a['programid,'].values
 
     # Update the name of the filters
     filt[filt=='ZTF_g'] = 'g'
@@ -146,6 +147,7 @@ def get_ipac(inputf="%s/ipac_forced_phot.txt" %ddir):
     emag = emag[order]
     exp = exp[order]
     filt = filt[order]
+    programid = programid[order]
 
     return jd,exp,filt,mag,mag_extcorr,emag,\
            fujy,efujy,fujy_extcorr,efujy_extcorr
