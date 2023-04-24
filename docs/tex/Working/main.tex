@@ -87,7 +87,7 @@
 
 Repetitive large-amplitude bursts of electromagnetic radiation (``flares'') have been observed in a variety of systems involving neutron stars and black holes\cite{Fender1997,Hurley1999,Marrone2008,Racusin2008,Kasliwal2008,CastroTirado2008,Stefanescu2008,Nesci2021}, the most compact objects in the universe. In most cases the flare mechanism is uncertain, but could involve rapid changes in a magnetosphere\cite{Hurley1999,CastroTirado2008,Stefanescu2008}, in an accretion flow\cite{Fender2004,Yuan2014}, in the dissipation of kinetic energy from an accretion-driven jet\cite{Racusin2008}, or in the jet's orientation\cite{Raiteri2017}.
 Here we report the discovery of minutes-duration optical flares with luminosities exceeding typical supernovae, persisting for months following the unusual extragalactic transient \at\ (the ``Tasmanian Devil'').
-This is the first time such short-duration and energetic flares have been detected at optical wavelengths, and the first time flares have been observed so long after an extragalactic transient.
+This is the first time such short-duration and energetic flares have been detected at optical wavelengths, and the first time optical flares have been observed so long after an extragalactic transient.
 The multiwavelength properties of \at\ most closely mysterious ``fast blue optical transients'' (FBOTs\cite{Prentice2018,RiveraSandoval2018,Perley2019,Margutti2019,Ho2019,Coppejans2020,Ho2020_Koala,Perley2021,Bright2022,Ho2022_AT2020xnd,Yao2022}) that have been argued to be massive-star core-collapse explosions\cite{Prentice2018,Margutti2019,Perley2019}, the mergers of massive stars with compact objects\cite{Metzger2022}, or intermediate-mass black hole tidal disruption events\cite{Kuin2019,Perley2019}. The flares associated with \at\ are likely nonthermal, implying that they arise from a fast outflow or jet powered by a stellar- or intermediate-mass compact object.
 Our results confirm that some FBOTs are powered by compact-object activity
 and reveal a new population of transients in the minute-timescale optical transient sky.
@@ -936,12 +936,20 @@ Even after this correction, there remains an offset of 2\,\AA\ between host emis
 
 % Dan: In addition to that, the line strength ratios are basically consistent.  So I think we can robustly conclude that any differences are minor and consistent with natural differences in slit positioning, calibration uncertainties, etc... and not due to z=0 HeII!
 
-%\subsection{Upgraded Giant Metrewave Radio Telescope}
-%\label{sec:GMRT}
-%
-%We observed \at\ with the upgraded Giant Metrewave Radio Telescope (uGMRT) on 4 March 2023 under a Cycle 43 ToO program (PI Nayana AJ). The observations were taken in Band 3 (250--500\,MHz), Band 4 (550--900\,MHz), and Band 5 (1000--1450\,MHz). [TECHNICAL DETAILS FROM NAYANA.] 3C147 was used as a flux calibrator and 0323+055 as a phase calibrator. Data were analyzed using CASA in three steps: flagging, calibration, and imaging. 
-%The source was detected in Band 5 but not detected in Bands 3 or 4.
-%The uGMRT results are summarized in \ref{tab:radio-observations}.
+\subsection{Upgraded Giant Metrewave Radio Telescope}
+\label{sec:GMRT}
+
+We triggered upgraded Giant Metrewave Radio Telescope (uGMRT) observations of AT2022tsd
+during 2023 March 04.51 UT to 2023 April 02.42 UT in frequency bands 1000--1460 MHz
+(Band 5), 550--750 MHz (Band 4), and 250--500 MHz (Band 3). The data were recorded
+in total intensity mode with bandwidths 400 (Band 5) and 200 MHz (Band 4 and Band 3)
+split into 2048 channels. The time resolution was 10 seconds. We used 3C147 as the flux density
+calibrator and J0323+055 as the phase calibrator.
+The data were analyzed\cite{Nayana2017} using the Astronomical Image Processing Software (AIPS\cite{Greisen2003})
+The data were initially flagged and calibrated using standard tasks in AIPS. The fully calibrated data were imaged
+using task IMAGR. A few rounds of phase only self-calibration were performed to improve the
+image quality. The details of GMRT observations are presented in \ref{tab:radio-observations}. The quoted errors
+include map rms and a 10\% calibration error added in quadrature.
 
 \subsection{Very Large Array}
 \label{sec:VLA}
@@ -1219,6 +1227,10 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \bibitem{PerleyLPipe} Perley, D. A. Fully Automated Reduction of Longslit Spectroscopy with the Low Resolution Imaging Spectrometer at the Keck Observatory. \emph{\pasp}, \textbf{131}, 084503 (2019). 
 
 % Radio 
+
+ \bibitem{Greisen2003} Greisen, E. W. AIPS, the VLA, and the VLBA. \emph{Information Handling in Astronomy - Historical Vistas}, \textbf{285}, 109 (2003). 
+
+\bibitem{Nayana2017} Nayana, A. J., et al. 325 and 610 MHz radio counterparts of SNR G353.6-0.7 also known as HESS J1731-347. \emph{\mnras}, \textbf{467}, 155 (2017). 
 
 \bibitem{Perley2011} Perley, R. A., Chandler, C. J., Butler, B. J., \& Wrobel, J. M. The Expanded Very Large Array: A New Telescope for New Science. \emph{\apjl}, \textbf{739}, L1 (2011). 
 
