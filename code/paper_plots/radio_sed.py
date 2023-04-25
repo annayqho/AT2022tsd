@@ -135,6 +135,16 @@ def plot_seds(dat, ax):
               labelspacing=0.1)
     ax.set_xlabel(r"$\nu_\mathrm{rest}$ (GHz)", fontsize=10)
 
+    # Try plotting the final SED in an inset
+    axins = inset_axes(ax, width="40%", height="30%", loc=2)
+    axins.errorbar(
+            [1.37, 10], [0.131, 0.038], [0.035,0.009], 
+            fmt='o', c='k', ms=4, lw=0.5) 
+    axins.scatter([3,6,22], 5*np.array([0.018, 0.009, 0.009]), s=15,
+                  edgecolor='k', facecolor='white')
+    axins.set_yscale('log')
+    axins.set_xscale('log')
+
 
 def plot_lc(dat,ax):
     """ Plot the LCs """
@@ -212,8 +222,6 @@ if __name__=="__main__":
     ax = axarr[1]
     plot_seds(dat,ax)
 
-    # Try plotting the final SED in an inset
-    axins = inset_axes(ax, width="40%", height="30%", loc=2)
 
     plt.show()
     #plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
