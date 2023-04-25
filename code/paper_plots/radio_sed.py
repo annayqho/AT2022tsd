@@ -112,7 +112,7 @@ def plot_seds(dat, ax):
     y0 = 0.3
     yvals = y0*(xvals/x0)**alpha
     ax.plot(xvals,yvals,lw=0.5,c='grey')
-    ax.text(60,0.5,r'$f_\nu\propto\nu^{5/2}$',c='grey',ha='right',fontsize=8)
+    ax.text(35,0.15,r'$f_\nu\propto\nu^{5/2}$',c='grey',ha='right',fontsize=8)
 
     alpha = 1
     x0 = 30
@@ -131,20 +131,9 @@ def plot_seds(dat, ax):
     #ax.set_ylabel(r"$f_{\nu}$ (mJy)", fontsize=10)
     ax.set_ylim(0.02,0.7)
     ax.set_xlim(10,600)
-    ax.legend(loc='lower right', fontsize=8, handletextpad=0.4,
+    ax.legend(loc='upper left', fontsize=8, handletextpad=0.4,
               labelspacing=0.1)
     ax.set_xlabel(r"$\nu_\mathrm{rest}$ (GHz)", fontsize=10)
-
-    # Try plotting the final SED in an inset
-    axins = inset_axes(ax, width="40%", height="30%", loc=2)
-    axins.errorbar(
-            [1.37, 10], [0.131, 0.038], [0.035,0.009], 
-            fmt='o', c='k', ms=4, lw=0.5) 
-    axins.scatter([3,6,22], 5*np.array([0.018, 0.009, 0.009]), s=15,
-                  edgecolor='k', facecolor='white')
-    axins.set_yscale('log')
-    axins.set_xscale('log')
-
 
 def plot_lc(dat,ax):
     """ Plot the LCs """
@@ -201,6 +190,7 @@ def plot_lc(dat,ax):
             cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
     for i,m in enumerate(mins):
         ax.axvspan(m,maxs[i],color=cols[i], alpha=0.2, lw=0)
+    ax.axvspan(163,167,color='k',alpha=0.2,lw=0)
 
     ax.set_xlabel(r"$\Delta t_\mathrm{rest}$ (d)")
     ax.set_xscale('log')
@@ -222,7 +212,40 @@ if __name__=="__main__":
     ax = axarr[1]
     plot_seds(dat,ax)
 
+    # Try plotting the final SED in an inset
+    axins = inset_axes(ax, width="33%", height="23%", loc=4, borderpad=2)
+    axins.errorbar(
+            np.array([1.37, 10])/1.256, [0.131, 0.038], [0.035,0.009], 
+            fmt='o', c='k', ms=4, lw=0.5) 
+    xlims = np.array([3,6,22,93])/1.256
+    ylims = 5*np.array([0.018, 0.009, 0.009, 0.047])
+    axins.scatter(xlims, ylims, s=15, edgecolor='k', facecolor='white', zorder=10)
+    for i,xlimval in enumerate(xlims):
+        axins.arrow(xlimval,ylims[i],0,-ylims[i]/3,
+                 length_includes_head=True,
+                 head_length=ylims[i]/8, head_width=xlimval/4, color='k',zorder=0)
+    xvals = np.linspace(0.1,40)
+    alpha = -0.7
+    x0 = 1
+    y0 = 0.15
+    yvals = y0*(xvals/x0)**alpha
+    axins.plot(xvals,yvals,lw=0.5,c='grey')
+    axins.text(70,0.06,r'$f_\nu\propto\nu^{-0.7}$',c='grey',ha='right',fontsize=8)
+    axins.set_ylim(0.025,0.4)
+    axins.set_xlim(0.8,100)
+    axins.text(0,0.95,'$\Delta t=$163-167d',
+               transform=axins.transAxes,fontsize=8,
+               ha='left', va='top')
+    alpha = 1
+    axins.set_yscale('log')
+    axins.set_xscale('log')
+    axins.set_xticks([1,10,100])
+    axins.set_xticklabels([1,10,100])
+    axins.set_yticklabels([0.03, 0.06, 0.1, 0.2])
+    axins.set_yticks([0.03, 0.06, 0.1, 0.2])
+    axins.tick_params(axis='both', labelsize=8)
+    axins.minorticks_off()
 
-    plt.show()
-    #plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
