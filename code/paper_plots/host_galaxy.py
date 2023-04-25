@@ -84,6 +84,25 @@ if __name__=="__main__":
     ax.text((x2+x)/2, y/1.1, "(32 kpc)", color='k', fontsize=16,
             verticalalignment='top', horizontalalignment='center')
 
-    #ax = axarr[1]
+    # Plot the Taggart sample (scraped from 20xnd paper)
+    ax = axarr[1]
+    dat = np.loadtxt("taggart_sample.txt", delimiter=',')
+    ax.scatter(dat[:,0], dat[:,1], marker='>', c=vals.sn_col, s=10, label='CCSN')
+    dat = np.loadtxt("taggart_lgrb.txt", delimiter=',')
+    ax.scatter(dat[:,0], dat[:,1], marker='+', c=vals.lgrb_col, s=40, label='LGRB')
 
-    plt.show()
+    # Plot LFBOTs
+    x = [1E8, 1.3E7, 1.4E9, 3.1E8, 10**9.31]
+    y = [2E-2, 4E-3, 2.2E-1, 6.2, 3.34]
+    ax.scatter(x, y, marker='D', facecolor=vals.cow_col, edgecolor='k', label='LFBOT') 
+    ax.text(x[-1]*1.1, y[-1], 'AT2022tsd', c=vals.cow_col, ha='left', 
+            va='bottom', fontsize=8, fontweight='bold')
+
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+    ax.set_xlabel(r"Stellar Mass ($M_\odot$)")
+    ax.set_ylabel(r"Star formation rate ($M_\odot\,\mathrm{yr}^{-1}$)")
+    ax.legend(loc='lower right', fontsize=8)
+    plt.tight_layout()
+    plt.savefig("host_galaxy.png", dpi=300)
+    plt.close()
