@@ -92,8 +92,8 @@ if __name__=="__main__":
     ax.scatter(dat[:,0], dat[:,1], marker='+', c=vals.lgrb_col, s=40, label='LGRB')
 
     # Plot LFBOTs
-    x = [1E8, 1.3E7, 1.4E9, 3.1E8, 10**9.31]
-    y = [2E-2, 4E-3, 2.2E-1, 6.2, 3.34]
+    x = [1E8, 1E8, 1.3E7, 1.4E9, 3.1E8, 10**9.31]
+    y = [6.93E-3, 2E-2, 4E-3, 2.2E-1, 6.2, 3.34]
     ax.scatter(x, y, marker='D', facecolor=vals.cow_col, edgecolor='k', label='LFBOT') 
     ax.text(x[-1]*1.1, y[-1], 'AT2022tsd', c=vals.cow_col, ha='left', 
             va='bottom', fontsize=8, fontweight='bold')
