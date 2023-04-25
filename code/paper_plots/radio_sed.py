@@ -4,6 +4,7 @@ import numpy as np
 import cmasher as cmr
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 import pandas as pd
 from scipy.optimize import curve_fit
 import sys
@@ -211,6 +212,9 @@ if __name__=="__main__":
     ax = axarr[1]
     plot_seds(dat,ax)
 
-    #plt.show()
-    plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    # Try plotting the final SED in an inset
+    axins = inset_axes(ax, width="40%", height="30%", loc=2)
+
+    plt.show()
+    #plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
