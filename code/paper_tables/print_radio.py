@@ -40,8 +40,7 @@ def print_table():
         rowstr += "%s & "
     rowstr += "%s \\\ \n"
 
-    caption="Radio observations of AT2022tsd. Non-detections are reported\
-            as 3-$\sigma$."
+    caption="Radio observations of AT2022tsd."
 
     outputf = open("paper_table_%s.txt" %label, "w")
     outputf.write("\\begin{center} \n")
@@ -60,10 +59,15 @@ def print_table():
         tstr = dat['Date'].values[i].replace('T', ' ').split('.')[0]
         # Rest-frame days
         dtstr = '{:.2f}'.format((Time(dat['Date'].values[i]).jd-vals.t0)/(1+vals.z))
-        nustr = int(dat['Freq_Obs'].values[i])
-        # I think they're all detections
-        fstr = '${:.3f}$'.format(dat['Flux'].values[i])
-        efstr = '${:.3f}$'.format(dat['eFlux'].values[i])
+        nustr = '{:.2f}'.format(dat['Freq_Obs'].values[i])
+        # If it's a detection,
+        isdet = dat['Flux'].values[i] != 99 
+        if isdet:
+            fstr = '${:.3f}$'.format(dat['Flux'].values[i])
+            efstr = '${:.3f}$'.format(dat['eFlux'].values[i])
+        else:
+            fstr = '--'
+            efstr = '${:.3f}$'.format(dat['eFlux'].values[i]) 
         row = rowstr %(tstr,dtstr,nustr,fstr,efstr,dat['Tel'].values[i])
         print(row)
         outputf.write(row)
