@@ -68,7 +68,7 @@
 %% in the author list
 
 \author{Anna Y. Q. Ho$^{1}$, Daniel A. Perley$^{2}$, Ping Chen$^{3}$, Steve Schulze$^{X}$, Michael Bremer$^X$, Harsh Kumar$^X$, Aswin Suresh$^X$, Vishwajeet S.$^X$, Nayana A.J.$^X$, Ting-Wan Chen$^X$,
-Varun Bhalerao$^X$, Thomas de Boer$^X$, Jeff Cooke$^X$, Alexei V. Filippenko$^X$, James Freeburn$^X$, Christoffer Fremling$^X$, Michael D. Fulton$^{ARC,Belfast}$, Hua Gao$^{IfA,UH}$, Shri Kulkarni$^X$, Eugene A. Magnier$^X$, Matt Nicholl$^X$, Enrico Segre$^X$, Jesper Sollerman$^X$, Mark Suhr$^X$, Yuhan Yao$^X$,
+Varun Bhalerao$^X$, Thomas de Boer$^X$, Jeff Cooke$^X$, Alexei V. Filippenko$^X$, James Freeburn$^X$, Christoffer Fremling$^X$, Michael D. Fulton$^{ARC,Belfast}$, Hua Gao$^{IfA,UH}$, Shri Kulkarni$^X$, Eugene A. Magnier$^X$, Matt Nicholl$^X$, Conor Omand$^X$, Enrico Segre$^X$, Jesper Sollerman$^X$, Mark Suhr$^X$, Sheng Yang$^X$, Yuhan Yao$^X$,
 [affiliations can be found \hyperref[sec:affiliations]{after the references}]
 	}
 \renewcommand{\thefootnote}{\textit{\alph{footnote}}}
@@ -501,6 +501,7 @@ The flares observed for months after the initial transient are the fastest obser
 \item Indian Institute of Astrophysics, II Block, Koramangala, Bangalore 560034, India
 \item Technische Universit{\"a}t M{\"u}nchen, TUM School of Natural Sciences, Physik-Department, James-Franck-Stra{\ss}e 1, 85748 Garching, Germany
 \item Max-Planck-Institut f{\"u}r Astrophysik, Karl-Schwarzschild Stra{\ss}e 1, 85748 Garching, Germany
+\item Henan Academy of Sciences, Zhengzhou 450046, Henan, China
 
 \end{affiliations}
 \end{small}
@@ -653,7 +654,7 @@ Finally, to our knowledge there is no dwarf nova with X-ray emission that decays
 
 Another argument disfavoring a CV origin is that the optical flares we observe are very different from the minute-timescale ``flickering'' observed in CVs: CV flickering has much smaller amplitudes (a fraction of a magnitude\cite{Bruch2021}) and a typical flare has blue colors consistent with a hot ($\approx17,000\,$K) blackbody\cite{Bruch2021}.
 As a final check, we searched for minute-timescale variability using ZTF light curves of dwarf novae. 
-We used the BTS Sample Explorer\cite{PerleyBTS} to identify 182 CVs with peak apparent magnitudes fainter than 18\,mag.
+We used the ZTF Bright Transient Survey\cite{FremlingBTS} Sample Explorer\cite{PerleyBTS} to identify 182 CVs with peak apparent magnitudes fainter than 18\,mag.
 For each object, we retrieved a forced photometry light curve from the IPAC service\cite{Masci2019}, from March 2018 (the start of the survey) until the end of 2022. For each CV, we searched each night of observations for pairs of subtractions in the same filter and based on the same reference stack.
 %For a given CV, the number of nights with observations that met these criteria was 0 (28 CVs), $>10$ (107 CVs), $>30$ (76 CVs), $>100$ (49 CVs). 
 To count as a flare, a pair of detections had to have a flux change exceeding $10\times$, and the flux difference had to be significant ($>3\sigma$).
@@ -717,7 +718,7 @@ Optically thin synchrotron radiation is a possible candidate for the non-thermal
 J(\nu) = 2.344\times10^{-25} a(p) B^{(p+1)/2} \kappa \left( \frac{1.253\times10^{37}}{\nu} \right)^{(p-1)/2}\,\mathrm{W}\,\mathrm{m}^{-3}\,\mathrm{Hz}^{-1},
 \end{equation}
 
-\noindent where $B$ is the magnetic field strength and $\nu$ is the observed frequency. The optical depth to synchrotron self-absorption at a given frequency is $\tau_\nu = \chi_\nu R$ where $R$ is the line-of-sight path length and 
+\noindent where $B$ is the magnetic field strength and $\nu$ is the observed frequency. The optical depth to synchrotron self-absorption at a given frequency is $\tau_\nu = \chi_\nu R$ where $R$ is the line-of-sight path length and the absorption coefficient $\chi_\nu$ is
 
 \begin{equation}
 \label{eq:synchrotron-tau}
@@ -1134,6 +1135,8 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 
 \bibitem{Bruch2021} Bruch, A. A comparative study of the strength of flickering in cataclysmic variables. \emph{\mnras}, \textbf{503}, 953 (2021). 
 
+\bibitem{FremlingBTS} Fremling, C., et al. The Zwicky Transient Facility Bright Transient Survey. I. Spectroscopic Classification and the Redshift Completeness of Local Galaxy Catalogs. \emph{\apj}, \textbf{895}, 32 (2020).
+
 \bibitem{Ilbert2008} Ilbert, O., et al. Photometric Redshifts and Stellar Mass Assembly in the 2-deg$^2$ COSMOS Field. \emph{Panoramic Views of Galaxy Formation and Evolution}, \textbf{399}, 169 (2008). 
 
 % Flare observational characteristics
@@ -1233,8 +1236,6 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \bibitem{Taggart2021} Taggart, K., \& Perley, D. A. Core-collapse, superluminous, and gamma-ray burst supernova host galaxy populations at low redshift: the importance of dwarf and starbursting galaxies. \emph{\mnras}, \textbf{503}, 3931 (2021). 
 
 
-
-%\bibitem{FremlingBTS} Fremling, C., et al. The Zwicky Transient Facility Bright Transient Survey. I. Spectroscopic Classification and the Redshift Completeness of Local Galaxy Catalogs. \emph{\apj}, \textbf{895}, 32 (2020).
 %
 %\bibitem{Coppejans2022} Coppejans, D., et al. GOTO early photometry of AT2022tsd on 6 Sept. \emph{Transient Name Server AstroNote}, \textbf{208}, 1 (2022). 
 %
