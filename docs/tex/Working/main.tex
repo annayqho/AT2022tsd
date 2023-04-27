@@ -695,13 +695,14 @@ A period of 10.2 hours put the bright flares in two distinct phase intervals: th
 \label{sec:flare-search}
 
 The discovery of flares in the aftermath of \at\ (Methods section~\ref{sec:flare-association}) raises the question of whether there could have been flares associated with other LFBOTs. 
-From 2018--2022, we discovered six transients with similar durations and peak luminosities in ZTF survey data. We performed forced photometry on ZTF images at the position of all six objects, and identified no significant flares. 
-However, their relatively high redshifts ($z=0.14$ for AT2020mrf\cite{Yao2022} to $z=0.342$ for AT2021ahuo) means that the nominal ZTF survey data cannot be used to rule out flaring with the duty cycle of \at.
-
-We also performed forced photometry at the position of the radio-loud transients AT2018cow\cite{Prentice2018} ($z=0.014$) and CSS161010\cite{Coppejans2020} ($z=0.033$). 
+From 2018--2022, six LFBOTs were identified in addition to \at: AT2018cow\cite{Prentice2018}, AT2018lug\cite{Ho2020_Koala}, AT2020xnd\cite{Perley2021}, AT2021ahuo, AT2022abfc\cite{Ho2022_AT2022abfc},  
+and AT2020mrf\cite{Yao2022}. 
+We performed forced photometry on ZTF images at the position of all six objects, with a start date of JD 2458194.5 (17 March 2018) and end date of JD 2459944.5 (31 December 2022) and identified no significant flares. 
+However, for most objects, their relatively high redshifts ($z=0.14$ for AT2020mrf\cite{Yao2022} to $z=0.342$ for AT2021ahuo) means that the nominal ZTF survey data cannot be used to rule out flaring with the duty cycle of \at.
 AT2018cow was observed intensely by a variety of optical telescopes during the 80 days post-discovery\cite{Perley2019}. The 964 photometric points can be binned into 257 1-hr blocks. At the distance of AT2018cow, the threshold of 24.0\,mag for \at\ corresponds to a threshold of 17.4\,mag. We rule out flares this bright for all images. For 257 trials, a lack of detections gives an upper limit on the duty cycle of 1.4\%, lower than the 3\% bound for the equivalent threshold in \at. Therefore, we conclude that AT2018cow did not exhibit flaring behavior with the same duty cycle as \at.
 
-For CSS161010, we used the online ATLAS\cite{Tonry2018,Smith2020} forced photometry service\cite{Shingles2021} to identify 480 images within 600 days after the transient. There is no $\geq5$-$\sigma$ detection after the original transient. At the distance of CSS16010, the threshold for 24.0\,mag corresponds to 19.2\,mag. The number of images that are sufficiently sensitive, binned by hour, between 20 days and 100 days after the transient, is only 8. Therefore, we cannot exclude flaring with a duty cycle identical to that of \at.
+We also performed forced photometry at the position of the LFBOT CSS161010\cite{Coppejans2020} ($z=0.033$). 
+We used the online ATLAS\cite{Tonry2018,Smith2020} forced photometry service\cite{Shingles2021} to identify 480 images within 600 days after the transient. There is no $\geq5$-$\sigma$ detection after the original transient. At the distance of CSS16010, the threshold for 24.0\,mag corresponds to 19.2\,mag. The number of images that are sufficiently sensitive, binned by hour, between 20 days and 100 days after the transient, is only 8. Therefore, we cannot exclude flaring with a duty cycle identical to that of \at.
 
 \section{Physical Origin of \at's Flares}
 \label{sec:flare-origin}
@@ -1123,6 +1124,8 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \bibitem{Scargle1982} Scargle, J. D. Studies in astronomical time series analysis. II. Statistical aspects of spectral analysis of unevenly spaced data.. \emph{\apj}, \textbf{263}, 835 (1982). 
 
 % Search for flares in other FBOTs
+
+\bibitem{Ho2022_AT2022abfc} Ho, A. Y. Q., et al. Gemini, Swift, and VLA Observations of AT2022abfc, a Radio-loud Fast Optical Transient Coincident with a z=0.212 Galaxy. \emph{Transient Name Server AstroNote}, \textbf{275}, 1 (2022). 
 
  \bibitem{Tonry2018} Tonry, J. L., et al. ATLAS: A High-cadence All-sky Survey System. \emph{\pasp}, \textbf{130}, 064505 (2018). 
 
