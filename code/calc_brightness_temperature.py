@@ -5,21 +5,25 @@ from get_opt import *
 # Constants
 c = 3E10
 k = 1.38E-16
+Gamma = 1
 
 # Source size
 dt = 30/(1+vals.z) # 30 seconds in the rest frame
-dR = c * dt
+dR = c * dt * Gamma**2
 dTheta = dR / vals.dL_cm
 print(dTheta * (180 / np.pi) * 3600 * 1E6)
 
 # Intensity
-tel,mjd,filt,mag,emag,limmag,flare = get_flares()
-choose = np.logical_and.reduce((emag<99, tel=='ULTRASPEC', ~np.isnan(mag)))
-peak_ind = np.argmin(mag[choose])
+dat = get_full_opt()
+tel = dat['#instrument'].values
+flux = dat['flux_extcorr'].values
+isflare = dat['isflare'].values
+filt = dat['flt'].values
+
+choose = np.logical_and(tel=='TNT/ULTRASPEC', isflare)
+peak_ind = np.argmax(flux[choose])
 peak_filt = filt[choose][peak_ind]
-peak_mag = mag[choose][peak_ind]
-ext_corr_peak = peak_mag-vals.ext[peak_filt]
-Snu = 10**((ext_corr_peak-8.90)/(-2.5)) # Jy
+Snu = flux[choose][peak_ind]*1E-6*(1+vals.z) # Jy
 Inu = Snu * 1E-23 / (np.pi * dTheta**2)
 
 # Frequency

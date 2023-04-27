@@ -710,8 +710,10 @@ For CSS161010, we used the online ATLAS\cite{Tonry2018,Smith2020} forced photome
 In this section, we use the observational characteristics of the \at\ flares (Methods section~\ref{sec:flare-characteristics}) to set constraints on their physical origin.
 
 The lowest frequency with clear detected variability is the optical band, so we use this to estimate the brightness temperature of the flares.
-From the ULTRASPEC observations, the shortest timescale of variability we resolve is $(30\,\mathrm{s})/(1+z) = 24\,$s, setting a limit on the emission region size $dR$ of $dR<7\times10^{11}\,$cm, or $d\theta < 3.6 \times 10^{-5}\,\mu$as. Taking the intensity of the brightest ULTRASPEC flare detection (52\,$\mu$Jy) we find $T_B > \frac{I_\nu c^2}{2 k\nu^2} \approx 8\times10^{10}\,$K.
-This limiting blackbody temperature would result in very blue optical emission ($f_\nu\propto\nu^2$), yet all of the observed optical-flare colors are significantly redder. Therefore, the emission is more likely to be non-thermal. 
+From the ULTRASPEC observations, the shortest timescale of variability we resolve is $\delta t_\mathrm{rest} = (30\,\mathrm{s})/(1+z) = 24\,$s, setting a limit on the emission region radius $R$ of\cite{Rybicki1986} $R<2\Gamma^2 c \delta t_\mathrm{rest} \approx (1.4\times10^{12}\,\mathrm{cm}) \Gamma^2$, where $\Gamma$ is the Lorentz factor of the outflow. 
+The source size is therefore $d\theta < 7 \times 10^{-5} \Gamma^2 \,\mu$as. Taking the intensity of the brightest ULTRASPEC flare detection (65\,$\mu$Jy in the rest frame) we find $T_B > \frac{I_\nu c^2}{2 k\nu^2} \approx 1\times10^{11} \Gamma^{-4} \,$K.
+For Lorentz factors significantly lower than the $\Gamma\approx100$ of $\gamma$-ray bursts, which seems reasonable to assume given the lack of any detected GRB from \at\ (Methods section~\ref{sec:grbsearch}), the limiting blackbody temperature would result in very blue optical emission ($f_\nu\propto\nu^2$), yet all of the observed optical-flare colors are significantly redder.
+Therefore, we consider the emission more likely to be non-thermal.
 
 Optically thin synchrotron radiation is a possible candidate for the non-thermal flare emission. The flux density from a population of synchrotron-emitting electrons in a power-law energy distribution $N(E)dE = \kappa E^{-p} dE$, where $N(E)dE$ is the number density of electrons in the energy interval $E$ to $E+dE$, is\cite{Longair2011}
 
