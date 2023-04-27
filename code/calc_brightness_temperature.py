@@ -8,7 +8,7 @@ k = 1.38E-16
 Gamma = 1
 
 # Source size
-dt = 30/(1+vals.z) # 30 seconds in the rest frame
+dt = 30 # observer frame
 dR = c * dt * Gamma**2
 dTheta = dR / vals.dL_cm
 print(dTheta * (180 / np.pi) * 3600 * 1E6)

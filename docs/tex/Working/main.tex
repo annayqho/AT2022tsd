@@ -710,8 +710,8 @@ For CSS161010, we used the online ATLAS\cite{Tonry2018,Smith2020} forced photome
 In this section, we use the observational characteristics of the \at\ flares (Methods section~\ref{sec:flare-characteristics}) to set constraints on their physical origin.
 
 The lowest frequency with clear detected variability is the optical band, so we use this to estimate the brightness temperature of the flares.
-From the ULTRASPEC observations, the shortest timescale of variability we resolve is $\delta t_\mathrm{rest} = (30\,\mathrm{s})/(1+z) = 24\,$s, setting a limit on the emission region radius $R$ of\cite{Rybicki1986} $R<2\Gamma^2 c \delta t_\mathrm{rest} \approx (1.4\times10^{12}\,\mathrm{cm}) \Gamma^2$, where $\Gamma$ is the Lorentz factor of the outflow. 
-The source size is therefore $d\theta < 7 \times 10^{-5} \Gamma^2 \,\mu$as. Taking the intensity of the brightest ULTRASPEC flare detection (65\,$\mu$Jy in the rest frame) we find $T_B > \frac{I_\nu c^2}{2 k\nu^2} \approx 1\times10^{11} \Gamma^{-4} \,$K.
+From the ULTRASPEC observations, the shortest timescale of variability we resolve is $\delta t_\mathrm{obs} = 30\,\mathrm{s}$, setting a limit on the emission region radius $R$ of\cite{Rybicki1986} $R<2\Gamma^2 c \delta t_\mathrm{obs} \approx (1.8\times10^{12}\,\mathrm{cm}) \Gamma^2$, where $\Gamma$ is the Lorentz factor of the outflow. 
+The source size is therefore $d\theta < 5 \times 10^{-5} \Gamma^2 \,\mu$as. Taking the intensity of the brightest ULTRASPEC flare detection (65\,$\mu$Jy in the rest frame) we find $T_B > \frac{I_\nu c^2}{2 k\nu^2} \approx 6\times10^{10} \Gamma^{-4} \,$K.
 For Lorentz factors significantly lower than the $\Gamma\approx100$ of $\gamma$-ray bursts, which seems reasonable to assume given the lack of any detected GRB from \at\ (Methods section~\ref{sec:grbsearch}), the limiting blackbody temperature would result in very blue optical emission ($f_\nu\propto\nu^2$), yet all of the observed optical-flare colors are significantly redder.
 Therefore, we consider the emission more likely to be non-thermal.
 
@@ -729,7 +729,7 @@ J(\nu) = 2.344\times10^{-25} a(p) B^{(p+1)/2} \kappa \left( \frac{1.253\times10^
 \chi_\nu = 3.354\times10^{-9} \kappa B^{(p+2)/2} (3.54\times10^{18})^p b(p) \nu^{-(p+4)/2}\,\mathrm{m}^{-1},
 \end{equation}
 
-We assume $p=2.5$, which corresponds to\cite{Longair2011} $a(p)=0.359$ and $b(p)=0.244$. Adopting the observed peak flux density of the Keck/LRIS $u+I$ flare, and the inferred size from the variability timescale $R=(1.4\times10^{12}\,\mathrm{cm})\Gamma^2$, we find that the frequency at which the optical depth is unity (the synchrotron self-absorption frequency $\nu_\mathrm{SSA}$) is
+We assume $p=2.5$, which corresponds to\cite{Longair2011} $a(p)=0.359$ and $b(p)=0.244$. Adopting the observed peak flux density of the Keck/LRIS $u+I$ flare, and the inferred size from the variability timescale $R=(1.8\times10^{12}\,\mathrm{cm})\Gamma^2$, we find that the frequency at which the optical depth is unity (the synchrotron self-absorption frequency $\nu_\mathrm{SSA}$) is
 
 \begin{equation}
 \label{eq:ssa}
@@ -744,27 +744,33 @@ estimate the equipartition energy $U_\mathrm{eq}$ and magnetic field strength $B
 B_\mathrm{eq} = \left( \frac{8\pi A g(\alpha) L}{V} \right)^{2/7}
 \end{equation}
 
-\noindent where $A=1.586\times10^{12}$ in cgs units, $g(\alpha)$ is a function of the spectral index $\alpha$ and frequency range for the power law, $L$ is the luminosity, and $V$ is the volume of the synchrotron-emitting electrons. Adopting $L=10^{43}\,$erg\,s$^{-1}$ (for the Keck/LRIS flares), a power-law index of $\alpha=-1.6$, a frequency range from $10^{13}$\,Hz to $10^{15}$\,Hz, and a radius of the synchrotron-emitting electron sphere of $(1.4\times10^{12}\,\mathrm{cm})\Gamma^2$, we find $B_\mathrm{eq}\approx(10^{3}\,\mathrm{G})\Gamma^{-1.7}$ and $U_\mathrm{eq}\approx(10^{43}\,$erg)$\Gamma^{2.6}$. The Lorentz factor of the particles emitting at $10^{15}$\,Hz (the optical band) would be $\gamma_e\approx10^{6} \Gamma^{-0.8}$.
+\noindent where $A=1.586\times10^{12}$ in cgs units, $g(\alpha)$ is a function of the spectral index $\alpha$ and frequency range for the power law, $L$ is the luminosity, and $V$ is the volume of the synchrotron-emitting electrons. Adopting $L=10^{43}\,$erg\,s$^{-1}$ (for the Keck/LRIS flares), a power-law index of $\alpha=-1.6$, a frequency range from $10^{13}$\,Hz to $10^{15}$\,Hz, and a radius of the synchrotron-emitting electron sphere of $(1.8\times10^{12}\,\mathrm{cm})\Gamma^2$, we find $B_\mathrm{eq}\approx(10^{3}\,\mathrm{G})\Gamma^{-1.7}$ and $U_\mathrm{eq}\approx(10^{43}\,$erg)$\Gamma^{2.6}$. The Lorentz factor of the particles emitting at $10^{15}$\,Hz (the optical band) would be $\gamma_e\approx10^{6} \Gamma^{-0.8}$.
 
-Finally, we estimate the velocity of the flare-emitting outflow. Assuming that the kinetic energy of the outflow in \at\ is on the order of the observed optical flare luminosity, we have $L_\mathrm{opt} \approx 10^{44}\,$erg\,s$^{-1} \lesssim \dot{M}v^2$ (for the brightest flares) where $\dot{M}$ and $v$ are the mass-loss rate and velocity of the outflow, respectively. In this case, the observed nonthermal emission must arise from a radius that is larger than the Thomson scattering photosphere $R_T$, defined as
+Finally, we estimate the velocity of the flare-emitting outflow. Assuming that the kinetic energy of the outflow in \at\ is on the order of the observed optical flare luminosity, we have $L_\mathrm{opt} \approx 10^{44}\,$erg\,s$^{-1} \approx \eta \dot{M}v^2$ (for the brightest flares) where $\dot{M}$ and $v$ are the mass-loss rate and velocity of the outflow, respectively, and $\eta$ is the efficiency of converting kinetic energy to radiation. In this case, the observed nonthermal emission must arise from a radius that is larger than the Thomson scattering photosphere. In the observer frame, the optical depth to Thomson scattering is
 
 \begin{equation}
-    \tau_T = \sigma_T R_T n_e
+\tau = n_e \sigma_T R,
 \end{equation}
 
-\noindent where 
+\noindent where $\sigma_T$ is the scattering cross-section, $R$ is the depth into the outflow (assumed to be comparable to the radius of the outflow), and
 
 \begin{equation}
     n_e = \frac{\dot{M}}{4\pi m_p R^2 v}.
 \end{equation}
 
-\noindent Solving for $R_T$, we find
+\noindent The quantity $\nu \sigma_T n_e$ (where $\nu$ is frequency) is Lorentz invariant\cite{Rybicki1986}, so we have $\sigma_T = \sigma_T' / \Gamma^2$, where $\sigma_T'$ is the cross section in the rest frame of the gas. Ultimately, we find that the photospheric radius $R_\mathrm{ph}$ (the radius where $\tau=1$) is
 
 \begin{equation}
-    R_T = (1.2 \times 10^{11}\,\mathrm{cm}) (\beta)^{-3}
+    R_\mathrm{ph} = \frac{1.1 \times 10^{11}\,\mathrm{cm}}{ \Gamma^2 \beta^3 \eta}
 \end{equation}
 
-\noindent where $\beta=v/c$. The inferred radius from the light-crossing time, based on the shortest observed variability timescale of 20\,s, is $R_\mathrm{lc} < (1.4\times10^{12}\,$cm)$\Gamma^2$. Requiring $R_T \leq R_\mathrm{lc}$, we find $\beta \gtrsim 0.4$. So, the outflow must be fast, but need not be fully relativistic.
+\noindent where $\beta=v/c$. Requiring $R_\mathrm{ph}$ to be smaller than the radius inferred from the light-crossing time, we find
+
+\begin{equation}
+    \gamma^4 \beta^3 > 0.06 \eta^{-1}.
+\end{equation}
+
+\noindent We find $\beta \gtrsim 0.4$ for $\eta=1$ and $\beta \gtrsim 0.6$ for $\eta=0.1$. So, the outflow must be fast, but need not be fully relativistic.
 
 Given that LFBOTs with light curves similar to \at\ are rare, occurring at $<0.1\%$ of the core-collapse supernova rate\cite{Ho2022_RET}, it seems unlikely that the outflow in \at\ is tightly collimated. 
 In the extreme case that all the ZTF LFBOTs produced similar outflows, and that \at\ was the only member of the class viewed on-axis so far (although flares cannot be ruled out for all but one of the previously discovered LFBOTs; Methods section~\ref{sec:flare-search}), we estimate a beaming fraction of $f_b = 1/6 = 1-\cos{\theta}$, and find $\theta\approx30^{\circ}$ for the opening angle of the outflow. This estimate of the opening angle is consistent with the current (limited) radio limits on off-axis jets in such objects: the radio emission in AT2018cow (by far the most nearby event, with the most sensitive limits) cannot\cite{Margutti2019} rule out an off-axis jet with $\theta=30^{\circ}$ and energy $E_J<10^{51}\,$erg.%, which is also consistent with the lack of $\gamma$-ray detection (Methods section~\ref{sec:grbsearch}).
