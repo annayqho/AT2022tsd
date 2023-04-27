@@ -14,12 +14,14 @@ import numpy as np
 # nu2 = 15*1E9
 # obs_nu = 1.4E14
 
+Gamma = 1
+
 # Input: our values
-R = 7E11
-L = 1E44
-alpha = -0.9
-nu1 = 1E16
-nu2 = 1E12
+R = 1.4E12 * Gamma**2
+L = 1E43
+alpha = -1.6
+nu1 = 1E15
+nu2 = 1E13
 obs_nu = 1E15
 
 # Constants
