@@ -123,7 +123,7 @@ def plot_flare(ax, tab, mjd, window=1, unit='Days'):
 
 if __name__=="__main__":
     # Initialize figure
-    fig,axarr = plt.subplots(figsize=(5,7))
+    fig,axarr = plt.subplots(figsize=(7,7.5))
 
     # Get the optical photometry
     tab = get_full_opt()
@@ -160,8 +160,8 @@ if __name__=="__main__":
             unit_str = units[i]
             if unit_str=='Minutes':
                 unit_str='Min.'
-            #ax.set_xlabel("%s since %s" %(unit_str,t0_str[5:]), fontsize=8)
-            ax.set_xlabel("Minutes", fontsize=9)
+            ax.set_xlabel("%s since %s" %(unit_str,t0_str[5:]), fontsize=8)
+            #ax.set_xlabel("Minutes", fontsize=9)
 
             if i==0:
                 axins = ax.inset_axes([0.15, 0.45, 0.25, 0.3])
@@ -178,36 +178,39 @@ if __name__=="__main__":
             ax.tick_params(axis='both', labelsize=9, pad=0.5)
 
             # Make a second axis
-            #scale_y2 = 42
-            #if ind < 7:
-            #    scale_y2 = 43
-            #ax2 = ax.twinx()
-            #leff = vals.sdss_pivot['g'] # use g-band for all
-            #nueff = 3E18/leff
-            #y_f = lambda y_i: nueff * y_i * 1E-6 * 1E-23 * \
-            #        4 * np.pi * vals.dL_cm**2 / 10**scale_y2
-            #ymin, ymax = ax.get_ylim()
-            #ax2.set_ylim((y_f(ymin), y_f(ymax)))
-            #ax2.plot([],[])
-            ##ax2.set_yscale('log')
-            #ax2.tick_params(axis='both', labelsize=9)
-            #if np.logical_or.reduce((ind==3, ind==6, ind==9)):
-            #    ax2.set_ylabel(
-            #            r"$\nu L_\nu$ ($10^{%s}$ erg s$^{-1}$)" %scale_y2, fontsize=9,
-            #            rotation=270, labelpad=15.0)
+            scale_y2 = 42
+            if ind < 7:
+                scale_y2 = 43
+            ax2 = ax.twinx()
+            leff = vals.sdss_pivot['g'] # use g-band for all
+            nueff = 3E18/leff
+            y_f = lambda y_i: nueff * y_i * 1E-6 * 1E-23 * \
+                    4 * np.pi * vals.dL_cm**2 / 10**scale_y2
+            ymin, ymax = ax.get_ylim()
+            ax2.set_ylim((y_f(ymin), y_f(ymax)))
+            ax2.plot([],[])
+            #ax2.set_yscale('log')
+            ax2.tick_params(axis='both', labelsize=9)
+            if np.logical_or.reduce((ind==3, ind==6, ind==9)):
+                ax2.set_ylabel(
+                        r"$\nu L_\nu$ ($10^{%s}$ erg s$^{-1}$)" %scale_y2, fontsize=8,
+                        rotation=270, labelpad=15.0)
 
             if ind==2:
                 ax.set_yticks([5,7,10])
                 ax.set_yticklabels([5,7,10])
-                #ax2.set_yticks([0.8,1.3])
-                #ax2.set_yticklabels([0.8,1.3])
+                ax2.set_yticks([0.8,1.2])
+                ax2.set_yticklabels([0.8,1.2])
+            if ind==5:
+                ax2.set_yticks([2,5])
+                ax2.set_yticklabels([2,5])
 
     # # Plot ULTRASPEC r-band panel
     ax = plt.subplot(5,1,4)
     t0 = Time("2022-12-19T15:00:00", format='isot').mjd
-    plot_ultraspec_panel(ax, tab, t0, 'r', 'o', vals.rc, y2=False)
-    #ax.set_xlabel("Hours since 12-19 15:00", fontsize=9)
-    ax.set_xlabel("Hours", fontsize=9)
+    plot_ultraspec_panel(ax, tab, t0, 'r', 'o', vals.rc, y2=True)
+    ax.set_xlabel("Hours since 12-19 15:00", fontsize=8)
+    #ax.set_xlabel("Hours", fontsize=9)
     ax.text(0.02, 0.95, 'ULTRASPEC $r$-band', transform=ax.transAxes,
             ha='left', va='top', fontsize=8)
     ax.set_xlim(-0.6, 4.3)
@@ -228,11 +231,11 @@ if __name__=="__main__":
     ax = plt.subplot(5,1,5)
     t0 = Time("2022-12-20T15:00:00", format='isot').mjd
     plot_ultraspec_panel(ax, tab[tab['#instrument']=='TNT/ULTRASPEC'], 
-                         t0, 'g', 's', vals.gc, y2=False)
+                         t0, 'g', 's', vals.gc, y2=True)
     ax.text(0.02, 0.95, 'ULTRASPEC $g$-band', transform=ax.transAxes,
             ha='left', va='top', fontsize=8)
-    #ax.set_xlabel("Hours since 12-20 15:00", fontsize=9)
-    ax.set_xlabel("Hours", fontsize=9)
+    ax.set_xlabel("Hours since 12-20 15:00", fontsize=8)
+    #ax.set_xlabel("Hours", fontsize=9)
     ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
     ax.set_xlim(0.2, 4.3)
     ax.set_ylim(-5,50)
