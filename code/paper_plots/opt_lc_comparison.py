@@ -96,7 +96,8 @@ def plot_20xnd(ax, show='absolute', offset=0):
     filt = dat['filt']
     t0 = 59135
     cols = [vals.gc, vals.rc]
-    for i,b in enumerate(['g', 'r']):
+    #for i,b in enumerate(['g', 'r']):
+    for i,b in enumerate(['g']):
         choose = np.logical_and(dat['filt'].values==b, dat['merr']!='---')
         x = mjd[choose]-t0
         y = mag[choose].astype(float)
@@ -136,7 +137,21 @@ def plot_sn2011kl(ax, show='absolute', offset=0):
     dm = Planck18.distmod(z=z).value
     if show=='apparent':
         m = m+dm
-    ax.plot(t/(1.677), m-offset, c='grey', lw=1, ls='-.')
+    ax.plot(t/(1.677), m-offset, c='grey', lw=1, ls='-')
+
+
+def plot_at2020mrf(ax, show='absolute', offset=0):
+    """ Plot the LC of the AT2020mrf g-band LC 
+    It's already in the rest frame """
+    z = 0.1353
+    dat = np.loadtxt("../at2020mrf.txt", delimiter=',')
+    t = dat[:,0]
+    m = dat[:,1]
+    dm = Planck18.distmod(z=z).value
+    if show=='apparent':
+        m = m+dm
+    ax.plot(t-4, m+offset, c=vals.gc, lw=1, ls='-.')
+
 
 
 def plot_cvs(ax):
