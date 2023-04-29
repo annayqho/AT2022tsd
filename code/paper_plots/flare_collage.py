@@ -111,7 +111,7 @@ def plot_flare(ax, tab, mjd, window=1, unit='Days'):
             if unit=='Minutes':
                 fac = 24*60
             ax.errorbar((t[choose]-t0)*fac, fujy[choose], efujy[choose], 
-                    fmt=syms[i], c=cols[i], label='$%s$' %b, ms=5*ms_scale[i])
+                    fmt=syms[i], c=cols[i], ms=5*ms_scale[i])
 
     t0_str = str(Time(t0, format='mjd').isot).replace('T', ' ')[0:-7]
     tel_list = np.unique(np.array(tel_list))
@@ -252,15 +252,14 @@ if __name__=="__main__":
     axins.set_xticks([])
     axins.set_yticks([])
 
-    # Add an axis just for the legend?
-    #ax = plt.subplot(4,4,8)
-    #ax.scatter(0,0,c=vals.uc,marker='*',label='$u$',s=60)
-    #ax.scatter(0,0,c=vals.gc,marker='s',label='$g$')
-    #ax.scatter(0,0,c=vals.rc,marker='o',label='$r$')
-    #ax.scatter(0,0,c=vals.ic,marker='D',label='$i$')
-    #ax.set_xlim(5,10)
-    #ax.axis('off')
-    #ax.legend()
+    # Add a legend on top
+    ax.scatter(0,0,marker='*',c=vals.uc,label='$u$')
+    ax.scatter(0,0,marker='s',c=vals.gc,label='$g$')
+    ax.scatter(0,0,marker='o',c=vals.rc,label='$r$')
+    ax.scatter(0,0,marker='D',c=vals.ic,label='$i$')
+    ax.scatter(0,0,marker='<',c=vals.wc,label='$w$')
+    fig.legend(fontsize=8, bbox_to_anchor=(0.5,0.93), loc='upper center',
+               ncol=5, handletextpad=0.1)
 
     plt.subplots_adjust(wspace=0.4, hspace=0.5)
     #plt.show()

@@ -207,7 +207,7 @@ if __name__=="__main__":
     ax.scatter(0,0,marker='s',c=vals.gc,edgecolor='k',label='AT2022tsd $g$')
     ax.scatter(0,0,marker='o',c=vals.rc,edgecolor='k',label='AT2022tsd $r$')
     ax.scatter(0,0,marker='D',c=vals.ic,edgecolor='k',label='AT2022tsd $i$')
-    fig.legend(fontsize=8, bbox_to_anchor=(0.5,1.04), loc='upper center',
+    fig.legend(fontsize=8, bbox_to_anchor=(0.5,0.95), loc='upper center',
                ncol=5, handletextpad=0.1)
 
     # Formatting of the whole fig
