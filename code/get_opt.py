@@ -388,6 +388,10 @@ def get_full_opt():
     ps1 = get_panstarrs()
     ztf_dan_chimera_ps1 = ztf_dan_chimera.append(ps1, ignore_index=True)
 
+    # Add the ATLAS photometry
+    atlas = get_atlas()
+    ztf_dan_chimera_ps1_atlas = ztf_dan_chimera_ps1.append(atlas, ignore_index=True)
+
     # Add the Lulin photometry
     lulin = get_lulin() # 3-sigma
     lulin_tel = []
@@ -414,7 +418,7 @@ def get_full_opt():
 
     add_dict = pd.DataFrame(add_dict)
 
-    full_dict = ztf_dan_chimera_ps1.append(add_dict, ignore_index=True)
+    full_dict = ztf_dan_chimera_ps1_atlas.append(add_dict, ignore_index=True)
 
     # Indicate that all rows of this table are single images
     full_dict['nobs'] = [1]*len(full_dict)
