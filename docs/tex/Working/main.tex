@@ -68,7 +68,7 @@
 %% in the author list
 
 \author{Anna Y. Q. Ho$^{1}$, Daniel A. Perley$^{2}$, Ping Chen$^{3}$, Vik Dhillon$^{X}$, Steve Schulze$^{X}$, Michael Bremer$^X$, Harsh Kumar$^X$, Aswin Suresh$^X$, Vishwajeet S.$^X$, Nayana A.J.$^X$, Ting-Wan Chen$^X$, Dmitry Svinkin$^X$,
-Joseph P. Anderson$^X$, Supachai Awiphan,Varun Bhalerao$^X$, Thomas de Boer$^X$, Thomas G. Brink$^X$, Jeff Cooke$^X$, Andrew J. Drake, Alexei V. Filippenko$^X$, James Freeburn$^X$, Christoffer Fremling$^X$, Michael D. Fulton$^{ARC,Belfast}$, Hua Gao$^{IfA,UH}$, Viraj Karambelkar, Shri Kulkarni$^X$, Eugene A. Magnier$^X$, Thomas Moore, Tom\'as E. M\"uller-Bravo$^X$, Matt Nicholl$^X$, Conor M. B. Omand$^X$, David Polishook, Saran Poshyachinda, Reed Riddle$^X$, Ben Rusholme, Enrico Segre$^X$, Yashvi Sharma, Ken W. Smith$^X$, Jesper Sollerman$^X$, Shubham Srivastav, Nora Linn Strotjohann, Mark Suhr$^X$, Yanan Wang, Philip Wiseman$^X$, Avery Wold, Sheng Yang$^X$, Yuhan Yao$^X$,
+Joseph P. Anderson$^X$, Supachai Awiphan, Eric C. Bellm$^X$, Varun Bhalerao$^X$, Thomas de Boer$^X$, Thomas G. Brink$^X$, Jeff Cooke$^X$, Andrew J. Drake, Alexei V. Filippenko$^X$, James Freeburn$^X$, Christoffer Fremling$^X$, Michael D. Fulton$^{ARC,Belfast}$, Hua Gao$^{IfA,UH}$, Viraj Karambelkar, Shri Kulkarni$^X$, Eugene A. Magnier$^X$, Thomas Moore, Tom\'as E. M\"uller-Bravo$^X$, Matt Nicholl$^X$, Conor M. B. Omand$^X$, David Polishook, Saran Poshyachinda, Reed Riddle$^X$, Ben Rusholme, Enrico Segre$^X$, Yashvi Sharma, Ken W. Smith$^X$, Jesper Sollerman$^X$, Shubham Srivastav, Nora Linn Strotjohann, Mark Suhr$^X$, Yanan Wang, Philip Wiseman$^X$, Avery Wold, Sheng Yang$^X$, Yuhan Yao$^X$,
 [affiliations can be found \hyperref[sec:affiliations]{after the references}]
 	}
 \renewcommand{\thefootnote}{\textit{\alph{footnote}}}
@@ -500,6 +500,7 @@ Can Magrans, s/n, E-08193, Barcelona, Spain.
 \item European Southern Observatory, Alonso de C\'ordova 3107, Casilla 19, Santiago, Chile
 \item Millennium Institute of Astrophysics MAS, Nuncio Monsenor Sotero Sanz 100, Off. 104, Providencia, Santiago, Chile
 \item IPAC, California Institute of Technology, 1200 E. California Blvd, Pasadena, CA 91125, USA
+\item DIRAC Institute, Department of Astronomy, University of Washington, 3910 15th Avenue NE, Seattle, WA 98195, USA
 
 \end{affiliations}
 \end{small}
@@ -1288,14 +1289,14 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \begin{figure*}[ht]
     \centering
     \includegraphics[width=\textwidth]{lomb_scargle_periodogram.png}
-    \caption{Lomb-Scargle periodogram of the ULTRASPEC flares. In each panel, we plot the periodogram for the flare itself, for a region of the light curve with no significant detections (labeled as `noise'), and for the full light curve (labeled as `all'). Horizontal dashed lines show the power expected for a false-alarm peak (with false alarm probability 2.5\%) under the assumption that there is no periodicity present in the data. The only peaks higher than this threshold are from the cadence of the observation (30\,s, and an alias at half that value), from the overall flare width, and from the duration of the observation.}
+    \caption{Lomb-Scargle periodogram of the ULTRASPEC flares. In each panel, we plot the periodogram for the flare itself, for a region of the light curve with no significant detections (labeled as `noise'), and for the full light curve (labeled as `all'). Horizontal dashed lines show the power expected for a false-alarm peak (with false alarm probability 2.5\%) under the assumption that there is no periodicity present in the data, using a bootstrap simulation. The only peaks higher than this threshold are from the cadence of the observation (30\,s, and an alias at half that value), from the overall flare width, and from the duration of the observation.}
     \label{fig:ultraspec-periodogram}
 \end{figure*}
 
 \begin{figure*}[!ht]
     \centering
     \includegraphics[width=\textwidth]{lomb_scargle_xray.png}
-    \caption{Lomb-Scargle periodogram of the first four epochs of Chandra X-ray observations. The horizontal line shows the power expected for a false-alarm peak (with false alarm probability 2.5\%) under the assumption that there is no periodicity present in the data. The observed peaks arise from the 500\,s sampling and aliases (marked with vertical dotted lines).}
+    \caption{Lomb-Scargle periodogram of the first four epochs of Chandra X-ray observations. The horizontal line shows the power expected for a false-alarm peak (with false alarm probability 2.5\%) under the assumption that there is no periodicity present in the data, using a bootstrap simulation. The observed peaks arise from the 500\,s sampling and aliases (marked with vertical dotted lines).}
     \label{fig:xray-periodogram}
 \end{figure*}
 
