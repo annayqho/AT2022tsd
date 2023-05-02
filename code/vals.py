@@ -64,4 +64,5 @@ ps1_leff = {}
 ps1_leff['i'] = 7520.0
 ps1_leff['w'] = 6080.0
 ps1_leff['z'] = 8660.0
+atlas_leff = {}
 atlas_leff['o'] = 6629.82
