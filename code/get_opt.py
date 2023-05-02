@@ -172,6 +172,70 @@ def get_lulin():
     return dat
 
 
+def get_atlas():
+    """ Get the ATLAS data """
+
+    # Get the data from the file provided by S. Smartt
+    inputf = ddir + "/at2022tsd_atlas.txt"
+    dat  = pd.read_fwf(inputf)
+
+    # Detections
+    # In this case, we know all three are detections from stacking
+    dat['sig'] = dat['ujy'].values/dat['dujy'].values
+    isdet = [True, True, True] # confident detection
+    fdet = dat['ujy'][isdet]
+    efdet = dat['dujy'][isdet]
+
+    # Add filters
+    dat['filter'] = ['o', 'o', 'o']
+
+    # Add exposure times, which I'm pretty sure are 30s
+    dat['exptime'] = [30,30,30]
+
+    # Correct for MW extinction
+    f_extcorr = np.copy(dat['ujy'].values)
+    ef_extcorr = np.copy(dat['dujy'].values)
+    for f in np.unique(dat['filter']):
+        choose = dat['filter'].values==f
+        fac = 10**(vals.get_extinction(vals.atlas_leff[f])/2.5)
+        f_extcorr[choose] = dat['ujy'].values[choose]*fac
+        ef_extcorr[choose] = dat['dujy'].values[choose]*fac
+    dat['flux_extcorr'] = f_extcorr
+    dat['unc_extcorr'] = ef_extcorr
+
+    fdet_corr = dat['flux_extcorr'][isdet]
+    dat['mag_extcorr'] = np.copy(dat['mag'])
+    dat.loc[isdet, 'mag_extcorr'] = -2.5*np.log10(fdet_corr*1E-6)+8.90
+
+    # Non-detections / upper limits
+    # Calculate an upper limit (limiting magnitude) for all exposures
+    SNU = 3
+    dat['maglim'] = -2.5*np.log10(dat['dujy']*1E-6*SNU)+8.90
+    dat['maglim_extcorr'] = -2.5*np.log10(dat['unc_extcorr']*1E-6*SNU)+8.90
+
+    # Now create a new dataframe with the same headings as our other dfs
+    d = {}
+    d['#instrument'] = np.array(['ATLAS'])
+    d['mjdstart'] = dat['MJD'].values
+    d['exp'] = dat['exptime'].values
+    d['flt'] = dat['filter'].values
+    d['flux'] = dat['ujy'].values
+    d['flux_extcorr'] = dat['flux_extcorr'].values
+    d['unc'] = dat['dujy'].values
+    d['unc_extcorr'] = dat['unc_extcorr'].values
+    d['sig'] = np.abs(dat['ujy'].values/dat['dujy'].values)
+    d['flare'] = np.logical_and(d['sig']>5, d['mjdstart']>59856.4)
+    d['mag'] = dat['mag'].values
+    d['mag_extcorr'] = dat['mag_extcorr'].values
+    d['emag'] = dat['emag'].values
+    d['maglim'] = dat['maglim'].values
+    d['maglim_extcorr'] = dat['maglim_extcorr'].values
+
+    df = pd.DataFrame(d)
+
+    return df
+
+
 def get_panstarrs():
     """ Get the Pan-STARRS data """
     inputf = ddir + "/AT2022tsd-PS1-forced.csv"
