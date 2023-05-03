@@ -39,10 +39,11 @@ def plot_22tsd(ax, show='absolute', offset=0):
     filt = filt[isdet]
 
     # Plot the LC binned by one day
-    ms = ['s', 'o', 'D', '>']
-    cs = [vals.gc, vals.rc, vals.ic, vals.wc]
+    ms = ['s', 'o', 'D', '>', '<']
+    cs = [vals.gc, vals.rc, vals.ic, vals.wc, vals.oc]
+    zorder = [5, 4, 3, 2, 1]
 
-    for i,b in enumerate(np.array(['g', 'r', 'i', 'w'])):
+    for i,b in enumerate(np.array(['g', 'r', 'i', 'w', 'o'])):
         # Get the LC in that filter
         choose = filt==b
         x = dt[choose]
@@ -62,9 +63,9 @@ def plot_22tsd(ax, show='absolute', offset=0):
 
         if show=='absolute':
             ax.errorbar(xb/(1+vals.z), yf-vals.dm, eyf, fmt=ms[i], color=cs[i],
-                        zorder=10)
+                        zorder=zorder[i])
         elif show=='apparent':
-            ax.errorbar(xb, yf, eyf, fmt=ms[i], color=cs[i], zorder=10,
+            ax.errorbar(xb, yf, eyf, fmt=ms[i], color=cs[i], zorder=zorder[i],
                         mec='k', lw=0.5)
 
 

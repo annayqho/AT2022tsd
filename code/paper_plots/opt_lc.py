@@ -192,7 +192,7 @@ if __name__=="__main__":
     # Make a second y-axis
     ax2 = ax.twinx()
     ax2.set_ylabel(
-            "$M_\mathrm{opt} (AB)$", fontsize=10, rotation=270, labelpad=15.0)
+            "$M_\mathrm{opt}$ (AB)", fontsize=10, rotation=270, labelpad=15.0)
     y_f = lambda y_i: y_i-vals.dm+2.5*np.log10(1+vals.z)
     ymin, ymax = ax.get_ylim()
     ax2.set_ylim((y_f(ymin), y_f(ymax)))
@@ -213,8 +213,9 @@ if __name__=="__main__":
     ax.scatter(0,0,marker='o',c=vals.rc,edgecolor='k',label='AT2022tsd $r$')
     ax.scatter(0,0,marker='D',c=vals.ic,edgecolor='k',label='AT2022tsd $i$')
     ax.scatter(0,0,marker='>',c=vals.wc,edgecolor='k',label='AT2022tsd $w$')
+    ax.scatter(0,0,marker='<',c=vals.wc,edgecolor='k',label='AT2022tsd $o$')
     fig.legend(fontsize=8, bbox_to_anchor=(0.5,1.05), loc='upper center',
-               ncol=5, handletextpad=0.1)
+               ncol=6, handletextpad=0.1, columnspacing=0.8)
 
     # Formatting of the whole fig
     fig.text(0.5, 0, r'$\Delta t_\mathrm{obs}$ (days)', ha='center')
