@@ -192,6 +192,9 @@ def get_atlas():
     # Add exposure times, which I'm pretty sure are 30s
     dat['exptime'] = [30,30,30]
 
+    # Drop the extra column
+    dat = dat.drop('5sig', axis=1)
+
     # Correct for MW extinction
     f_extcorr = np.copy(dat['ujy'].values)
     ef_extcorr = np.copy(dat['dujy'].values)
@@ -215,7 +218,7 @@ def get_atlas():
 
     # Now create a new dataframe with the same headings as our other dfs
     d = {}
-    d['#instrument'] = np.array(['ATLAS'])
+    d['#instrument'] = np.array(['ATLAS', 'ATLAS', 'ATLAS'])
     d['mjdstart'] = dat['MJD'].values
     d['exp'] = dat['exptime'].values
     d['flt'] = dat['filter'].values
