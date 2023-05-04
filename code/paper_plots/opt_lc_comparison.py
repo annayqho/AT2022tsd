@@ -27,7 +27,7 @@ def plot_22tsd(ax, show='absolute', offset=0):
     choose = np.logical_and(opt['isflare']==False, opt['mjdstart']<59856.4)
     opt_transient = opt[choose]
 
-    dt = Time(opt_transient['mjdstart'].values, format='mjd').jd-vals.t0+offset
+    dt = Time(opt_transient['mjdstart'].values,format='mjd').jd-vals.t0+offset
     mag = opt_transient[choose]['mag_extcorr'].values
     emag = opt_transient[choose]['emag'].values
     filt = opt_transient['flt'].values
@@ -63,8 +63,8 @@ def plot_22tsd(ax, show='absolute', offset=0):
         eyf = (eyb/yb) * (2.5/np.log(10))
 
         if show=='absolute':
-            ax.errorbar(xb/(1+vals.z), yf-vals.dm, eyf, fmt=ms[i], color=cs[i],
-                        zorder=zorder[i])
+            ax.errorbar(xb/(1+vals.z), yf-vals.dm, eyf, 
+                        fmt=ms[i], color=cs[i], zorder=zorder[i])
         elif show=='apparent':
             ax.errorbar(xb, yf, eyf, fmt=ms[i], color=cs[i], zorder=zorder[i],
                         mec='k', lw=0.5)

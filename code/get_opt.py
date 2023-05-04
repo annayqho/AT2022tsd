@@ -376,7 +376,7 @@ def get_full_opt():
     # Give all observations a 3-sigma limiting magnitude
     add_ztf['maglim'] = -2.5*np.log10(efujy*1E-6*3)+8.90
     add_ztf['maglim_extcorr'] = -2.5*np.log10(efujy_extcorr*1E-6*3)+8.90
-    add_ztf = pd.DataFrame(add_dict)
+    add_ztf = pd.DataFrame(add_ztf)
 
     # Get all the different photometry
     dat = get_most_lc() # 3-sigma

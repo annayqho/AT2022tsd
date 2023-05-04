@@ -65,9 +65,9 @@ def plot_flare_epochs(ax, dat):
     jd = Time(dat['mjdstart'].values, format='mjd').jd
     isflare = dat['isflare'].values
     filts = dat['flt'].values
-    cs = [vals.rc, vals.gc, vals.ic, vals.uc, vals.wc]
+    cs = [vals.rc, vals.gc, vals.ic, vals.uc, vals.wc, vals.wc]
 
-    for j,filt in enumerate(np.array(['r', 'g', 'i', 'u', 'w'])):
+    for j,filt in enumerate(np.array(['r', 'g', 'i', 'u', 'w', 'clear'])):
         choose = np.logical_and(isflare, filts==filt)
         flare_epochs = jd[choose]
         flare_epochs_int = flare_epochs.astype(int)
@@ -173,7 +173,7 @@ if __name__=="__main__":
     plot_flare_epochs(ax, dat)
     ax.text(26.6, 19.1, '$i$-band flare', fontsize=8, ha='right', c=vals.ic)
     ax.text(25.8, 20.1, '$r$-band flare', fontsize=8, ha='right', c=vals.rc)
-    ax.text(68, 21.1, '$w$-band flare', fontsize=8, ha='right', c=vals.wc)
+    ax.text(68, 21.1, '$w$-band/clear flare', fontsize=8, ha='right', c=vals.wc)
     ax.text(97, 20, '$g$-band flare', fontsize=8, ha='right', c=vals.gc)
     shift = np.abs(Planck18.distmod(z=0.0085).value-vals.dm)
     plot_98bw(ax, show='apparent', offset=shift)
@@ -228,6 +228,6 @@ if __name__=="__main__":
     ax2.yaxis.tick_right()
 
     fig.subplots_adjust(wspace=0)
-    plt.show()
-    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    #plt.close()
+    #plt.show()
+    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    plt.close()
