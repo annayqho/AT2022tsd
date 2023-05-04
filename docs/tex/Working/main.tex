@@ -68,7 +68,7 @@
 %% in the author list
 
 \author{Anna Y. Q. Ho$^{1}$, Daniel A. Perley$^{2}$, Ping Chen$^{3}$, Steve Schulze$^{X}$, Vik Dhillon$^{X}$, Harsh Kumar$^X$, Aswin Suresh$^X$, Vishwajeet Swain$^X$, Michael Bremer$^X$, Stephen J. Smartt$^X$,
-Nayana A.J.$^X$, G.C. Anupama, Joseph P. Anderson$^X$, Supachai Awiphan, Sudhanshu Barway, Eric C. Bellm$^X$, Sagi Ben-Ami, Varun Bhalerao$^X$, Thomas de Boer$^X$, Thomas G. Brink$^X$, Ting-Wan Chen$^X$, Wen-Ping Chen, Jeff Cooke$^X$, Michael W. Coughlin, Kaustav K.~Das, Andrew J. Drake, Alexei V. Filippenko$^X$, James Freeburn$^X$, Christoffer Fremling$^X$, Michael D. Fulton$^{ARC,Belfast}$, Llu\'is Galbany, Hua Gao$^{IfA,UH}$, Matthew J. Graham, Viraj Karambelkar, Mansi~M.~Kasliwal$^X$, Shri Kulkarni$^X$, Eugene A. Magnier$^X$, Ashish~A.~Mahabal, Thomas Moore, Tom\'as E. M\"uller-Bravo$^X$, Chow-Choong Ngeow, Matt Nicholl$^X$, Eran Ofek$^X$, Conor M. B. Omand$^X$, Yen-Chen Pan, Priscila J. Pessi, David Polishook, Saran Poshyachinda, Reed Riddle$^X$, Ben Rusholme, Enrico Segre$^X$, Yashvi Sharma$^X$, Ken W. Smith$^X$, Jesper Sollerman$^X$, Shubham Srivastav, Nora Linn Strotjohann, Mark Suhr$^X$, Dmitry Svinkin$^X$, Yanan Wang, Philip Wiseman$^X$, Avery Wold, Sheng Yang$^X$, Yuhan Yao$^X$,
+Nayana A.J.$^X$, G.C. Anupama, Joseph P. Anderson$^X$, Supachai Awiphan, Sudhanshu Barway, Eric C. Bellm$^X$, Sagi Ben-Ami, Varun Bhalerao$^X$, Thomas de Boer$^X$, Thomas G. Brink$^X$, Ting-Wan Chen$^X$, Wen-Ping Chen, Jeff Cooke$^X$, Michael W. Coughlin, Kaustav K.~Das, Andrew J. Drake, Alexei V. Filippenko$^X$, James Freeburn$^X$, Christoffer Fremling$^X$, Michael D. Fulton$^{ARC,Belfast}$, Llu\'is Galbany, Hua Gao$^{IfA,UH}$, Matthew J. Graham, Viraj Karambelkar, Mansi~M.~Kasliwal$^X$, Shri Kulkarni$^X$, Eugene A. Magnier$^X$, Ashish~A.~Mahabal, Thomas Moore, Tom\'as E. M\"uller-Bravo$^X$, Chow-Choong Ngeow, Matt Nicholl$^X$, Eran Ofek$^X$, Conor M. B. Omand$^X$, Yen-Chen Pan, Priscila J. Pessi, Glen Petitpas, David Polishook, Saran Poshyachinda, Reed Riddle$^X$, Ben Rusholme, Enrico Segre$^X$, Yashvi Sharma$^X$, Ken W. Smith$^X$, Jesper Sollerman$^X$, Shubham Srivastav, Nora Linn Strotjohann, Mark Suhr$^X$, Dmitry Svinkin$^X$, Yanan Wang, Philip Wiseman$^X$, Avery Wold, Sheng Yang$^X$, Yuhan Yao$^X$,
 [affiliations can be found \hyperref[sec:affiliations]{after the references}]
 	}
 \renewcommand{\thefootnote}{\textit{\alph{footnote}}}
@@ -871,6 +871,15 @@ We obtained $g$- and $r$-band images of \at\ using the IO:O camera on the Liverp
 
 We observed \at\ with the 2-meter Himalayan Chandra Telescope (HCT) on 2022 December 26 under a Director's Discretionary Time proposal. We obtained a series of five-minute exposures in $R$-band from 13:47 to 20:25, covering almost all of the first Chandra X-ray Observatory observing window.  Seeing and focus were generally poor and vary greatly over the course of the observation.  A stacked subset of the best-quality images is used as a reference and all other images are differenced relative to this one by cross-convolution of the respective PSFs.   We did not detect any clear flares, with a limiting magnitude per exposure of $R\gtrsim22\,$mag. It is possible that there are some weak flares at the detection threshold, but the detections are not robust due to the variable PSF size and shape over the course of the observation window.
 
+\subsection{GROWTH India Telescope}
+\label{sec:GIT}
+
+We observed \at\ on 26 December 2022 using the GROWTH-India Telescope (GIT\cite{Kumar2022}) located at the Indian Astronomical Observatory (IAO), Hanle-Ladakh, simultaneously with the Himalayan Chandra Telescope (see previous section). Images were observed in an open filter configuration with a 300-sec exposure time. The images were reduced in a standard manner using the GIT pipeline\cite{Kumar2022_pipeline}, and image subtraction was performed using ???.
+
+%To pre-processed the images, fringes were removed and corrections were made for bias \& flat-fielding and cosmic-rays were removed via \sw{Astro-SCRAPPY}\cite{2019ascl.soft07032M} package. We obtained astrometric solution on the resulting images using the offline \sw{solve-field}. Subsequently, refined astrometry was conducted using the \sw{SCAMP}\cite{2006ASPC..351..112B} package to facilitate image stacking with \sw{SWarp}\cite{2010ascl.soft10068B}. We estimated the transformation equation for open filter using the standard source magnitudes obtained from gri images of GIT. Zero-points of the open filter images were obtained by cross matching the stars with PanSTARRS DR1 catalogue\cite{2016arXiv161205560C} through vizier and transforming those to open filter. The obtained Zero-points were used to standardise the magnitudes. Using the \sw{ZOGY}\cite{Zackay2016} algorithm based python pipeline\cite{2022MNRAS.516.4517K}, we performed image subtraction on all GIT images. 
+%Data were downloaded and processed by the GIT data reduction pipeline. We did not detect any flares in our individual subtracted images due to shallower depth. To increase the S$/$N ratio, we used a running stack of two, three and four images using \sw{SWarp}\cite{2010ascl.soft10068B}. Even then, we did not find any flares in our subtracted stacked image. The processing steps follow as:
+
+
 \subsection{Magellan-Baade Telescope}
 \label{sec:magellan}
 
@@ -1195,6 +1204,10 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \bibitem{Tachibana2018} Tachibana, Y., \& Miller, A. A. A Morphological Classification Model to Identify Unresolved PanSTARRS1 Sources: Application in the ZTF Real-time Pipeline. \emph{\pasp}, \textbf{130}, 128001 (2018). 
 
 \bibitem{Steele2004} Steele, I. A., et al. The Liverpool Telescope: performance and first results. \emph{\procspie}, \textbf{5489}, 679 (2004). 
+
+\bibitem{Kumar2022} Kumar, H., et al. India's First Robotic Eye for Time-domain Astrophysics: The GROWTH-India Telescope. \emph{\aj}, \textbf{164}, 90 (2022). 
+
+\bibitem{Kumar2022_pipeline} Kumar, H., et al. GROWTH on S190426c II: GROWTH-India Telescope search for an optical counterpart with a custom image reduction and candidate vetting pipeline. \emph{\mnras}, \textbf{516}, 4517 (2022). 
 
 \bibitem{Dressler2011} Dressler, A., et al. IMACS: The Inamori-Magellan Areal Camera and Spectrograph on Magellan-Baade. \emph{\pasp}, \textbf{123}, 288 (2011). 
 
