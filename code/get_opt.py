@@ -397,7 +397,7 @@ def get_full_opt():
             atlas, ignore_index=True)
 
     # Add ULTRACAM+KP84+GIT photometry
-    uc_kp_git = ultracam_kp84_git() 
+    uc_kp_git = get_ultracam_kp84_git() 
     ztf_dan_chimera_ps1_atlas_uc_kp_git = dat.append(
             uc_kp_git, ignore_index=True)
 
@@ -497,6 +497,16 @@ def get_ultracam_kp84_git():
     dat['mag'] = [99]*len(dat)
     dat['emag'] = [99]*len(dat)
     dat['maglim'] = [99]*len(dat)
+
+    # Add an exposure time column
+    dat['exp'] = [99]*len(dat)
+    inst = dat['#instrument'].values
+    dat.loc[inst=='GTC/ULTRACAM', 'exp'] = [20]*sum(inst=='GTC/ULTRACAM')
+    dat.loc[inst=='KP84/SEDM2', 'exp'] = [120]*sum(inst=='KP84/SEDM2')
+    dat.loc[inst=='GIT', 'exp'] = [300]*sum(inst=='GIT')
+
+    # Fix the filter listed for KP84
+    dat.loc[inst=='KP84/SEDM2', 'flt'] = ['clear']*sum(inst=='KP84/SEDM2')
 
     # Detections
     SNU = 3 # provide 3-sigma U.L.

@@ -1,4 +1,4 @@
-#inst           mjdstart    exp    flt flux  unc    sig
+#instrument     mjdstart    exp    flt flux  unc    sig
 GTC/ULTRACAM    59932.08034  20.41 u    0.02  2.28   0.01 
 GTC/ULTRACAM    59932.08034  20.41 g    0.30  0.86   0.35 
 GTC/ULTRACAM    59932.08034  20.41 i    3.13  2.39   1.31 

@@ -49,6 +49,10 @@ ext['g'] = 0.906 # Schlafly & Finkbeiner (2011)
 ext['r'] = 0.627 # Schlafly & Finkbeiner (2011)
 ext['R'] = 0.627 # Schlafly & Finkbeiner (2011) # Should double check this
 ext['i'] = 0.466 # Schlafly & Finkbeiner (2011)
+
+# temp
+ext['clear'] = 0.466 # Schlafly & Finkbeiner (2011)
+
 ztf_pivot = {}
 ztf_pivot['g'] = 4758.76
 ztf_pivot['r'] = 6389.72
