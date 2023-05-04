@@ -533,6 +533,11 @@ The Pan-STARRS1 Surveys (PS1) and the PS1 public science archive have been made 
 
 Based on observations collected at the European Organisation for Astronomical Research in the Southern Hemisphere under ESO programme 108.220C.018
 
+The KPED team thanks the National Science Foundation and the National Optical Astronomical Observatory
+for making the Kitt Peak 2.1-m telescope available. The KPED team thanks the National Science Foundation,
+the National Optical Astronomical Observatory and the Murty family for support in the building and operation
+of KPED. In addition, they thank the CHIMERA project for use of the Electron Multiplying CCD (EMCCD).
+
 Based on observations carried out with the IRAM Interferometer NOEMA. IRAM is supported by INSU/CNRS (France), MPG (Germany) and IGN (Spain).
 
 This paper makes use of the following ALMA data: ADS/JAO.ALMA\#2022.A.00010.T. ALMA is a partnership of ESO (representing its member states), NSF (USA) and NINS (Japan), together with NRC (Canada), MOST and ASIAA (Taiwan), and KASI (Republic of Korea), in cooperation with the Republic of Chile. The Joint ALMA Observatory is operated by ESO, AUI/NRAO and NAOJ. The National Radio Astronomy Observatory is a facility of the National Science Foundation operated under cooperative agreement by Associated Universities, Inc.
@@ -879,7 +884,6 @@ We observed \at\ on 26 December 2022 using the GROWTH-India Telescope (GIT\cite{
 %To pre-processed the images, fringes were removed and corrections were made for bias \& flat-fielding and cosmic-rays were removed via \sw{Astro-SCRAPPY}\cite{2019ascl.soft07032M} package. We obtained astrometric solution on the resulting images using the offline \sw{solve-field}. Subsequently, refined astrometry was conducted using the \sw{SCAMP}\cite{2006ASPC..351..112B} package to facilitate image stacking with \sw{SWarp}\cite{2010ascl.soft10068B}. We estimated the transformation equation for open filter using the standard source magnitudes obtained from gri images of GIT. Zero-points of the open filter images were obtained by cross matching the stars with PanSTARRS DR1 catalogue\cite{2016arXiv161205560C} through vizier and transforming those to open filter. The obtained Zero-points were used to standardise the magnitudes. Using the \sw{ZOGY}\cite{Zackay2016} algorithm based python pipeline\cite{2022MNRAS.516.4517K}, we performed image subtraction on all GIT images. 
 %Data were downloaded and processed by the GIT data reduction pipeline. We did not detect any flares in our individual subtracted images due to shallower depth. To increase the S$/$N ratio, we used a running stack of two, three and four images using \sw{SWarp}\cite{2010ascl.soft10068B}. Even then, we did not find any flares in our subtracted stacked image. The processing steps follow as:
 
-
 \subsection{Magellan-Baade Telescope}
 \label{sec:magellan}
 
@@ -913,6 +917,11 @@ The 3-$\sigma$ upper limits for individual frames are provided in Table~\ref{tab
 We observed \at\ on two nights (2022 December 18, 19) using ULTRACAM\cite{Dhillon2007}. On December 18 we obtained 116 $i$-band frames with a 20\,s exposure time, totaling 38\,min of data. Seeing was 1--1.5\arcsec. The deadtime between each frame is 24\,ms. On December 19 we obtained 556 $r$-band frames with a 20\,s exposure time, totaling 3\,hr 5\,min of data. The deadtime between each frame is again approximately 24\,ms. The seeing started out at 1\arcsec, but worsened to 2.5\arcsec\ towards the end of the run. The data were debiased and flat-fielded. Image subtraction and photometry were performed relative to PS1 using the same methods and codes as the LT analysis, but with a fixed 2\arcsec\ radius aperture.
 
 As part of the Public European Southern Observatory Spectroscopic Survey of Transient Objects (PESSTO) project\cite{Smartt2015}, we observed \at\ on three nights (2022 December 22, 24, and 30) in $g$ and $r$ bands using the Faint Object Spectrograph and Camera (v.2; EFOSC2\cite{Buzzoni1984}) mounted on the 3.58-meter European Southern Observatory (ESO) New Technology Telescope (NTT). On the first two nights, the observation sequence was $5\times$95\,s exposures in $g$-band followed by $5\times$95\,s exposures in $r$-band.  A flare is seen at the beginning of the $g$-band sequence from the second epoch; otherwise no variability was evident. On the third night, the sequence was altered such that images were obtained in alternating filters ($5\times gr$) and no flare was detected. Image subtraction was performed using the last exposure of each sequence as a reference image; photometry was performed using a 1.0\arcsec-radius aperture in all observations.
+
+\subsection{Kitt Peak 84-inch Telescope}
+\label{sec:kp84}
+
+On 2023 December 20, we observed the position of \at\ for two hours using the Spectral Energy Distribution Machine (SEDM\cite{Blagorodnova2018}) version 2 on the Kitt Peak 84-inch (KP84) Telescope. A total of 60 exposures of 120\,s each were obtained in the clear filter. Images were reduced using ???, and image subtraction was performed using PS1 as a reference using the same techniques as for LT, ULTRASPEC, and the P200. Photometry was performed using a ?? aperture. 
 
 \subsection{Large Array Survey Telescope}
 \label{sec:last}
@@ -1218,6 +1227,8 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
  \bibitem{Smartt2015} Smartt, S. J., et al. PESSTO: survey description and products from the first data release by the Public ESO Spectroscopic Survey of Transient Objects. \emph{\aap}, \textbf{579}, A40 (2015). 
 
 \bibitem{Buzzoni1984} Buzzoni, B., et al. The ESO Faint Object Spectrograph and Camera / EFOSC. \emph{The Messenger}, \textbf{38}, 9 (1984). 
+
+ \bibitem{Blagorodnova2018} Blagorodnova, N., et al. The SED Machine: A Robotic Spectrograph for Fast Transient Classification. \emph{\pasp}, \textbf{130}, 035003 (2018). 
 
  \bibitem{Ofek2023} Ofek, E. O., et al. The Large Array Survey Telescope -- System Overview and Performances. \emph{arXiv e-prints}, \textbf arXiv:2304.04796 (2023). 
 
