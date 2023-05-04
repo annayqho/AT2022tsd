@@ -360,46 +360,30 @@ def get_full_opt():
     jd,exp,filt,mag,mag_extcorr,emag,fujy,efujy,fujy_extcorr,efujy_extcorr = \
             get_ipac() # ULs are 3-sig
 
-    add_dict = {}
-    add_dict['#instrument'] = ['ZTF']*len(jd)
-    add_dict['mjdstart'] = Time(jd, format='jd').mjd
-    add_dict['exp'] = exp
-    add_dict['flt'] = filt
-    add_dict['flux'] = fujy
-    add_dict['unc'] = efujy
-    add_dict['flux_extcorr'] = fujy_extcorr
-    add_dict['unc_extcorr'] = efujy_extcorr
-    add_dict['sig'] = np.abs(fujy/efujy)
-    add_dict['mag'] = mag
-    add_dict['mag_extcorr'] = mag_extcorr
-    add_dict['emag'] = emag
-
+    add_ztf= {}
+    add_ztf['#instrument'] = ['ZTF']*len(jd)
+    add_ztf['mjdstart'] = Time(jd, format='jd').mjd
+    add_ztf['exp'] = exp
+    add_ztf['flt'] = filt
+    add_ztf['flux'] = fujy
+    add_ztf['unc'] = efujy
+    add_ztf['flux_extcorr'] = fujy_extcorr
+    add_ztf['unc_extcorr'] = efujy_extcorr
+    add_ztf['sig'] = np.abs(fujy/efujy)
+    add_ztf['mag'] = mag
+    add_ztf['mag_extcorr'] = mag_extcorr
+    add_ztf['emag'] = emag
     # Give all observations a 3-sigma limiting magnitude
-    add_dict['maglim'] = -2.5*np.log10(efujy*1E-6*3)+8.90
-    add_dict['maglim_extcorr'] = -2.5*np.log10(efujy_extcorr*1E-6*3)+8.90
-    add_dict = pd.DataFrame(add_dict)
+    add_ztf['maglim'] = -2.5*np.log10(efujy*1E-6*3)+8.90
+    add_ztf['maglim_extcorr'] = -2.5*np.log10(efujy_extcorr*1E-6*3)+8.90
+    add_ztf = pd.DataFrame(add_dict)
 
-    # Add Dan's photometry to the ZTF photometry
+    # Get all the different photometry
     dat = get_most_lc() # 3-sigma
-    ztf_dan = dat.append(add_dict, ignore_index=True)
-
-    # Add Dan's CHIMERA photometry
     chimera = get_chimera()
-    ztf_dan_chimera = ztf_dan.append(chimera, ignore_index=True)
-
-    # Add the PS1 photometry
     ps1 = get_panstarrs()
-    ztf_dan_chimera_ps1 = ztf_dan_chimera.append(ps1, ignore_index=True)
-
-    # Add the ATLAS photometry
     atlas = get_atlas()
-    ztf_dan_chimera_ps1_atlas = ztf_dan_chimera_ps1.append(
-            atlas, ignore_index=True)
-
-    # Add ULTRACAM+KP84+GIT photometry
     uc_kp_git = get_ultracam_kp84_git() 
-    ztf_dan_chimera_ps1_atlas_uc_kp_git = dat.append(
-            uc_kp_git, ignore_index=True)
 
     # Add the Lulin photometry
     lulin = get_lulin() # 3-sigma
@@ -424,11 +408,9 @@ def get_full_opt():
     add_dict['emag'] = [99]*len(lulin) # not provided
     add_dict['maglim'] = [99]*len(lulin) # not provided
     add_dict['maglim_extcorr'] = [99]*len(lulin) # not provided
-
     add_dict = pd.DataFrame(add_dict)
 
-    full_dict = ztf_dan_chimera_ps1_atlas_uc_kp_git.append(
-            add_dict, ignore_index=True)
+    full_dict = pd.concat([add_ztf,dat,chimera,ps1,atlas,uc_kp_git,add_dict], ignore_index=True)
 
     # Indicate that all rows of this table are single images
     full_dict['nobs'] = [1]*len(full_dict)

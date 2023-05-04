@@ -26,6 +26,7 @@ def plot_22tsd(ax, show='absolute', offset=0):
     opt = get_full_opt()
     choose = np.logical_and(opt['isflare']==False, opt['mjdstart']<59856.4)
     opt_transient = opt[choose]
+
     dt = Time(opt_transient['mjdstart'].values, format='mjd').jd-vals.t0+offset
     mag = opt_transient[choose]['mag_extcorr'].values
     emag = opt_transient[choose]['emag'].values
