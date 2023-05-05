@@ -76,7 +76,7 @@ def get_host_phot_lris(imsize):
                 int(xpos-imsize):int(xpos+imsize)]
 
     # Resample the g-band image onto the i-band image
-    greproj, _ = reproject_interp((gdat, gproj),
+    greproj, _ = reproject_adaptive((gdat, gproj),
                         iproj, shape_out=idat.shape)
     gcut = greproj[int(ypos-imsize):int(ypos+imsize),
                 int(xpos-imsize):int(xpos+imsize)]
