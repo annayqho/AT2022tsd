@@ -25,7 +25,7 @@ def get_host_phot_ps1(imsize):
     # Figure out pos from header
     rim = fits.open(ddir + "cutout_rings.v3.skycell.1513.011.stk.r.unconv.fits")
     head = rim[0].header
-    wcs = astropy.wcs.WCS(head)
+    wcs = WCS(head)
     target_pix = wcs.all_world2pix([(np.array([ra,dec], np.float_))], 1)[0]
     xpos = target_pix[0]
     ypos = target_pix[1]
@@ -57,31 +57,26 @@ def get_host_phot_lris(imsize):
     dec = vals.dec
 
     # Image data that we will use
-    ifits = "lrisr20230117_ZTF22abftjko_i.fits" # i-band image
-    gfits = "lrisb20230117_ZTF22abftjko_G.fits" # g-band image
-    iim = fits.open(ddir+ifits) # i-band image
-    gim = fits.open(ddir+gfits) # g-band image
-    ihead = iim[0].header # i-band header
-    ghead = gim[0].header # g-band header
-    iproj = WCS(ihead) # i-band projection
-    gproj = WCS(ghead) # g-band projection
-    idat = iim[0].data # i-band data
-    gdat = gim[0].data # g-band data
+    ifits = "i.resamp.fits" # i-band image
+    gfits = "g.resamp.fits" # g-band image
+    ufits = "u.resamp.fits" # g-band image
 
-    # Extract the i-band image
-    target_pix = iproj.all_world2pix([(np.array([ra,dec], np.float_))], 1)[0]
-    xpos = target_pix[0]
-    ypos = target_pix[1]
-    icut = idat[int(ypos-imsize):int(ypos+imsize),
-                int(xpos-imsize):int(xpos+imsize)]
+    out = []
+    for imf in [ifits,gfits,ufits]:
+        im = fits.open(ddir+imf) 
+        head = im[0].header 
+        wcs = WCS(head)
+        dat = im[0].data 
 
-    # Resample the g-band image onto the i-band image
-    greproj, _ = reproject_adaptive((gdat, gproj),
-                        iproj, shape_out=idat.shape)
-    gcut = greproj[int(ypos-imsize):int(ypos+imsize),
-                int(xpos-imsize):int(xpos+imsize)]
+        # Extract the cutout
+        target_pix = wcs.all_world2pix([(np.array([ra,dec], np.float_))], 1)[0]
+        xpos = target_pix[0]
+        ypos = target_pix[1]
+        cut = dat[int(ypos-imsize):int(ypos+imsize),
+                   int(xpos-imsize):int(xpos+imsize)]
+        out.append(cut)
 
-    return icut,gcut,gcut
+    return out[0], out[1], out[2]
 
 
 if __name__=="__main__":
@@ -92,16 +87,13 @@ if __name__=="__main__":
 
     # Plot host galaxy
     imsize = 50
-    r,g,b = get_host_phot_lris(imsize) # r:0-1000; g:0-500
-    r = r/2 # scale it down, otherwise it looks weirdly green
+    i,g,u = get_host_phot_lris(imsize) 
+    r = (i+g)/2  # max: 1000
+    # max for g: 600, 650
+    b = (g*1.5+u)/2  # max for b: 500, 550
 
-    r = r/2
-    g = g/2
-    b = b/2
-
-    g = (r+b)/2 # make a fake g-band image
     #r,g,b = get_host_phot_ps1(imsize) # r:0-1000; g:0-500
-    rgb = make_lupton_rgb(r, g, b, stretch=10, minimum=8, Q=10)
+    rgb = make_lupton_rgb(r/1.8, g/1.1, b, stretch=100, Q=5, minimum=13)
     ax.imshow(rgb, origin='lower')
 
     markcol = 'white'
@@ -153,6 +145,6 @@ if __name__=="__main__":
     ax.set_ylabel(r"Star formation rate ($M_\odot\,\mathrm{yr}^{-1}$)")
     ax.legend(loc='lower right', fontsize=8)
     plt.tight_layout()
-    plt.show()
-    #plt.savefig("host_galaxy.png", dpi=300)
-    #plt.close()
+    #plt.show()
+    plt.savefig("host_galaxy.png", dpi=300)
+    plt.close()
