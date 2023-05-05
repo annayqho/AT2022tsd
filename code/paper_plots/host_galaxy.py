@@ -12,10 +12,12 @@ sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code
 import vals
 
 ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/host/"
+ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt/LRIS/imaging/"
 tcol = vals.lgrb_col
 tcol = 'k'
 
-def get_host_phot(imsize):
+def get_host_phot_ps1(imsize):
+    """ Get host photometry from PS1 """
     # Position of the transient in the host galaxy
     ra = vals.ra
     dec = vals.dec
@@ -46,6 +48,31 @@ def get_host_phot(imsize):
     return gcut,rcut,icut,zcut
 
 
+def get_host_phot_lris(imsize):
+    """ Get host photometry from LRIS """
+    # Position of the transient in the host galaxy
+    ra = vals.ra
+    dec = vals.dec
+    rgb = []
+
+    ims = ["lrisr20230117_ZTF22abftjko_i.fits", "lrisb20230117_ZTF22abftjko_G.fits",
+           "lrisr20230117_ZTF22abftjko_i.fits"]
+
+    for imf in ims:
+        # Figure out pos from header
+        im = fits.open(ddir + imf)
+        head = im[0].header
+        wcs = astropy.wcs.WCS(head)
+        target_pix = wcs.all_world2pix([(np.array([ra,dec], np.float_))], 1)[0]
+        xpos = target_pix[0]
+        ypos = target_pix[1]
+        dat = fits.open(ddir + imf)[0].data
+        dat_cut = dat[int(ypos-imsize):int(ypos+imsize),int(xpos-imsize):int(xpos+imsize)]
+        rgb.append(dat_cut)
+
+    return rgb[0],rgb[1],rgb[2]
+
+
 if __name__=="__main__":
     # Initiate figure
     fig,axarr = plt.subplots(1,2,figsize=(8,4))
@@ -54,8 +81,9 @@ if __name__=="__main__":
 
     # Plot host galaxy
     imsize = 50
-    g,r,i,z = get_host_phot(imsize)
-    ax.imshow(r, origin='lower', cmap='Greys', vmin=-200, vmax=500)
+    r,g,b = get_host_phot_lris(imsize)
+    rgb = make_lupton_rgb(r, g, b)#, Q=2, stretch=0.1)
+    ax.imshow(rgb, origin='lower')#, cmap='Greys', vmin=-200, vmax=500)
 
     # Mark position of transient
     ax.plot([imsize, imsize], [imsize, imsize-8], c=tcol, lw=1)
@@ -104,5 +132,6 @@ if __name__=="__main__":
     ax.set_ylabel(r"Star formation rate ($M_\odot\,\mathrm{yr}^{-1}$)")
     ax.legend(loc='lower right', fontsize=8)
     plt.tight_layout()
-    plt.savefig("host_galaxy.png", dpi=300)
-    plt.close()
+    plt.show()
+    #plt.savefig("host_galaxy.png", dpi=300)
+    #plt.close()
