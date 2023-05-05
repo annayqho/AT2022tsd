@@ -93,24 +93,33 @@ if __name__=="__main__":
     # Plot host galaxy
     imsize = 50
     r,g,b = get_host_phot_lris(imsize) # r:0-1000; g:0-500
+    r = r/2 # scale it down, otherwise it looks weirdly green
+
+    r = r/2
+    g = g/2
+    b = b/2
+
+    g = (r+b)/2 # make a fake g-band image
     #r,g,b = get_host_phot_ps1(imsize) # r:0-1000; g:0-500
-    rgb = make_lupton_rgb(r/2, g, b, Q=2, stretch=0.1)
-    ax.imshow(rgb, origin='lower', vmin=100, vmax=500)#, cmap='Greys', vmin=-200, vmax=500)
+    rgb = make_lupton_rgb(r, g, b, stretch=10, minimum=8, Q=10)
+    ax.imshow(rgb, origin='lower')
+
+    markcol = 'white'
 
     # Mark position of transient
-    ax.plot([imsize, imsize], [imsize, imsize-8], c=tcol, lw=1)
-    ax.plot([imsize, imsize+8], [imsize, imsize], c=tcol, lw=1)
-    ax.text(imsize+1, imsize-2, 'AT2022tsd', ha='left', va='top', fontsize=10)
+    ax.plot([imsize, imsize], [imsize, imsize-8], c=markcol, lw=1)
+    ax.plot([imsize, imsize+8], [imsize, imsize], c=markcol, lw=1)
+    ax.text(imsize+1, imsize-2, 'AT2022tsd', ha='left', va='top', fontsize=10, color=markcol)
 
     # Mark compass
     imsize = 100
-    ax.plot((imsize-10,imsize-10), (imsize-10,imsize-20), color='k', lw=2)
+    ax.plot((imsize-10,imsize-10), (imsize-10,imsize-20), color=markcol, lw=2)
     ax.text(
-            imsize-10, imsize-23, "S", color='k', fontsize=16,
+            imsize-10, imsize-23, "S", color=markcol, fontsize=16,
             horizontalalignment='center', verticalalignment='top')
-    ax.plot((imsize-10,imsize-20), (imsize-10,imsize-10), color='k', lw=2)
+    ax.plot((imsize-10,imsize-20), (imsize-10,imsize-10), color=markcol, lw=2)
     ax.text(
-            imsize-23, imsize-10, "E", color='k', fontsize=16,
+            imsize-23, imsize-10, "E", color=markcol, fontsize=16,
             horizontalalignment='right', verticalalignment='center')
     ax.axis('off')
 
@@ -118,10 +127,10 @@ if __name__=="__main__":
     x = 7
     y = 10
     x2 = x + 5/0.25
-    ax.plot((x,x2), (y,y), c='k', lw=2)
-    ax.text((x2+x)/2, y*1.1, "5''", color='k', fontsize=16,
+    ax.plot((x,x2), (y,y), color=markcol, lw=2)
+    ax.text((x2+x)/2, y*1.1, "5''", color=markcol, fontsize=16,
             verticalalignment='bottom', horizontalalignment='center')
-    ax.text((x2+x)/2, y/1.1, "(32 kpc)", color='k', fontsize=16,
+    ax.text((x2+x)/2, y/1.1, "(32 kpc)", color=markcol, fontsize=16,
             verticalalignment='top', horizontalalignment='center')
 
     # Plot the Taggart sample (scraped from 20xnd paper)
