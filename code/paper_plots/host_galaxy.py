@@ -3,7 +3,8 @@ as well as the position of the host galaxy in the M*-SFR plane """
 
 import numpy as np
 import matplotlib.pyplot as plt
-import astropy.wcs
+from astropy.wcs import WCS
+from reproject import reproject_interp, reproject_adaptive
 from astropy import coordinates as coords
 from astropy.io import fits
 from astropy.visualization import make_lupton_rgb
@@ -11,13 +12,12 @@ import sys
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
 import vals
 
-ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/host/"
-ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt/LRIS/imaging/"
 tcol = vals.lgrb_col
 tcol = 'k'
 
 def get_host_phot_ps1(imsize):
     """ Get host photometry from PS1 """
+    ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/host/ps1/"
     # Position of the transient in the host galaxy
     ra = vals.ra
     dec = vals.dec
@@ -45,32 +45,43 @@ def get_host_phot_ps1(imsize):
     icut = i[int(ypos-imsize):int(ypos+imsize),int(xpos-imsize):int(xpos+imsize)]
     zcut = z[int(ypos-imsize):int(ypos+imsize),int(xpos-imsize):int(xpos+imsize)]
 
-    return gcut,rcut,icut,zcut
+    return [gcut,rcut,icut]#,zcut
 
 
 def get_host_phot_lris(imsize):
     """ Get host photometry from LRIS """
-    # Position of the transient in the host galaxy
+
+    # Basic parameters
+    ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt/LRIS/imaging/"
     ra = vals.ra
     dec = vals.dec
-    rgb = []
 
-    ims = ["lrisr20230117_ZTF22abftjko_i.fits", "lrisb20230117_ZTF22abftjko_G.fits",
-           "lrisr20230117_ZTF22abftjko_i.fits"]
+    # Image data that we will use
+    ifits = "lrisr20230117_ZTF22abftjko_i.fits" # i-band image
+    gfits = "lrisb20230117_ZTF22abftjko_G.fits" # g-band image
+    iim = fits.open(ddir+ifits) # i-band image
+    gim = fits.open(ddir+gfits) # g-band image
+    ihead = iim[0].header # i-band header
+    ghead = gim[0].header # g-band header
+    iproj = WCS(ihead) # i-band projection
+    gproj = WCS(ghead) # g-band projection
+    idat = iim[0].data # i-band data
+    gdat = gim[0].data # g-band data
 
-    for imf in ims:
-        # Figure out pos from header
-        im = fits.open(ddir + imf)
-        head = im[0].header
-        wcs = astropy.wcs.WCS(head)
-        target_pix = wcs.all_world2pix([(np.array([ra,dec], np.float_))], 1)[0]
-        xpos = target_pix[0]
-        ypos = target_pix[1]
-        dat = fits.open(ddir + imf)[0].data
-        dat_cut = dat[int(ypos-imsize):int(ypos+imsize),int(xpos-imsize):int(xpos+imsize)]
-        rgb.append(dat_cut)
+    # Extract the i-band image
+    target_pix = iproj.all_world2pix([(np.array([ra,dec], np.float_))], 1)[0]
+    xpos = target_pix[0]
+    ypos = target_pix[1]
+    icut = idat[int(ypos-imsize):int(ypos+imsize),
+                int(xpos-imsize):int(xpos+imsize)]
 
-    return rgb[0],rgb[1],rgb[2]
+    # Resample the g-band image onto the i-band image
+    greproj, _ = reproject_interp((gdat, gproj),
+                        iproj, shape_out=idat.shape)
+    gcut = greproj[int(ypos-imsize):int(ypos+imsize),
+                int(xpos-imsize):int(xpos+imsize)]
+
+    return icut,gcut,gcut
 
 
 if __name__=="__main__":
@@ -81,9 +92,10 @@ if __name__=="__main__":
 
     # Plot host galaxy
     imsize = 50
-    r,g,b = get_host_phot_lris(imsize)
-    rgb = make_lupton_rgb(r, g, b)#, Q=2, stretch=0.1)
-    ax.imshow(rgb, origin='lower')#, cmap='Greys', vmin=-200, vmax=500)
+    r,g,b = get_host_phot_lris(imsize) # r:0-1000; g:0-500
+    #r,g,b = get_host_phot_ps1(imsize) # r:0-1000; g:0-500
+    rgb = make_lupton_rgb(r/2, g, b, Q=2, stretch=0.1)
+    ax.imshow(rgb, origin='lower', vmin=100, vmax=500)#, cmap='Greys', vmin=-200, vmax=500)
 
     # Mark position of transient
     ax.plot([imsize, imsize], [imsize, imsize-8], c=tcol, lw=1)
