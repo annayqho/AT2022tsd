@@ -93,7 +93,11 @@ if __name__=="__main__":
     b = (g*1.5+u)/2  # max for b: 500, 550
 
     #r,g,b = get_host_phot_ps1(imsize) # r:0-1000; g:0-500
-    rgb = make_lupton_rgb(r/1.8, g/1.1, b, stretch=100, Q=5, minimum=13)
+    #rgb = make_lupton_rgb(r/1.8, g/1.1, b, stretch=100, Q=5, minimum=13)
+
+    # Try gri
+    #rgb = make_lupton_rgb(i/2.5, r/1.9, b, stretch=100, Q=4, minimum=10)
+    rgb = make_lupton_rgb(i/2.5, r/1.9, b, stretch=100, Q=5, minimum=10)
     ax.imshow(rgb, origin='lower')
 
     markcol = 'white'
@@ -101,7 +105,8 @@ if __name__=="__main__":
     # Mark position of transient
     ax.plot([imsize, imsize], [imsize, imsize-8], c=markcol, lw=1)
     ax.plot([imsize, imsize+8], [imsize, imsize], c=markcol, lw=1)
-    ax.text(imsize+1, imsize-2, 'AT2022tsd', ha='left', va='top', fontsize=10, color=markcol)
+    ax.text(imsize+1, imsize-2, 'AT2022tsd', ha='left', va='top', fontsize=10, 
+            color=markcol)
 
     # Mark compass
     imsize = 100
@@ -114,6 +119,9 @@ if __name__=="__main__":
             imsize-23, imsize-10, "E", color=markcol, fontsize=16,
             horizontalalignment='right', verticalalignment='center')
     ax.axis('off')
+
+    ax.text(0.01, 0.99,"Keck/LRIS $ugI$",fontsize=15,transform=ax.transAxes,
+        horizontalalignment='left', va='top', color='white')
 
     # Mark image scale : 0.25 arcsec per pixel
     x = 7
@@ -146,5 +154,5 @@ if __name__=="__main__":
     ax.legend(loc='lower right', fontsize=8)
     plt.tight_layout()
     #plt.show()
-    plt.savefig("host_galaxy.png", dpi=300)
+    plt.savefig("host_galaxy_image.png", dpi=300)
     plt.close()
