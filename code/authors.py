@@ -67,6 +67,7 @@ def print_authors():
         authorstr += "}$, "
     authorstr = authorstr[:-2]
     # Have to remove triple backslashes by hand
+    print(authorstr)
 
     # Produce affiliation string
     for aff in affs_unique:
@@ -82,3 +83,7 @@ def print_acknowledgements():
             if pd.isnull(ack)==False:
                 print(ack)
                 print("") # \n doesn't work in latex
+
+
+if __name__=="__main__":
+    print_authors()
