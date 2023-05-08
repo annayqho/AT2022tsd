@@ -18,6 +18,9 @@ def print_authors():
     # First, go through the ordered co-authors
     ordered = dat[~np.isnan(dat['Order'].values)].sort_values('Order').reset_index()
     for index,row in ordered.iterrows():
+        ack = row['Acknowledgements']
+        if pd.isnull(ack)==False:
+            print(ack)
         for i in [1,2,3]:
             affil = row['Affil%s'%i]
             affs.append(affil)
@@ -25,6 +28,9 @@ def print_authors():
     # Next, go through the rest of the co-authors
     alphabetical = dat[np.isnan(dat['Order'].values)].sort_values('Surname').reset_index()
     for index,row in alphabetical.iterrows():
+        ack = row['Acknowledgements']
+        if pd.isnull(ack)==False:
+            print(ack)
         for i in [1,2,3]:
             affil = row['Affil%s'%i]
             affs.append(affil)
@@ -67,7 +73,7 @@ def print_authors():
         print("\\item %s" %aff)
 
 
-def print_affiliations():
+def print_acknowledgements():
     # Load data
     dat = pd.read_excel("../data/acknowledgements.xlsx")
     for index,row in dat.iterrows():
@@ -75,4 +81,4 @@ def print_affiliations():
             ack = row['Ack%s'%i]
             if pd.isnull(ack)==False:
                 print(ack)
-                print(r"\n")
+                print("") # \n doesn't work in latex
