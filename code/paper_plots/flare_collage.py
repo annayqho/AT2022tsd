@@ -82,7 +82,7 @@ def plot_ultracam_kp84_panel(ax, dat, t0, plot_binned=False, y2=False):
     filts = ['u', 'g', 'r', 'clear']
     col = [vals.uc, vals.gc, vals.rc, vals.wc]
     m = ['*', 's', 'o', '<']
-    ms = [5, 5, 5, 5, 5]
+    ms = [2, 2, 2, 2, 3]
     l = 0.5
 
     # Plot a y=0 line
@@ -95,6 +95,9 @@ def plot_ultracam_kp84_panel(ax, dat, t0, plot_binned=False, y2=False):
         x = dat['mjdstart'][choose].values
         y = dat['flux_extcorr'][choose].values.astype(float)
         ey = dat['unc_extcorr'][choose].values.astype(float)
+
+        # Subtract a baseline level off of everything
+        y = y-np.median(y)
 
         # Plot in hours
         dt = (x-t0)*24
@@ -326,8 +329,8 @@ if __name__=="__main__":
     plot_ultracam_kp84_panel(axins, tab[choose], t0, plot_binned=True)
     axins.tick_params(axis='both', labelsize=8, pad=0.5)
     axins.set_ylabel("")
-    axins.set_xlim(0.7,1.3)
-    axins.set_ylim(-1, 20)
+    axins.set_xlim(0.8,1.2)
+    axins.set_ylim(-1, 10)
     ax.indicate_inset_zoom(axins, edgecolor="grey")
     axins.set_xticks([])
     axins.set_yticks([])
@@ -371,5 +374,3 @@ if __name__=="__main__":
     plt.savefig("flares.png", dpi=300, 
                 bbox_inches='tight', pad_inches=0.1)
     plt.close()
-
-
