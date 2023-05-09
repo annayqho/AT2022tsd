@@ -87,8 +87,8 @@ def plot_flare_epochs(ax, dat):
 
 
 def plot_nonflare_epochs(ax, dat):
-    """ Plot the non-flare epochs. Show an upper limit
-    corresponding to the median limit or something like that. """
+    """ Plot a median limit from nights with no flare and no transient. 
+    """
     mjd = dat['mjdstart'].values
     jd = Time(mjd, format='mjd').jd
     isflare = dat['isflare'].values
@@ -98,19 +98,21 @@ def plot_nonflare_epochs(ax, dat):
     cs = [vals.rc, vals.gc, vals.ic, vals.uc, vals.wc]
 
     for j,filt in enumerate(np.array(['r', 'g', 'i', 'u', 'w'])):
-        # Identify nights with NO flares
+        # Identify nights with NO flares and NO transient detections
         has_flare = np.logical_and(isflare, filts==filt)
         night_has_flare = np.unique(jd[has_flare].astype(int))
+        has_transient = np.logical_and(istransient, filts==filt)
+        night_has_transient = np.unique(jd[has_transient].astype(int))
         choose = np.logical_and(~isflare, filts==filt)
-        flare_epochs = jd[choose]
-        flare_epochs_int = flare_epochs.astype(int)
-        flare_epochs_int_unique = np.unique(flare_epochs_int)
+        epochs = jd[choose]
+        epochs_int = epochs.astype(int)
+        epochs_int_unique = np.unique(epochs_int)
         # for each epoch,
-        for i,night in enumerate(flare_epochs_int_unique):
-            if night not in night_has_flare:
-                choose_data = flare_epochs_int==night
+        for i,night in enumerate(epochs_int_unique):
+            if np.logical_and(night not in night_has_flare, night not in night_has_transient):
+                choose_data = epochs_int==night
                 mags = dat['maglim_extcorr'][choose].values[choose_data]
-                dt_night = night-vals.t0
+                dt_night = np.mean(epochs[choose_data]-vals.t0)
                 show_maglim = mags[0]
                 if len(mags)>1:
                     show_maglim = np.median(mags)
@@ -160,7 +162,7 @@ if __name__=="__main__":
     ax.set_yticklabels([19,20,21,22,23])
     ax.set_ylabel(r"$m_\mathrm{opt}$ (AB)", fontsize=10,
             fontname='sans-serif')
-    ax.set_xlim(-2,tsplit)
+    ax.set_xlim(-6,tsplit)
 
     # Right panel: comparisons and epochs
     ax = axarr[1]
@@ -180,7 +182,7 @@ if __name__=="__main__":
     shift = np.abs(Planck18.distmod(z=0.677).value-vals.dm)
     plot_sn2011kl(ax, show='apparent', offset=shift)
     shift = np.abs(Planck18.distmod(z=0.1353).value-vals.dm)
-    plot_at2020mrf(ax, show='apparent', offset=shift)
+    plot_at2020mrf(ax, show='apparent', offset=shift-1.5)
 
     # Formatting of the right axis
     ax.set_xlim(tsplit, 210)
