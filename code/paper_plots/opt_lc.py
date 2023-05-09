@@ -136,7 +136,7 @@ if __name__=="__main__":
 
     # AT2022tsd in both panels
     for ax in axarr:
-        plot_22tsd(ax, show='apparent', offset=0.11)
+        plot_22tsd(ax, show='apparent')
         plot_nonflare_epochs(ax, dat)
 
     # Left panel: comparisons
@@ -228,6 +228,6 @@ if __name__=="__main__":
     ax2.yaxis.tick_right()
 
     fig.subplots_adjust(wspace=0)
-    #plt.show()
-    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    plt.close()
+    plt.show()
+    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    #plt.close()
