@@ -263,7 +263,6 @@ The flares observed for months after the initial transient are the fastest obser
 
 \bibitem{Miniutti2023} Miniutti, G., et al. Repeating tidal disruptions in GSN 069: Long-term evolution and constraints on quasi-periodic eruptions' models. \emph{\aap}, \textbf{670}, A93 (2023). 
 
-
 %% FBOTs
 
 % SN2011kl
@@ -313,6 +312,8 @@ The flares observed for months after the initial transient are the fastest obser
 \bibitem{Munoz-Arancibia2022} Munoz-Arancibia, A., et al. ALeRCE/ZTF Transient Discovery Report for 2022-09-07. \emph{Transient Name Server Discovery Report}, \textbf{2022-2602}, 1 (2022). 
 
 \bibitem{Forster2021} Förster, F., et al. The Automatic Learning for the Rapid Classification of Events (ALeRCE) Alert Broker. \emph{\aj}, \textbf{161}, 242 (2021). 
+
+\bibitem{Zackay2016} Zackay, B., Ofek, E. O., \& Gal-Yam, A. Proper Image Subtraction—Optimal Transient Detection, Photometry, and Hypothesis Testing. \emph{\apj}, \textbf{830}, 27 (2016). 
 
 \bibitem{Masci2019} Masci, F. J., et al. The Zwicky Transient Facility: Data Processing, Products, and Archive. \emph{\pasp}, \textbf{131}, 018003 (2019). 
 
@@ -799,7 +800,7 @@ Finally, we estimate the velocity of the flare-emitting outflow. Assuming that t
 
 \noindent We find $\beta \gtrsim 0.4$ for $\eta=1$ and $\beta \gtrsim 0.6$ for $\eta=0.1$. So, the outflow must be fast, but need not be fully relativistic.
 
-Given that LFBOTs with light curves similar to \at\ are rare, occurring at $<0.1\%$ of the core-collapse supernova rate\cite{Ho2022_RET}, it seems unlikely that the outflow in \at\ is tightly collimated. 
+Given that LFBOTs with light curves similar to \at\ are rare, occurring at $<0.1\%$ of the core-collapse supernova rate\cite{Ho2022_RET}, and only $\approx10$ LFBOTs have been discovered to date, it is unlikely that the outflow in \at\ is as tightly collimated as the jets in $\gamma$-ray bursts (for which $\approx1/100$ events are observed on-axis).
 In the extreme case that all the ZTF LFBOTs produced similar outflows, and that \at\ was the only member of the class viewed on-axis so far (although flares cannot be ruled out for all but one of the previously discovered LFBOTs; Methods section~\ref{sec:flare-search}), we estimate a beaming fraction of $f_b = 1/6 = 1-\cos{\theta}$, and find $\theta\approx30^{\circ}$ for the opening angle of the outflow. This estimate of the opening angle is consistent with the current (limited) radio limits on off-axis jets in such objects: the radio emission in AT2018cow (by far the most nearby event, with the most sensitive limits) cannot\cite{Margutti2019} rule out an off-axis jet with $\theta=30^{\circ}$ and energy $E_J<10^{51}\,$erg.%, which is also consistent with the lack of $\gamma$-ray detection (Methods section~\ref{sec:grbsearch}).
 
 \section{Host Galaxy of \at}
@@ -836,7 +837,7 @@ If this association is correct, high-cadence follow-up optical observations of f
 \at\ was discovered in data from the Zwicky Transient Facility (ZTF) custom mosaic camera\cite{Dekany2020}, which is mounted on the 48-inch Samuel Oschin Telescope (P48) at Palomar Observatory.
 Three custom filters are used ($g_{\mathrm{ZTF}}$, $r_{\mathrm{ZTF}}$, and $i_{\mathrm{ZTF}}$\cite{Dekany2020})
 and images reach a typical dark-time limiting magnitude of $r\sim20.5\,$mag.
-ZTF images are processed and reference-subtracted
+ZTF images are processed and reference-subtracted\cite{Zackay2016}
 by the IPAC ZTF pipeline\cite{Masci2019}.
 Every 5-$\sigma$ point-source detection is saved as an ``alert.''
 Alerts are distributed in Avro format\cite{Patterson2019} and to discover \at\ were filtered based on a machine learning real-bogus metric\cite{Duev2019}, a star-galaxy classifier\cite{Tachibana2018}, and light-curve properties.
@@ -915,7 +916,7 @@ A total of 210 exposures of 50~s each were obtained simultaneously in the $g$-ba
 \label{sec:lulin}
 
 Between 14:38 and 17:27 on 2022 December 26, we obtained 
-27 $g$-band images with the Lulin One-meter Telescope (LOT) and 31 $r$-band images with the 40\,cm Super Light Telescope (SLT), coordinated with Chandra X-ray Observatory observations (Section~\ref{sec:chandra}). Each exposure was 300\,sec, with varying seeing conditions (with an average of 2.8\arcsec). The $g$-band images were subtracted from a PanSTARRS template, with no detection of \at\ in any image.
+27 $g$-band images with the Lulin One-meter Telescope (LOT) and 31 $r$-band images with the 40\,cm Super Light Telescope (SLT), coordinated with Chandra X-ray Observatory observations (Section~\ref{sec:chandra}). Each exposure was 300\,s, with varying seeing conditions (with an average of 2.8\arcsec). The $g$-band images were subtracted from a PanSTARRS template, with no detection of \at\ in any image.
 Combining all 27 $g$-band images results in a 3-$\sigma$ limit of $g>22.0$\,mag.
 To perform image subtraction on the $r$-band images, a template image was acquired with the SLT.
 The 3-$\sigma$ upper limits for individual frames are provided in Table~\ref{tab:optical-photometry}.
@@ -943,7 +944,7 @@ A total of 10.9\,hours of observations in 3 nights were obtained.
 The observations were reduced using the LAST pipeline \cite{Ofek2014,Ofek2019,Ofek2023}), and forced PSF photometry was conducted on the individual images
 in the transient position. 
 The source position was fitted but it was forced to be within 0.5 pixels (0.62'') of the initial position.
-In each image, we also performed forced photometry on all GAIA-DR3 (REF) stars
+In each image, we also performed forced photometry on all GAIA-DR3\cite{Gaia2021} stars
 within 500" from the transient position.
 These sources were used for the photometric calibration.
 
@@ -1241,6 +1242,8 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
  \bibitem{Blagorodnova2018} Blagorodnova, N., et al. The SED Machine: A Robotic Spectrograph for Fast Transient Classification. \emph{\pasp}, \textbf{130}, 035003 (2018). 
 
  \bibitem{Ofek2023} Ofek, E. O., et al. The Large Array Survey Telescope -- System Overview and Performances. \emph{arXiv e-prints}, \textbf arXiv:2304.04796 (2023). 
+ 
+ \bibitem{Gaia2021} Gaia Collaboration, et al. Gaia Early Data Release 3. Summary of the contents and survey properties. \emph{\aap}, \textbf{649}, A1 (2021). 
 
 \bibitem{BenAmi2023} Ben-Ami, S., et al. The Large Array Survey Telescope -- Science Goals. \emph{arXiv e-prints}, \textbf arXiv:2304.02719 (2023). 
 
