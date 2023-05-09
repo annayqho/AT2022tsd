@@ -4,11 +4,11 @@
 %%
 
 \documentclass{nature_plusfigure}
-\usepackage{graphicx}
+\usepackage{graphicx,float}
 \usepackage{subcaption}
 \usepackage{amsmath,amssymb,xcolor,url}
 \usepackage{multirow}
-\usepackage{longtable}
+\usepackage{longtable,tabularx,tablefootnote}
 \usepackage{upgreek}
 \usepackage{url}
 \usepackage{hyperref}
@@ -707,7 +707,8 @@ The $u+I$ flare detection on 2022 December 29 gives $f_\nu \propto \nu^{-1.6\pm0
 We have simultaneous X-ray and optical observations during one flare (\ref{fig:xray-lc}). We detected an optical flare with LRIS at 10:10 on 2022-12-19, with significant emission lasting for approximately 20\,min. We have no constraint on the start time of the optical flare (the previous optical observation ended three days prior). There is no obvious X-ray excess at the time of observed optical peak. The average X-ray luminosity during this epoch is $10^{43}\,$erg\,s$^{-1}$, while the peak observed optical luminosity was $\approx 10^{42}$\,erg\,s$^{-1}$.
 Adopting $10^{17}\,$Hz for the X-ray frequency and $10^{14}\,$Hz for the optical frequency, we rule out an optical to X-ray spectral index shallower than $\beta=-4/3$ where $L_\nu = \nu^{\beta}$. 
 
-We estimated the flare duty cycle for different limiting magnitude thresholds, assuming a Poisson distribution for the likelihood of detecting a flare in any given time interval. We performed the calculation using all images except the PS1 $w$-band images, because the wide filter makes it difficult to convert the measurement to a specific filter.
+We estimated the flare duty cycle for different limiting magnitude thresholds, assuming a Poisson distribution for the likelihood of detecting a flare in any given time interval.
+We performed the calculation using all images in the MJD range 59856.4--59942.4 (from the first to last flare detection) except the PS1 $w$-band images, because the wide filter makes it difficult to convert the measurement to a specific filter.
 We converted each detection to its estimated $g$-band value, using the measured color of the flares.
 For each threshold, \ref{tab:flare-stats} gives the total number of exposures above that threshold (the number of exposures in which a flare brighter than the threshold could have been detected), the total exposure time of those exposures, and the fraction of time in which a flare was detected. To estimate the uncertainty on the duty cycle, we performed a simulation. We adopted a range of flare durations for each threshold (10--20\,min for 21\,mag, and 1\,min to 3\,hr for 22.5\,mag and 24\,mag), based on what we observed. For each choice of flare duration and average flare frequency, we simulated 1000 sets of flare start times from one day prior to our earliest detected flare to one day after our last detected flare. We calculated what the observed duty cycle would have been, and discarded values of average flare frequency that resulted in $<2.5\%$ of the 1000 trials being above or below our true observed value.  As shown in \ref{tab:flare-stats}, bright ($<21$\,mag) flares have a maximum allowed duty cycle of 10\%. Constraints are weak for fainter ($\gtrsim24$\,mag) flares due to limited observations, but the duty cycle for these faint flares could be as high as 100\%.  
 
@@ -824,7 +825,7 @@ For example, for Sagittarius A* the time between flares is $10^{3}$--$10^{4}\tim
 So, a supermassive black hole can have time intervals as long as a day; scaling this down to 1--$10^2\,M_\odot$ would give 1--10\,sec as the time between flares, which is clearly far too short.
 To explain the long flare durations, the source of the variability would have to be far from the compact object, likely in the outer regions of an accretion disk\cite{Metzger2022}. This could also be a reason to favor an accretion source for the energy, rather than rotation.
 
-Another possible explanation for the flare durations is that the central engine is an intermediate-mass black hole (IMBH). An IMBH TDE was found to be consistent with the FBOT observed in AT2018cow\cite{Kuin2019,Perley2019}, and an accretion disk around an IMBH was found to be a more natural explanation for the long-lived UV transient than a stellar-mass black hole\cite{Chen2023}. The variable X-ray light curve decaying as $t^{-2}$ is similar to what has been observed in relativistic SMBH TDEs. However, the IMBH picture for AT2018cow is challenged\cite{Metzger2022} by the presence of extended dense circumburst matter\cite{Ho2019,Nayana2021}, and the occurrence of LFBOTs in host-galaxy environments that resemble other engine-powered massive-star explosions such as GRBs and superluminous supernovae\cite{Lyman2020}. 
+Another possible explanation for the flare durations is that the central engine is an intermediate-mass black hole (IMBH). An IMBH TDE was found to be consistent with the FBOT observed in AT2018cow\cite{Kuin2019,Perley2019}, and an accretion disk around an IMBH was found to be a more natural explanation for the long-lived UV transient than a stellar-mass black hole\cite{Chen2023}. The variable X-ray light curve decaying as $t^{-2}$ is similar to what has been observed in relativistic SMBH TDEs. However, the IMBH picture for AT2018cow is challenged\cite{Margutti2019,Metzger2022} by the presence of extended dense circumburst matter\cite{Ho2019,Nayana2021}, and the occurrence of LFBOTs in host-galaxy environments that resemble other engine-powered massive-star explosions such as GRBs and superluminous supernovae\cite{Lyman2020}. 
 
 Although IMBH TDEs remain a possibility, we consider the simplest explanation for LFBOTs to be massive-star explosions. In this scenario, \at\ involves a near-relativistic outflow powered by accretion onto a stellar-mass compact object, i.e., a very long-duration GRB analog\cite{Quataert2012}, with high angular momentum from the collapse and accretion of an outer envelope in the failed explosion of an extended star\cite{Perley2021,Metzger2022}, or from the merger between the compact object and a stellar companion\cite{Metzger2022}. The accretion disk gives rise to the significant asphericity observed\cite{Maund2023}, and the flares arise from a process occurring far from the compact object, such as in the outer edges of the accretion disk, or where the outflow dissipates its kinetic energy into radiation. The lack of detected flares in AT2018cow (Methods section~\ref{sec:flare-search}) could be due to viewing angle: AT2018cow is thought to be observed close to the plane of the circumburst ``disk,'' rather than face-on\cite{Margutti2019,Chen2023}. A different viewing angle for \at\ could also help to explain the significantly more luminous X-ray emission.
 If this association is correct, high-cadence follow-up optical observations of future FBOTs could reveal the beaming angle of their outflows.
@@ -1367,11 +1368,11 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 
 \begin{table}
 \begin{center}
-\caption{Duty cycle of flares in \at, for different apparent-magnitude thresholds.}
+\caption{Duty cycle of flares in \at, for different apparent-magnitude thresholds, over the date range MJD 59856.41--59942.43 (from the first flare detection to the last flare detection). $N_\mathrm{exp}$ is the number of exposures brighter than the given magnitude threshold, $T_\mathrm{exp}$ is the total exposure time, $T_\mathrm{on}$ is the total time with a flare detected, and the bounds are confidence intervals (see Methods section~\ref{sec:flare-characteristics}) on the duty cycle $T_\mathrm{on}/T_\mathrm{exp}$. }
 \label{tab:flare-stats}
 \begin{tabular}{ccccc} 
 \hline\hline
-Threshold (AB Mag) & $N_\mathrm{exp}$\footnote{The number of exposures brighter than the magnitude threshold.} & $T_\mathrm{exp}$ (Minutes) & $T_\mathrm{on}$/$T_\mathrm{exp}$\footnote{The fraction of the exposure time with a flare detection (defined as 5-$\sigma$).} & Bounds \\
+Threshold (AB Mag) & $N_\mathrm{exp}$ & $T_\mathrm{exp}$ (Minutes) & $T_\mathrm{on}$/$T_\mathrm{exp}$ & Bounds \\
 \hline
 21.0 & 1271 & 1142 & 0.02 & [0.001, 0.1] \\
 22.5 & 68 & 155 & 0.1 & [0.01, 0.6]  \\
