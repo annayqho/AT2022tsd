@@ -230,6 +230,6 @@ if __name__=="__main__":
     ax2.yaxis.tick_right()
 
     fig.subplots_adjust(wspace=0)
-    plt.show()
-    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    #plt.close()
+    #plt.show()
+    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    plt.close()
