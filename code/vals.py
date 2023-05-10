@@ -49,7 +49,7 @@ ext['g'] = 0.906 # Schlafly & Finkbeiner (2011)
 ext['r'] = 0.627 # Schlafly & Finkbeiner (2011)
 ext['R'] = 0.627 # Schlafly & Finkbeiner (2011) # Should double check this
 ext['i'] = 0.466 # Schlafly & Finkbeiner (2011)
-ext['clear'] = 0.627 # use the r-band value
+ext['clear'] = 0.466 # use the i-band value, close to the peak of the efficiency curve
 
 ztf_pivot = {}
 ztf_pivot['g'] = 4758.76
