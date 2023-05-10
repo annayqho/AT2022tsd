@@ -25,32 +25,27 @@ for n,night in enumerate(flare_nights):
         dat_tel = dat[dat['#instrument'].values==flare_tel]
         isflare_tel = dat_tel['isflare'].values
 
-        # Sometimes, there's just one flare detection.
-        if len(dat_tel[isflare_tel])==1:
-            tpeak = dat_tel[isflare_tel]['mjdstart'].values[0]
-            tel = dat_tel[isflare_tel]['#instrument'].values[0]
-            fpeak = dat_tel[isflare_tel]['flux_extcorr'].values[0]
-            filtstr = dat_tel[isflare_tel]['flt'].values[0]
-            wl = vals.leff[filtstr] # in AA
-            freq = 3E18 / wl
-            lpeak = fpeak * 1E-6 * 1E-23 * 4 * np.pi * vals.dL_cm**2 * freq
-            t90 = '--' # can't calculate
-            erad_str = '--'
-        else:
-            flux = dat['flux_extcorr'].values
-            indpeak = np.argmax(flux)
-            tpeak = dat['mjdstart'].values[indpeak]
-            tel = np.unique(dat['#instrument'].values)[0]
-            filt = np.unique(dat['flt'].values)
-            filtstr = ''.join(filt)
-            use_filt = filt[0]
-            wl = vals.leff[use_filt] # in AA
-            freq = 3E18 / wl
-            t90_d,lpeak = calc_t90(freq, dat['mjdstart'].values,
-                                 flux, dat['unc_extcorr'].values)
-            t90 = np.round(t90_s*24*60, 1)
-            erad = t90*60*lpeak
-            erad_str = r"%s \times 10^{%s}"%(str(erad)[0:3], str(erad)[-2:])
+        # Get the time of the brightest detection
+        flux = dat_tel['flux_extcorr'].values
+        indpeak = np.argmax(flux[isflare_tel])
+        tpeak = dat_tel['mjdstart'][isflare_tel].values[indpeak]
+
+        # Already have the name of the telescope
+
+        # Get the filters in which the flares were detected
+        filt = np.unique(dat_tel[isflare_tel]['flt'].values)
+        filtstr = ''.join(filt)
+
+        # Get the T90 in the first of the listed filters
+        use_filt = filt[0]
+        wl = vals.leff[use_filt] # in AA
+        freq = 3E18 / wl
+        x = dat_tel['mjdstart'].values
+        ey = dat_tel['unc_extcorr'].values
+        t90_d,lpeak = calc_t90(freq, x, flux, ey)
+        t90 = np.round(t90_d*24*60, 1)
+        erad = np.trapz(flux, (x-x[0])*86400) * 1E-6 * 1E-23 * 4 * np.pi * vals.dL_cm**2 * freq
+        erad_str = r"%s \times 10^{%s}"%(str(erad)[0:3], str(erad)[-2:])
         lpeak_str = r"%s \times 10^{%s}"%(str(lpeak)[0:3], str(lpeak)[-2:])
         printstr = "%s & %s & $%s$ & %s & $%s$ & $%s$" %(
                 np.round(tpeak,4), tel, filtstr, t90, lpeak_str, erad_str)

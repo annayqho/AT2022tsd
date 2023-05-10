@@ -57,6 +57,7 @@ leff['u'] = 3450
 leff['g'] = 4750 
 leff['r'] = 6200
 leff['i'] = 7600
+leff['clear'] = 8500
 leff['w'] = 6080
 
 # Facility-specific values
