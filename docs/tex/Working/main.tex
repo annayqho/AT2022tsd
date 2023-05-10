@@ -711,7 +711,7 @@ So, we conclude that the most likely explanation is that \at\ is extragalactic.
 \section{Flare Observational Characteristics}
 \label{sec:flare-characteristics}
 
-Having established that the flares in \at\ are associated with the multiwavelength extragalactic transient (Methods section~\ref{sec:flare-association}), here we summarize their observational properties.
+Having established that the flares in \at\ are associated with the multiwavelength extragalactic transient (Methods section~\ref{sec:flare-association}), here we summarize their observational properties, which are also listed in \ref{tab:flare-properties}.
 The observed optical flares (Figure~\ref{fig:opt-mm-xray-lc}, \ref{fig:flare-collage}) show a variety of morphologies. The ULTRASPEC $g$-band flare (\ref{fig:flare-collage}) showed a multi-hour flaring ``episode'' with two prominent peaks superimposed on an exponential decline, as well as a short precursor flare lasting just a few minutes. The ULTRASPEC $r$-band flare (Figure~\ref{fig:flare-images-lc}) was more erratic, with an abrupt turn-off rather than an exponential decline. For each flare, we measured the time interval in which 90\% of the flux was measured ($T_{90}$). The value of $T_{90}$ ranged from $\approx10$\,min (the LT flare, and the small ULTRASPEC $g$-band flare prior to the large flaring episode; \ref{fig:flare-collage}) to 80\,min (the large ULTRASPEC $g$-band flare; \ref{fig:flare-collage}). A Lomb-Scargle periodogram\cite{Lomb1976,Scargle1982} revealed no significant periodicity in the ULTRASPEC light curves (\ref{fig:ultraspec-periodogram}).
 
 The ULTRASPEC $r$-band flare shows strong variability (Figure~\ref{fig:flare-images-lc}), with order-of-magnitude changes in flux on timescales much shorter than the overall duration of the outburst. The time to change by order unity $\delta t$ is limited by the 30\,s cadence of the observations. The ratio of this variability time to the overall duration of the burst is therefore $\delta t/T<2\times10^{-2}$. For the ULTRASPEC $g$-band flare (\ref{fig:flare-collage}), the time to change by a factor of order unity is resolved by the individual observations, and is approximately a few minutes. We find $\delta t/T<4\times10^{-2}$.
@@ -832,7 +832,7 @@ The fast timescale of the LFBOT, the luminous and variable X-ray emission, the s
 
 The first possibility we consider is that \at\ is powered by a stellar-mass compact object. LFBOTs have been argued to arise from failed supernovae\cite{Perley2019,Margutti2019} or alternatively by the merger of a compact object with a star\cite{Metzger2022}. In these scenarios, there could be three possible energy sources: magnetospheric activity, rotational spindown (for a neutron star), or accretion (for a black hole). We strongly disfavor a magnetospheric energy origin: the total radiated energy in X-rays alone exceeds $10^{50}\,$erg, while the energy in each flare is $\approx10^{47}\,$erg, and the magnetic energy budget of a magnetar would be challenging: $U_B = (2\times10^{49}\,$erg)$(B/10^{16}\,\mathrm{G})^2 (R/10\,\mathrm{km})^3$. However, both rotation or accretion could be possible, very similar to what was argued to explain the TDE candidate J1644+57 as a massive-star collapse event\cite{Quataert2012}. 
 
-For a stellar-mass compact object, the luminosity of the X-ray emission and optical flares ($10^{44}\,$erg\,s$^{-1}$) is highly super-Eddington: $L=10^{6}\,L_\mathrm{Edd}\,(M/M_\odot)$. Such a highly super-Eddington luminosity is compatible with our inference of a near-relativistic outflow, or jet (Methods section~\ref{sec:flare-origin}), which could reduce the intrinsic luminosity by several orders of magnitude. As in J1644+57, the jet would have to be powered for 100 days, which means that for a core collapse followed by black-hole accretion scenario, the progenitor would have to be extended (a red supergiant\cite{Quataert2012}). Therefore, the failed explosion of a rapidly rotating red supergiant is one plausible progenitor. The prolonged high accretion rate would also be compatible with the merger and tidal disruption scenario\cite{Metzger2022}.
+For a stellar-mass compact object, the luminosity of the X-ray emission and optical flares ($10^{44}\,$erg\,s$^{-1}$) is highly super-Eddington: $L=10^{6}\,L_\mathrm{Edd}\,(M/M_\odot)$. Such a highly super-Eddington luminosity is compatible with our inference of a near-relativistic outflow, or jet (Methods section~\ref{sec:flare-origin}), which could reduce the intrinsic luminosity by several orders of magnitude. As in J1644+57, the jet would have to be powered for 100 days, which means that for a core collapse followed by black-hole accretion scenario\cite{WoosleyHeger2012}, the progenitor would have to be extended (a red supergiant\cite{Quataert2012}). Therefore, the failed explosion of a rapidly rotating red supergiant is one plausible progenitor. The prolonged high accretion rate would also be compatible with the merger and tidal disruption scenario\cite{Metzger2022}.
 
 A challenge for the stellar-mass compact object scenario is the minute- to hour-timescale of the flares. By analogy to known flaring systems (Table~\ref{tab:flaring-classes}), possible flare mechanisms are shocks\footnote{If the emission is shock-powered, the variability timescale means it would have to arise from internal rather than external shocks: external shocks cannot\cite{Kumar2015} produce bursts with $\delta t\ll T$).
 }, magnetic reconnection events, or turbulence in the jet; the flares themselves could also arise from geometry (jet precession, orbital motion in the case of a binary). For most of these physical mechanisms, the flare duration should scale with the black-hole mass, and the duration should be related to the light-crossing time of the black hole. 
@@ -1229,6 +1229,8 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
  
  % Conclusions
  
+ \bibitem{WoosleyHeger2012} Woosley, S. E., \& Heger, A. Long Gamma-Ray Transients from Collapsars. \emph{\apj}, \textbf{752}, 32 (2012). 
+ 
  \bibitem{Lyman2020} Lyman, J. D., et al. Studying the environment of AT 2018cow with MUSE. \emph{\mnras}, \textbf{495}, 992 (2020). 
 
 % Observations and data processing
@@ -1384,6 +1386,22 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
     \caption{\emph{Left:} The position of \at\ within its host galaxy ($r$-band image from Pan-STARRS). The transient is $\approx1.4$\arcsec\ from the center of the galaxy, which corresponds to $9\,$kpc at the redshift of the galaxy. \emph{Right:} The host galaxy of \at\ in the mass-SFR diagram for transient host galaxies\cite{Taggart2021}, including core-collapse supernovae\cite{Taggart2021}, long-duration $\gamma$-ray bursts\cite{Taggart2021}, and LFBOTs\cite{Perley2019,Ho2020_Koala,Coppejans2020,Perley2021,Yao2022}. }
     \label{fig:host-galaxy}
 \end{figure*}
+
+\begin{table}
+\begin{center}
+\caption{Properties of all flares detected from \at, including time of brightest detection, peak luminosity ($\nu L_\nu$ in the specified band), and total energy radiated $E_\mathrm{rad}$. Flares are defined as $>$5-$\sigma$ detections, verified visually, with an MJD after 59856.4 ($\Delta t_\mathrm{obs}=27\,$d).}
+\label{tab:flare-properties}
+\begin{tabular}{cccccc} 
+\hline\hline
+$t_\mathrm{peak,obs}$ (MJD) & Telescope & Band & $T_{90}$ (min) & $L_\mathrm{peak,obs}$ (erg/s) & $E_\mathrm{rad}$ (erg) \\
+\hline
+21.0 & 1271 & 1142 & 0.02 & [0.001, 0.1] \\
+22.5 & 68 & 155 & 0.1 & [0.01, 0.6]  \\
+24.0 & 13 & 65 & 0.5 & [0.03, 1] \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
 \begin{table}
 \begin{center}

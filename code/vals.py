@@ -51,6 +51,15 @@ ext['R'] = 0.627 # Schlafly & Finkbeiner (2011) # Should double check this
 ext['i'] = 0.466 # Schlafly & Finkbeiner (2011)
 ext['clear'] = 0.466 # use the i-band value, close to the peak of the efficiency curve
 
+# Generic values
+leff = {}
+leff['u'] = 3450
+leff['g'] = 4750 
+leff['r'] = 6200
+leff['i'] = 7600
+leff['w'] = 6080
+
+# Facility-specific values
 ztf_pivot = {}
 ztf_pivot['g'] = 4758.76
 ztf_pivot['r'] = 6389.72
