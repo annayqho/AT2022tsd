@@ -9,7 +9,7 @@ import sys
 sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
 import vals
 from get_opt import *
-from opt_lc import plot_det, plot_lim
+#from opt_lc import plot_det, plot_lim
 
 
 def get_gband_flare():
@@ -134,7 +134,7 @@ if __name__=="__main__":
     x,y,ey = get_rband_all()
     plot_ls(ax, x, y, ey, c='k', lab='$r$-band all')
     ax.set_ylabel("Lomb-Scargle Power")
-    ax.set_xlabel("Minutes")
+    ax.set_xlabel("Period (Minutes)")
     ax.set_xscale('log')
     ax.set_ylim(0, 0.19)
     ax.set_xlim(0.2, 48) # 48 min = 1/dt
@@ -149,13 +149,13 @@ if __name__=="__main__":
     x,y,ey = get_gband_all()
     plot_ls(ax, x, y, ey, c='k', lab='$g$-band all')
     ax.set_ylabel("Lomb-Scargle Power")
-    ax.set_xlabel("Minutes")
+    ax.set_xlabel("Period (Minutes)")
     ax.set_xscale('log')
     ax.set_ylim(0, 0.19)
     ax.set_xlim(0.2, 48)
     ax.legend(loc='upper left', fontsize=8)
 
     plt.tight_layout()
-    #plt.savefig("lomb_scargle_periodogram.png", dpi=300)
-    #plt.close()
-    plt.show()
+    plt.savefig("lomb_scargle_periodogram.png", dpi=300)
+    plt.close()
+    #plt.show()

@@ -41,8 +41,8 @@ def plot_xray(ax, flux):
 
 
 def quiescent_sed(ax):
-    start_time = 26
-    end_time = 28.7
+    start_time = 24
+    end_time = 27.5
 
     # The NOT optical data at dt=27.86512 (2022-10-04T02:10:46.848)
     # still appears blue. 
@@ -69,6 +69,7 @@ def quiescent_sed(ax):
     dat['dt'] = (Time(dat['mjdstart'], format='mjd').jd-vals.t0)
     dt = dat['dt']
     choose_dt = np.logical_and(dt>start_time, dt<end_time)
+    print(dt[choose_dt])
     # use the NOT gri data
     choose_det = np.logical_and(dat['emag']<99, dat['#instrument']=='NOT/ALFOSC')
     choose = np.logical_and(choose_dt, choose_det)
@@ -109,7 +110,8 @@ def quiescent_sed(ax):
     ax.plot(xvals, yvals, c='lightblue', 
              ls='--', label=r'$\nu L_\nu \propto \nu^{0.5}$')
 
-    ax.text(0.05, 0.95, r'$\Delta t_\mathrm{obs}=26.0$-28.7d', 
+    ax.text(0.05, 0.95, 
+            r'$\Delta t_\mathrm{obs}=%s$-%sd' %(start_time,end_time), 
             transform=ax.transAxes, ha='left', va='top')
 
     # Formatting
@@ -125,11 +127,11 @@ if __name__=="__main__":
     quiescent_sed(ax)
 
     ax.set_xlabel(
-            r"$\nu_\mathrm{obs}$",fontsize=11,
+            r"$\nu_\mathrm{obs}$ (Hz)",fontsize=11,
             fontname='sans-serif')
 
     ax.tick_params(axis='both', labelsize=11)
-    ax.set_ylabel(r"$\nu L_\nu$", fontsize=11,
+    ax.set_ylabel(r"$\nu L_\nu$ (erg s$^{-1}$)", fontsize=11,
             fontname='sans-serif')
     plt.tight_layout()
     #plt.show()
