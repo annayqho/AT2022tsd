@@ -1347,16 +1347,24 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 
 \begin{figure}[ht]
  \centering
-\includegraphics[width=0.9\textwidth]{spec.png}
-  \caption{\textbf{Optical spectra of \at.} The main panel shows the two spectra obtained with Keck/LRIS. The top panels show zoom-ins of identified narrow host-galaxy emission lines, which were used to measure the best-fit redshift of $z=0.2564\pm0.0001$. The bottom panels show zoom-ins of expected regions for $z=0$ emission lines, as would be expected from a foreground Galactic transient. Line identifications are marked.}
+\includegraphics[width=0.9\textwidth]{spec_cartoon.pdf}
+  \caption{\emph{Main panel:} Optical spectra of \at, obtained with Keck/LRIS. \emph{Top:} Regions with identified narrow host-galaxy emission lines, used to measure the best-fit redshift of $z=0.2564\pm0.0001$. \emph{Bottom:} Regions used to search for $z=0$ emission lines, as would be expected from a foreground Galactic transient.}
  \label{fig:spec}
 \end{figure}
 
 \begin{figure}[!ht]
  \centering
-\includegraphics[width=0.5\textwidth]{xray_fit.png}
-\includegraphics[width=1.0\textwidth]{xray_flares.png}
-  \caption{\textbf{0.3--10\,keV X-ray light curve of \at.} Top panel: The light curve is well described by a power law of $\alpha=-1.90\pm0.26$ where $f_\nu \propto t^{\alpha}$. Upper limits (3-$\sigma$) are shown with open circles. Other panels: The first few Chandra observations show variability on timescales of minutes at the 3-$\sigma$ level. During the second-to-last Chandra observation, we detected a flare with LRIS ($i$-band data plotted) that had no obvious X-ray counterpart.}
+ \begin{subfigure}[t]{1.0\textwidth}
+ 	\centering
+	\includegraphics[width=0.5\textwidth]{xray_fit.png}
+	\caption{X-ray (0.3--10\,keV) light curve.}
+ \end{subfigure}
+ \begin{subfigure}[t]{1.0\textwidth}
+ 	\centering
+	\includegraphics[width=1.0\textwidth]{xray_flares.png}
+	\caption{Individual epochs of Chandra observations resolved in time.}
+ \end{subfigure}
+  \caption{X-ray (0.3--10\,keV) light curve of \at. (a) Full light curve with best-fit power law of $\alpha=-1.90\pm0.26$ where $f_\nu \propto t^{\alpha}$. Upper limits (3-$\sigma$) are shown with open circles. (b) Individual Chandra observations binned in time with 500\,s bins. Diamonds show an optical ($i$-band) flare detected with LRIS during one of the Chandra observations.}
  \label{fig:xray-lc}
 \end{figure}
 
@@ -1404,11 +1412,11 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 
 \begin{table}
 \begin{center}
-\caption{Summary of targeted flare searches, including the number of exposures $N_\mathrm{exp}$, the total observing time $T_\mathrm{exp}$, the typical depth per exposure, and the number of flares detected (if any). For reference, we list the Magellan/IMACS observation that led to the flares being noticed.}
+\caption{Summary of targeted flare searches, including the number of exposures $N_\mathrm{exp}$, the total observing time $T_\mathrm{exp}$, the typical depth per exposure, and the number of flares detected. For reference, we include the Magellan/IMACS observation in which flaring was first noticed.}
 \label{tab:flare-searches}
 \begin{tabular}{lcccccc} 
 \hline\hline
-Telescope & Filters & $N_\mathrm{exp}$ & $T_\mathrm{exp}$ (min) & Depth & \# Flares \\
+Telescope & Filters & $N_\mathrm{exp}$ & $T_\mathrm{exp}$ (min) & Depth (AB mag) & \# Flares \\
 \hline
 Magellan/IMACS & $g$ & 4 & 12 & 24.2 & 1 \\
 LT/IO:O & $gr$ & 134 & 265 & 22.6 & 1 \\
@@ -1432,7 +1440,7 @@ LAST & $G_p$ & 646 & 9312 & 20.0 & 0 \\
 
 \begin{table}
 \begin{center}
-\caption{Properties of all flares detected from \at, including time of brightest detection, peak luminosity ($\nu L_\nu$ in the specified band), and total energy radiated $E_\mathrm{rad}$. Flares are defined as $>$5-$\sigma$ detections, verified visually, with an MJD after 59856.4 ($\Delta t_\mathrm{obs}=27\,$d). In cases with flares observed in multiple filters, the quantities are calculated using the first filter listed.}
+\caption{\at\ flare properties, including time of brightest detection ($t_\mathrm{peak,obs}$), time interval in which 90\% of the flux was measured ($T_{90}$), peak luminosity ($\nu L_\nu$ in the specified band), and total energy radiated $E_\mathrm{rad}$. Flares are defined as $>$5-$\sigma$ detections, verified visually, with an MJD after 59856.4 ($\Delta t_\mathrm{obs}=27\,$d). In cases with flares observed in multiple filters, quantities are calculated using the first filter listed. Note that, with the exception of the ULTRASPEC and ULTRACAM sequences, observations did not capture the start and end of the flare.}
 \label{tab:flare-properties}
 \begin{tabular}{cccccc} 
 \hline\hline
@@ -1460,7 +1468,7 @@ $t_\mathrm{peak,obs}$ (MJD) & Telescope & Band & $T_{90,\mathrm{obs}}$ (min) & $
 
 \begin{table}
 \begin{center}
-\caption{Duty cycle of flares in \at, for different apparent-magnitude thresholds, over the date range MJD 59856.41--59942.43 (from the first flare detection to the last flare detection). $N_\mathrm{exp}$ is the number of exposures brighter than the given magnitude threshold, $T_\mathrm{exp}$ is the total exposure time, $T_\mathrm{on}$ is the total time with a flare detected, and the bounds are confidence intervals (see Methods section~\ref{sec:flare-characteristics}) on the duty cycle $T_\mathrm{on}/T_\mathrm{exp}$. }
+\caption{\at\ flare duty cycle for different apparent-magnitude thresholds, over the date range MJD 59856.41--59942.43 (from the first flare detection to the last flare detection). $N_\mathrm{exp}$ is the number of exposures brighter than the given magnitude threshold, $T_\mathrm{exp}$ is the total exposure time, $T_\mathrm{on}$ is the total time with a flare detected, and the bounds are confidence intervals (see Methods section~\ref{sec:flare-characteristics}) on the duty cycle $T_\mathrm{on}/T_\mathrm{exp}$. }
 \label{tab:flare-stats}
 \begin{tabular}{ccccc} 
 \hline\hline

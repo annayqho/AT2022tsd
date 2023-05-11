@@ -30,13 +30,13 @@ def load_spec(inputf, ran):
 
 def load_spec_1():
     """ read in the spectrum """
-    inputf = "%s/opt/LRIS/lris20220923_improved_redux.spec" %ddir
+    inputf = "%s/opt/LRIS/spectroscopy/lris20220923_improved_redux.spec" %ddir
     wl, flam, eflam = load_spec(inputf, 147)
     return wl, flam, eflam
 
 
 def load_spec_2():
     """ read in the spectrum """
-    inputf = "%s/opt/LRIS/lris20221006_adjust.spec" %ddir
+    inputf = "%s/opt/LRIS/spectroscopy/lris20221006_adjust.spec" %ddir
     wl, flam, eflam = load_spec(inputf, 150)
     return wl, flam, eflam

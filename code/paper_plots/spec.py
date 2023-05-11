@@ -35,20 +35,29 @@ def main_spec(ax, wl, flam, eflam, wl2, flam2, eflam2):
         # Plot
         fac = max(y[i][x[i]>6000]) # scale by peak of Halpha
         yscaled = y[i]/fac+offsets[i]
-        ax.step(x[i],yscaled,where='mid',c='lightgrey',lw=0.5)
-        ysm = load_smoothed_spec(x[i], y[i], iv[i])
+        # Plot in the observer frame
+        ax.step(x[i]*(1+vals.z),yscaled,where='mid',c='lightgrey',lw=0.5)
+        ysm = load_smoothed_spec(x[i]*(1+vals.z), y[i], iv[i])
         ysmscaled = ysm/fac+offsets[i]
-        ax.step(x[i], ysmscaled, where='mid', c='k', lw=0.5)
-        ax.text(8000, offsets[i]-label_offsets[i], labels[i],
+        ax.step(x[i]*(1+vals.z), ysmscaled, where='mid', c='k', lw=0.5)
+        ax.text(8000*(1+vals.z), offsets[i]-label_offsets[i], labels[i],
                 ha='right', va='top')
 
     # Formatting, labeling
     plt.yticks([])
     plt.minorticks_off()
     ax.set_ylim(0.77, 3)
-    ax.set_xlim(2450, 8160)
-    ax.set_xlabel("$\lambda_\mathrm{rest}$ ($\AA$) at $z=%s$" %vals.z)
+    ax.set_xlim(2450*(1+vals.z), 8160*(1+vals.z))
+    ax.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
     ax.set_ylabel("Flux (arbitrary units)")#[erg/s/cm${}^2/\AA$]")
+
+    # Create a secondary axis
+    ax2 = ax.twiny()
+    ax2.set_xlabel("$\lambda_\mathrm{rest}$ ($\AA$) at $z=%s$" %vals.z)
+    x_f = lambda x_i: x_i/(1+vals.z)
+    xmin, xmax = ax.get_xlim()
+    ax2.set_xlim((x_f(xmin), x_f(xmax)))
+    ax2.plot([],[])
 
 
 def panels(ax, wl_range, wl, flam, shift):
@@ -83,9 +92,22 @@ def fig_for_paper():
 
     ax = fig.add_subplot(gs[1, :])
     main_spec(ax, wl, flam, eflam, wl2, flam2, eflam2)
-    ax.axvspan(3700, 3760, alpha=0.2, color='grey', lw=0)
-    ax.axvspan(4800, 5050, alpha=0.2, color='grey', lw=0)
-    ax.axvspan(6510, 6770, alpha=0.2, color='grey', lw=0)
+
+    # Regions of the rest-frame lines
+    ax.axvspan(
+            3700*(1+vals.z), 3760*(1+vals.z), 
+            alpha=0.2, color=vals.cow_col, lw=0)
+    ax.axvspan(
+            4800*(1+vals.z), 5050*(1+vals.z), 
+            alpha=0.2, color=vals.cow_col, lw=0)
+    ax.axvspan(
+            6510*(1+vals.z), 6770*(1+vals.z), 
+            alpha=0.2, color=vals.cow_col, lw=0)
+
+    # Regions of the obs-frame lines
+    for l in [6560, 5875, 4868]:
+        ax.axvspan(l-single_width, l+single_width, 
+                   alpha=0.2, color=vals.tde_col, lw=0)
 
     # Zoom-in of the OII (left-most) doublet
     ax = fig.add_subplot(gs[0, 0])
@@ -94,6 +116,7 @@ def fig_for_paper():
     plot_lines(ax, 'oii', vals.gc)
     ax.text(0.05, 0.95, '[O II]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.gc)
+    ax.set_xlabel("$\lambda_\mathrm{rest}$ $(\AA)$")
 
     # Zoom-in of the middle lines
     ax = fig.add_subplot(gs[0, 1])
@@ -105,6 +128,7 @@ def fig_for_paper():
     plot_lines(ax, 'hb', vals.rc, lw=2)
     ax.text(0.00, 0.95, r'[H$\beta$]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
+    ax.set_xlabel("$\lambda_\mathrm{rest}$ $(\AA)$")
 
     # Zoom-in of the right lines
     ax = fig.add_subplot(gs[0, 2])
@@ -118,6 +142,7 @@ def fig_for_paper():
             transform=ax.transAxes, color=vals.gc)
     plot_lines(ax, 'sii', 'grey', lw=3)
     ax.text(6725, 0.85, r'[S II]', ha='center', va='top', color='grey')
+    ax.set_xlabel("$\lambda_\mathrm{rest}$ $(\AA)$")
 
     # Get data assuming z=0
     wl, flam, eflam = load_spec_1()
