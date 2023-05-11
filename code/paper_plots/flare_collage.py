@@ -220,6 +220,8 @@ if __name__=="__main__":
     # Some custom settings
     windows = (np.ones(len(flare_nights))/24/60)*30
     windows[0] = 2.5 # first ZTF night needs longer
+    windows[3] = 1/24 # PS1 needs longer
+    windows[4] = 1/24 # PS1 needs longer
     units = ['Minutes']*len(flare_nights)
     units[0] = 'Days' # for that first ZTF obs
 
@@ -234,7 +236,7 @@ if __name__=="__main__":
             ax = plt.subplot(6,3,ind)
             t0_str,tel_str = plot_flare(ax, tab, night, window=windows[i],
                                         unit=units[i])
-            if i == 0:
+            if i in [0,3]:
                 ax.text(0.01, 0.95, tel_str, ha='left', va='top', fontsize=8,
                         transform=ax.transAxes)
             else:
