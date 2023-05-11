@@ -1442,7 +1442,7 @@ LAST & $G_p$ & 646 & 9312 & 20.0 & 0 \\
 
 \begin{table}
 \begin{center}
-\caption{\at\ flare properties, including time of brightest detection ($t_\mathrm{peak,obs}$), time interval in which 90\% of the flux was measured ($T_{90}$), peak luminosity ($\nu L_\nu$ in the specified band), and total energy radiated $E_\mathrm{rad}$. Flares are defined as $>$5-$\sigma$ detections, verified visually, with an MJD after 59856.4 ($\Delta t_\mathrm{obs}=27\,$d). In cases with flares observed in multiple filters, quantities are calculated using the first filter listed. Note that, with the exception of the ULTRASPEC and ULTRACAM sequences, observations did not capture the start and end of the flare.}
+\caption{\at\ flare properties, including time of brightest detection ($t_\mathrm{peak,obs}$), time interval in which 90\% of the flux was measured ($T_{90}$), peak luminosity ($\nu L_\nu$ in the specified band), and total energy radiated $E_\mathrm{rad}$. Flares are defined as $\geq$5-$\sigma$ detections, verified visually, with an MJD after 59856.4 ($\Delta t_\mathrm{obs}=27\,$d). In cases with flares observed in multiple filters, quantities are calculated using the first filter listed. Note that, with the exception of the ULTRASPEC and ULTRACAM sequences, observations did not capture the start and end of the flare.}
 \label{tab:flare-properties}
 \begin{tabular}{cccccc} 
 \hline\hline
@@ -1523,10 +1523,10 @@ PanSTARRS& $z$               &$ 20.873 \pm 0.360 $\\
 
 \begin{center} 
 \begin{longtable}{llllllll} 
-\caption{Optical photometry of AT2022tsd.} 
+\caption{Optical photometry of AT2022tsd with epochs ($\Delta t$) after discovery in the rest frame, exposure time $t_\mathrm{exp}$, flux density $f_\nu$ (not corrected for Galactic extinction). Flares are defined as $>$5-$\sigma$ detections, verified visually, with an MJD after 59856.4 ($\Delta t_\mathrm{obs}=27\,$d).} 
 \label{tab:optical-photometry}\\ 
 \hline\hline
-Start Date & $\Delta t$\footnote{Rest frame} & $t_\mathrm{exp}$ & Filter & $f_\nu$\footnote{Not corrected for Galactic extinction.} & $\sigma_{f_\nu}$\footnote{Upper limits reported as 3-$\sigma$.} & Instrument & Flare?\footnote{$>5$-$\sigma$ detections.}\\ 
+Start Date & $\Delta t$ & $t_\mathrm{exp}$ & Filter & $f_\nu$& $\sigma_{f_\nu}$ & Instrument & Flare?\\ 
 (UT) & (days) & (sec.) &  & ($\mu$Jy) & ($\mu$Jy) &  & \\ 
 \hline
 2022-08-25 10:50:11 & -13.02166 & 30.0 & ${g}_\mathrm{ZTF}$ & $-2.42$ & $2.63$ & ZTF &  \\ 
