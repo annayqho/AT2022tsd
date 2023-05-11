@@ -377,17 +377,17 @@ if __name__=="__main__":
         fontsize=medsize)
 
     # make a twin axis
-    ax2 = ax.twinx()
-    ax2.set_ylabel(
-            r"$U/R$ (erg/cm) $\qquad \epsilon_e=\epsilon_B=1/3$", 
-            fontsize=medsize, rotation=270, labelpad=15.0)
-    y_f = lambda y_i: 10**((14/19)*(np.log10(y_i)+14.65))
-    ymin, ymax = ax.get_ylim()
-    ax2.set_ylim((y_f(ymin), y_f(ymax)))
-    ax2.plot([],[])
-    ax2.set_yscale('log')
-    ax2.tick_params(axis='both', labelsize=medsize)
-    ax2.set_xlim(2,3000)
+    # ax2 = ax.twinx()
+    # ax2.set_ylabel(
+    #         r"$U/R$ (erg/cm) $\qquad \epsilon_e=\epsilon_B=1/3$", 
+    #         fontsize=medsize, rotation=270, labelpad=15.0)
+    # y_f = lambda y_i: 10**((14/19)*(np.log10(y_i)+14.65))
+    # ymin, ymax = ax.get_ylim()
+    # ax2.set_ylim((y_f(ymin), y_f(ymax)))
+    # ax2.plot([],[])
+    # ax2.set_yscale('log')
+    # ax2.tick_params(axis='both', labelsize=medsize)
+    # ax2.set_xlim(2,3000)
 
     plt.tight_layout()
     #plt.show()
