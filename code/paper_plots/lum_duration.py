@@ -609,30 +609,10 @@ def plot_panel(ax, zoom=False):
                 labelpad=15.0)
 
     # Plot the AT2022tsd flares
-    # Keck/LRIS
-    ax2.scatter(20/60/24, 1E43, marker='*', s=60, c=cowcol, edgecolor='k')
-    # PS1
-    ax2.scatter(40/60/24, 2E43, marker='*', s=60, c=cowcol, edgecolor='k')
-    # PS1
-    ax2.scatter(50/60/24, 2E43, marker='*', s=60, c=cowcol, edgecolor='k')
-    # Magellan
-    ax2.scatter(16/60/24, 6E43, marker='*', s=60, c=cowcol, edgecolor='k')
-    # LT
-    ax2.scatter(10/60/24, 4E43, marker='*', s=60, c=cowcol, edgecolor='k')
-    # TNT
-    ax2.scatter(19/60/24, 5E43, marker='*', s=60, c=cowcol, edgecolor='k')
-    # NTT
-    ax2.scatter(12/60/24, 8E42, marker='*', s=60, c=cowcol, edgecolor='k')
-    # KP84
-    ax2.scatter(15/60/24, 2E43, marker='*', s=60, c=cowcol, edgecolor='k')
-    # TNT
-    ax2.scatter(7/60/24, 2E43, marker='*', s=60, c=cowcol, edgecolor='k')
-    # TNT
-    ax2.scatter(78/60/24, 3E43, marker='*', s=60, c=cowcol, edgecolor='k')
-    # NOT
-    ax2.scatter(15/60/24, 8E42, marker='*', s=60, c=cowcol, edgecolor='k')
-    # NTT
-    ax2.scatter(8/60/24, 6E42, marker='*', s=60, c=cowcol, edgecolor='k')
+    t = np.array([20,40,50,16,10,19,12,15,7,78,15,8])
+    lum = np.array([1,2,2,6,4,5,0.8,2,2,3,0.8,0.6])
+    ax2.scatter(t/(60*24*(1+vals.z)), lum*1E43, marker='*', 
+                s=60, c=cowcol, edgecolor='k')
     if zoom==False:
         ax.text(1E-2, -21.6, 'AT2022tsd Flares', fontsize=10, c=cowcol,
                 fontweight='bold', ha='center')
