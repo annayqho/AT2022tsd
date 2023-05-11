@@ -609,11 +609,30 @@ def plot_panel(ax, zoom=False):
                 labelpad=15.0)
 
     # Plot the AT2022tsd flares
-    ax.scatter(1E-2, -21, marker='*', s=60, c=cowcol, edgecolor='k')
-    ax.scatter(3E-2, -21, marker='*', s=60, c=cowcol, edgecolor='k')
-    ax.scatter(1E-2, -20.8, marker='*', s=60, c=cowcol, edgecolor='k')
-    ax.scatter(1E-2, -20, marker='*', s=60, c=cowcol, edgecolor='k')
-    ax.scatter(1E-2, -19, marker='*', s=60, c=cowcol, edgecolor='k')
+    # Keck/LRIS
+    ax2.scatter(20/60/24, 1E43, marker='*', s=60, c=cowcol, edgecolor='k')
+    # PS1
+    ax2.scatter(40/60/24, 2E43, marker='*', s=60, c=cowcol, edgecolor='k')
+    # PS1
+    ax2.scatter(50/60/24, 2E43, marker='*', s=60, c=cowcol, edgecolor='k')
+    # Magellan
+    ax2.scatter(16/60/24, 6E43, marker='*', s=60, c=cowcol, edgecolor='k')
+    # LT
+    ax2.scatter(10/60/24, 4E43, marker='*', s=60, c=cowcol, edgecolor='k')
+    # TNT
+    ax2.scatter(19/60/24, 5E43, marker='*', s=60, c=cowcol, edgecolor='k')
+    # NTT
+    ax2.scatter(12/60/24, 8E42, marker='*', s=60, c=cowcol, edgecolor='k')
+    # KP84
+    ax2.scatter(15/60/24, 2E43, marker='*', s=60, c=cowcol, edgecolor='k')
+    # TNT
+    ax2.scatter(7/60/24, 2E43, marker='*', s=60, c=cowcol, edgecolor='k')
+    # TNT
+    ax2.scatter(78/60/24, 3E43, marker='*', s=60, c=cowcol, edgecolor='k')
+    # NOT
+    ax2.scatter(15/60/24, 8E42, marker='*', s=60, c=cowcol, edgecolor='k')
+    # NTT
+    ax2.scatter(8/60/24, 6E42, marker='*', s=60, c=cowcol, edgecolor='k')
     if zoom==False:
         ax.text(1E-2, -21.6, 'AT2022tsd Flares', fontsize=10, c=cowcol,
                 fontweight='bold', ha='center')
