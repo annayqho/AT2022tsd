@@ -81,9 +81,60 @@ def get_host_phot_lris(imsize):
 
 if __name__=="__main__":
     # Initiate figure
-    fig,ax = plt.subplots(1,1,figsize=(4,3.5))
+    fig,axarr = plt.subplots(1,2,figsize=(8,4))
+
+    ax = axarr[0]
+
+    # Plot host galaxy
+    imsize = 50
+    i,g,u = get_host_phot_lris(imsize)
+    r = (i+g)/2  # max: 1000
+    # max for g: 600, 650
+    b = (g*1.5+u)/2  # max for b: 500, 550
+
+    #r,g,b = get_host_phot_ps1(imsize) # r:0-1000; g:0-500
+    #rgb = make_lupton_rgb(r/1.8, g/1.1, b, stretch=100, Q=5, minimum=13)
+
+    # Try gri
+    #rgb = make_lupton_rgb(i/2.5, r/1.9, b, stretch=100, Q=4, minimum=10)
+    rgb = make_lupton_rgb(i/2.5, r/1.9, b, stretch=100, Q=5, minimum=10)
+    ax.imshow(rgb, origin='lower')
+
+    markcol = 'white'
+
+    # Mark position of transient
+    ax.plot([imsize, imsize], [imsize, imsize-8], c=markcol, lw=1)
+    ax.plot([imsize, imsize+8], [imsize, imsize], c=markcol, lw=1)
+    ax.text(imsize+1, imsize-2, 'AT2022tsd', ha='left', va='top', fontsize=10,
+            color=markcol)
+
+    # Mark compass
+    imsize = 100
+    ax.plot((imsize-10,imsize-10), (imsize-10,imsize-20), color=markcol, lw=2)
+    ax.text(
+            imsize-10, imsize-23, "S", color=markcol, fontsize=16,
+            horizontalalignment='center', verticalalignment='top')
+    ax.plot((imsize-10,imsize-20), (imsize-10,imsize-10), color=markcol, lw=2)
+    ax.text(
+            imsize-23, imsize-10, "E", color=markcol, fontsize=16,
+            horizontalalignment='right', verticalalignment='center')
+    ax.axis('off')
+
+    ax.text(0.01, 0.99,"Keck/LRIS $ugI$",fontsize=15,transform=ax.transAxes,
+        horizontalalignment='left', va='top', color='white')
+
+    # Mark image scale : 0.25 arcsec per pixel
+    x = 7
+    y = 10
+    x2 = x + 5/0.25
+    ax.plot((x,x2), (y,y), color=markcol, lw=2)
+    ax.text((x2+x)/2, y*1.1, "5''", color=markcol, fontsize=16,
+            verticalalignment='bottom', horizontalalignment='center')
+    ax.text((x2+x)/2, y/1.1, "(32 kpc)", color=markcol, fontsize=16,
+            verticalalignment='top', horizontalalignment='center')
 
     # Plot the Taggart sample (scraped from 20xnd paper)
+    ax = axarr[1]
     dat = np.loadtxt("taggart_sample.txt", delimiter=',')
     ax.scatter(dat[:,0], dat[:,1], marker='>', c=vals.sn_col, s=10, label='CCSN')
     dat = np.loadtxt("taggart_lgrb.txt", delimiter=',')
@@ -92,8 +143,8 @@ if __name__=="__main__":
     # Plot LFBOTs
     x = [1E8, 1E8, 1.3E7, 1.4E9, 3.1E8, 10**9.31]
     y = [6.93E-3, 2E-2, 4E-3, 2.2E-1, 6.2, 3.34]
-    ax.scatter(x, y, marker='D', facecolor=vals.cow_col, edgecolor='k', label='LFBOT') 
-    ax.text(x[-1]*1.1, y[-1], 'AT2022tsd', c=vals.cow_col, ha='left', 
+    ax.scatter(x, y, marker='D', facecolor=vals.cow_col, edgecolor='k', label='LFBOT')
+    ax.text(x[-1]*1.1, y[-1], 'AT2022tsd', c=vals.cow_col, ha='left',
             va='bottom', fontsize=8, fontweight='bold')
 
     ax.set_xscale('log')
@@ -103,5 +154,5 @@ if __name__=="__main__":
     ax.legend(loc='lower right', fontsize=8)
     plt.tight_layout()
     #plt.show()
-    plt.savefig("host_galaxy_image.png", dpi=300)
+    plt.savefig("host_galaxy.png", dpi=300)
     plt.close()

@@ -2,7 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from get_opt import *
-import values
+import vals
 
 
 def bin_lc(x,y,ey,bin_size):
@@ -165,9 +165,9 @@ def single_band_flux_fit(ax,t,y,ey,zval,units='flux'):
 
 
 if __name__=="__main__":
-    jd,filt,mag,emag,f,ef = get_ipac()
+    jd,exp,filt,mag,mag_extcorr,emag,f,ef,f_extcorr,ef_extcorr = get_ipac()
     choose = filt=='g'
     fig,ax = plt.subplots(1,1,figsize=(3,3)) 
     single_band_flux_fit(
-            ax,jd[choose],f[choose],ef[choose],values.z,units='flux')
+            ax,jd[choose],f[choose],ef[choose],vals.z,units='flux')
     plt.show()
