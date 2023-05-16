@@ -130,7 +130,7 @@ if __name__=="__main__":
     ax.plot((x,x2), (y,y), color=markcol, lw=2)
     ax.text((x2+x)/2, y*1.1, "5''", color=markcol, fontsize=16,
             verticalalignment='bottom', horizontalalignment='center')
-    ax.text((x2+x)/2, y/1.1, "(32 kpc)", color=markcol, fontsize=16,
+    ax.text((x2+x)/2, y/1.1, "(21 kpc)", color=markcol, fontsize=16,
             verticalalignment='top', horizontalalignment='center')
 
     # Plot the Taggart sample (scraped from 20xnd paper)

@@ -17,6 +17,8 @@ tpos = SkyCoord("03h20m10.873s", "08d44m55.739s", frame='icrs')
 offset_arcsec = hostpos.separation(tpos).arcsec
 print(offset_arcsec)
 
+offset_arcsec = 5
+
 # Convert to radians
 offset_rad = (offset_arcsec/3600)*np.pi/180
 
