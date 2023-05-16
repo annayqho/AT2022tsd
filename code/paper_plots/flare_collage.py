@@ -102,22 +102,21 @@ def plot_ultracam_kp84_panel(ax, dat, t0, plot_binned=False, y2=False):
         # Plot in hours
         dt = (x-t0)*24
 
-        if plot_binned==False:
-            # Definition of a detection: 5-sigma
-            # Otherwise you get what seem to be spurious points
-            det = y/ey >= 5
+        # Definition of a detection: 5-sigma
+        # Otherwise you get what seem to be spurious points
+        det = y/ey >= 5
 
-            # Plot detections
-            ax.errorbar(
-                    dt[det], y[det], ey[det], c=col[i], fmt=m[i], ms=ms[i],lw=0.5)
+        # Plot detections
+        ax.errorbar(
+                dt[det], y[det], ey[det], c=col[i], fmt=m[i], ms=ms[i],lw=0.5)
 
-            # Plot the non-detections
-            ax.errorbar(dt[~det], y[~det], ey[~det], lw=l, mec=col[i], 
-                        fmt=m[i], ms=ms[i], alpha=0.3, mfc='white', c=col[i])
+        # Plot the non-detections
+        ax.errorbar(dt[~det], y[~det], ey[~det], lw=l, mec=col[i], 
+                    fmt=m[i], ms=ms[i], alpha=0.3, mfc='white', c=col[i])
 
         # Bin the light curve...group by five points
-        else:
-            bsize = 5
+        if plot_binned:
+            bsize = 3
             binned = []
             ebinned = []
             for j in np.arange(bsize,len(dt)-bsize):
@@ -131,12 +130,14 @@ def plot_ultracam_kp84_panel(ax, dat, t0, plot_binned=False, y2=False):
             biney = np.array(ebinned)
             order = np.argsort(binx)
             
-            bindet = biny[order] / biney[order] >= 5
-            ax.errorbar(binx[order][bindet], biny[order][bindet], 
-                        biney[order][bindet], fmt=m[i], c=col[i], ms=1)
-            ax.errorbar(binx[order][~bindet], biny[order][~bindet], 
-                        biney[order][~bindet], mec=col[i], alpha=0.2, 
-                        mfc='white', fmt=m[i], c=col[i], ms=1)
+            #bindet = biny[order] / biney[order] >= 5
+            #ax.errorbar(binx[order][bindet], biny[order][bindet], 
+            #            biney[order][bindet], fmt=m[i], c=col[i], ms=1)
+            ax.plot(binx[order], biny[order], c=col[i])
+            #ax.plot(binx[order][~bindet], biny[order][~bindet], c=col[i], alpha=0.2)
+            #ax.errorbar(binx[order][~bindet], biny[order][~bindet], 
+            #            biney[order][~bindet], mec=col[i], alpha=0.2, 
+            #            mfc='white', fmt=m[i], c=col[i], ms=1)
         
     if y2:
         # Make an axis on the right-hand side with vLv
@@ -332,7 +333,7 @@ if __name__=="__main__":
     axins.tick_params(axis='both', labelsize=8, pad=0.5)
     axins.set_ylabel("")
     axins.set_xlim(0.8,1.2)
-    axins.set_ylim(-1, 10)
+    axins.set_ylim(-1, 15)
     ax.indicate_inset_zoom(axins, edgecolor="grey")
     axins.set_xticks([])
     axins.set_yticks([])
