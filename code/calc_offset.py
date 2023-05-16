@@ -1,5 +1,6 @@
 """ Calculate the host galaxy offset """
 
+import numpy as np
 from astropy.coordinates import SkyCoord
 from astropy.cosmology import Planck18
 import vals
@@ -20,7 +21,6 @@ print(offset_arcsec)
 offset_rad = (offset_arcsec/3600)*np.pi/180
 
 # Offset in physical units
-dA = Planck18.angular_diameter_distance(z=vals.z)
+dA = Planck18.angular_diameter_distance(z=vals.z).value
 offset_kpc = offset_rad * dA * 1000
 print(offset_kpc)
-
