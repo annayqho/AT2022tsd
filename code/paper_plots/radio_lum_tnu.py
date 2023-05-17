@@ -115,7 +115,7 @@ def first(ax):
     tnu = 26*365*(0.3/5)
     dcm = Planck15.luminosity_distance(z=0.01957).cgs.value
     lpeak = 2.25*1E-3*1E-23*4*np.pi*dcm**2
-    ax.scatter(tnu, lpeak, marker='X', c='k', s=50)
+    ax.scatter(tnu, lpeak, marker='X', c='k', s=50, label="RT")
     ax.text(tnu, lpeak*1.2, 'FIRST J1419', fontsize=smallsize,
             verticalalignment='bottom',
             horizontalalignment='center')
@@ -360,7 +360,7 @@ if __name__=="__main__":
 
     # Add a legend
     ax.legend(bbox_to_anchor=(-0.2, 1.1), loc='upper left',
-            ncol=5, fontsize=medsize, 
+            ncol=6, fontsize=medsize, handletextpad=0.1,
             columnspacing=0.5, borderpad=0.3)
 
     # Formatting
