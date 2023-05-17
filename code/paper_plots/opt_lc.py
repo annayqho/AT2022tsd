@@ -204,13 +204,13 @@ if __name__=="__main__":
     ax2.plot([],[])
 
     # For the legend
-    ax.plot([100,100],[150,150],ls='-',c='grey',label='SN2011kl')
+    ax.plot([100,100],[150,150],ls='-',c='grey',label='SN2011kl $g\'$')
     ax.plot([100,100],[150,150],ls='--',c=vals.gc,label='AT2018cow $g$',lw=0.5)
     ax.plot([100,100],[150,150],ls='--',c=vals.rc,label='AT2018cow $r$',lw=0.5)
     ax.plot([100,100],[150,150],ls='-',c=vals.gc,label='AT2020xnd $g$',lw=0.5)
     ax.plot([100,100],[150,150],ls='-.',c=vals.gc,label='AT2020mrf $g$',lw=1)
     #ax.plot([100,100],[150,150],ls='-',c=vals.rc,label='AT2020xnd $r$',lw=0.5)
-    ax.plot([100,100],[150,150],ls=':',c=vals.rc,label='SN1998bw')
+    ax.plot([100,100],[150,150],ls=':',c=vals.rc,label='SN1998bw $R_C$')
     ax.scatter(0,0,marker='s',c=vals.gc,edgecolor='k',label='AT2022tsd $g$')
     ax.scatter(0,0,marker='o',c=vals.rc,edgecolor='k',label='AT2022tsd $r$')
     ax.scatter(0,0,marker='D',c=vals.ic,edgecolor='k',label='AT2022tsd $i$')

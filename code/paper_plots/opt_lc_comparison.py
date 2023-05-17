@@ -131,14 +131,18 @@ def plot_98bw(ax, show='absolute', offset=0):
 
 
 def plot_sn2011kl(ax, show='absolute', offset=0):
-    """ Plot the LC of the ULGRB counterpart """
+    """ Plot the LC of the ULGRB counterpart 
+
+    This is the SN component only, observed g-band from Greiner et al. (2015)
+    Values are given in Table 1
+    """
     z = 0.677
-    dat = np.loadtxt("../2011kl.txt")
-    t = dat[:,0]
-    m = dat[:,1]
+    dat = pd.read_csv("../sn2011kl.txt")
+    t = dat['dt']/86400
+    m = dat['obsg']
     dm = Planck18.distmod(z=z).value
-    if show=='apparent':
-        m = m+dm
+    if show=='absolute':
+        m = m-dm
     ax.plot(t/(1.677), m-offset, c='grey', lw=1, ls='-')
 
 
