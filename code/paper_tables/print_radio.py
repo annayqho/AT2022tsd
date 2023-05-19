@@ -66,7 +66,7 @@ def print_table():
             fstr = '${:.3f}$'.format(dat['Flux'].values[i])
             efstr = '${:.3f}$'.format(dat['eFlux'].values[i])
         else:
-            fstr = '<${:.3f}$'.format(3*dat['eFlux'].values[i])
+            fstr = '$<{:.3f}$'.format(3*dat['eFlux'].values[i])
             efstr = '--'
         row = rowstr %(tstr,dtstr,nustr,fstr,efstr,dat['Tel'].values[i])
         print(row)
