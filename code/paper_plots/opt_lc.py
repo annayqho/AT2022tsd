@@ -150,7 +150,7 @@ if __name__=="__main__":
     shift = np.abs(Planck18.distmod(z=0.0085).value-vals.dm)
     plot_98bw(ax, show='apparent', offset=shift)
     shift = np.abs(Planck18.distmod(z=0.677).value-vals.dm)
-    plot_sn2011kl(ax, show='apparent', offset=shift)
+    #plot_sn2011kl(ax, show='apparent', offset=shift)
     shift = np.abs(Planck18.distmod(z=0.1353).value-vals.dm)
     plot_at2020mrf(ax, show='apparent', offset=shift-1.5)
 
@@ -180,7 +180,7 @@ if __name__=="__main__":
     shift = np.abs(Planck18.distmod(z=0.0085).value-vals.dm)
     plot_98bw(ax, show='apparent', offset=shift)
     shift = np.abs(Planck18.distmod(z=0.677).value-vals.dm)
-    plot_sn2011kl(ax, show='apparent', offset=shift)
+    #plot_sn2011kl(ax, show='apparent', offset=shift)
     shift = np.abs(Planck18.distmod(z=0.1353).value-vals.dm)
     plot_at2020mrf(ax, show='apparent', offset=shift-1.5)
 
@@ -204,7 +204,7 @@ if __name__=="__main__":
     ax2.plot([],[])
 
     # For the legend
-    ax.plot([100,100],[150,150],ls='-',c='grey',label='SN2011kl $g\'$')
+    #ax.plot([100,100],[150,150],ls='-',c='grey',label='SN2011kl $g\'$')
     ax.plot([100,100],[150,150],ls='--',c=vals.gc,label='AT2018cow $g$',lw=0.5)
     ax.plot([100,100],[150,150],ls='--',c=vals.rc,label='AT2018cow $r$',lw=0.5)
     ax.plot([100,100],[150,150],ls='-',c=vals.gc,label='AT2020xnd $g$',lw=0.5)
