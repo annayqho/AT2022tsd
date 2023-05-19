@@ -138,7 +138,7 @@ def print_table_last():
         rowstr += "%s & "
     rowstr += "%s \\\ \n"
 
-    caption="LAST observations of AT2022tsd, binned into two-minute exposures."
+    caption="LAST observations of AT2022tsd, binned into two-minute exposures, with epochs since discovery $\Delta t$ in the rest frame, and fluxes calibrated to the Gaia $G_p$ band with a zero point of 25\,mag (AB)."
 
     outputf = open("paper_table_%s.txt" %label, "w")
     outputf.write("\\begin{center} \n")
