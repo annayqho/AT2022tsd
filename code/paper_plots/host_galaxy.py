@@ -140,12 +140,73 @@ if __name__=="__main__":
     dat = np.loadtxt("taggart_lgrb.txt", delimiter=',')
     ax.scatter(dat[:,0], dat[:,1], marker='+', c=vals.lgrb_col, s=40, label='LGRB')
 
-    # Plot LFBOTs
-    x = [1E8, 1E8, 1.3E7, 1.4E9, 3.1E8, 10**9.31]
-    y = [6.93E-3, 2E-2, 4E-3, 2.2E-1, 6.2, 3.34]
-    ax.scatter(x, y, marker='D', facecolor=vals.cow_col, edgecolor='k', label='LFBOT')
-    ax.text(x[-1]*1.1, y[-1], 'AT2022tsd', c=vals.cow_col, ha='left',
-            va='bottom', fontsize=8, fontweight='bold')
+    # Add 18cow
+    x = 1.42E9
+    xbot = (1.42-0.29)*1E9
+    xtop = (1.42+0.17)*1E9
+    y = 0.22
+    ybot = 0.22-0.04
+    ytop = 0.22+0.03
+    ax.scatter(x, y, marker='D', facecolor=vals.cow_col, edgecolor='k', label='LFBOT', zorder=100)
+    ax.hlines(y, xbot, xtop, color=vals.cow_col)
+    ax.vlines(x, ybot, ytop, color=vals.cow_col)
+
+    # Add CSS161010
+    x = 2E7
+    xbot = 1E7
+    xtop = 3E7
+    y = 1E-2
+    ybot = 0.3E-2
+    ytop = 2E-2
+    ax.scatter(x, y, marker='D', facecolor=vals.cow_col, edgecolor='k', label=None, zorder=100)
+    ax.hlines(y, xbot, xtop, color=vals.cow_col)
+    ax.vlines(x, ybot, ytop, color=vals.cow_col)
+
+    # Add Koala
+    x = 5.1E8
+    xbot = (5.1-2.0)*1E8
+    xtop = (5.1+3.4)*1E8
+    y = 6.8
+    ybot = (6.8-4.6)
+    ytop = (6.8+3.7)
+    ax.scatter(x, y, marker='D', facecolor=vals.cow_col, edgecolor='k', label=None, zorder=100)
+    ax.hlines(y, xbot, xtop, color=vals.cow_col)
+    ax.vlines(x, ybot, ytop, color=vals.cow_col)
+
+    # Add AT2020xnd
+    x = 8E7
+    xbot = 3E7
+    xtop = 3E8
+    y = 0.02
+    ybot = 0.02-0.005
+    ytop = 0.02+0.005
+    ax.scatter(x, y, marker='D', facecolor=vals.cow_col, edgecolor='k', label=None, zorder=100)
+    ax.hlines(y, xbot, xtop, color=vals.cow_col)
+    ax.vlines(x, ybot, ytop, color=vals.cow_col)
+
+    # Add 2020mrf
+    x = 10**7.94
+    xbot = 10**(7.94-0.39)
+    xtop = 10**(7.94+0.22)
+    y = 6.93*1E-3
+    ybot = (6.93-0.27)*1E-3
+    ytop = (6.93+3.90)*1E-3
+    ax.scatter(x, y, marker='D', facecolor=vals.cow_col, edgecolor='k', label=None, zorder=100)
+    ax.hlines(y, xbot, xtop, color=vals.cow_col)
+    ax.vlines(x, ybot, ytop, color=vals.cow_col)
+
+    # Add AT2022tsd
+    x = 10**(9.96)
+    xtop = 10**(9.96+0.06)
+    xbot = 10**(9.96-0.09)
+    y = 0.55
+    ytop = 0.55+1.36
+    ybot = 0.55-0.19
+    ax.scatter(x, y, marker='D', facecolor=vals.cow_col, edgecolor='k', label=None, zorder=100)
+    ax.hlines(y, xbot, xtop, color=vals.cow_col)
+    ax.vlines(x, ybot, ytop, color=vals.cow_col)
+    ax.text(x*1.1, y/1.1, 'AT2022tsd', c=vals.cow_col, ha='left',
+            va='top', fontsize=8, fontweight='bold')
 
     ax.set_xscale('log')
     ax.set_yscale('log')
