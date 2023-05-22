@@ -205,8 +205,8 @@ if __name__=="__main__":
     ax.scatter(x, y, marker='D', facecolor=vals.cow_col, edgecolor='k', label=None, zorder=100)
     ax.hlines(y, xbot, xtop, color=vals.cow_col)
     ax.vlines(x, ybot, ytop, color=vals.cow_col)
-    ax.text(x*1.1, y/1.1, 'AT2022tsd', c=vals.cow_col, ha='left',
-            va='top', fontsize=8, fontweight='bold')
+    #ax.text(x*1.1, y/1.1, 'AT2022tsd', c=vals.cow_col, ha='left',
+    #        va='top', fontsize=8, fontweight='bold')
 
     ax.set_xscale('log')
     ax.set_yscale('log')

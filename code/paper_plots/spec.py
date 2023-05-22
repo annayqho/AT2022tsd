@@ -154,7 +154,7 @@ def fig_for_paper():
     panels(ax, [6560-single_width, 6560+single_width], wl, flam, 0)
     panels(ax, [6560-single_width, 6560+single_width], wl2, flam2, 1)
     plot_lines(ax, 'ha', vals.rc)
-    ax.text(0.05, 0.95, r'H$\alpha$', ha='left', va='top', 
+    ax.text(0.05, 0.95, r'[H$\alpha$]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
     #ax.set_xticks([6520, 6550, 6580])
     #ax.set_xticklabels([6520, 6550, 6580])
@@ -165,8 +165,8 @@ def fig_for_paper():
     panels(ax, [5875-single_width, 5875+single_width], wl, flam, 0)
     panels(ax, [5875-single_width, 5875+single_width], wl2, flam2, 1)
     plot_lines(ax, 'hei', vals.rc)
-    ax.text(0.05, 0.95, r'HeI 5875', ha='left', va='top', 
-            transform=ax.transAxes, color=vals.rc)
+    ax.text(0.01, 0.98, r'[He I] 5875', ha='left', va='top', 
+            transform=ax.transAxes, color=vals.rc, fontsize=9)
     ax.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
     #ax.set_xticks([5400, 5700, 6200])
     #ax.set_xticklabels([5400, 5700, 6200])
@@ -178,8 +178,15 @@ def fig_for_paper():
     panels(ax, [4686-single_width, 4686+single_width], wl, flam, 0)
     panels(ax, [4686-single_width, 4686+single_width], wl2, flam2, 1)
     plot_lines(ax, 'heii', vals.rc)
-    ax.text(0.05, 0.95, r'HeII 4686', ha='left', va='top', 
-            transform=ax.transAxes, color=vals.rc)
+
+    # Plot O II in the observer frame
+    for l in wl_lines['oii']:
+        ax.axvline(l*(1+vals.z), lw=1, ymin=0, ymax=0.1, color=vals.gc)
+    ax.text(0.25, 0.01, r'[O II]', ha='left', va='bottom', 
+            transform=ax.transAxes, color=vals.gc, fontsize=8)
+    
+    ax.text(0.01, 0.98, r'[He II] 4686', ha='left', va='top', 
+            transform=ax.transAxes, color=vals.rc, fontsize=9)
     ax.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
     #ax.set_xticks([4660, 4680, 4700, 4720])
     #ax.set_xticklabels([4660, 4680, 4700, 4720])
