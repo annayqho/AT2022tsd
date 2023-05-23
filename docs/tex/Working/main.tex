@@ -170,10 +170,11 @@ For a black hole, the shortest timescale would be related to the light-crossing 
 \centering
     \includegraphics[width=0.95\textwidth]{lum_duration_cartoon.pdf}
     \includegraphics[width=0.3\textwidth]{host_galaxy_image.png}
-    \includegraphics[width=0.45\textwidth]{lum_tnu.png}
-\caption{\emph{Top:} Duration above half-maximum light ($t_{1/2}$) vs. peak absolute magnitude $M$ (or peak luminosity $\nu L_\nu$) of \at, its flares, and other extragalactic optical transients.
-\emph{Bottom left:} Keck/LRIS false-color $u/g/I$ image centred at the position of \at, which is marked.
-\emph{Bottom right:} Peak frequency ($\nu_p$) at a fixed time post-explosion ($\Delta t$) vs. peak luminosity of extragalactic radio transients.
+    %\includegraphics[width=0.45\textwidth]{lum_tnu.png}
+\caption{\textbf{\at\ is a luminous fast blue optical transient (LFBOT) showing flares with unprecedented timescales.}
+\emph{Top:} Duration above half-maximum light ($t_{1/2}$) vs. peak absolute magnitude $M$ (or peak luminosity $\nu L_\nu$) of \at, its flares, and other extragalactic optical transients.
+\emph{Bottom:} Keck/LRIS false-color $u/g/I$ image centred at the position of \at, which is marked.
+%\emph{Bottom right:} Peak frequency ($\nu_p$) at a fixed time post-explosion ($\Delta t$) vs. peak luminosity of extragalactic radio transients.
 See Methods section~\ref{sec:data-transient-parameter-space} for additional details and data sources.
 }
  \label{fig:transient-parameter-space}
@@ -187,7 +188,8 @@ See Methods section~\ref{sec:data-transient-parameter-space} for additional deta
          \includegraphics[width=0.49\textwidth]{mm_lc_100ghz.png}
         \includegraphics[width=0.49\textwidth]{xray_lc.png}
      \end{subfigure}
-\caption{\emph{Top:} Optical light curve of \at\ compared to the luminous fast blue optical transients (LFBOTs) AT2018cow, AT2020xnd, AT2020mrf, and SN\,2011kl (GRB\,111209A), as well as to the stripped-envelope supernova SN\,1998bw (GRB\,980425). Vertical bars mark flares, open triangles mark upper limits, and lines along the bottom axis mark epochs of radio, X-ray, and optical spectroscopy. 
+\caption{\textbf{The multiwavelength properties of \at\ are most similar to luminous fast blue optical transients (LFBOTs) in the literature, particularly AT2018cow, AT2020xnd, and AT2020mrf.}
+\emph{Top:} Optical light curve of \at\ compared to the LFBOTs and the stripped-envelope supernova SN\,1998bw (GRB\,980425). Vertical bars mark flares, open triangles mark upper limits, and lines along the bottom axis mark epochs of radio, X-ray, and optical spectroscopy. 
 \emph{Bottom left:} Millimeter-wave light curve of \at\ compared to different classes of extragalactic transients.
 \emph{Bottom right:} 0.3--10\,keV X-ray light curve of \at\ compared to different classes of extragalactic transients.
 See Methods section~\ref{sec:data-transient-lc} for additional details and data sources.
@@ -926,7 +928,7 @@ In the optical parameter space panel, we also plot data for
 core-collapse supernovae (CC SNe\cite{PerleyBTS,Ho2022_RET}), Type~Ia SNe\cite{PerleyBTS}, superluminous SNe (SLSN\cite{PerleyBTS}), luminous fast blue optical transients (LFBOTs\cite{Prentice2018,Perley2019,Ho2019,Margutti2019,Perley2021,Ho2020_Koala,Yao2022,Coppejans2020,Ho2022_AT2020xnd,Arcavi2016,Greiner2015,Pursiainen2018}), long-duration $\gamma$-ray burst (LGRB) afterglows\cite{Racusin2008,Kann2010}, 
 a blazar flare\cite{Nesci2021}, the kilonova AT2017gfo\cite{Kasliwal2017,Villar2017,Cowperthwaite2017,Drout2017}, the optically discovered relativistic TDE AT2022cmc\cite{Andreoni2022}, and the first peak in the optical light curves of low-luminosity GRBs\cite{Galama1998,Campana2006,DElia2018,Ho2020_SN2020bvc}.
 Measurements are as close as possible to the rest-frame $g$ band.
-Light curves to the upper left of the dashed line\cite{Kasen2017} cannot be powered by radioactive decay because the nickel mass $M_\mathrm{Ni}$ would exceed the ejecta mass $M_\mathrm{ej}$.
+Light curves to the upper left of the dashed line\cite{Kasen2017} cannot be powered by radioactive decay because the nickel mass $M_\mathrm{Ni}$ would exceed the ejecta mass $M_\mathrm{ej}$. For the LGRB optical flashes, we started with a sample of LGRB afterglows\cite{Kann2010} and kept light curves that had either a well-resolved peak, or observations that started within 100\,s of the burst.
 
 In the radio parameter space panel, we show a plot that is commonly used to characterize radio transients\cite{Chevalier1998,Ho2019}.
 We plot data for CC SNe (Type~II and Type~Ib/Ic), TDEs, low-luminosity GRBs (LLGRBs), and two objects discovered by radio surveys (RT\cite{Dong2021,Mooley2022}). Lines of constant shock speed ($R/\Delta t$) are shown, as well as lines of constant mass-loss rate $\dot{M}$ (scaled to wind velocity $v$) in units of $10^{-4}\,M_\odot$\,yr$^{-1}/1000\,$km\,s$^{-1}$. The lines assume that the radio peak is due to synchrotron self-absorption\cite{Chevalier1998}. The right axis\cite{Ho2019} shows the energy converted by the shock $U$ as a function of radius $R$.
@@ -1497,7 +1499,8 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \begin{figure}[!ht]
  \centering
 \includegraphics[width=1.0\textwidth]{radio.png}
-  \caption{\emph{Left:} Selected single-band radio light curves of \at\ from the VLA (15--45\,GHz), NOEMA (77--207\,GHz) and ALMA ($350$\,GHz). Open circles mark 5-$\sigma$ upper limits, and dashed lines connect upper limits to detections. \emph{Right:} Rest-frame radio SEDs from the six time ranges marked with vertical shaded regions in the left panel. Inset shows SED from late-time observations with the GMRT and VLA. Solid line marks the $f_\nu \propto \nu^{5/2}$ power law expected from synchrotron self-absorption, and dotted line marks the shallower $f_\nu \propto \nu^{1}$.}
+\includegraphics[width=0.5\textwidth]{lum_tnu.png}
+  \caption{\emph{Top left:} Selected single-band radio light curves of \at\ from the VLA (15--45\,GHz), NOEMA (77--207\,GHz) and ALMA ($350$\,GHz). Open circles mark 5-$\sigma$ upper limits, and dashed lines connect upper limits to detections. \emph{Top right:} Rest-frame radio SEDs from the six time ranges marked with vertical shaded regions in the left panel. Inset shows SED from late-time observations with the GMRT and VLA. Solid line marks the $f_\nu \propto \nu^{5/2}$ power law expected from synchrotron self-absorption, and dotted line marks the shallower $f_\nu \propto \nu^{1}$. \emph{Bottom:} Peak frequency ($\nu_p$) at a fixed time post-explosion ($\Delta t$) vs. peak luminosity of extragalactic radio transients. See Methods section~\ref{sec:data-transient-parameter-space} for additional details and data sources.}
  \label{fig:radio}
 \end{figure}
 

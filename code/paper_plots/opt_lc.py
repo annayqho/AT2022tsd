@@ -117,7 +117,7 @@ def plot_nonflare_epochs(ax, dat):
                 if len(mags)>1:
                     show_maglim = np.median(mags)
                 ax.scatter(dt_night, show_maglim, edgecolor=cs[j], marker='v',
-                           facecolor='white', zorder=0, lw=0.5, s=5)
+                           facecolor='lightgrey', zorder=0, lw=0.5, s=5)
                           
 
 
@@ -214,10 +214,10 @@ if __name__=="__main__":
     ax.scatter(0,0,marker='s',c=vals.gc,edgecolor='k',label='AT2022tsd $g$')
     ax.scatter(0,0,marker='o',c=vals.rc,edgecolor='k',label='AT2022tsd $r$')
     ax.scatter(0,0,marker='D',c=vals.ic,edgecolor='k',label='AT2022tsd $i$')
-    ax.scatter(0,0,marker='>',c=vals.wc,edgecolor='k',label='AT2022tsd $w$')
-    ax.scatter(0,0,marker='<',c=vals.wc,edgecolor='k',label='AT2022tsd $o$')
+    ax.scatter(0,0,marker='>',c='lightgrey',edgecolor='k',label='AT2022tsd $w$')
+    ax.scatter(0,0,marker='<',c=vals.oc,edgecolor='k',label='AT2022tsd $o$')
     fig.legend(fontsize=8, bbox_to_anchor=(0.5,1.05), loc='upper center',
-               ncol=6, handletextpad=0.1, columnspacing=0.8)
+               ncol=5, handletextpad=0.1, columnspacing=0.8)
 
     # Formatting of the whole fig
     fig.text(0.5, 0, r'$\Delta t_\mathrm{obs}$ (days)', ha='center')
@@ -230,6 +230,6 @@ if __name__=="__main__":
     ax2.yaxis.tick_right()
 
     fig.subplots_adjust(wspace=0)
-    plt.show()
-    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    #plt.close()
+    #plt.show()
+    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    plt.close()

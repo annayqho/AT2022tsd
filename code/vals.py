@@ -24,7 +24,7 @@ gc = '#57C4AD'
 ic = '#EDA247'
 uc = '#E6E1BC'
 wc = 'grey'
-oc = 'grey' # ATLAS o-band
+oc = '#006164' # ATLAS o-band
 # Viridis colors. I got these from https://waldyrious.net/viridis-palette-generator/
 cow_col = '#fca50a' # yellow
 lgrb_col = '#dd513a'

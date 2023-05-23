@@ -41,7 +41,8 @@ def plot_22tsd(ax, show='absolute'):
 
     # Plot the LC binned by one day
     ms = ['s', 'o', 'D', '>', '<']
-    cs = [vals.gc, vals.rc, vals.ic, vals.wc, vals.oc]
+    ecs = ['k', 'k', 'k', 'k', 'k']
+    fcs = [vals.gc, vals.rc, vals.ic, 'lightgrey', vals.oc]
     zorder = [5, 4, 3, 2, 1]
 
     for i,b in enumerate(np.array(['g', 'r', 'i', 'w', 'o'])):
@@ -63,11 +64,11 @@ def plot_22tsd(ax, show='absolute'):
         eyf = (eyb/yb) * (2.5/np.log(10))
 
         if show=='absolute':
-            ax.errorbar(xb/(1+vals.z), yf-vals.dm, eyf, 
-                        fmt=ms[i], color=cs[i], zorder=zorder[i])
+            ax.errorbar(xb/(1+vals.z), yf-vals.dm, eyf, fmt=ms[i], 
+                        mfc=fcs[i], mec=ecs[i], c=ecs[i], zorder=zorder[i])
         elif show=='apparent':
-            ax.errorbar(xb, yf, eyf, fmt=ms[i], color=cs[i], zorder=zorder[i],
-                        mec='k', lw=0.5)
+            ax.errorbar(xb, yf, eyf, fmt=ms[i], c=ecs[i], mec=ecs[i], 
+                        mfc=fcs[i], zorder=zorder[i], lw=0.5)
 
 
 def plot_18cow(ax, show='absolute', offset=0, single_col=False):
