@@ -144,7 +144,7 @@ if __name__=="__main__":
     # Left panel: comparisons
     ax = axarr[0]
     shift = np.abs(Planck18.distmod(z=0.0141).value-vals.dm)
-    plot_18cow(ax, show='apparent', offset=shift)
+    plot_18cow(ax, show='apparent', offset=shift, single_col=True)
     shift = np.abs(Planck18.distmod(z=0.2442).value-vals.dm)
     plot_20xnd(ax, show='apparent', offset=shift)
     shift = np.abs(Planck18.distmod(z=0.0085).value-vals.dm)
@@ -205,12 +205,12 @@ if __name__=="__main__":
 
     # For the legend
     #ax.plot([100,100],[150,150],ls='-',c='grey',label='SN2011kl $g\'$')
-    ax.plot([100,100],[150,150],ls='--',c=vals.gc,label='AT2018cow $g$',lw=0.5)
-    ax.plot([100,100],[150,150],ls='--',c=vals.rc,label='AT2018cow $r$',lw=0.5)
-    ax.plot([100,100],[150,150],ls='-',c=vals.gc,label='AT2020xnd $g$',lw=0.5)
-    ax.plot([100,100],[150,150],ls='-.',c=vals.gc,label='AT2020mrf $g$',lw=1)
+    ax.plot([100,100],[150,150],ls='--',c='k',label='AT2018cow $g$',lw=0.5)
+    #ax.plot([100,100],[150,150],ls='--',c=vals.rc,label='AT2018cow $r$',lw=0.5)
+    ax.plot([100,100],[150,150],ls='-',c='k',label='AT2020xnd $g$',lw=0.5)
+    ax.plot([100,100],[150,150],ls='-.',c='k',label='AT2020mrf $g$',lw=1)
     #ax.plot([100,100],[150,150],ls='-',c=vals.rc,label='AT2020xnd $r$',lw=0.5)
-    ax.plot([100,100],[150,150],ls=':',c=vals.rc,label='SN1998bw $R_C$')
+    ax.plot([100,100],[150,150],ls=':',c='k',label='SN1998bw $R_C$')
     ax.scatter(0,0,marker='s',c=vals.gc,edgecolor='k',label='AT2022tsd $g$')
     ax.scatter(0,0,marker='o',c=vals.rc,edgecolor='k',label='AT2022tsd $r$')
     ax.scatter(0,0,marker='D',c=vals.ic,edgecolor='k',label='AT2022tsd $i$')
@@ -230,6 +230,6 @@ if __name__=="__main__":
     ax2.yaxis.tick_right()
 
     fig.subplots_adjust(wspace=0)
-    #plt.show()
-    plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    plt.close()
+    plt.show()
+    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
+    #plt.close()
