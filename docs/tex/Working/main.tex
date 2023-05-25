@@ -100,7 +100,7 @@ The transient was reported\cite{Munoz-Arancibia2022} to the Transient Name Serve
 Forced photometry on ZTF images (Methods section~\ref{sec:p48}) revealed that the light-curve evolution was faster than that of typical supernovae (Figure~\ref{fig:transient-parameter-space}).
 The optical light curve, and the implied high peak luminosity from a nearby (1.4$''$) catalogued galaxy (Methods section~\ref{sec:discovery}, Figure~\ref{fig:transient-parameter-space}), led AT2022tsd to be flagged as a transient of interest as part of ongoing efforts to discover luminous and fast-evolving optical transients (Methods section \ref{sec:discovery}).
 
-We obtained two spectra of \at\ with the Low Resolution Imaging Spectrometer (LRIS) on the Keck\,I 10-m telescope (\ref{fig:spec}; Methods section \ref{sec:keck}), and measured\cite{Ho2022_Astronote_Keck} a redshift of $z=0.2564\pm0.0001$ (luminosity distance $D_L=1.34\,$Gpc assuming a Planck cosmology\cite{Planck2020}) of the nearby galaxy using prominent narrow host-galaxy emission lines (Methods section \ref{sec:discovery}). 
+We obtained two spectra of \at\ with the Low Resolution Imaging Spectrometer (LRIS) on the Keck\,I 10-m telescope (\ref{fig:spec}; Methods section \ref{sec:keck}), and measured\cite{Ho2022_Astronote_Keck} a redshift of $z=0.2564\pm0.0003$ (luminosity distance $D_L=1.34\,$Gpc assuming a Planck cosmology\cite{Planck2020}) of the nearby galaxy using prominent narrow host-galaxy emission lines (Methods section \ref{sec:discovery}). 
 The optical properties --- the fast light-curve evolution, the implied high peak luminosity ($M_{g,\mathrm{pk}}=-20.64\pm0.13$; Methods section \ref{sec:discovery}), and the lack of prominent spectroscopic features after the transient faded by 2--3 magnitudes --- were unusual for extragalactic transients, which motivated us to trigger additional multiwavelength observations (Figure~\ref{fig:opt-mm-xray-lc}; Methods section~\ref{sec:multiwavelength-properties}).
 We detected luminous radio (decimeter\cite{Ho2022Astronote_radio} to submillimeter) emission that peaked at hundreds of GHz for over a month in the rest frame (Methods section~\ref{sec:VLA}; \ref{fig:radio}),
 as well as luminous ($>10^{44}\,$erg\,s$^{-1}$) and steadily fading ($L_X\propto t^{-1.90\pm0.26}$; Methods section~\ref{sec:multiwavelength-properties}) 0.3--10\,keV X-ray emission\cite{Schulze2022Astronote_xray} well described by a power law with photon index $\Gamma\approx2$ (Methods section~\ref{sec:swift}, Figure~\ref{fig:opt-mm-xray-lc}).
@@ -158,7 +158,7 @@ The flares in the aftermath of \at\ are a new phenomenon in the minute-timescale
 We have shown that even daily cadenced surveys (ZTF, Pan-STARRS) can detect flares, although not temporally resolve them. Several ongoing and planned wide-field surveys have a sufficiently fast cadence (1--30\,min) to temporally resolve \at-like flares, including the Transiting Exoplanet Survey Satellite (TESS\cite{Ricker2015}), the Large Area Survey Telescope (LAST\cite{Nir2021,Ofek2023}), the Argus Array\cite{Law2022}, and the Ultraviolet Transient Astronomy Satellite (ULTRASAT\cite{Shvartzvald2023}). %Each survey reaches a limiting magnitude of $\sim19.5$\,mag per frame, and could therefore detect a flare more luminous than $-21$\,mag ($-20$\,mag) out to $z=0.24$ ($z=0.16$);
 %within this volume, adopting an LFBOT volumetric rate of 0.01\% of the core-collapse supernova rate\cite{Ho2022_RET} and assuming that 10\% of LFBOTs produce flares, we expect 6 (1) LFBOTs to occur per year that will produce detectable flares.
 Resolving the shortest variability timescale of the optical flares would help determine the size and therefore nature of the progenitor.
-For a black hole, the shortest timescale would be related to the light-crossing time of the innermost stable circular orbit, scaling with mass as $\approx$1\,ms $(M/10\,M_{\odot})$. Ultimately, reaching millisecond optical timescales requires complementary metal-oxide semiconductor (CMOS) detectors\cite{Nir2021}.
+For a black hole, the shortest timescale would be related to the light-crossing time of the innermost stable circular orbit, scaling with mass as $\approx$1\,ms $(M/10\,M_{\odot})$. Therefore, observations would need to reach millisecond timescales. %Ultimately, reaching millisecond optical timescales requires complementary metal-oxide semiconductor (CMOS) detectors\cite{Nir2021}.
 
 %The expected number of LFBOTs with detectable flares per year in the survey area is 0.06--0.3 (TESS), 0.1--0.7 (LAST), and 0.2--1 (Argus). Each of these LFBOTs could produce 10--100 flares over a hundred days.
 
@@ -555,8 +555,7 @@ On 2022 September 23, we obtained a spectrum of \at\ using Keck/LRIS (\ref{fig:s
 In a 40-min exposure, we detected a blue continuum and a series of prominent host-galaxy emission lines at a consistent redshift. We fit a Gaussian independently to the following emission lines (wavelength given as rest wavelength in air): [H$\alpha$] $\lambda$6562.819, [H$\beta$] $\lambda$4861.333,  [O~II] $\lambda$$\lambda$3726.032,3728.815,
  [O~III] $\lambda$$\lambda$4958.911,5006.843, 
   [N~II] $\lambda$$\lambda$6548.050,6583.460, and [S~II] $\lambda\lambda$6716.44,6730.81. 
-We measured the redshift by taking the average redshift from the independent fits, and the uncertainty on the redshift by taking the standard deviation of the independent redshift measurements.
-The result was $z=0.2564\pm0.0001$.
+We measured the redshift by taking the average redshift from the independent fits. The uncertainty on the redshift is set by the small wavelength offset in the line positions between the two Keck spectra (Methods section~\ref{sec:keck}). The result is $z=0.2564\pm0.0003$.
 We did not detect any clear spectroscopic features from the transient itself.
 
 Assuming the transient occurred in the galaxy (and the association is highly likely; Methods section~\ref{sec:flare-association}), the implied peak absolute magnitude was $M_{\mathrm{peak}}=-20.64\pm0.13$ at a rest wavelength of 5086\,\AA, accounting for Milky Way extinction ($E_{B-V}=A_V/R_V=0.27\,\mathrm{mag}$ where $R_V=3.1$)\cite{Finkbeiner1999,Schlegel1998,Schlafly2011}. 
@@ -968,6 +967,8 @@ For the latter two image sequences (in December and January), we performed image
 The pipeline-reduced LRIS spectra show a slight inconsistency between the wavelength calibrations in the blue region due to flexure, which was rectified using an additional 2\,\AA\ shift calculated using the position of a weak 5200\,\AA\ night-sky line.
 Even after this correction, there remains an offset of 2\,\AA\ between host emission-line features in the two Keck spectra, which is apparent in all the lines. The sky line positions are consistent, however, so this is likely due to slightly different slit positions and orientations. 
 %Dan: we probably don't really need to discuss this here?
+
+%The line that "shifted" was on the blue, right?   It's much more difficult to exactly wavelength-calibrate the blue CCD versus the red due to the lack of strong night sky lines (also fewer arc calibration lines).  The "edges" of both CCDs also have this problem.    Whereas for the redshift measurement you can choose your lines to be in whatever part of the spectrum is calibrated best (usually the middle of the red side).  So the fact that we have some uncertainty in the blue for particular lines doesn't necessarily mean the redshift is inaccurate.
 
 
 \subsection{Upgraded Giant Metrewave Radio Telescope}
@@ -1483,7 +1484,7 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 \begin{figure}[ht]
  \centering
 \includegraphics[width=0.9\textwidth]{spec_cartoon.pdf}
-  \caption{\emph{Main panel:} Optical spectra of \at, obtained with Keck/LRIS. \emph{Top:} Regions with identified narrow host-galaxy emission lines, used to measure the best-fit redshift of $z=0.2564\pm0.0001$. \emph{Bottom:} Regions used to search for $z=0$ emission lines, as would be expected from a foreground Galactic transient.}
+  \caption{\emph{Main panel:} Optical spectra of \at, obtained with Keck/LRIS. \emph{Top:} Regions with identified narrow host-galaxy emission lines, used to measure the best-fit redshift of $z=0.2564\pm0.0003$. \emph{Bottom:} Regions used to search for $z=0$ emission lines, as would be expected from a foreground Galactic transient.}
  \label{fig:spec}
 \end{figure}
 
