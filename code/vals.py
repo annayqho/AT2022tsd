@@ -17,6 +17,7 @@ t_flare_onset = 2459856.9 # onset of flaring
 z = 0.2564 # redshift
 dm = Planck18.distmod(z=z).value
 dL_cm = Planck18.luminosity_distance(z=z).cgs.value
+dA_cm = Planck18.angular_diameter_distance(z=z).cgs.value
 dL_mpc = Planck18.luminosity_distance(z=z).value
 # I got these colors from https://www.visualisingdata.com/2019/08/five-ways-to-design-for-red-green-colour-blindness/
 rc = '#DB4325'

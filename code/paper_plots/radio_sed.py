@@ -22,35 +22,6 @@ def func(x,alpha,y0,x0):
     return y0*(x/x0)**alpha
 
 
-def get_data():
-    """ Get the data for plotting """
-    # Load in the data
-    dat = get_radio()
-    dt = (Time(dat['Date'].values.astype(str),format='isot').jd-vals.t0)/(1+vals.z)
-    dat['dt'] = dt
-
-    # Need to add systematic uncertainties to the RMS noise
-    # Add 10% to ALMA data
-    flux = dat['Flux'].values
-    eflux = dat['eFlux'].values
-    choose = dat['Tel'].values=='ALMA'
-    eflux[choose] = np.sqrt((dat['eFlux'][choose].values)**2+(0.1*flux[choose])**2)
-
-    # Add 5% to Ku band
-    choose = np.logical_and(dat['Tel'].values=='VLA', dat['Freq_Obs'].values==15)
-    eflux[choose] = np.sqrt((dat['eFlux'][choose].values)**2+(0.05*flux[choose])**2)
-
-    # Add 15% to the three higher bands, for detections
-    choose = np.logical_and.reduce((
-            dat['Tel'].values=='VLA',dat['Freq_Obs'].values>15,
-            dat['Flux']<99))
-    eflux[choose] = np.sqrt(
-            (dat['eFlux'][choose].values)**2+(0.15*flux[choose])**2)
-    
-    dat['eFlux'] = eflux
-    return dat
-
-
 def plot_seds(dat, ax):
     """ Plot a multi-panel SED thing """
     dt = dat['dt']
@@ -246,6 +217,6 @@ if __name__=="__main__":
     axins.tick_params(axis='both', labelsize=8)
     axins.minorticks_off()
 
-    #plt.show()
-    plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()

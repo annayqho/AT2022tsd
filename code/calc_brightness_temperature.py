@@ -5,12 +5,12 @@ from get_opt import *
 # Constants
 c = 3E10
 k = 1.38E-16
-Gamma = 1
+Gamma = 100
 
 # Source size
 dt = 30 # observer frame
 dR = c * dt * Gamma**2
-dTheta = dR / vals.dL_cm
+dTheta = dR / vals.dA_cm
 print(dTheta * (180 / np.pi) * 3600 * 1E6)
 
 # Intensity
@@ -31,4 +31,4 @@ nu = 3E18/(vals.sdss_pivot[peak_filt])
 
 # Brightness temperature
 TB = (Inu*c**2) / (2*k*nu**2)
-print(TB/1E10)
+print(TB)

@@ -695,6 +695,6 @@ if __name__=="__main__":
 
     #plt.tight_layout()
     fig.subplots_adjust(wspace=0.4)
-    #plt.show()
-    plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
