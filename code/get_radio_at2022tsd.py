@@ -2,6 +2,8 @@
 
 import pandas as pd
 import numpy as np
+from astropy.time import Time
+import vals
 
 def get_radio():
     dd = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/radio"
