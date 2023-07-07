@@ -226,23 +226,37 @@ def lfbot(ax):
             verticalalignment='top',
             horizontalalignment='center', c=col)
     ax.text(
-            x1/1.1, y1*1.1, "AT2020xnd", fontsize=smallsize, 
+            x1, y1*1.1, "AT2020xnd", fontsize=smallsize, 
+            verticalalignment='bottom',
+            horizontalalignment='center', color=col)
+
+    # AT2020mrf
+    x1 = 364
+    y1 = 1.03E29
+    ax.scatter(
+            x1, y1, marker=m, s=s, facecolors=col, edgecolors=col)
+    ax.text(
+            x1*1.1, y1, "$\Delta t$=261d", fontsize=smallsize, 
             verticalalignment='center',
-            horizontalalignment='right', color=col)
+            horizontalalignment='left', c=col)
+    ax.text(
+            x1/1.2, y1*1.1, "AT2020mrf", fontsize=smallsize, 
+            verticalalignment='bottom',
+            horizontalalignment='left', color=col)
 
     # AT2022tsd
-    x = [26*(250/5)]
+    x = [40*(100/5)]
     dcm = Planck15.luminosity_distance(z=0.2567).cgs.value
-    yf = np.array([0.6])
+    yf = np.array([0.3])
     y = yf*1E-3*1E-23*4*np.pi*dcm**2
     ax.scatter(x, y, marker=m, c=col, s=s*2, edgecolors='k',
                facecolors=col)
     ax.text(
-            x[0], y[0]/1.2, "$\Delta t$=26d", fontsize=smallsize, 
-            verticalalignment='top',
-            horizontalalignment='center', c=col)
+            x[0]*1.2, y[0], "$\Delta t$=40d", fontsize=smallsize, 
+            verticalalignment='center',
+            horizontalalignment='left', c=col)
     ax.text(
-            x[0]/1.08, y[0]*1.2,"AT2022tsd",fontsize=medsize, 
+            x[0]*1.1, y[0]*1.2,"AT2022tsd",fontsize=medsize, 
             fontweight='bold',verticalalignment='bottom',
             horizontalalignment='center', color=col)
 
@@ -253,8 +267,8 @@ def lfbot(ax):
             x1, y1, marker=m, s=s, 
             facecolors=col, edgecolors=col)
     ax.text(
-            22*100/7*1.2, 5.5E29, "AT2018cow", fontsize=smallsize, 
-            verticalalignment='bottom',
+            x1*1.2, y1, "AT2018cow", fontsize=smallsize, 
+            verticalalignment='center',
             horizontalalignment='left', color=col)
     ax.text(
             x1, y1/1.2, "$\Delta t$=22d", fontsize=smallsize, 
@@ -351,7 +365,7 @@ if __name__=="__main__":
     #lumtnu(ax)
 
     # Plot the background curves
-    y = mdot_curves(ax, 500, 1.5E29, 10)
+    y = mdot_curves(ax, 500, 9.5E28, 10)
     y = mdot_curves(ax, 40, 2E28, 0.1)
     y = mdot_curves(ax, 4.5, 5E28, 0.001)
     y = vel_lines(ax, 12, 1)
