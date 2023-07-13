@@ -15,12 +15,18 @@ def print_authors():
     ### Put all the affiliations in the correct order in the array
     affs = []
 
+    # Get all contributions
+    cons = []
+
     # First, go through the ordered co-authors
     ordered = dat[~np.isnan(dat['Order'].values)].sort_values('Order').reset_index()
     for index,row in ordered.iterrows():
-        ack = row['Acknowledgements']
-        if pd.isnull(ack)==False:
-            print(ack)
+        #ack = row['Acknowledgements']
+        #if pd.isnull(ack)==False:
+        #    print(ack)
+        con = row['Contributions']
+        if pd.isnull(con)==False:
+            cons.append(con)
         for i in [1,2,3]:
             affil = row['Affil%s'%i]
             affs.append(affil)
@@ -28,9 +34,12 @@ def print_authors():
     # Next, go through the rest of the co-authors
     alphabetical = dat[np.isnan(dat['Order'].values)].sort_values('Surname').reset_index()
     for index,row in alphabetical.iterrows():
-        ack = row['Acknowledgements']
-        if pd.isnull(ack)==False:
-            print(ack)
+        #ack = row['Acknowledgements']
+        #if pd.isnull(ack)==False:
+        #    print(ack)
+        con= row['Contributions']
+        if pd.isnull(con)==False:
+            cons.append(con)
         for i in [1,2,3]:
             affil = row['Affil%s'%i]
             affs.append(affil)
@@ -73,8 +82,14 @@ def print_authors():
     for aff in affs_unique:
         print("\\item %s" %aff)
 
+    # Print the unique contributions
+    cons = np.array(cons)
+    _, idx = np.unique(cons, return_index=True)
+    print(' '.join(cons[np.sort(idx)]))
+
 
 def print_acknowledgements():
+    """ Print the acknowledgements section """
     # Load data
     dat = pd.read_excel("../data/acknowledgements.xlsx")
     for index,row in dat.iterrows():
