@@ -10,7 +10,7 @@ import sys
 from astropy.cosmology import Planck15
 from astropy.time import Time
 import sys
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
+sys.path.append("..")
 import vals
 from get_radio import *
 from scale_fluxes import sma_lc
