@@ -8,7 +8,7 @@ import matplotlib.patches as patches
 plt.rcParams["font.family"] = "sans-serif"
 plt.rcParams["pdf.fonttype"] = 42
 from astropy.time import Time
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
+sys.path.append("..")
 from get_opt import *
 from get_radio_at2022tsd import *
 from get_xray import *
