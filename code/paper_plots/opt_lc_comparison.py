@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 from astropy.cosmology import Planck18
 import numpy as np
 import sys
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code)")
+sys.path.append("..")
 import vals
 from get_opt import *
 from helpers import *
