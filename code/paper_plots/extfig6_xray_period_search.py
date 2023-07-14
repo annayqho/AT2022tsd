@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import sys
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
+sys.path.append("..")
 import numpy as np
 from astropy.timeseries import LombScargle
 from get_xray import *
