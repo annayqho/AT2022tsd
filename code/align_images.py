@@ -5,7 +5,7 @@ import vals
 
 swarp_path = '/opt/local/bin/swarp'
 
-dd = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt/LRIS/imaging/"
+dd = "../data/opt/LRIS/imaging/"
 u1 = dd+"aeazfpb221229_0081r.fits" # has a flare
 u2 = dd+"aeazfpb221229_0082r.fits"
 u3 = dd+"aeazfpb221229_0083r.fits"
