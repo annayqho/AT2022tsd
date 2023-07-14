@@ -8,7 +8,7 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 import pandas as pd
 from scipy.optimize import curve_fit
 import sys
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
+sys.path.append("..")
 from astropy.time import Time
 from get_radio_at2022tsd import *
 import vals
