@@ -6,7 +6,7 @@ from astropy.io import fits as pyfits
 from astropy.time import Time
 import matplotlib.pyplot as plt
 import sys
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
+sys.path.append("..")
 from get_xray import *
 from opt_xray_flare import *
 
