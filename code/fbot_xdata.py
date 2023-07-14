@@ -23,7 +23,7 @@ matplotlib.rcParams['font.size']=fs
 def cow_xrt_lc():
     # T0 for this burst is Swift MET=551097181.6 s, = 2018 Jun 19 at 10:32:40.470 UT
     t0 = Time("2018-06-19T10:32:40.470").mjd
-    tb = asci.read("../data/data_cow/XRT/curve_nosys.qdp")
+    tb = asci.read("../../data/xray/data_xray_lcs/data_cow/XRT/curve_nosys.qdp")
     names = ["Time", "T_+ve", "T_-ve", "Rate", "Ratepos", "Rateneg", "ObsID"]
     for i in range(len(names)):
         name = names[i]
