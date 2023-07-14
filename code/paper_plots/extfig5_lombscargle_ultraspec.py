@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from astropy.time import Time
 from astropy.timeseries import LombScargle
 import sys
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
+sys.path.append("..")
 import vals
 from get_opt import *
 #from opt_lc import plot_det, plot_lim
