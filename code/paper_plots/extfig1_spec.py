@@ -192,9 +192,9 @@ def fig_for_paper():
     #ax.set_xticklabels([4660, 4680, 4700, 4720])
 
     plt.tight_layout()
-    #plt.show()
-    plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
 
 
 if __name__=="__main__":
