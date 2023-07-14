@@ -12,7 +12,7 @@ from opt_xray_flare import *
 
 
 def plot_flares(axarr):
-    dd = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/xray"
+    dd = "../data/xray"
 
     # Load the Chandra data
     df = load_chandra()

@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 from scipy.optimize import curve_fit
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code)")
 import vals
 from get_opt import *
 
