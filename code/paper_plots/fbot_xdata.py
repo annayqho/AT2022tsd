@@ -23,7 +23,7 @@ matplotlib.rcParams['font.size']=fs
 def cow_xrt_lc():
     # T0 for this burst is Swift MET=551097181.6 s, = 2018 Jun 19 at 10:32:40.470 UT
     t0 = Time("2018-06-19T10:32:40.470").mjd
-    tb = asci.read("cow_xray.qdp")
+    tb = asci.read("../data/data_cow/XRT/curve_nosys.qdp")
     names = ["Time", "T_+ve", "T_-ve", "Rate", "Ratepos", "Rateneg", "ObsID"]
     for i in range(len(names)):
         name = names[i]
@@ -110,7 +110,7 @@ def add_SNeIbn_xlc(ax):
     
     
 def load_1644_lc():
-    dt = asci.read("Mangano2016_tab2.dat")
+    dt = asci.read("./TDEs/SwiftJ1644+57/Mangano2016_tab2.dat")
     tt_left = dt["col1"].data # Starting time of interval, relative to BAT trigger
     tt_right = dt["col2"].data # End time of interval, relative to BAT trigger
     tt = (tt_left + tt_right) / 2.
