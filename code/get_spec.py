@@ -3,7 +3,7 @@
 import pandas as pd
 import sys
 import numpy as np
-ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data"
+ddir = "../data"
 sys.path.append("/Users/annaho/Dropbox/astro/tools/Spectra")
 from normalize import smooth_spec
 

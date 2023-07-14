@@ -6,7 +6,7 @@ import vals
 from astropy.time import Time
 
 
-ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt"
+ddir = "../data/opt"
 
 
 def measure_baseline(fcqf_use, ref_start, ref_end):

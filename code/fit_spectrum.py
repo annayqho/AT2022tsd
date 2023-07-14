@@ -32,7 +32,7 @@ import vals
 from get_spec import *
 
 # Direc with all the data we'll use in this code
-ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data"
+ddir = "../data"
 c = 3e18 # speed of light in AA
 
 

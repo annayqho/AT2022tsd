@@ -1,11 +1,12 @@
 import numpy as np
+import secrets
 from penquins import Kowalski
 
 
 def logon():
     """ Log onto Kowalski """
-    username = 'ah'
-    password = 'TetraodonInsists'
+    username = secrets.un 
+    password = secrets.pwd 
     s = Kowalski(
         protocol='https', host='kowalski.caltech.edu', port=443,
             verbose=False, username=username, password=password)
