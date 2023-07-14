@@ -52,7 +52,7 @@ ax.set_ylabel(r"$\beta$ where $f_\nu \propto \nu^{\beta}$")
 ax.set_xlabel("Minutes")
 
 plt.tight_layout()
-plt.savefig("lris_flare_color_evolution.png", dpi=200)
-plt.close()
-#plt.show()
+#plt.savefig("lris_flare_color_evolution.png", dpi=200)
+#plt.close()
+plt.show()
 
