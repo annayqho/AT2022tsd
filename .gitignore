@@ -17,3 +17,7 @@ brainstorming.txt
 *.zip
 *.spec
 *.tar
+*.eps
+*.docx
+*.pyc
+*.swp
