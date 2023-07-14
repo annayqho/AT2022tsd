@@ -134,7 +134,7 @@ if __name__=="__main__":
     ax.set_ylabel(r"$\nu L_\nu$ (erg s$^{-1}$)", fontsize=11,
             fontname='sans-serif')
     plt.tight_layout()
-    #plt.show()
+    plt.show()
 
-    plt.savefig("sed.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    #plt.savefig("sed.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
