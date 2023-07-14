@@ -1,7 +1,7 @@
 """ Calculate the properties of each flare: duration, luminosity, etc """
 
 import sys
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
+sys.path.append("..")
 import vals
 from get_opt import *
 from fit_opt_flares import calc_t90

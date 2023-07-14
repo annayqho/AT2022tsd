@@ -1,7 +1,7 @@
 """ Print details on each of the flare searches """
 
 import sys
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
+sys.path.append("..")
 import vals
 from get_opt import *
 

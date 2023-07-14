@@ -2,7 +2,7 @@
 import numpy as np
 import sys
 from astropy.time import Time
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
+sys.path.append("..")
 from get_opt import get_ipac
 from get_radio_at2022tsd import *
 import vals
