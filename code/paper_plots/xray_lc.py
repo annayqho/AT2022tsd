@@ -3,7 +3,7 @@ Plot the best-fit power law
 Also plot the Chandra flares """
 
 import sys
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
+sys.path.append("..")
 import cmasher as cmr
 import matplotlib.pyplot as plt
 from astropy.time import Time
@@ -105,6 +105,6 @@ if __name__=="__main__":
     plot_flares(axarr)
 
     plt.tight_layout()
-    #plt.show()
-    plt.savefig("xray_flares.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    plt.close()
+    plt.show()
+    #plt.savefig("xray_flares.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    #plt.close()
