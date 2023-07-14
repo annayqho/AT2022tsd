@@ -110,7 +110,8 @@ def add_SNeIbn_xlc(ax):
     
     
 def load_1644_lc():
-    dt = asci.read("./TDEs/SwiftJ1644+57/Mangano2016_tab2.dat")
+    pdir = '../../data/xray/data_xray_lcs/'
+    dt = asci.read(pdir + "TDEs/SwiftJ1644+57/Mangano2016_tab2.dat")
     tt_left = dt["col1"].data # Starting time of interval, relative to BAT trigger
     tt_right = dt["col2"].data # End time of interval, relative to BAT trigger
     tt = (tt_left + tt_right) / 2.

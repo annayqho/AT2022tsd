@@ -68,7 +68,8 @@ def read_xrt_lc(filename = "GRBs/130427A/lc.qdp"):
 
 
 def add_xlc_sn1998bw(ax, color="gray"):
-    data = np.loadtxt("SNe/SN1998bw/data_fig4")
+    pdir = '../../data/xray/data_xray_lcs/'
+    data = np.loadtxt(pdir + "SNe/SN1998bw/data_fig4")
     tt = 10**data[:,0]
     ll = 10**data[:,1]
     t98 = tt[:-1]
@@ -79,7 +80,8 @@ def add_xlc_sn1998bw(ax, color="gray"):
     
     
 def get_xlc_sn2010dh():
-    df = read_xrt_lc(filename = "GRBs/100316D/lc.qdp")
+    pdir = '../../data/xray/data_xray_lcs/'
+    df = read_xrt_lc(filename = pdir + "GRBs/100316D/lc.qdp")
     df = df[:-1]
     # Section 2.1 of Margutti+2013
     ts = np.array([13.8, 38.3])
@@ -119,13 +121,13 @@ def add_xlc_sn2003dh(ax, color="grey"):
     yerr_right = df["f+"]*multi
     yerr_left = df["f-"]*multi
     ax.errorbar(xx, yy, yerr = [yerr_left, yerr_right],
-                color = color, zorder = 2, fmt = "-", markersize = 1,
-                elinewidth = 0.5, linewidth = 1)
+                color = color, zorder = 2, fmt = "-", markersize = 1, elinewidth = 0.5, linewidth = 1)
     #ax.text(2.2, 1.8e+44, "030329/03dh", fontsize = fs-1, color = color, rotation = -33)
 
 
 def get_xlc_sn2006aj(color="gray"):
-    df = read_xrt_lc(filename = "SNe/SN2006aj/lc.qdp")
+    pdir = '../../data/xray/data_xray_lcs/'
+    df = read_xrt_lc(filename = pdir + "SNe/SN2006aj/lc.qdp")
     df = df[df["f+"]!=0]
     # Campana+2006:
     # at ~11.6 day, 0.3--10 keV flux ~ 1.2e-13 erg/cm^2/s
@@ -228,7 +230,7 @@ def binthem_wmean(x, y, yerr=None, bins=10):
 
 
 def append_130427A_xdeep(df0):
-    pdir = '/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code/AT2020mrf/xray/'
+    pdir = '../../data/xray/data_xray_lcs/'
     
     dt1 = np.loadtxt(pdir + "GRBs/130427A/DePasquale17_fig1").T
     tt = 10**dt1[0]
@@ -243,7 +245,7 @@ def append_130427A_xdeep(df0):
 
 
 def append_060729_xdeep(df0):
-    pdir = '/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code/AT2020mrf/xray/'
+    pdir = '../../data/xray/data_xray_lcs/'
     
     dt1 = np.loadtxt(pdir + "GRBs/060729/Grupe10_fig1").T
     day = 3600*24
@@ -264,7 +266,7 @@ def add_grb_lcs(ax, dobin = True, color = "lightskyblue"):
     for i in range(len(tb)):
         grb = "GRB"+tb["GRB"].data[i]
         z = tb["z"].data[i]
-        myfile = "./GRBs/sample/%s_lc/flux.qdp"%grb
+        myfile = "../../data/xray/data_xray_lcs/GRBs/sample/%s_lc/flux.qdp"%grb
         df = read_xrt_lc(filename = myfile)
         df = df[df["f-"]!=0]
         if grb == 'GRB130427A':
