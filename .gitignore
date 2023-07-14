@@ -21,3 +21,10 @@ brainstorming.txt
 *.docx
 *.pyc
 *.swp
+*.xlsx
+*.cls
+*.log
+*.aux
+*.out
+*.gz
+*.xml
