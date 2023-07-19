@@ -32,7 +32,8 @@ def print_authors():
             affs.append(affil)
 
     # Next, go through the rest of the co-authors
-    alphabetical = dat[np.isnan(dat['Order'].values)].sort_values('Surname').reset_index()
+    alphabetical = dat[np.isnan(dat['Order'].values)].sort_values(
+            ['Surname', 'Name']).reset_index()
     for index,row in alphabetical.iterrows():
         #ack = row['Acknowledgements']
         #if pd.isnull(ack)==False:
