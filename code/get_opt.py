@@ -349,7 +349,6 @@ def get_chimera():
     return dat
 
 
-
 def get_full_opt():
     """ Retrieve a table of ALL optical photometry 
     Report upper limits as 3-sigma
@@ -383,7 +382,8 @@ def get_full_opt():
     chimera = get_chimera()
     ps1 = get_panstarrs()
     atlas = get_atlas()
-    uc_kp_git = get_ultracam_kp84_git() 
+    uc = get_ultracam() 
+    kp_git = get_kp84_git() 
 
     # Add the Lulin photometry
     lulin = get_lulin() # 3-sigma
@@ -410,7 +410,9 @@ def get_full_opt():
     add_dict['maglim_extcorr'] = [99]*len(lulin) # not provided
     add_dict = pd.DataFrame(add_dict)
 
-    full_dict = pd.concat([add_ztf,dat,chimera,ps1,atlas,uc_kp_git,add_dict], ignore_index=True)
+    full_dict = pd.concat(
+            [add_ztf,dat,chimera,ps1,atlas,uc,kp_git,add_dict], 
+            ignore_index=True)
 
     # Indicate that all rows of this table are single images
     full_dict['nobs'] = [1]*len(full_dict)
@@ -469,10 +471,58 @@ def get_most_lc():
     return dat
 
 
-def get_ultracam_kp84_git():
+def get_ultracam():
     """ Get the LC data provided by Dan Perley 
     Upper limits are 3-sigma """
-    inputf = ddir + "/ultracam_kp84_git.txt"
+    inputf = ddir + "/lc_ultracam.txt"
+    dat  = pd.read_fwf(inputf, infer_nrows=200)
+
+    # Add a magnitudes column
+    dat['mag'] = [99]*len(dat)
+    dat['emag'] = [99]*len(dat)
+    dat['maglim'] = [99]*len(dat)
+
+    # Add an exposure time column
+    dat['exp'] = [99]*len(dat)
+    inst = dat['#instrument'].values
+    dat.loc[inst=='GTC/ULTRACAM', 'exp'] = [20]*sum(inst=='GTC/ULTRACAM')
+
+    # Detections
+    SNU = 3 # provide 3-sigma U.L.
+    SNT = 3
+    isdet = dat['sig']>=SNT # confident detection
+    fdet = dat['flux'][isdet]
+    efdet = dat['unc'][isdet]
+
+    # Correct for MW extinction
+    f_extcorr = np.copy(dat['flux'].values)
+    ef_extcorr = np.copy(dat['unc'].values)
+    for f in np.unique(dat['flt']):
+        choose = dat['flt'].values==f
+        fac = 10**(vals.ext[f]/2.5)
+        f_extcorr[choose] = dat['flux'].values[choose]*fac
+        ef_extcorr[choose] = dat['unc'].values[choose]*fac
+    dat['flux_extcorr'] = f_extcorr
+    dat['unc_extcorr'] = ef_extcorr
+
+    dat.loc[isdet, 'mag'] = -2.5*np.log10(fdet*1E-6)+8.90
+    dat.loc[isdet, 'emag'] = (2.5/np.log(10)) * (efdet/fdet)
+    fdet_corr = dat['flux_extcorr'][isdet]
+    dat['mag_extcorr'] = np.copy(dat['mag'])
+    dat.loc[isdet, 'mag_extcorr'] = -2.5*np.log10(fdet_corr*1E-6)+8.90
+
+    # Non-detections / upper limits
+    # Calculate an upper limit (limiting magnitude) for all exposures
+    dat['maglim'] = -2.5*np.log10(dat['unc']*1E-6*SNU)+8.90
+    dat['maglim_extcorr'] = -2.5*np.log10(dat['unc_extcorr']*1E-6*SNU)+8.90
+
+    return dat
+
+
+def get_kp84_git():
+    """ Get the LC data provided by Dan Perley 
+    Upper limits are 3-sigma """
+    inputf = ddir + "/kp84_git.txt"
     dat  = pd.read_fwf(inputf, infer_nrows=200)
 
     # Add a magnitudes column
