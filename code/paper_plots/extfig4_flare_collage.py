@@ -373,7 +373,7 @@ if __name__=="__main__":
                ncol=5, handletextpad=0.1)
 
     plt.subplots_adjust(wspace=0.4, hspace=0.5)
-    plt.show()
-    #plt.savefig("flares.png", dpi=300, 
-    #            bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("flares.png", dpi=300, 
+                bbox_inches='tight', pad_inches=0.1)
+    plt.close()

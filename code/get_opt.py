@@ -6,7 +6,7 @@ import vals
 from astropy.time import Time
 
 
-ddir = "../data/opt"
+ddir = "../../data/opt"
 
 
 def measure_baseline(fcqf_use, ref_start, ref_end):
@@ -484,7 +484,7 @@ def get_ultracam():
 
     # Add an exposure time column
     dat['exp'] = [99]*len(dat)
-    inst = dat['#instrument'].values
+    inst = dat['#inst'].values
     dat.loc[inst=='GTC/ULTRACAM', 'exp'] = [20]*sum(inst=='GTC/ULTRACAM')
 
     # Detections
@@ -516,6 +516,8 @@ def get_ultracam():
     dat['maglim'] = -2.5*np.log10(dat['unc']*1E-6*SNU)+8.90
     dat['maglim_extcorr'] = -2.5*np.log10(dat['unc_extcorr']*1E-6*SNU)+8.90
 
+    dat = dat.rename(columns={"#inst": "#instrument"})
+
     return dat
 
 
@@ -544,6 +546,7 @@ def get_kp84_git():
     SNU = 3 # provide 3-sigma U.L.
     SNT = 3
     isdet = dat['sig']>=SNT # confident detection
+    print(dat.keys())
     fdet = dat['flux'][isdet]
     efdet = dat['unc'][isdet]
 
