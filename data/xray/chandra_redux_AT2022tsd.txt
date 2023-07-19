@@ -27,7 +27,7 @@ save as bkg.reg
 # Get the spectrum of a pointlike source
 punlearn specextract
 pset specextract infile="acisf27643_repro_evt2.fits[sky=region(src.reg)]"
-pset specextract bkgfile="acisf27643_repro_evt2.fits[sky=region(bkg_offset.reg)]"
+pset specextract bkgfile="acisf26646_repro_evt2.fits[sky=region(bkg.reg)]"
 pset specextract outroot=AT2022tsd_bigap
 pset specextract weight=no correctpsf=yes
 pset specextract grouptype=NUM_CTS binspec=5 
@@ -146,6 +146,21 @@ covariance 1-sigma (68.2689%) bounds:
    p1.gamma           2.0077    -0.202165     0.202165
    p1.ampl       4.95778e-05 -8.71413e-06  8.71413e-06
 
+# 26646
+
+Dataset               = 1
+Method                = levmar
+Statistic             = chi2gehrels
+Initial fit statistic = 1.26088
+Final fit statistic   = 8.77767e-22 at function evaluation 20
+Data points           = 2
+Degrees of freedom    = 0
+Probability [Q-value] = nan
+Reduced statistic     = nan
+Change in statistic   = 1.26088
+   p1.gamma       2.36745      +/- 1.4506      
+   p1.ampl        3.25158e-06  +/- 3.65748e-06 
+
 
 # measure confidence interval  (I think the default is 68%; 1-sigma) 
 fflux, cflux, vals = sample_flux(
@@ -178,3 +193,8 @@ model component flux = 1.67993e-14, + 2.0315e-14, - 9.18169e-15
 EPOCH 7 (27643; Ho)
 original model flux = 2.47971e-14, + 4.97862e-14, - 1.56585e-14
 model component flux = 2.47971e-14, + 4.97862e-14, - 1.56585e-14
+
+EPOCH 8 (26646; Matthews)
+fflux, cflux, vals = sample_flux(
+          ...:     xsphabs.abs1 * powlaw1d.p1, 0.5, 6, num=1000)
+EstErr: degrees of freedom are zero or lower

@@ -297,12 +297,12 @@ def add_grb_lcs(ax, dobin = True, color = "lightskyblue"):
                 #            color = color, zorder = 1, fmt = "x-", markersize = 1,
                 #            elinewidth = 0.3, linewidth = 0.6,label = "GRBs")
                 ax.plot(xx, yy, color = color, zorder = 1, linewidth = 1.0,
-                        label="GRBs")
+                        label="GRBs", alpha=0.3)
             else:
                 #ax.errorbar(xx, yy, yerr = [yerr_left, yerr_right],
                 #            color = color, zorder = 1, fmt = "x", markersize = 1,
                 #            elinewidth = 0.3, linewidth = 0.6)
-                ax.plot(xx, yy, color = color, zorder = 1, linewidth = 1.0)
+                ax.plot(xx, yy, color = color, zorder = 1, linewidth = 1.0, alpha=0.3)
         else:
             # crude way to make bins wider at late-time
             bins_pre = np.arange( 0.05, 5, 0.1)
@@ -320,11 +320,11 @@ def add_grb_lcs(ax, dobin = True, color = "lightskyblue"):
             if i==0:
                 ax.plot(
                         x, y, color = color, zorder = 1, 
-                        linewidth = 1.0, label="GRBs")
+                        linewidth = 1.0, label="GRBs", alpha=0.3)
             else:
                 ax.plot(
                         x, y, color = color, zorder = 1, 
-                        linewidth = 1.0)
+                        linewidth = 1.0, alpha=0.3)
     print ("%d GRBs plotted"%(i+1))
 
 

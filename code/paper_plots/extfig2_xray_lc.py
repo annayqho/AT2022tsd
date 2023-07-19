@@ -42,7 +42,7 @@ def full_lc(ax):
             dt[~isdet],L[~isdet],marker='o',
             edgecolor=swift_col,facecolor='white', zorder=10)
     for i in np.arange(len(dt[~isdet])):
-        ax.arrow(dt[~isdet][i], L[~isdet][i], dx=0, dy=-L[~isdet][i]/4,
+        ax.arrow(dt[~isdet][i], L[~isdet][i], dx=0, dy=-L[~isdet][i]/3,
                  length_includes_head=True, head_width=dt[~isdet][i]/20,
                  head_length=L[~isdet][i]/8, color=swift_col, zorder=0)
 
@@ -75,36 +75,37 @@ def full_lc(ax):
     # Fit 
     popt,pcov = curve_fit(func, dt, L, p0=[10,20,-2], 
                           sigma=eL, absolute_sigma=True)
-    xvals = np.linspace(22,140)
+    xvals = np.linspace(22,270)
     yvals = popt[0]*(xvals/popt[1])**(popt[2])
-    ax.plot(xvals,yvals,label='$L_X\propto t^{-1.9}$', c=fit_col)
     print(popt[2],np.sqrt(pcov[2,2]))
+    alpha = np.round(popt[2], 1)
+    ax.plot(xvals,yvals,label='$L_X\propto t^{%s}$' %alpha, c=fit_col)
 
     ax.legend()
     ax.set_xscale('log')
-    ax.set_xlim(20,140)
+    ax.set_xlim(20,270)
     plt.yscale('log')
-    ax.set_xticks([20,30,40,60,80, 110, 140])
-    ax.set_xticklabels([20,30,40,60,80, 110, 140])
+    ax.set_xticks([20, 40, 70, 140, 270])
+    ax.set_xticklabels([20, 40, 70, 140, 270])
     ax.set_xlabel("$\Delta t$ (rest-frame days)")
     ax.set_ylabel("$L_X$ ($10^{43}$ erg s$^{-1}$)")
 
 
 if __name__=="__main__":
-    #fig,ax= plt.subplots(1,1,figsize=(4,2.5))
-    #full_lc(ax)
-    #plt.tight_layout()
-    #plt.show()
-    #plt.savefig("xray_fit.png", dpi=200)
+    fig,ax= plt.subplots(1,1,figsize=(4,2.5))
+    full_lc(ax)
+    plt.tight_layout()
+    plt.show()
+    #plt.savefig("xray_fit.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
     #plt.close()
 
     # Maybe plot them separately and just put them together in LaTeX
-    fig,axarr = plt.subplots(4,2,figsize=(8,6))
+    #fig,axarr = plt.subplots(4,2,figsize=(8,6))
 
     # Plot the flares
-    plot_flares(axarr)
+    #plot_flares(axarr)
 
-    plt.tight_layout()
-    plt.show()
+    #plt.tight_layout()
+    #plt.show()
     #plt.savefig("xray_flares.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
     #plt.close()

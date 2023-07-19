@@ -5,7 +5,7 @@ from astropy.io import fits as pyfits
 from astropy.time import Time
 import vals
 
-ddir = "../data/xray"
+ddir = "../../data/xray"
 
 
 def load_swift_counts():
