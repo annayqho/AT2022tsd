@@ -97,7 +97,7 @@ The optical light curve, and the implied high peak luminosity from a nearby (1.4
 We obtained two spectra of \at\ with the Low Resolution Imaging Spectrometer (LRIS) on the Keck\,I 10-m telescope (\ref{fig:spec}; Methods section \ref{sec:keck}), and measured\cite{Ho2022_Astronote_Keck} a redshift of $z=0.2564\pm0.0003$ (luminosity distance $D_L=1.34\,$Gpc assuming a Planck cosmology\cite{Planck2020}) of the nearby galaxy using prominent narrow host-galaxy emission lines (Methods section \ref{sec:discovery}). 
 The optical properties --- the fast light-curve evolution, the implied high peak luminosity ($M_{g,\mathrm{pk}}=-20.64\pm0.13$; Methods section \ref{sec:discovery}), and the lack of prominent spectroscopic features after the transient faded by 2--3 magnitudes --- were unusual for extragalactic transients, which motivated us to trigger additional multiwavelength observations (Figure~\ref{fig:opt-mm-xray-lc}; Methods section~\ref{sec:multiwavelength-properties}).
 We detected luminous radio (decimeter\cite{Ho2022Astronote_radio} to submillimeter) emission that peaked at hundreds of GHz for over a month in the rest frame (Methods section~\ref{sec:VLA}; \ref{fig:radio}),
-as well as luminous ($>10^{44}\,$erg\,s$^{-1}$) and steadily fading ($L_X\propto t^{-1.82\pm0.22}$ over nearly 300 days; Methods section~\ref{sec:multiwavelength-properties}) 0.3--10\,keV X-ray emission\cite{Schulze2022Astronote_xray} well described by a power law with photon index $\Gamma\approx2$ (Methods section~\ref{sec:swift}, Figure~\ref{fig:opt-mm-xray-lc}).
+as well as luminous ($>10^{44}\,$erg\,s$^{-1}$) and steadily fading ($L_X\propto t^{-1.82\pm0.15}$ over nearly 300 days; Methods section~\ref{sec:multiwavelength-properties}) 0.3--10\,keV X-ray emission\cite{Schulze2022Astronote_xray} well described by a power law with photon index $\Gamma\approx2$ (Methods section~\ref{sec:swift}, Figure~\ref{fig:opt-mm-xray-lc}).
 Although we did not detect clear spectroscopic features from the transient itself, the galaxy alignment is very unlikely to be a coincidence (Methods section \ref{sec:flare-association}), and we conclude that the galaxy is the host of the transient.
 The multiwavelength properties of \at\ are most similar to those of AT2018cow-like transients (also referred to as ``LFBOTs\cite{Metzger2022}''), suggesting a common origin (Methods section~\ref{sec:multiwavelength-properties}).
 
@@ -552,7 +552,7 @@ For example, AT2018cow\cite{Perley2019} exhibited a featureless continuum at $\D
 %Other fast transients in the literature exhibited featureless spectra significantly after peak: PTF10iam\cite{Arcavi2016} had a featureless spectrum at $\Delta t=12$\,d but distinct features in the next spectrum at $\Delta t=38$\,d; and PS1-12bb\cite{Drout2014} showed a featureless blue continuum at $\Delta t=33$\,d.
 
 The X-ray luminosity of \at\ during the first observation at $\Delta t=20$\,d was $10^{44}\,$erg\,s$^{-1}$, which is similar to that of AT2020mrf\cite{Yao2022} and long-duration $\gamma$-ray burst (LGRB) afterglows; the luminosity is over an order of magnitude greater than that of AT2018cow\cite{RiveraSandoval2018,Margutti2019,Ho2019} or AT2020xnd\cite{Ho2022_AT2020xnd,Bright2022} (Figure~\ref{fig:opt-mm-xray-lc}).
-We fit the {\it Swift}/XRT and {\it Chandra}/ACIS detections of \at\ to a power law using the \texttt{curve\_fit} module in \texttt{scipy}, assuming a $t_0$ equal to the first ZTF detection. The best-fit power-law index (\ref{fig:xray-lc}) is $\alpha=-1.82\pm0.22$, where $L_X \propto t^{\alpha}$.
+We fit the {\it Swift}/XRT and {\it Chandra}/ACIS detections of \at\ to a power law using the \texttt{curve\_fit} module in \texttt{scipy}, assuming a $t_0$ equal to the first ZTF detection. The best-fit power-law index (\ref{fig:xray-lc}) is $\alpha=-1.82\pm0.15$, where $L_X \propto t^{\alpha}$.
 %Changing the $t_0$ value to the last ZTF nondetection gives $\alpha=-1.97\pm0.25$.
 The X-ray light curve of AT2018cow also exhibited a power-law decline close to this value\cite{Margutti2019,Ho2019},
 which is consistent with the $t^{-2}$ power law expected for magnetar spindown or accretion under certain conditions\cite{Metzger2022},
@@ -1101,10 +1101,11 @@ An independent analysis of the Swift data\cite{Matthews2023} found a consistent 
 We reduced each epoch using the Chandra Interactive Analysis of Observations (CIAO\cite{Fruscione2006}) software package (v4.15). Counts were extracted from \at\ using a circle with radius $2''$, and background counts were measured in source-free regions near \at.
 We used \texttt{specextract} to bin the spectrum (with 5 counts per bin for all epochs). The routine \texttt{sherpa} was used to fit the spectrum in the range 0.5--6\,keV, with the background subtracted, using a model with photoelectric absorption and a single-component power law (\texttt{xsphabs.abs1 $\times$ powlaw1d.p1}). We set the Galactic hydrogen density to be the same as for the \emph{Swift} observations. In all epochs, the data were well described by a power law (reduced $\chi^2=0.2$--1.2). In the highest-S/N observation, we found $\Gamma=1.98\pm0.23$; all other epochs had a best-fit $\Gamma$ consistent with this value.
 An independent analysis of the Chandra data\cite{Matthews2023} found a consistent value for the photon index of $\Gamma=1.89^{+0.09}_{-0.08}$.
-
 After obtaining the best-fit model of the spectrum, we used \texttt{sample\_flux} to measure the 0.5--6\,keV flux of the source. The best-fit flux measurements are listed in Table~\ref{tab:chandra}. To convert to the \emph{Swift} 0.3--10\,keV range (\ref{fig:xray-lc}) we multiplied the 0.5--6\,keV values by a factor of 1.77.
 
-For each observation, we used \texttt{dmextract} and 500\,s bins to construct a light curve of \at. We also extracted the light curve of the background region. The light curves of \at\ and the background are shown in \ref{fig:xray-lc}, with 1$\sigma$ error bars.
+For the final epoch of observations, we binned three observations that were obtained on three different days, close together in time (2023 June 11--16), after confirming by analyzing each observation individually that there was no strong variability between epochs. To bin, we used \texttt{merge\_obs} to create a merged file, and used \texttt{srcflux} to compute the count rate. There were insufficient counts to perform a spectral fit, so we adopted the same spectral index as for the other epochs ($\Gamma=2$). 
+
+For each sufficiently bright observation, we used \texttt{dmextract} and 500\,s bins to construct a light curve of \at. We also extracted the light curve of the background region. The light curves of \at\ and the background are shown in \ref{fig:xray-lc}, with 1$\sigma$ error bars.
 
 \vspace{1in}
 \noindent{\bf References}
@@ -1567,7 +1568,7 @@ For each observation, we used \texttt{dmextract} and 500\,s bins to construct a 
 	\includegraphics[width=1.0\textwidth]{xray_flares.png}
 	\caption{Individual epochs of {\it Chandra} observations resolved in time.}
  \end{subfigure}
-  \caption{X-ray (0.3--10\,keV) light curve of \at. (a) Full light curve with best-fit power law of $\alpha=-1.90\pm0.26$, where $f_\nu \propto t^{\alpha}$. Upper limits (3$\sigma$) are shown with open circles. (b) Individual {\it Chandra} observations binned in time with 500\,s bins. Diamonds show an optical ($i$-band) flare detected with LRIS during one of the {\it Chandra} observations. Error bars are 1-$\sigma$ confidence intervals.}
+  \caption{X-ray (0.3--10\,keV) light curve of \at. (a) Full light curve with best-fit power law of $\alpha=-1.82\pm0.15$, where $f_\nu \propto t^{\alpha}$. Upper limits (3$\sigma$) are shown with open circles. (b) Individual {\it Chandra} observations binned in time with 500\,s bins. Diamonds show an optical ($i$-band) flare detected with LRIS during one of the {\it Chandra} observations. Error bars are 1-$\sigma$ confidence intervals.}
  \label{fig:xray-lc}
 \end{figure}
 
@@ -1827,9 +1828,10 @@ $t_\mathrm{start}$ & $\Delta t$ & $t_\mathrm{exp}$ & $F_X$ & $L_X$\\
 2022-12-29 07:06 & 90.77 & 16 & $2.48^{+4.98}_{-1.57}$ & $0.53^{+1.07}_{-0.34}$ \\ 
 2023-01-30 16:28 & 116.55 & 40 & $0.96^{+1.04}_{-0.51}$ & $0.21^{+0.22}_{-0.11}$ \\ 
 2023-07-11 03:37 & 244.09 & 16 & $0.66^{+0.54}_{-0.43}$ & $0.14^{+0.12}_{-0.09}$ \\ 
+2023-07-11 to 2023-07-16 & 244--248 & 40 & $0.38^{+0.15}_{-0.12}$ & $0.08^{+0.03}_{-0.03}$ \\ 
 \hline 
 \end{tabular} 
-\caption{{\it Chandra X-ray Observatory} 0.5--6\,keV observations of AT2022tsd, with epochs $\Delta t$ since discovery in the rest frame, exposure time $t_\mathrm{exp}$, flux $F_X$, and luminosity $L_X$. Error bars are 1-$\sigma$ confidence intervals.} 
+\caption{{\it Chandra X-ray Observatory} 0.5--6\,keV observations of AT2022tsd, with epochs $\Delta t$ since discovery in the rest frame, exposure time $t_\mathrm{exp}$, flux $F_X$, and luminosity $L_X$. Error bars are 1-$\sigma$ confidence intervals. The final row shows the stacked measurement from three observations conducted on three different days.} 
 \label{tab:chandra} 
 \end{table*} 
 
