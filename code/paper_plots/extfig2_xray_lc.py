@@ -95,9 +95,9 @@ if __name__=="__main__":
     fig,ax= plt.subplots(1,1,figsize=(4,2.5))
     full_lc(ax)
     plt.tight_layout()
-    plt.show()
-    #plt.savefig("xray_fit.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("xray_fit.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
 
     # Maybe plot them separately and just put them together in LaTeX
     #fig,axarr = plt.subplots(4,2,figsize=(8,6))
