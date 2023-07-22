@@ -3,9 +3,12 @@
 import pandas as pd
 import sys
 import numpy as np
-ddir = "../data"
-sys.path.append("/Users/annaho/Dropbox/astro/tools/Spectra")
-from normalize import smooth_spec
+from scopy.signal import savgol_filter
+ddir = "../../data"
+
+
+def smooth_spec(x, y):
+
 
 
 def load_smoothed_spec(x, y, ivar):
