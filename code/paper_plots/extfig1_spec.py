@@ -28,7 +28,7 @@ def main_spec(ax, wl, flam, eflam, wl2, flam2, eflam2):
     offsets = [2, 1]
     x = [wl, wl2]
     y = [flam, flam2]
-    iv = [1/eflam**2, 1/eflam2**2]
+    ey = [eflam, eflam2]
 
     for i in np.arange(2):
         print(i)
@@ -36,10 +36,10 @@ def main_spec(ax, wl, flam, eflam, wl2, flam2, eflam2):
         fac = max(y[i][x[i]>6000]) # scale by peak of Halpha
         yscaled = y[i]/fac+offsets[i]
         # Plot in the observer frame
-        ax.step(x[i]*(1+vals.z),yscaled,where='mid',c='lightgrey',lw=0.5)
-        ysm = load_smoothed_spec(x[i]*(1+vals.z), y[i], iv[i])
-        ysmscaled = ysm/fac+offsets[i]
-        ax.step(x[i]*(1+vals.z), ysmscaled, where='mid', c='k', lw=0.5)
+        #ax.step(x[i]*(1+vals.z),yscaled,where='mid',c='lightgrey',lw=0.5)
+        xb,yb,eyb = load_binned_spec(x[i]*(1+vals.z), y[i], ey[i])
+        ybscaled = yb/fac+offsets[i]
+        ax.step(xb, ybscaled, where='mid', c='k', lw=0.5)
         ax.text(8000*(1+vals.z), offsets[i]-label_offsets[i], labels[i],
                 ha='right', va='top')
 
@@ -192,9 +192,9 @@ def fig_for_paper():
     #ax.set_xticklabels([4660, 4680, 4700, 4720])
 
     plt.tight_layout()
-    plt.show()
-    #plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
 
 
 if __name__=="__main__":

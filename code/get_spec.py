@@ -3,17 +3,39 @@
 import pandas as pd
 import sys
 import numpy as np
-from scopy.signal import savgol_filter
+from scipy.signal import savgol_filter
 ddir = "../../data"
 
 
-def smooth_spec(x, y):
+def bin_spec(x, y, ey, bin_size):
+    x_binned = []
+    y_binned = []
+    ey_binned = []
+
+    for ii,x_val in enumerate(x):
+        choose = np.abs(x-x_val)<bin_size
+        if sum(choose)==1:
+            x_binned.append(x_val)
+            y_binned.append(y[choose][0])
+            ey_binned.append(ey[choose][0])
+        elif sum(choose)>1:
+            mean,wsum = np.average(
+                y[choose], weights=1/ey[choose]**2, returned=True)
+            efmean = np.sqrt(1/wsum)
+            x_binned.append(np.average(x[choose]))
+            y_binned.append(mean)
+            ey_binned.append(efmean)
+
+    x_binned = np.array(x_binned)
+    y_binned = np.array(y_binned)
+    ey_binned = np.array(ey_binned)
+
+    return x_binned,y_binned,ey_binned
 
 
-
-def load_smoothed_spec(x, y, ivar):
-    smoothed = smooth_spec(x, y, ivar, 1)
-    return smoothed
+def load_binned_spec(x, y, ey):
+    binned = bin_spec(x, y, ey, 3)
+    return binned
 
 
 def load_spec(inputf, ran):
