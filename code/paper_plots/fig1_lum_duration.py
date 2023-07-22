@@ -570,9 +570,11 @@ def plot_panel(ax, zoom=False):
     ex = np.sqrt(1.20**2+5.82**2)
     y = -20.31
     ey = 0.13
-    ax.errorbar(x, y, xerr=ex, yerr=ey, fmt='D', c=cowcol, ms=cowms, zorder=500)
+    ax.errorbar(x, y, marker='*', xerr=ex, yerr=ey, ms=8,
+                mec='grey', mfc='white', c='grey', lw=0.5)
     if zoom:
-        ax.text(x/1.05, y, 'SN2011kl', fontsize=8, ha='right', va='bottom', c=cowcol)
+        ax.text(x/1.05, y, 'SN2011kl', fontsize=8, 
+                ha='right', va='bottom', c='grey')
 
     # Plot AT2022tsd
     # 19.28 is the ext corr peak in g band
@@ -695,6 +697,6 @@ if __name__=="__main__":
 
     #plt.tight_layout()
     fig.subplots_adjust(wspace=0.4)
-    plt.show()
-    #plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
