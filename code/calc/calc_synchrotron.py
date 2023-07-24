@@ -50,7 +50,7 @@ def calc_gamma_e(B, obs_nu):
 
 if __name__=="__main__":
     # Lorentz factor
-    Gamma = 1
+    Gamma = 10
 
     # Input: our values
     R = 9E11 * Gamma**2
