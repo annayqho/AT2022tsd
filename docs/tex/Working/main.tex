@@ -698,8 +698,29 @@ estimate the equipartition energy $U_\mathrm{eq}$ and magnetic field strength $B
 B_\mathrm{eq} = \left( \frac{8\pi A g(\alpha) L}{V} \right)^{2/7}\, ,
 \end{equation}
 
-\noindent where $A=1.586\times10^{12}$ in cgs units, $g(\alpha)$ is a function of the spectral index $\alpha$ and frequency range for the power law, $L$ is the luminosity, and $V$ is the volume of the synchrotron-emitting electrons. Adopting $L=10^{43}\,$erg\,s$^{-1}$ (for the Keck/LRIS flares), a spectral power-law index of $\alpha=-1.6$, a frequency range from $10^{13}$\,Hz to $10^{15}$\,Hz, and a radius of the synchrotron-emitting electron sphere of $(1.8\times10^{12}\,\mathrm{cm})\Gamma^2$, we find $B_\mathrm{eq}\approx(10^{3}\,\mathrm{G})\Gamma^{-1.7}$ and $U_\mathrm{eq}\approx(10^{43}\,$erg)$\Gamma^{2.6}$. The Lorentz factor of the particles emitting at $10^{15}$\,Hz (the optical band) would be $\gamma_e\approx10^{6}\, \Gamma^{-0.8}$.
-Our estimated value of $U_\mathrm{eq}$ can be reconciled with the radiated flare energy in one of two ways: the flare-emitting outflow could be ultrarelativistic, or the electrons could be fast-cooling. The latter scenario is plausible: the observed spectral index ($f_\nu\propto\nu^{-1.6\pm0.1}$) is relatively steep, and the high $B_\mathrm{eq}$ implies a synchrotron cooling time that is much shorter than the dynamical time of the system. However, it could also be the case that the outflow is ultrarelativistic.
+\noindent where $A=1.586\times10^{12}$ in cgs units, $L$ is the luminosity, $V$ is the volume of the synchrotron-emitting electrons, and $g(\alpha)$ is a function of the spectral index $\alpha$ (defined as $f_\nu\propto \nu^{\alpha}$) and frequency range ($\nu_1$ to $\nu_2$) for the power law:
+
+\begin{equation}
+    g(\alpha) = \frac{2\alpha+2}{2\alpha+1} 
+    \left[ \frac{\nu_2^{\alpha+1/2}-\nu_1^{\alpha+1/2}}{\nu_2^{\alpha+1}-\nu_1^{\alpha+1}} \right].
+\end{equation}
+
+From the Keck/LRIS flares we have $L=10^{43}\,$erg\,s$^{-1}$ and $\alpha=-1.6$.
+We assume that the power law extends from 
+$10^{13}$\,Hz to $10^{15}$\,Hz.
+From the variability timescale, we have a radius of the synchrotron-emitting electron sphere of $(9\times10^{11}\,\mathrm{cm})\Gamma^2$.
+Taken together, we find $B_\mathrm{eq}\approx(10^{4}\,\mathrm{G})\Gamma^{-12/7}$, which is relatively insensitive to our choices of $\nu_1$, $\nu_2$, and $\alpha$.
+
+Next, we estimate the equipartition energy,
+
+\begin{equation}
+    U_\mathrm{eq} = 2 \frac{VB^2}{8\pi}.
+\end{equation}
+
+We find  $U_\mathrm{eq}\approx(10^{43}\,$erg)$\Gamma^{18/7}$. Our estimated value of $U_\mathrm{eq}$ can be reconciled with the radiated flare energy in one of two ways: the flare-emitting outflow could be ultrarelativistic, or the electrons could be fast-cooling. Both scenarios are plausible; the observed spectral index ($f_\nu\propto\nu^{-1.6\pm0.1}$) is relatively steep, and the high $B_\mathrm{eq}$ implies a synchrotron cooling time that is much shorter than the dynamical time of the system. %However, it could also be the case that the outflow is ultrarelativistic.
+
+Given the values above, we can estimate the Lorentz factor of the particles emitting in the optical band, $\gamma_e$. The characteristic frequency of those electrons $\nu_e$ is related to the gyrofrequency $\nu_g=q_e B/(2\pi m_e c)$ as $\nu_e = \gamma_e^2 \nu_g$.
+At $10^{15}$\,Hz we find $\gamma_e\approx10^{2}\, \Gamma^{6/7}$.
 
 Finally, we estimate the velocity of the flare-emitting outflow. Assuming that the kinetic energy of the outflow in \at\ is on the order of the observed optical flare luminosity, we have $L_\mathrm{opt} \approx 10^{44}\,$erg\,s$^{-1} \approx \eta \dot{M}v^2$ (for the brightest flares), where $\dot{M}$ and $v$ are the mass-loss rate and velocity of the outflow (respectively), and $\eta$ is the efficiency of converting kinetic energy to radiation. In this case, the observed nonthermal emission must arise from a radius that is larger than the Thomson scattering photosphere. In the observer frame, the optical depth to Thomson scattering is
 
