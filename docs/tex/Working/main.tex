@@ -103,7 +103,7 @@ The multiwavelength properties of \at\ are most similar to those of AT2018cow-li
 
 In a photometric optical imaging sequence starting at 04:29:57 on 2022 December 15, 100\,days (observer frame) after the initial transient discovery, we detected\cite{Ho2022_Astronote_Flares} a flare at the position of \at\ across five three-minute Magellan/IMACS $g$-band images (Figure~\ref{fig:flare-images-lc}) that was nearly as bright as the original transient event: $\nu L_\nu \approx 10^{44}\,$erg\,s$^{-1}$ (Figure~\ref{fig:transient-parameter-space}, Figure~\ref{fig:opt-mm-xray-lc}).
 Forced photometry on ZTF and Pan-STARRS survey images (Methods section~\ref{sec:panstarrs}) at the position of the transient revealed previous flare detections, as early as 26\,d (observer frame) after the initial transient discovery (Figure~\ref{fig:opt-mm-xray-lc}; \ref{fig:flare-collage}).
-Following the IMACS flare detection, we obtained a total of 60\,hr of optical observations of \at\ on 20 different nights, using 13 different telescopes (\ref{tab:flare-searches}). The duration of each sequence ranged from 10\,min to 4.5\,hr. In total we detected 15 flares (\ref{fig:flare-collage}). High-cadence ULTRASPEC observations (Methods section~\ref{sec:ultraspec}) revealed flux variations exceeding an order of magnitude on timescales shorter than 20\,s (rest frame; Figure~\ref{fig:flare-images-lc}), and complex temporal profiles that vary between flares (\ref{fig:flare-collage}; Methods section~\ref{sec:flare-characteristics}).
+Following the IMACS flare detection, we obtained a total of 60\,hr of optical observations of \at\ on 20 different nights, using 13 different telescopes (\ref{tab:flare-searches}). The duration of each sequence ranged from 10\,min to 4.5\,hr. In total we detected at least 14 flares (\ref{fig:flare-collage}). High-cadence ULTRASPEC observations (Methods section~\ref{sec:ultraspec}) revealed flux variations exceeding an order of magnitude on timescales shorter than 20\,s (rest frame; Figure~\ref{fig:flare-images-lc}), and complex temporal profiles that vary between flares (\ref{fig:flare-collage}; Methods section~\ref{sec:flare-characteristics}).
 Two different Keck/LRIS observations revealed red flare colours (\ref{fig:flare-collage}; Methods section~\ref{sec:flare-characteristics}):
 $u-I=1.41\pm0.31\,$mag, or $\beta=-1.6\pm0.1$ where
 $f_\nu \propto \nu^{\beta}$ (corrected for Milky Way extinction but not corrected for host attenuation).
@@ -249,7 +249,7 @@ Host Galaxy & Stellar mass & $\log(M/M_\odot)=9.96^{+0.06}_{-0.09}$ \\
 
 \bibitem{Yao2022} Yao, Y., et al. The X-Ray and Radio Loud Fast Blue Optical Transient AT2020mrf: Implications for an Emerging Class of Engine-driven Massive Star Explosions. \emph{\apj}, \textbf{934}, 104 (2022). 
 
-\bibitem{Chen2023} Chen, Y., et al. Late-Time HST Observations of AT 2018cow II: Evolution of a UV-Bright Underlying Source 2-4 Years Post-Explosion. \emph{arXiv e-prints}, \textbf arXiv:2303.03501 (2023). 
+\bibitem{Chen2023b} Chen, Y., et al. Late-Time HST Observations of AT 2018cow II: Evolution of a UV-Bright Underlying Source 2-4 Years Post-Explosion. \emph{arXiv e-prints}, \textbf arXiv:2303.03501 (2023). 
 
 \bibitem{Pasham2021} Pasham, D. R., et al. Evidence for a compact object in the aftermath of the extragalactic transient AT2018cow. \emph{Nature Astronomy}, \textbf{6}, 249 (2021). 
 
@@ -581,7 +581,7 @@ Finally, to our knowledge there is no dwarf nova with X-ray emission that decays
 
 Another argument disfavouring a CV origin is that the optical flares we observe are very different from the minute-timescale ``flickering'' observed in CVs: CV flickering has much smaller amplitudes (a fraction of a magnitude\cite{Bruch2021}) and a typical flare has blue colours consistent with a hot ($\sim17,000\,$K) blackbody\cite{Bruch2021}.
 As a final check, we searched for minute-timescale variability using ZTF light curves of dwarf novae. 
-We employed the ZTF Bright Transient Survey\cite{FremlingBTS} Sample Explorer\cite{PerleyBTS} to identify 182 CVs with peak apparent brightness fainter than 18\,mag and that do not have bright quiescent counterparts.
+We employed the ZTF Bright Transient Survey\cite{FremlingBTS} Sample Explorer\cite{PerleyBTS} to identify 182 CVs with peak apparent brightness fainter than 18\,mag and that do not have bright quiescent counterparts. Note that BTS requires transients to have a Galactic latitude of at least $7^{\circ}$.
 For each object, we retrieved a forced-photometry light curve from the IPAC service (Methods section~\ref{sec:p48}), from March 2018 (the start of the survey) until the end of 2022. For each CV, we searched each night of observations for pairs of subtractions in the same filter and based on the same reference stack.
 To count as a flare, a pair of detections had to have a flux change exceeding a factor of 10, and the flux difference had to be significant ($>3\sigma$).
 We identified eight candidate flares from six distinct objects. Visual inspection of the science images and difference images revealed that the brightness variations were due to cosmic rays (two images; ZTF18abyxlas and ZTF20acufmrl), a likely ``ghost'' (an artifact of internal reflection, with significant drift from image to image; three images of ZTF18acbwkqu), and a streak (one image; ZTF19abljehr). An additional image (of ZTF19abylcik) had a data-quality flag (\texttt{infobitssci}) and visual inspection showed a positive residual at the location of a nearby star, in addition to a positive residual at the location of the CV; the flag, together with the by-eye assessment of the subtraction, suggest that this positive residual was also an artifact. The remaining object (ZTF18acxhfkq) had a bright point-like counterpart in PS1, the light curve revealed highly significant negative flux values, and visual inspection of the images showed a low significance for the positive residuals; thus, the variability is not robust.  
@@ -632,10 +632,10 @@ respectively (which correspond to the dimmer end of GRBs detected by Konus-Wind 
 giving upper limits of $E_{\gamma,\mathrm{iso}} <$ few $\times 10^{49}$\,erg and $L_{\gamma,\mathrm{iso}} <$ few $\times10^{49}$\,erg\,s$^{-1}$. 
 These limits rule out an on-axis classical long-duration GRB, but not an off-axis or low-luminosity GRB\cite{Cano2017}.
 In addition, these limits are for sources with typical GRB prompt emission timescales; we cannot rule out an ultra-long duration GRB such as Swift J1644+57.
-
-We also searched for GRBs within 2\,d (1\,d before and 1\,d after) of each optical flare, but identified no well-localised candidate counterpart.
-Finally, we searched for GRBs consistent with the position of \at\ between the first ZTF detection and 2023-04-27. Of the 103 {\it Fermi} subthreshold GRBs, 40 have 3$\sigma$ localisation regions that overlap with the position of the optical transient, a number consistent with expectations for chance coincidence. 
-We identified one long-duration GRB detected by Konus-Wind and INTEGRAL SPI-ACS on 2023-04-12 00:48:57, with a 1110\,deg$^{2}$ localisation region consistent with AT2022tsd. However, the chance coincidence probability is substantial ($\sim 1110/41,253=0.03$), so the association is not reliable.
+We also searched for GRBs consistent with the position of \at\ between the first ZTF detection and 2023-04-27, but found no reliably associated bursts.
+%We also searched for GRBs within 2\,d (1\,d before and 1\,d after) of each optical flare, but identified no well-localised candidate counterpart.
+%Finally, we searched for GRBs consistent with the position of \at\  Of the 103 {\it Fermi} subthreshold GRBs, 40 have 3$\sigma$ localisation regions that overlap with the position of the optical transient, a number consistent with expectations for chance coincidence. 
+%We identified one long-duration GRB detected by Konus-Wind and INTEGRAL SPI-ACS on 2023-04-12 00:48:57, with a 1110\,deg$^{2}$ localisation region consistent with AT2022tsd. However, the chance coincidence probability is substantial ($\sim 1110/41,253=0.03$), so the association is not reliable.
 
 \section{Search for Flares in Other LFBOTs}
 \label{sec:flare-search}
@@ -755,7 +755,7 @@ In the extreme case that all the ZTF LFBOTs produced similar outflows, and that 
 %In Methods section~\ref{sec:flare-origin} we derived basic properties of the optical flares. In this section we summarize basic properties of the non-flaring part of the light curve, i.e., the LFBOT itself. %through comparison with other LFBOTs in the literature. As discussed in Methods section~\ref{sec:multiwavelength-properties} and shown in Figure~\ref{fig:opt-mm-xray-lc}, the peak luminosity and blue peak colors are very close to that of AT2018cow and AT2020xnd, but the fade rate is more similar to that of AT2020mrf. 
 %We do not have data sampling the rise of the light curve, but the limits are consistent with the rise rates of AT2018cow and AT2020mrf. As in those objects, the fast rise and high peak luminosity rules out $^{56}\mathrm{Ni}$ decay as the power source for the optical peak\cite{Prentice2018,Perley2019,Margutti2019}, because the required nickel mass exceeds the allowed ejecta mass (Figure~\ref{fig:transient-parameter-space}). Proposed mechanisms for powering the optical peak include diffusion from a central energy source\cite{Prentice2018,Margutti2019} (``central engine,'' magnetar or accreting black hole), which would require a low ejecta mass of $M_\mathrm{ej}<0.1$--0.5$M_\odot$ and a fast ejecta velocity of $v_\mathrm{ej}\sim0.05$--0.1$c$; shock-heating of extended ($10^{14}\,$cm) but confined low-mass material\cite{Perley2019,Margutti2019} (shock breakout and cooling from a star with that radius would have a light curve followed by a plateau, which is not observed); and cooling emission from fast-moving (0.1--0.8$c$) jet cocoon material\cite{Perley2019,Gottlieb2022}.
 
-The peak-light measurements of \at\ are well described by a blackbody. From the \at\ ZTF+PS1 $gri$ measurements, we infer $T_\mathrm{eff}=(3.3\pm 1.8) \times 10^{3}$\,K and $R_\mathrm{ph}=(6.8\pm3.0)\times10^{14}\,$cm or $45\pm20$\,AU. These values are very close to those of AT2018cow at peak light. We do not have similar constraints on the blackbody parameters during the decline; in AT2018cow the photospheric radius decreased by an order of magnitude over the course of 1--2 months, while the temperature declined by 30\% and then stayed roughly constant. 
+The peak-light measurements of \at\ are well described by a blackbody. From the \at\ ZTF+PS1 $gri$ measurements, we infer $T_\mathrm{eff}=(3.3\pm 1.8) \times 10^{3}$\,K and $R_\mathrm{ph}=(6.8\pm3.0)\times10^{14}\,$cm or $45\pm20$\,AU. These values are very close to those of AT2018cow at peak light. We do not have similar constraints on the blackbody parameters during the decline, but we note that the photospheric radius of AT2018cow's optical emission reached $6\times10^{13}\,$cm by 60\,d\cite{Perley2019,Chen2023a} and $10^{12}\,$cm by 700\,d\cite{Chen2023b}.
 
 The fact that the inferred blackbody radius at peak optical light is much larger than the inferred size of the emitting region during the flares could have several possible explanations. One possibility is that during the first month (when no flares were detected), the blackbody-emitting region expanded enough to become optically thin, finally enabling the smaller flare-emitting region to be observed. 
 Another possibility is geometric: that the component producing the flares is on-axis, while the optically thick blackbody-emitting region is off-axis.
@@ -800,8 +800,7 @@ We can estimate the magnetic field strength of the shock as\cite{Chevalier1998}
 \end{equation}
 
 \noindent Taking $L_p\gtrsim6\times10^{29}\,\mathrm{erg}\,\mathrm{s}^{-1}\,\mathrm{Hz}^{-1}$, we find $n_e\lesssim 6\times10^{5}\,\mathrm{cm}^{-3}$, close to the value inferred for AT2018cow at $\Delta t=22\,$d\cite{Ho2019}.
-
-The inference of near-relativistic shock speeds from the optical flares (Methods section~\ref{sec:flare-origin}) and nonrelativistic shock speeds from the radio emission (this section) is puzzling: the radio emission in LFBOTs has been suggested to be the fastest (polar) ejecta, with slower-moving equatorial material producing optical emission\cite{Margutti2019}. Our observations suggest that the radio emission may also not be probing the fastest material.
+So, although we infer near-relativistic velocities from the optical flares (Methods section~\ref{sec:flare-origin}), we infer nonrelativistic shock speeds from the radio emission, implying that the radio emission is not always probing the fastest-moving material in LFBOTs. %(this section) is puzzling: the radio emission in LFBOTs has been suggested to be the fastest (polar) ejecta, with slower-moving equatorial material producing optical emission\cite{Margutti2019}. Our observations suggest that the radio emission may also not be probing the fastest material.
 
 \section{Host Galaxy of \at}
 \label{sec:hostgalaxy}
@@ -1275,6 +1274,8 @@ For each sufficiently bright observation, we used \texttt{dmextract} and 500\,s 
 
 
 % SEC 8: analysis of early optical LFBOT light curve
+
+\bibitem{Chen2023a} Chen, Y., et al. Late-Time HST Observations of AT 2018cow I: Further Constraints on the Fading Prompt Emission and Thermal Properties 50-60 Days Post-Explosion. \emph{arXiv e-prints}, \textbf arXiv:2303.03500 (2023). 
 
 \bibitem{Gottlieb2022} Gottlieb, O., Tchekhovskoy, A., \& Margutti, R. Shocked jets in CCSNe can power the zoo of fast blue optical transients. \emph{\mnras}, \textbf{513}, 3810 (2022). 
 
