@@ -153,6 +153,12 @@ def plot_ztf(ax, background=False, shrink=1, text=True):
                         if name=='ZTF18abcfcoo':
                             ax.text(x[j]*1.07, y[j], 'AT2018cow', fontsize=8,
                                     ha='left', va='bottom', c=cowcol)
+                        if name=='ZTF18abvkwla':
+                            ax.text(x[j]*1.07, y[j], 'AT2018lug', fontsize=8,
+                                    ha='left', va='bottom', c=cowcol)
+                        if name=='ZTF20acigmel':
+                            ax.text(x[j]*1.07, y[j], 'AT2020xnd', fontsize=8,
+                                    ha='left', va='bottom', c=cowcol)
 
     c = cowcol
     if background:
@@ -531,19 +537,23 @@ def plot_panel(ax, zoom=False):
 
     # Plot CSS161010
     x = 5.5
-    y = -21.5
+    y = -20.7
     ax.errorbar(x, y, 
             label=None, mfc=cowcol, mec=cowcol,
             c=cowcol, fmt='D', ms=cowms, zorder=500)
     if zoom:
-        ax.text(x*1.06, y, 'CSS161010', fontsize=8, ha='left', va='center', c=cowcol)
+        ax.text(
+                x/1.06, y, 'CSS161010', fontsize=8, 
+                ha='right', va='center', c=cowcol)
 
     # Plot AT2020mrf
     ax.errorbar(7.1, -20, 
             label=None, mfc=cowcol, mec=cowcol,
             c=cowcol, fmt='D', ms=cowms, zorder=500)
     if zoom:
-        ax.text(7.1/1.05, -20, 'AT2020mrf', fontsize=8, ha='right', va='top', c=cowcol)
+        ax.text(
+                7.1/1.05, -20, 'AT2020mrf', fontsize=8, 
+                ha='right', va='top', c=cowcol)
 
     # Plot GW170817
     if zoom==False:
