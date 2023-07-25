@@ -133,7 +133,7 @@ def get_forced_phot_lc():
 def analyze_lc():
     """ 
     Analyze the force phot LC to look for short-timescale variability """
-    cvs = pd.read_csv("cv_table.txt", delimiter=' ')
+    cvs = pd.read_csv("../data/cv_table.txt", delimiter=' ')
     
     #nnights = np.zeros(len(cvs))
     baseline = []
