@@ -6,7 +6,7 @@ from astropy.time import Time
 import vals
 
 def get_radio():
-    dd = "../data/radio"
+    dd = "../../data/radio"
     vla = pd.read_csv(dd+"/vla.txt")
     noema = pd.read_csv(dd+"/noema.txt")
 

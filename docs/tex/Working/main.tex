@@ -144,12 +144,20 @@ The lack of detected flares in other LFBOTs could be due to viewing angle: AT201
 
 \begin{figure*}
 \centering
+\begin{subfigure}[t]{1.0\textwidth}
+\centering
     \includegraphics[width=0.95\textwidth]{lum_duration_cartoon.pdf}
+    \caption{}
+\end{subfigure}
+\begin{subfigure}[t]{1.0\textwidth}
+\centering
     \includegraphics[width=0.3\textwidth]{host_galaxy_image.png}
     %\includegraphics[width=0.45\textwidth]{lum_tnu.png}
-\caption{\textbf{\at\ is a luminous fast blue optical transient (LFBOT) showing flares with unprecedented timescales.}
-\emph{Top:} Duration above half-maximum light ($t_{1/2}$) vs. peak absolute magnitude $M$ (or peak luminosity $\nu L_\nu$) of \at, its flares, and other extragalactic optical transients.  
-\emph{Bottom:} Keck/LRIS false-colour $u/g/I$ image centred at the position of \at, which is marked.
+    \caption{}
+\end{subfigure}
+\caption{\textbf{\at\ is a luminous fast blue optical transient showing flares with unprecedented timescales.}
+(a) Duration above half-maximum light ($t_{1/2}$) vs. peak absolute magnitude $M$ (or peak luminosity $\nu L_\nu$) of \at, its flares, and other extragalactic optical transients.  
+(b) Keck/LRIS false-colour $u/g/I$ image centred at the position of \at, which is marked.
 %\emph{Bottom right:} Peak frequency ($\nu_p$) at a fixed time post-explosion ($\Delta t$) vs. peak luminosity of extragalactic radio transients.
 See Methods section~\ref{sec:data-transient-parameter-space} for additional details and data sources.
 }
@@ -161,13 +169,20 @@ See Methods section~\ref{sec:data-transient-parameter-space} for additional deta
     \begin{subfigure}[t]{1.0\textwidth}
          \centering        
          \includegraphics[width=1.0\textwidth]{opt_lc.png}
-         \includegraphics[width=0.49\textwidth]{mm_lc_100ghz.png}
-        \includegraphics[width=0.49\textwidth]{xray_lc.png}
+         \caption{}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.49\textwidth}
+         \includegraphics[width=1.0\textwidth]{mm_lc_100ghz.png}
+         \caption{}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=1.0\textwidth]{xray_lc.png}
+        \caption{}
      \end{subfigure}
-\caption{\textbf{The multiwavelength properties of \at\ are most similar to those of LFBOTs in the literature, particularly AT2018cow, AT2020xnd, and AT2020mrf.}
-\emph{Top:} Optical light curve of \at\ compared to the LFBOTs and the stripped-envelope SN\,1998bw (GRB\,980425). Vertical bars mark flares, open triangles represent upper limits, and lines along the bottom axis show epochs of radio, X-ray, and optical spectroscopy. Error bars are 1$\sigma$ confidence intervals.
-\emph{Bottom left:} Millimeter-wave light curve of \at\ compared to different classes of extragalactic transients.
-\emph{Bottom right:} 0.3--10\,keV X-ray light curve of \at\ compared to different classes of extragalactic transients. Error bars are 1$\sigma$ confidence intervals.
+\caption{\textbf{The multiwavelength properties of \at\ are most similar to those of transients in the literature dubbed luminous fast blue optical transients.}
+(a) Optical light curve of \at\ compared to the LFBOTs AT2018cow, AT2020xnd, and AT2020mrf, as well as the stripped-envelope SN\,1998bw (GRB\,980425). Vertical bars mark flares, open triangles represent upper limits, and lines along the bottom axis show epochs of radio, X-ray, and optical spectroscopy. Error bars are 1$\sigma$ confidence intervals.
+(b) Millimeter-wave light curve of \at\ compared to different classes of extragalactic transients.
+(c) 0.3--10\,keV X-ray light curve of \at\ compared to different classes of extragalactic transients. Error bars are 1$\sigma$ confidence intervals.
 See Methods section~\ref{sec:data-transient-lc} for additional details and data sources. 
 }
  \label{fig:opt-mm-xray-lc}
@@ -176,7 +191,7 @@ See Methods section~\ref{sec:data-transient-lc} for additional details and data 
 \begin{figure*}
     \begin{subfigure}[t]{\textwidth}
     	\centering
-    	\includegraphics[width=\textwidth]{lcim_Magellan_65.eps}
+    	%\includegraphics[width=\textwidth]{lcim_Magellan_65.eps}
 	\caption{Flare detected by Magellan/IMACS on 2022 December 15. The cutouts show a 45\arcsec\ by 45\arcsec\ region.}
     \end{subfigure}
     \begin{subfigure}[t]{\textwidth}
@@ -1586,7 +1601,7 @@ Giant flare in SGR 1806-20 and its Compton reflection from the Moon. \emph{Astro
 \begin{figure}[ht]
  \centering
 \includegraphics[width=0.9\textwidth]{spec_cartoon.pdf}
-  \caption{\emph{Main panel:} Optical spectra of \at\ obtained with Keck/LRIS, binned using 3\AA\ bins. \emph{Top:} Regions with identified narrow host-galaxy emission lines, used to measure the best-fit redshift of $z=0.2564\pm0.0003$. \emph{Bottom:} Regions used to search for $z=0$ emission lines, as would be expected from a foreground Galactic transient.}
+  \caption{Optical spectra of \at\ obtained with Keck/LRIS, binned using 3\AA\ bins. Regions with identified narrow host-galaxy emission lines, used to measure the best-fit redshift of $z=0.2564\pm0.0003$, are marked. Regions used to search for $z=0$ emission lines, as would be expected from a foreground Galactic transient, are also marked.}
  \label{fig:spec}
 \end{figure}
 
@@ -1608,9 +1623,22 @@ Giant flare in SGR 1806-20 and its Compton reflection from the Moon. \emph{Astro
 
 \begin{figure}[!ht]
  \centering
-\includegraphics[width=1.0\textwidth]{radio.png}
+ \begin{subfigure}[t]{0.50\textwidth}
+ \centering
+\includegraphics[width=1.0\textwidth]{radio_lc.png}
+\caption{}
+\end{subfigure}
+ \begin{subfigure}[t]{0.46\textwidth}
+ \centering
+\includegraphics[width=1.0\textwidth]{radio_sed.png}
+\caption{}
+\end{subfigure}
+ \begin{subfigure}[t]{\textwidth}
+ \centering
 \includegraphics[width=0.5\textwidth]{lum_tnu.png}
-  \caption{\emph{Top left:} Selected single-band radio light curves of \at\ from the VLA (15--45\,GHz), NOEMA (77--207\,GHz), and ALMA ($350$\,GHz). Open circles mark 5$\sigma$ upper limits, and dashed lines connect upper limits to detections. \emph{Top right:} Rest-frame radio SEDs from the six time ranges marked with vertical shaded regions in the left panel. Inset shows SED from late-time observations with the GMRT and VLA. Solid line marks the $f_\nu \propto \nu^{5/2}$ power law expected from synchrotron self-absorption, and dotted line marks the shallower $f_\nu \propto \nu^{1}$. \emph{Bottom:} Peak frequency ($\nu_p$) at a fixed time post-explosion ($\Delta t$) vs. peak luminosity of extragalactic radio transients. Error bars are 1$\sigma$ confidence intervals. See Methods section~\ref{sec:data-transient-parameter-space} for additional details and data sources.}
+\caption{}
+\end{subfigure}
+  \caption{(a) Selected single-band radio light curves of \at\ from the VLA (15--45\,GHz), NOEMA (77--207\,GHz), and ALMA ($350$\,GHz). Open circles mark 5$\sigma$ upper limits, and dashed lines connect upper limits to detections. (b) Rest-frame radio SEDs from the six time ranges marked with vertical shaded regions in the left panel. Inset shows SED from late-time observations with the GMRT and VLA. Solid line marks the $f_\nu \propto \nu^{5/2}$ power law expected from synchrotron self-absorption, and dotted line marks the shallower $f_\nu \propto \nu^{1}$. (c) Peak frequency ($\nu_p$) at a fixed time post-explosion ($\Delta t$) vs. peak luminosity of extragalactic radio transients. Error bars are 1$\sigma$ confidence intervals. See Methods section~\ref{sec:data-transient-parameter-space} for additional details and data sources.}
  \label{fig:radio}
 \end{figure}
 

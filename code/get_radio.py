@@ -19,7 +19,7 @@ def get_data_all():
     eflux_form: formal uncertainty in flux of the data point
     eflux_sys: estimate of systematic uncertainty in flux of the data point
     """
-    data_dir = "../data"
+    data_dir = "../../data"
     dat = Table.read(
         "%s/radio_lc.dat" %data_dir, delimiter="&", format='ascii.no_header')
     days = np.array(dat['col1'])

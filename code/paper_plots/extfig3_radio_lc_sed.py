@@ -217,6 +217,6 @@ if __name__=="__main__":
     axins.tick_params(axis='both', labelsize=8)
     axins.minorticks_off()
 
-    plt.show()
-    #plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
