@@ -1,0 +1,2 @@
+Date,Tel,Freq_Obs,Flux,eFlux
+2022-10-04T07:20,SMA,230,99,0.27
