@@ -40,7 +40,7 @@ def print_table():
         rowstr += "%s & "
     rowstr += "%s \\\ \n"
 
-    caption="Radio observations of AT2022tsd with epochs since discovery $\Delta t$ in the rest frame, observed frequency $\nu_\mathrm{obs}$, flux density $f_\nu$, and root-mean-squared (RMS) of a region close to the source in the image. Upper limits are given as 3-$\sigma$."
+    caption="Radio observations of AT2022tsd with epochs since discovery $\Delta t$ in the rest frame, observed frequency $\nu_\mathrm{obs}$, flux density $f_\nu$, and root-mean-squared (RMS) of a region close to the source in the image."
 
     outputf = open("paper_table_%s.txt" %label, "w")
     outputf.write("\\begin{center} \n")
@@ -66,13 +66,13 @@ def print_table():
             fstr = '${:.3f}$'.format(dat['Flux'].values[i])
             efstr = '${:.3f}$'.format(dat['eFlux'].values[i])
         else:
-            fstr = '$<{:.3f}$'.format(3*dat['eFlux'].values[i])
-            efstr = '--'
+            fstr = '--'
+            efstr = '${:.3f}$'.format(dat['eFlux'].values[i])
         row = rowstr %(tstr,dtstr,nustr,fstr,efstr,dat['Tel'].values[i])
         print(row)
         outputf.write(row)
 
-    outputf.write("\hline \n")
+    outputf.write("\hline ")
 
     outputf.write("\end{longtable} \n")
     outputf.write("\end{center} \n")

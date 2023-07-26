@@ -7,6 +7,7 @@ import vals
 
 def get_radio():
     dd = "../../data/radio"
+    sma = pd.read_csv(dd+"/sma.txt")
     vla = pd.read_csv(dd+"/vla.txt")
     noema = pd.read_csv(dd+"/noema.txt")
 
@@ -18,6 +19,10 @@ def get_radio():
     dates = noema['Date'].values
     noema['Date'] = np.array([d+":00" for d in dates])
 
+    # Add :00 to the end of each time
+    dates = sma['Date'].values
+    sma['Date'] = np.array([d+":00" for d in dates])
+
     # Convert to mJy
     noema['Flux'] = noema['Flux']/1000
     noema['eFlux'] = noema['eFlux']/1000
@@ -26,7 +31,7 @@ def get_radio():
 
     gmrt = pd.read_csv(dd+"/gmrt.txt")
 
-    radio = pd.concat([gmrt,vla,noema,alma],axis=0,ignore_index=True).sort_values('Date', ignore_index=True)
+    radio = pd.concat([sma,gmrt,vla,noema,alma],axis=0,ignore_index=True).sort_values('Date', ignore_index=True)
     return radio
 
 
