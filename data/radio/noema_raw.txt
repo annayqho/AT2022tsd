@@ -1,0 +1,306 @@
+04-OCT-2022 22:07 UT - 04-OCT-2022 22:29 UT in 10 antenna compact configuration.
+Conditions were excellent, absolute flux calibration relative to LKHA101.
+Observed rest frequency 77.256 GHz
+Half power primary beam       63.6 arcsec
+Beam is     8.21" by     4.04" at PA   -52.07 deg.
+ POINT     R.A.       =     0.11331 (   .79030)   03:20:10.87764
+ POINT     DEC.       =    -1.76901 (   .69605)   08:44:54.1710
+ POINT     FLUX       =   282.86253 ( 74.96451)  microJy
+Observed rest frequency 92.744 GHz
+Half power primary beam       53.2 arcsec
+Beam is     7.14" by     3.57" at PA   -52.17 deg.
+ POINT     R.A.       =     0.35237 (   .68469)   03:20:10.89377
+ POINT     DEC.       =     0.04695 (   .60791)   08:44:55.9869
+ POINT     FLUX       =   245.06647 ( 64.90711)  microJy
+
+s22bd002 10-Oct-2022
+10-OCT-2022 21:16 - 10-OCT-2022 23:33 UT
+10D configuration, flux calibration relative to MWC349. Quality low.
+Observed rest frequency       134.75602683896 GHz
+Half power primary beam       36.8 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 36.8 x 36.8 arcsec
+Beam is     3.78" by     2.45" at PA  -225.61 deg.
+POINT     R.A.       =     0.56785 (   .30884)   03:20:10.90830
+POINT     DEC.       =     0.31371 (   .31025)   08:44:56.2537
+POINT     FLUX       =   212.14189 ( 47.49930)  microJy
+
+Observed rest frequency       150.2438018555 GHz
+Half power primary beam       33.1 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 33.1 x 33.1 arcsec
+Beam is     3.47" by     2.25" at PA  -223.74 deg.
+POINT     R.A.       =     0.92008 (   .31270)   03:20:10.93206
+POINT     DEC.       =    -1.01982 (   .32129)   08:44:54.9202
+POINT     FLUX       =   231.84039 ( 57.26809)  microJy
+
+
+s22bd004 10-oct-2022
+11-OCT-2022 00:45 - 11-OCT-2022 01:38 UT
+10D configuration, flux calibration relative to LKHA101. Quality Good.
+Observed rest frequency       77.256185684745 GHz
+Half power primary beam       63.6 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 63.6 x 63.6 arcsec
+Beam is     5.62" by     4.17" at PA  -171.71 deg.
+POINT     R.A.       =     0.35348 (   .27280)   03:20:10.89384
+POINT     DEC.       =     0.03183 (   .36568)   08:44:55.9718
+POINT     FLUX       =   238.87508 ( 35.17173)  microJy
+
+Observed rest frequency       92.743973884346 GHz
+Half power primary beam       53.2 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 53.2 x 53.2 arcsec
+Beam is     4.84" by     3.61" at PA     7.06 deg.
+POINT     R.A.       =    -0.05452 (   .18099)   03:20:10.86632
+POINT     DEC.       =     0.11394 (   .24521)   08:44:56.0539
+POINT     FLUX       =   283.83363 ( 32.34012)  microJy
+
+
+s22bd004 13-oct-2022
+13-OCT-2022 23:24 - 14-OCT-2022 00:17 UT
+Configuration 12C-E018N011 (10 antennas) flux calibration on MWC349
+Observed rest frequency       77.256130049939 GHz
+Half power primary beam       63.6 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 63.6 x 63.6 arcsec
+Beam is     3.22" by     2.07" at PA  -172.43 deg.
+POINT     R.A.       =     0.19917 (   .21118)   03:20:10.88343
+POINT     DEC.       =    -0.04920 (   .30919)   08:44:55.8908
+POINT     FLUX       =   169.52503 ( 39.22323)  microJy
+
+Observed rest frequency       92.743979140582 GHz
+Half power primary beam       53.2 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 53.2 x 53.2 arcsec
+POINT     R.A.       =    -0.39454 (   .16743)   03:20:10.84339
+POINT     DEC.       =    -0.00668 (   .24595)   08:44:55.9333
+POINT     FLUX       =   178.58792 ( 37.40251)  microJy
+
+
+s22bd002 14-oct-2022
+14-OCT-2022 02:04 - 14-OCT-2022 04:02 UT
+Configuration 12C-E018N011 (10 antennas) flux calibration relative LKHA101
+  Observed rest frequency       134.75601130298 GHz
+  Half power primary beam       36.8 arcsec
+  Phase center RA and Dec       03:20:10.870 08:44:55.940
+  Field of view / Largest Scale 36.8 x 36.8 arcsec
+  Beam is     9.00" by     1.47" at PA     6.28 deg.
+  POINT     R.A.       =    -0.05533 (   .20037)   03:20:10.86627
+  POINT     DEC.       =    -1.14142 (   .39657)   08:44:54.7986
+  POINT     FLUX       =   276.50940 ( 86.98813)  microJy
+
+  Observed rest frequency       150.24387432374 GHz
+  Half power primary beam       33.1 arcsec
+  Phase center RA and Dec       03:20:10.870 08:44:55.940
+  Field of view / Largest Scale 33.1 x 33.1 arcsec
+  Beam is     8.17" by     1.33" at PA     5.76 deg.
+  POINT     R.A.       =     0.33494 (   .16663)   03:20:10.89259
+  POINT     DEC.       =    -0.08811 (   .32150)   08:44:55.8519
+  POINT     FLUX       =   411.32391 (116.85620)  microJy
+
+
+s22bd005
+29-OCT-2022 23:00 - 30-OCT-2022 01:34 UT
+Configuration 12C, flux calibration LKHA101. Good/Correct. Had to flag
+one antenna, effectively 11
+Observed rest frequency       134.75597317028 GHz
+Half power primary beam       36.8 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 36.8 x 36.8 arcsec
+Beam is     1.78" by     1.40" at PA    -0.58 deg.
+POINT     R.A.       =     0.03429 (   .07709)   03:20:10.87231
+POINT     DEC.       =    -0.37304 (   .09512)   08:44:55.5670
+POINT     FLUX       =   228.08337 ( 28.43844)  microJy
+
+Observed rest frequency       150.24421176508 GHz
+Half power primary beam       33.1 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 33.1 x 33.1 arcsec
+Beam is     1.67" by     1.28" at PA   178.73 deg.
+POINT     R.A.       =     0.04230 (   .06944)   03:20:10.87285
+POINT     DEC.       =    -0.07096 (   .08759)   08:44:55.8690
+POINT     FLUX       =   329.63164 ( 40.38197)  microJy
+
+
+26-NOV-2022 22:16 UT - 27-NOV-2022 00:15 UT
+10-antenna configuration Flux calibration on LKHA101
+Observed rest frequency       134.75590209829 GHz
+Half power primary beam       36.8 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 36.8 x 36.8 arcsec
+Beam is     1.80" by     1.42" at PA     7.24 deg.
+POINT     R.A.       =     0.22056 (   .17303)   03:20:10.88488
+POINT     DEC.       =    -0.66430 (   .21179)   08:44:55.2757
+POINT     FLUX       =   110.95711 ( 30.19625)  microJy
+
+Observed rest frequency       150.24488759982 GHz
+Half power primary beam       33.1 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 33.1 x 33.1 arcsec
+Beam is     1.68" by     1.28" at PA  -174.39 deg.
+POINT     R.A.       =     0.07085 (   .15660)   03:20:10.87478
+POINT     DEC.       =    -0.26902 (   .20065)   08:44:55.6710
+POINT     FLUX       =   118.52286 ( 32.35474)  microJy
+
+
+s22db006
+I removed the second date and combined them so that there isn't
+A duplicate date line.
+combines data from two distinct dates:
+01-NOV-2022 23:03 - 02-NOV-2022 23:35 UT taken in 12C Fluxcal LKHA101
+Observed rest frequency       207.25595702444 GHz
+Half power primary beam       24.1 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 24.1 x 24.1 arcsec
+Beam is     1.59" by     0.91" at PA    10.81 deg.
+POINT     R.A.       =    -0.02836 (   .10893)   03:20:10.86809
+POINT     DEC.       =     0.23214 (   .16478)   08:44:56.1721
+POINT     FLUX       =   174.74578 ( 48.18656)  microJy
+
+Observed rest frequency       222.74427842305 GHz
+Half power primary beam       22.4 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 22.4 x 22.4 arcsec
+POINT     R.A.       =     0.05772 (   .09735)   03:20:10.87389
+POINT     DEC.       =     0.41754 (   .14820)   08:44:56.3575
+POINT     FLUX       =   197.77667 ( 51.61712)  microJy
+
+11-OCT-2022 02:53 UT - 11-OCT-2022 06:10 UT
+10D compact configuration, project S22BD003
+Flux relative to LKHA101, flux calibration good.
+   Observed rest frequency       207.25601939076 GHz
+   Half power primary beam       24.1 arcsec
+   Phase center RA and Dec       03:20:10.870 08:44:55.940
+   Field of view / Largest Scale 24.1 x 24.1 arcsec
+   Beam is     2.30" by     1.67" at PA    37.13 deg.
+   POINT     R.A.       =     0.26427 (   .15416)   03:20:10.88783
+   POINT     DEC.       =    -0.05794 (   .17661)   08:44:55.8821
+   POINT     FLUX       =   574.41059 (113.97793)  microJy
+
+   Observed rest frequency       222.74381884103 GHz
+   Half power primary beam       22.4 arcsec
+   Phase center RA and Dec       03:20:10.870 08:44:55.940
+   Field of view / Largest Scale 22.4 x 22.4 arcsec
+   Beam is     2.14" by     1.55" at PA    39.96 deg.
+   POINT     R.A.       =    -0.28717 (   .15542)   03:20:10.85063
+   POINT     DEC.       =    -0.20951 (   .17973)   08:44:55.7305
+   POINT     FLUX       =   551.33384 (117.13276)  microJy
+
+==========================================================================
+12-OCT-2022 02:50 UT - 12-OCT-2022 03:43 UT
+10A special
+Flux relative to LKHA1010
+  Observed rest frequency       77.256156773686 GHz
+   Half power primary beam       63.6 arcsec
+   Phase center RA and Dec       03:20:10.870 08:44:55.940
+   Field of view / Largest Scale 63.6 x 63.6 arcsec
+   Beam is     3.68" by     1.89" at PA    19.47 deg.
+   POINT     R.A.       =     0.94153 (   .26311)   03:20:10.93351
+   POINT     DEC.       =     0.99438 (   .41381)   08:44:56.9344
+   POINT     FLUX       =   297.87291 ( 82.15098)  microJy
+
+  Observed rest frequency       92.743978331851 GHz
+   Half power primary beam       53.2 arcsec
+   Phase center RA and Dec       03:20:10.870 08:44:55.940
+   Field of view / Largest Scale 53.2 x 53.2 arcsec
+   Beam is     3.19" by     1.63" at PA   200.23 deg.
+   POINT     R.A.       =     0.36537 (   .20733)   03:20:10.89465
+   POINT     DEC.       =     0.77268 (   .32632)   08:44:56.7127
+   POINT     FLUX       =   315.95311 ( 78.26220)  microJy
+
+28-OCT-2022 00:54 UT - 28-OCT-2022 01:16 UT
+12C configuration, good conditions, primary flux calibrator LKHA101
+
+Observed rest frequency       77.255822061322 GHz
+Half power primary beam       63.6 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 63.6 x 63.6 arcsec
+Beam is     9.16" by     2.20" at PA     9.35 deg.
+POINT     R.A.       =    -0.18757 (   .26351)   03:20:10.85735
+POINT     DEC.       =    -0.17744 (   .46570)   08:44:55.7626
+POINT     FLUX       =   362.62197 (113.16868)  microJy
+
+Observed rest frequency       92.744022891325 GHz
+Half power primary beam       53.2 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 53.2 x 53.2 arcsec
+Beam is    10.71" by     2.09" at PA   189.88 deg
+POINT     R.A.       =     0.00372 (   .23215)   03:20:10.87025
+POINT     DEC.       =    -0.00048 (   .41271)   08:44:55.9395
+POINT     FLUX       =   299.01057 ( 93.22491)  microJy
+
+Observed rest frequency       150.24421176508 GHz
+Half power primary beam       33.1 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 33.1 x 33.1 arcsec
+Beam is     1.70" by     1.08" at PA    12.34 deg.
+ POINT     R.A.       =     0.08177 (   .05668)   03:20:10.87552
+ POINT     DEC.       =    -0.17030 (   .08161)   08:44:55.7697
+ POINT     FLUX       =   327.92110 ( 37.43634)  microJy
+
+18-NOV-2022 20:08 UT - 18-NOV-2022 21:01 UT
+Configuration 11C+E05
+Flux relative MWC349
+
+ Observed rest frequency       77.255326833277 GHz
+ Half power primary beam       63.6 arcsec
+ Phase center RA and Dec       03:20:10.870 08:44:55.940
+ Field of view / Largest Scale 63.6 x 63.6 arcsec
+ Beam is     3.61" by     2.76" at PA  -180.00 deg.
+ POINT     R.A.       =     0.06629 (   .18374)   03:20:10.87447
+ POINT     DEC.       =     0.09744 (   .22771)   08:44:56.0374
+ POINT     FLUX       =   251.52585 ( 39.10687)  microJy
+
+ Observed rest frequency       92.744087801932 GHz
+ Half power primary beam       53.2 arcsec
+ Phase center RA and Dec       03:20:10.870 08:44:55.940
+ Field of view / Largest Scale 53.2 x 53.2 arcsec
+ Beam is     3.10" by     2.42" at PA  -180.00 deg.
+ POINT     R.A.       =     0.06884 (   .10286)   03:20:10.87464
+ POINT     DEC.       =    -0.28868 (   .12664)   08:44:55.6513
+ POINT     FLUX       =   304.47277 ( 30.06485)  microJy
+
+14-DEC-2022 18:56 UT - 14-DEC-2022 20:19 UT
+Configuration 11C+E161
+Flux calibration relative to LKHA101
+
+Observed rest frequency       77.2547511038 GHz
+Half power primary beam       63.6 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 63.6 x 63.6 arcsec
+Beam is     3.63" by     2.34" at PA     6.06 deg.
+  POINT     R.A.       =     0.07183 (   .21998)   03:20:10.87484
+  POINT     DEC.       =     0.03582 (   .32278)   08:44:55.9758
+  POINT     FLUX       =   131.48545 ( 27.92353)  microJy
+
+Observed rest frequency       92.744165775076 GHz
+Half power primary beam       53.2 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 53.2 x 53.2 arcsec
+Beam is     3.18" by     2.03" at PA  -172.69 deg.
+  POINT     R.A.       =    -0.14299 (   .14181)   03:20:10.86035
+  POINT     DEC.       =    -0.51476 (   .20907)   08:44:55.4252
+  POINT     FLUX       =   152.81896 ( 23.97733)  microJy
+
+23-MAR-2023 13:19 - 23-MAR-2023 14:47 UT
+Configuration 12B-E024E010 (10 antennas)
+Flux calibration relative to LKHA101, good conditions.
+
+Observed rest frequency       77.254 GHz
+Half power primary beam       63.6 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 63.6 x 63.6 arcsec
+Beam is     2.56" by     1.95" at PA   -34.16 deg.
+POINT     R.A.       =     0.00000 (  fixed  )   03:20:10.87000
+POINT     DEC.       =     0.00000 (  fixed  )   08:44:55.9400
+POINT     FLUX       =    24.61566 ( 44.53275)  microJy
+
+Observed rest frequency       92.744208041954 GHz
+Half power primary beam       53.2 arcsec
+Phase center RA and Dec       03:20:10.870 08:44:55.940
+Field of view / Largest Scale 53.2 x 53.2 arcsec
+Beam is     2.27" by     1.74" at PA   -33.16 deg
+POINT     R.A.       =     0.00000 (  fixed  )   03:20:10.87000
+POINT     DEC.       =     0.00000 (  fixed  )   08:44:55.9400
+POINT     FLUX       =    12.01487 ( 47.11081)  microJy
