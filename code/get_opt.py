@@ -485,7 +485,7 @@ def get_ultracam():
     # Add an exposure time column
     dat['exp'] = [99]*len(dat)
     inst = dat['#inst'].values
-    dat.loc[inst=='NTT/ULTRACAM', 'exp'] = [20]*sum(inst=='GTC/ULTRACAM')
+    dat.loc[inst=='NTT/ULTRACAM', 'exp'] = [20]*sum(inst=='NTT/ULTRACAM')
 
     # Detections
     SNU = 3 # provide 3-sigma U.L.
