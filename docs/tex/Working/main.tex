@@ -191,7 +191,7 @@ See Methods section~\ref{sec:data-transient-lc} for additional details and data 
 \begin{figure*}
     \begin{subfigure}[t]{\textwidth}
     	\centering
-    	\includegraphics[width=\textwidth]{lcim_Magellan_65.eps}
+    	%\includegraphics[width=\textwidth]{lcim_Magellan_65.eps}
 	\caption{Flare detected by Magellan/IMACS on 2022 December 15. The cutouts show a 45\arcsec\ by 45\arcsec\ region.}
     \end{subfigure}
     \begin{subfigure}[t]{\textwidth}
@@ -885,8 +885,8 @@ neutron star (NS) phenomena such as giant flares (GFs) from soft gamma-ray repea
 \section{Data for Radio Parameter Space Plot}
 \label{sec:data-radio-parameter-space}
 
-In \ref{fig:radio}, we show a plot that is commonly used to characterise radio transients\cite{Chevalier1998,Ho2019}.
-We plot data for CC~SNe (Type~II and Type~Ib/Ic), TDEs, LLGRBs, and two objects discovered by radio surveys (RT\cite{Dong2021,Mooley2022}). Lines of constant shock speed ($R/\Delta t$) are shown, as well as lines of constant mass-loss rate $\dot{M}$ (scaled to wind velocity $v$) in units of $10^{-4}\,M_\odot$\,yr$^{-1}/1000\,$km\,s$^{-1}$. The lines assume that the radio peak is due to synchrotron self-absorption\cite{Chevalier1998}. %The right axis\cite{Ho2019} shows the energy converted by the shock $U$ as a function of radius $R$.
+In \ref{fig:radio}, we show a plot that is commonly used to characterise radio transients\cite{Chevalier1998}.
+We include data for CC~SNe (Type~II\cite{VanDyk1993,Weiler1986} and Type~Ib/Ic\cite{Soderberg2005,Soderberg2006,Soderberg2010,Salas2013,Corsi2014}), TDEs\cite{Alexander2016}, LLGRBs\cite{Kulkarni1998,Soderberg2006,Margutti2013,Laskar2017}, LFBOTs\cite{Margutti2019,Ho2019,Coppejans2020,Ho2020_Koala,Yao2022,Ho2022_AT2020xnd}, and two objects discovered by radio surveys (RT\cite{Dong2021,Mooley2022}). Lines of constant shock speed ($R/\Delta t$) are shown, as well as lines of constant mass-loss rate $\dot{M}$ (scaled to wind velocity $v$) in units of $10^{-4}\,M_\odot$\,yr$^{-1}/1000\,$km\,s$^{-1}$. The lines assume that the radio peak is due to synchrotron self-absorption\cite{Chevalier1998}. %The right axis\cite{Ho2019} shows the energy converted by the shock $U$ as a function of radius $R$.
 
 \section{Observations and Data Processing}
 
@@ -985,7 +985,8 @@ The 3$\sigma$ upper limits for individual frames are provided in Supplementary T
 \label{sec:ntt}
 
 We observed \at\ on two nights (2022 December 18, 19) using ULTRACAM\cite{Dhillon2007}. On December 18 we obtained 116 $i$-band frames with a 20\,s exposure time, totaling 38\,min of data; the deadtime between each frame is 24\,ms. The seeing was 1--1.5\arcsec. On December 19 we obtained 556 $r$-band frames with a 20\,s exposure time, totaling 3\,hr 5\,min of data. The deadtime between each frame is again $\sim 24$\,ms. The seeing started out at 1\arcsec, but worsened to 2.5\arcsec\ toward the end of the run. We subtracted a %(flat-fielded) 
-dark image and removed remaining bad/hot pixels in the vicinity of the transient by taking the median value of the eight surrounding pixels.  Image subtraction was performed in the $g$, $r$, and $i$ filters using a consistent method as for the other observations, using stacks formed from flare-free sections of the data taken the same night.  For the first night, which shows no flaring, we use a stack of the entire night; for the second night we use a stack of the first 97 images (all acquired prior to the flare).  %For the $u$-band observations, we did not perform image subtraction as the host galaxy is not detected in a stack, although we did perform a scalar offset to the flux of all exposures using the median flux of the entire sequence.  
+dark image and removed remaining bad/hot pixels in the vicinity of the transient by taking the median value of the eight surrounding pixels.  Image subtraction was performed %in the $g$, $r$, and $i$ filters 
+using a consistent method as for the other observations, using stacks formed from flare-free sections of the data taken the same night.  For the first night, which shows no flaring, we use a stack of the entire night; for the second night we use a stack of the first 97 images (all acquired prior to the flare).  %For the $u$-band observations, we did not perform image subtraction as the host galaxy is not detected in a stack, although we did perform a scalar offset to the flux of all exposures using the median flux of the entire sequence.  
 Photometry was performed using a fixed 1.5\arcsec-radius aperture and calibrated to nearby Pan-STARRS standards.
 
 As part of ePESSTO+ (the Public European Southern Observatory Spectroscopic Survey of Transient Objects project\cite{Smartt2015}), we observed \at\ on three nights (2022 December 22, 24, and 30) in the $g$ and $r$ bands using the Faint Object Spectrograph and Camera (v.2; EFOSC2\cite{Buzzoni1984}) mounted on the 3.58\,m European Southern Observatory (ESO) New Technology Telescope (NTT) under the observing program 1108.D-0740 (PI C. Inserra). On the first two nights, the observation sequence was $5\times$95\,s exposures in $g$ followed by $5\times95$\,s exposures in $r$.  A flare is seen at the beginning of the $g$-band sequence from the second epoch; otherwise no variability was evident. On the third night, the sequence was altered such that images were obtained in alternating filters ($5\times gr$) and no flare was detected. The data were reduced using the standard pipeline\footnote{\url{ https://github.com/svalenti/pessto}}, which is based on iraf/pyraf. Image subtraction was performed using the last exposure of each sequence as a reference image; photometry was performed using a 1.0\arcsec-radius aperture in all observations.
@@ -1460,6 +1461,21 @@ Giant flare in SGR 1806-20 and its Compton reflection from the Moon. \emph{Astro
 \bibitem{Miniutti2023} Miniutti, G., et al. Repeating tidal disruptions in GSN 069: Long-term evolution and constraints on quasi-periodic eruptions' models. \emph{\aap}, \textbf{670}, A93 (2023). 
 
 % Data behind Extended Figure radio panel
+% \bibitem{%1H%Y} %5l %T. \emph{%j}, \textbf{%V}, %p (%Y). \n
+
+\bibitem{Weiler1986} Weiler, K. W., Sramek, R. A., Panagia, N., van der Hulst, J. M., \& Salvati, M. Radio Supernovae. \emph{\apj}, \textbf{301}, 790 (1986). 
+
+\bibitem{VanDyk1993} van Dyk, S. D., Weiler, K. W., Sramek, R. A., \& Panagia, N. SN 1988Z: The Most Distant Radio Supernova. \emph{\apjl}, \textbf{419}, L69 (1993). 
+
+\bibitem{Soderberg2005} Soderberg, A. M., et al. The Radio and X-Ray-Luminous Type Ibc Supernova 2003L. \emph{\apj}, \textbf{621}, 908 (2005). 
+
+\bibitem{Soderberg2006} Soderberg, A. M., Chevalier, R. A., Kulkarni, S. R., \& Frail, D. A. The Radio and X-Ray Luminous SN 2003bg and the Circumstellar Density Variations around Radio Supernovae. \emph{\apj}, \textbf{651}, 1005 (2006). 
+
+\bibitem{Salas2013} Salas, P., Bauer, F. E., Stockdale, C., \& Prieto, J. L. SN 2007bg: the complex circumstellar medium around one of the most radio-luminous broad-lined Type Ic supernovae. \emph{\mnras}, \textbf{428}, 1207 (2013). 
+
+\bibitem{Alexander2016} Alexander, K. D., Berger, E., Guillochon, J., Zauderer, B. A., \& Williams, P. K. G. Discovery of an Outflow from Radio Observations of the Tidal Disruption Event ASASSN-14li. \emph{\apjl}, \textbf{819}, L25 (2016). 
+
+\bibitem{Laskar2017} Laskar, T., Coppejans, D. L., Margutti, R., \& Alexander, K. D. GRB 171205A: VLA detection.. \emph{GRB Coordinates Network}, \textbf{22216}, 1 (2017). 
 
 \bibitem{Dong2021} Dong, D. Z., et al. A transient radio source consistent with a merger-triggered core collapse supernova. \emph{Science}, \textbf{373}, 1125 (2021). 
 
@@ -1647,7 +1663,7 @@ Giant flare in SGR 1806-20 and its Compton reflection from the Moon. \emph{Astro
 \begin{figure}[ht]
  \centering
 \includegraphics[width=1.0\textwidth]{flares.png}
-  \caption{Collage of \at\ flares, with flux density (left) and approximate peak luminosity (right). For ULTRASPEC, ULTRACAM, and KP84, open points are $<5\sigma$ and filled points are $\geq5\sigma$. The insets of the ULTRASPEC and ULTRACAM light curves show 3\,min and 1\,min running averages, respectively. Error bars are 1$\sigma$ confidence intervals.
+  \caption{Collage of \at\ flares, with flux density (left) and approximate peak luminosity (right), corrected for Milky Way extinction. For ULTRASPEC, ULTRACAM, and KP84, open points are $<5\sigma$ and filled points are $\geq5\sigma$. The insets of the ULTRASPEC and ULTRACAM light curves show 3\,min and 1\,min running averages, respectively. Error bars are 1$\sigma$ confidence intervals.
 %The cadence of the ULTRASPEC, ULTRACAM, and KP84 light curves are 30\,s, 20\,s, and 120\,s respectively, and the filled points are 
 }
  \label{fig:flare-collage}
