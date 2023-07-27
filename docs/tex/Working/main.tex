@@ -192,7 +192,7 @@ See Methods section~\ref{sec:data-transient-lc} for additional details and data 
 \begin{figure*}
     \begin{subfigure}[t]{\textwidth}
     	\centering
-    	%\includegraphics[width=\textwidth]{lcim_Magellan_65.eps}
+    	\includegraphics[width=\textwidth]{lcim_Magellan_65.eps}
 	\caption{Flare detected by Magellan/IMACS on 2022 December 15. The cutouts show a 45\arcsec\ by 45\arcsec\ region.}
     \end{subfigure}
     \begin{subfigure}[t]{\textwidth}
@@ -515,8 +515,8 @@ should be addressed to Anna Y. Q. Ho (email: annayqho@cornell.edu).
 \section{Identification of \at\ and Redshift Measurement}
 \label{sec:discovery}
 
-The discovery of the extragalactic transient AT2018cow\cite{Prentice2018} and the subsequent identification of several objects with similar multiwavelength properties\cite{Coppejans2020,Ho2020_Koala,Yao2022,Perley2021} established a new class of extragalactic transients dubbed luminous fast blue optical transients (LFBOTs\cite{Metzger2022}).
-In the optical band, LFBOTs are characterised by a light curve that is too fast for its luminosity to be explained by the standard supernova powering mechanism of the decay of radioactive isotopes (Figure~\ref{fig:transient-parameter-space}).
+%The discovery of the extragalactic transient AT2018cow\cite{Prentice2018} and the subsequent identification of several objects with similar multiwavelength properties\cite{Coppejans2020,Ho2020_Koala,Yao2022,Perley2021} established a new class of extragalactic transients dubbed luminous fast blue optical transients (LFBOTs\cite{Metzger2022}).
+%In the optical band, LFBOTs are characterised by a light curve that is too fast for its luminosity to be explained by the standard supernova powering mechanism of the decay of radioactive isotopes (Figure~\ref{fig:transient-parameter-space}).
 Following the discovery of AT2018cow, we devised and implemented\cite{Ho2023} a filter to discover additional LFBOTs in the ZTF alert stream. Transients are filtered based on age, light-curve timescale (we require duration above half-maximum light $t_{1/2}\lesssim12\,$d\cite{Drout2014}), and peak absolute magnitude (via the best-available host-galaxy redshift estimate).
 
 \at\ was first detected by ZTF (Methods section~\ref{sec:p48}) on 2022 September 7\footnote{UTC dates are used throughout this paper.} as part of its public survey, which images the visible sky in the $g$ and $r$ bands every two nights. Owing to inclement weather and technical issues, the field was next observed on 2022 September 18; on this date, \at\ was not detected with sufficiently high significance (5$\sigma$) for an alert to be generated. On 2022 September 22 ($\Delta t_\mathrm{obs}\footnote{All epochs in this paper are given with respect to the first ZTF detection of \at, which is also the observed peak of the optical light curve.}=15$\,d), forced photometry at the position of \at\ recovered 3$\sigma$ detections on September 18 and September 20, which revealed that the transient had faded by over a magnitude since discovery.
@@ -545,7 +545,7 @@ M_\mathrm{peak} = m_\mathrm{peak} - 5 \log_{10} \left( \frac{D_L}{10\,\mathrm{pc
 \section{Multiwavelength Properties of \at\ Compared to Other Extragalactic Transients}
 \label{sec:multiwavelength-properties}
 
-In this section, we compare the observed properties of \at\ with those of other LFBOTs discovered by optical surveys (Figure~\ref{fig:transient-parameter-space}).
+%In this section, we compare the observed properties of \at\ with those of other LFBOTs discovered by optical surveys (Figure~\ref{fig:transient-parameter-space}).
 \at\ is only the third LFBOT (after AT2018cow\cite{Prentice2018,Perley2019} and AT2020xnd\cite{Perley2021}) to receive intensive multiwavelength follow-up observations within the first month post-discovery.
 Three other LFBOTs (CSS161010\cite{Coppejans2020}, AT2018lug\cite{Ho2020_Koala}, and AT2020mrf\cite{Yao2022}) received their first radio observations only 100\,d post-discovery. MUSSES2020J\cite{Jiang2022} was discovered at $z=1.063$, so follow-up opportunities were limited.
 Additional LFBOTs have been identified in archival searches of optical survey data, too late for follow-up observations, such as DES16X1eho\cite{Pursiainen2018} and SNLS04D4ec\cite{Arcavi2016}. 
@@ -685,7 +685,7 @@ The source angular radius is therefore $d\theta < 7 \times 10^{-5} \Gamma^2 \,\m
 For reasonable values of the Lorentz factor,
 the limiting blackbody temperature would result in very blue optical emission ($f_\nu\propto\nu^2$), yet all of the observed optical-flare colours are significantly redder.
 Therefore, we consider the emission more likely to be nonthermal.
-In addition, the value of $T_B=6\times10^{10}\,$K is very close to the equipartition brightness temperature limit\cite{Readhead1994} of $10^{11}$\,K, suggesting that the outflow is at least close to relativistic. 
+In addition, the value of $T_B=2\times10^{10}\,$K is very close to the equipartition brightness temperature limit\cite{Readhead1994} of $10^{11}$\,K, suggesting that the outflow is at least close to relativistic. 
 
 Optically thin synchrotron radiation is a possible candidate for the nonthermal flare emission. The flux density from a population of synchrotron-emitting electrons in a power-law energy distribution $N(E)dE = \kappa E^{-p} dE$, where $N(E)dE$ is the number density of electrons in the energy interval $E$ to $E+dE$ in units of $\mathrm{cm}^{-3}\,\mathrm{erg}^{-1}$, is\cite{Longair2011}
 
@@ -840,7 +840,7 @@ The fast timescale of the LFBOT, the luminous and variable X-ray emission, the s
 In addition, as with previous LFBOTs such as AT2018cow and AT2020xnd, the X-rays cannot arise from an extension of the synchrotron spectrum from the radio-emitting electrons\cite{Margutti2019,Ho2019,Ho2022_AT2020xnd}: although the spectral index connecting the millimeter to X-ray emission could be consistent with optically thin synchrotron (\ref{fig:full-sed}), the spectral index of the X-ray emission is not consistent.
 The X-rays could potentially arise from inverse-Compton scattering of the ultraviolet-optical photons off the radio-emitting electrons; however, we do not have sufficient data to measure the temporal decay index of the optical light curve during the same period of time as the X-rays were observed.
 
-In this section, we discuss the implications of the above properties for the physical origin of \at\ and other LFBOTs. The location of \at\ at $\sim9\,$kpc from the centre of a dwarf star-forming galaxy (Figure~\ref{fig:transient-parameter-space}; Methods section~\ref{sec:hostgalaxy}), and the fast timescale of the LFBOT, strongly disfavour a supermassive black hole as the compact object. So, we consider stellar- and intermediate-mass black hole engines, both of which have been proposed to explain LFBOTs\cite{Perley2019,Margutti2019,Metzger2022,Chen2023b}. 
+In this section, we discuss the implications of the above properties for the physical origin of \at\ and other LFBOTs. The location of \at\ at $\sim6\,$kpc from the centre of a dwarf star-forming galaxy (Figure~\ref{fig:transient-parameter-space}; Methods section~\ref{sec:hostgalaxy}), and the fast timescale of the LFBOT, strongly disfavour a supermassive black hole as the compact object. So, we consider stellar- and intermediate-mass black hole engines, both of which have been proposed to explain LFBOTs\cite{Perley2019,Margutti2019,Metzger2022,Chen2023b}. 
 
 The first possibility we consider is that \at\ is powered by a stellar-mass compact object. LFBOTs have been argued to arise from failed supernovae\cite{Perley2019,Margutti2019} or alternatively by the merger of a compact object with a star\cite{Metzger2022}. In these scenarios, there could be three possible energy sources: magnetospheric activity, rotational spindown (for a neutron star), or accretion (for a black hole). We strongly disfavour a magnetospheric energy origin: the total radiated energy in X-rays alone exceeds $10^{50}\,$erg, while the energy in each flare is $\sim10^{47}\,$erg, and the magnetic energy budget of a magnetar would be challenging: $U_B = (2\times10^{49}\,$erg)$(B/10^{16}\,\mathrm{G})^2 (R/10\,\mathrm{km})^3$. However, both rotation or accretion could be possible, very similar to what was argued to explain the TDE candidate J1644+57 as a massive-star collapse event\cite{Quataert2012}. 
 
