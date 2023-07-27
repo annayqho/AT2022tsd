@@ -95,11 +95,11 @@ Forced photometry on ZTF images (Methods section~\ref{sec:p48}) revealed that th
 The optical light curve, and the implied high peak luminosity from a nearby (1.4$''$) catalogued galaxy (Methods section~\ref{sec:discovery}, Figure~\ref{fig:transient-parameter-space}), led AT2022tsd to be flagged as a transient of interest as part of ongoing efforts to discover luminous and fast-evolving optical transients (Methods section \ref{sec:discovery}).
 
 We obtained two spectra of \at\ with the Low Resolution Imaging Spectrometer (LRIS) on the Keck\,I 10-m telescope (\ref{fig:spec}; Methods section \ref{sec:keck}), and measured\cite{Ho2022_Astronote_Keck} a redshift of $z=0.2564\pm0.0003$ (luminosity distance $D_L=1.34\,$Gpc assuming a Planck cosmology\cite{Planck2020}) of the nearby galaxy using prominent narrow host-galaxy emission lines (Methods section \ref{sec:discovery}). 
-The optical properties --- the fast light-curve evolution, the implied high peak luminosity ($M_{g,\mathrm{pk}}=-20.64\pm0.13$; Methods section \ref{sec:discovery}), and the lack of prominent spectroscopic features after the transient faded by 2--3 magnitudes --- were unusual for extragalactic transients but similar to AT2018cow, which motivated us to trigger additional multiwavelength observations (Figure~\ref{fig:opt-mm-xray-lc}; Methods section~\ref{sec:multiwavelength-properties}).
+The optical properties --- the fast light-curve evolution, the implied high peak luminosity ($M_{\mathrm{peak}}=-20.64\pm0.13$ at rest-frame wavelength 5086\AA; Methods section \ref{sec:discovery}), and the lack of prominent spectroscopic features after the transient faded by 2--3 magnitudes --- were unusual for extragalactic transients but similar to AT2018cow, which motivated us to trigger additional multiwavelength observations (Figure~\ref{fig:opt-mm-xray-lc}; Methods section~\ref{sec:multiwavelength-properties}).
 We detected luminous radio (decimeter\cite{Ho2022Astronote_radio} to submillimeter) emission that peaked at hundreds of GHz for over a month in the rest frame (Methods section~\ref{sec:VLA}; \ref{fig:radio}),
-as well as luminous ($>10^{44}\,$erg\,s$^{-1}$) and steadily fading ($L_X\propto t^{-1.81\pm0.13}$ over nearly 300 days; Methods section~\ref{sec:multiwavelength-properties}) 0.3--10\,keV X-ray emission\cite{Schulze2022Astronote_xray} well described by a power law with photon index $\Gamma\approx2$ (Methods section~\ref{sec:swift}, Figure~\ref{fig:opt-mm-xray-lc}).
+as well as luminous ($>10^{44}\,$erg\,s$^{-1}$) and steadily fading ($L_X\propto t^{-1.81\pm0.13}$ over nearly 300 days) 0.3--10\,keV X-ray emission\cite{Schulze2022Astronote_xray} well described by a power law with photon index $\Gamma\approx2$ (Methods section~\ref{sec:multiwavelength-properties}, Methods section~\ref{sec:swift}, Figure~\ref{fig:opt-mm-xray-lc}, \ref{fig:xray-lc}).
 Although we did not detect clear spectroscopic features from the transient itself, the galaxy alignment is very unlikely to be a coincidence (Methods section \ref{sec:flare-association}), and we conclude that the galaxy is the host of the transient.
-The multiwavelength properties of \at\ are most similar to those of AT2018cow-like transients (also referred to as ``LFBOTs''\cite{Metzger2022}), suggesting a common origin (Methods section~\ref{sec:multiwavelength-properties}).
+The multiwavelength properties of \at\ are most similar to those of AT2018cow-like transients (also referred to as luminous fast blue optical transients or ``LFBOTs''\cite{Metzger2022}), suggesting a common origin (Methods section~\ref{sec:multiwavelength-properties}).
 
 In a photometric optical imaging sequence starting at 04:29:57 on 2022 December 15, 100\,days (observer frame) after the initial transient discovery, we detected\cite{Ho2022_Astronote_Flares} a flare at the position of \at\ across five three-minute Magellan/IMACS $g$-band images (Figure~\ref{fig:flare-images-lc}) that was nearly as bright as the original transient event: $\nu L_\nu \approx 10^{44}\,$erg\,s$^{-1}$ (Figure~\ref{fig:transient-parameter-space}, Figure~\ref{fig:opt-mm-xray-lc}).
 Forced photometry on ZTF and Pan-STARRS survey images (Methods section~\ref{sec:panstarrs}) at the position of the transient revealed previous flare detections, as early as 26\,d (observer frame) after the initial transient discovery (Figure~\ref{fig:opt-mm-xray-lc}; \ref{fig:flare-collage}).
@@ -108,9 +108,9 @@ Two different Keck/LRIS observations revealed red flare colours (\ref{fig:flare-
 $u-I=1.41\pm0.31\,$mag, or $\beta=-1.6\pm0.1$ where
 $f_\nu \propto \nu^{\beta}$ (corrected for Milky Way extinction but not corrected for host attenuation).
 
-\emph{Chandra} X-ray observations\cite{Matthews2022} (Methods section \ref{sec:chandra}) revealed X-ray variability on timescales of tens of minutes (\ref{fig:xray-lc}), but no clear high-amplitude flares. 
+\emph{Chandra} X-ray observations\cite{Matthews2022} (Methods section \ref{sec:chandra}) revealed X-ray variability on timescales of tens of minutes, but no clear high-amplitude flares. 
 We detected one definitive optical flare during X-ray monitoring, but no X-ray flare counterpart was detected (\ref{fig:xray-lc}).
-In addition, we find no clear periodicity between or within flares in either the optical or X-ray emission (Methods section \ref{sec:flare-characteristics}).
+In addition, we find no clear periodicity between or within flares in either the optical or X-ray emission (Methods section \ref{sec:flare-characteristics}, \ref{fig:ultraspec-periodogram}, \ref{fig:xray-periodogram}).
 We did not identify any high-energy (gamma-ray burst; GRB) counterpart to either the initial LFBOT or the flares (Methods section~\ref{sec:grbsearch}), nor did we identify any similar optical flares in the aftermath of other LFBOTs (Methods section~\ref{sec:flare-search}).
 In addition, optical observations of \at\ prior to the first clear flare detection show no significant variability on timescales of minutes (Methods section~\ref{sec:multiwavelength-properties}), implying that there was a longer-duration transient underlying the flares, with a fade rate very similar to that of the LFBOT AT2020mrf\cite{Yao2022} (Figure~\ref{fig:opt-mm-xray-lc}).
 
@@ -118,24 +118,25 @@ To our knowledge, this phenomenon --- minute-timescale optical flares at superno
 \ref{tab:flaring-classes} lists known classes of objects that exhibit large-amplitude (factor of $\gtrsim10$ times the baseline flux level) flares. Previously observed flaring behaviour was either orders of magnitude less luminous, persisted for only a few minutes, had much longer durations, or was at much higher photon energies.
 The fact that these optical flares were observed in the aftermath of an extragalactic transient is even more unusual.
 
-The fast variability timescale of the flares implies an emitting-region radius of $<(2\times10^{12}\,\mathrm{cm}) \Gamma^2$, where $\Gamma$ is the Lorentz factor of the flare-emitting outflow,
-and a brightness temperature of $T_B>(6\times10^{10}\,\mathrm{K})\Gamma^{-4}$.
+The fast variability timescale of the flares implies an emitting-region radius of $<(9\times10^{11}\,\mathrm{cm}) \Gamma^2$, where $\Gamma$ is the Lorentz factor of the flare-emitting outflow,
+and a brightness temperature of $T_B>(2\times10^{10}\,\mathrm{K})\Gamma^{-4}$.
+The radius is similar to that inferred from late-time ($\Delta t\approx10^3\,$d) UV observations of AT2018cow\cite{Chen2023b}, and (as in that case) is much smaller than the blackbody radius of the initial LFBOT (Methods section~\ref{sec:lfbot-lc-analysis}).
 The high brightness temperature, combined with the red flare colour, implies a nonthermal emission mechanism such as optically thin synchrotron radiation (Methods section \ref{sec:flare-origin}).
 The flares are extremely energetic, with $10^{46}$--$10^{47}$\,erg in radiated energy alone per detected flare (not corrected for beaming; \ref{tab:flare-properties}).
 In addition, the radiated energy in X-rays during the flaring period exceeds $10^{50}$\,erg.
 The timescales, the enormous energetics, the high brightness temperature, and the requirement of optically thin emission for the flares strongly implies that the flare-emitting outflow has at least near-relativistic ($v/c\gtrsim0.6$) velocities (Methods section \ref{sec:flare-origin}),
 which reduces the energetics requirements owing to beaming.
 However, we have no direct evidence for ultrarelativistic speeds, including a lack of associated detected prompt high-energy emission,
-and a lack of detected variability at radio and submillimeter wavelengths (Methods section~\ref{sec:ALMA}).
+a lack of detected variability at radio wavelengths (Methods section~\ref{sec:ALMA}), and sub-relativistic speeds inferred from a basic equipartition analysis of the radio data (Methods section~\ref{sec:radio-analysis}; Table~\ref{tab:summary}).
 
-We conclude that the flares in \at\ arose from a near-relativistic outflow that was powered by a compact object for 100 days. For the compact object, a supermassive black hole is highly unlikely given the location of \at\ 6\,kpc from the nucleus of a star-forming galaxy (Figure~\ref{fig:transient-parameter-space}) and the rapid timescale of the initial LFBOT. The possible power sources for the outflow are therefore the rotational spindown of a newborn neutron star, or accretion onto a stellar- or intermediate-mass compact object. In the latter case, the compact object could be a newly formed stellar-mass black hole, or --- if the process was tidal disruption followed by the formation of an accretion disk --- a neutron star, stellar-mass black hole, or intermediate-mass black hole. 
+We conclude that the flares in \at\ arose from a near-relativistic outflow that was powered by a compact object over a period of 100 days. For the compact object, a supermassive black hole is highly unlikely given the location of \at\ 6\,kpc from the nucleus of a star-forming galaxy (Figure~\ref{fig:transient-parameter-space}, Methods section~\ref{sec:hostgalaxy}) and the rapid timescale of the initial LFBOT. The possible power sources for the outflow are therefore the rotational spindown of a newborn neutron star, or accretion onto a stellar- or intermediate-mass compact object. In the latter case, the compact object could be a newly formed stellar-mass black hole, or, if the process was tidal disruption followed by the formation of an accretion disk, a neutron star, stellar-mass black hole, or intermediate-mass black hole. 
 
 Several models have been proposed to explain LFBOTs\cite{Metzger2022}, and we consider three most likely in light of the newly discovered flares (Methods section~\ref{sec:at2022tsd-origin}): the collapse of a supergiant star\cite{Perley2019,Margutti2019,Quataert2019}, the merger and tidal disruption of a Wolf-Rayet star by a compact object\cite{Metzger2022}, and the tidal disruption of a white dwarf by an intermediate-mass black hole\cite{Kuin2019,Perley2019}.
 Accretion processes and jets from systems involving black holes are well known to produce fast and luminous flares,
 and explaining \at\ as an analog of observed flares from supermassive black hole tidal disruption events (TDEs) and blazars might be most natural for an intermediate-mass black hole owing to the flare duration and time between flares (tens of minutes to hours).
 If \at\ arose from a stellar-mass black hole, the accretion rate would be highly super-Eddington ($10^{5}\,L_\mathrm{Edd}$ for a 10\,$M_\odot$ black hole without relativistic or geometric beaming). Such a rate could be compatible with a merger and tidal disruption scenario\cite{Metzger2022}, and establishing the existence and prevalence of such binary systems is important for understanding the progenitors of merging gravitational-wave sources.
 Alternatively, the high accretion rate could arise from the collapse of a supergiant star\cite{Quataert2019} and subsequent formation of an accretion disk; the identification of these systems is a longstanding goal for understanding the conditions that determine whether a star will explode, as well as the formation properties of black holes.
-In either picture, the flares could be analogous to the emission observed in GRBs: the timescales are not consistent with external shocks, but could potentially arise from internal shocks (Methods section~\ref{sec:at2022tsd-origin}).
+In either picture, the flares could be analogous to the emission observed in GRBs: the timescales are not consistent with external shocks, but could potentially arise from internal shocks.
 The lack of detected flares in other LFBOTs could be due to viewing angle: AT2018cow is thought to have been observed close to the plane of the circumburst ``disk'' rather than face-on\cite{Margutti2019,Chen2023b}, and a more on-axis viewing angle for \at\ could also help explain the significantly more luminous X-ray emission (Figure~\ref{fig:opt-mm-xray-lc}).
 
 \newpage
@@ -206,7 +207,7 @@ See Methods section~\ref{sec:data-transient-lc} for additional details and data 
 \begin{table}
 \begin{center}
 \caption{Summary of basic constraints from different emission components.}
-\label{tab:flare-searches}
+\label{tab:summary}
 \begin{tabular}{lcccccc} 
 \hline\hline
 Component & Property & Constraint \\
@@ -1074,7 +1075,7 @@ Using the B-configuration Ku-band observation, we obtain the following measureme
 standard equinox J2000 right ascension $\alpha$ =
 $03^{\rm{h}}20^{\rm{m}}10^{\rm{s}}.873$
 and declination $\delta$ = $+08^{\circ} 44' 55''.739$ 
-(uncertainty $0''.009$).
+(uncertainty $0.009''$).
 
 \subsection{Submillimeter Array}
 \label{Methods:SMA}
