@@ -3,6 +3,8 @@ import sys
 sys.path.append("..")
 import vals
 import numpy as np
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
 from astropy.time import Time
 from astropy.cosmology import Planck15
 import pandas as pd
@@ -543,7 +545,7 @@ def plot_panel(ax, zoom=False):
             c=cowcol, fmt='D', ms=cowms, zorder=500)
     if zoom:
         ax.text(
-                x/1.06, y, 'CSS161010', fontsize=8, 
+                x/1.06, y, 'CSS161010', fontsize=7, 
                 ha='right', va='center', c=cowcol)
 
     # Plot AT2020mrf
@@ -694,7 +696,9 @@ def plot_panel(ax, zoom=False):
 
 
 if __name__=="__main__":
-    fig,axarr = plt.subplots(1,2,figsize=(8,3.5))#, sharey=True)
+    figwidth_mm = 183 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
+    fig,axarr = plt.subplots(1,2,figsize=(figwidth_in,figwidth_in/2.2))
 
     ax = axarr[0]
     plot_panel(ax)
@@ -702,11 +706,13 @@ if __name__=="__main__":
     plot_panel(ax, zoom=True)
 
     fig.legend(loc='upper center', fontsize=10, handletextpad=0.1,
-          bbox_to_anchor=(0.5, 1.00),
+          bbox_to_anchor=(0.52, 1.00),
           ncol=7, fancybox=True, columnspacing=0.4)
 
     #plt.tight_layout()
     fig.subplots_adjust(wspace=0.4)
     #plt.show()
-    plt.savefig("lum_time_optical.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.savefig(
+            "lum_time_optical.eps", dpi=300, 
+            bbox_inches='tight', pad_inches=0.0)
     plt.close()
