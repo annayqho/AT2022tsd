@@ -81,7 +81,7 @@ def load_chandra_flares(oid):
     There are seven OIDs so far:
     '26641', '26642', '26643', '26644', '27639', '27643', '26645'
     """
-    dd = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/xray" 
+    dd = "../../data/xray" 
     ff = dd + "/" + oid + "/repro/xray_flare_lc.txt"
     dat = np.loadtxt(ff)
     x = dat[:,0]/86400 # in days
