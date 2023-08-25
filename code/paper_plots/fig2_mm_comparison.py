@@ -16,6 +16,7 @@ import vals
 from get_radio import *
 from scale_fluxes import sma_lc
 from read_table import *
+from fig2_compare_xray_lcs import create_xray_panel
 
     
 
