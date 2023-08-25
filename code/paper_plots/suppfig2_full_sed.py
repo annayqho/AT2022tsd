@@ -8,7 +8,7 @@ import pandas as pd
 import sys
 from astropy.time import Time
 from astropy.io import fits as pyfits
-sys.path.append("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/code")
+sys.path.append("..")
 import vals
 from get_opt import *
 from get_xray import *
