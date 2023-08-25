@@ -1,4 +1,4 @@
-""" Plot the full optical light curve, with zoom-ins on the discovery period
+""" Plot the full optical light curve, with zoom-ins on the discovery period 
 and on the flares. """
 
 import numpy as np
