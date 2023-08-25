@@ -3,7 +3,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from astropy.table import Table
-from synchrotron_fit import fit_self_abs, self_abs
 
 
 def get_data_all():

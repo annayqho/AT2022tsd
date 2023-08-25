@@ -2,8 +2,9 @@
 Plot of luminosity over time
 """
 
-
 import matplotlib
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
@@ -360,13 +361,16 @@ def run(ax):
 
 
 if __name__=="__main__":
-    fig,ax = plt.subplots(1,1,figsize=(3.5,3.5))
+    figwidth_mm = 89 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
+    fig,ax = plt.subplots(1,1,figsize=(figwidth_in,figwidth_in))
     run(ax)
     # Formatting
     ax.set_ylabel(
-            r"$L_{\nu}$ ($\nu \gtrsim 100$ GHz; erg$\,$s$^{-1}$Hz$^{-1}$)", fontsize=10)
+            r"$L_{\nu}$ ($\nu \gtrsim 100$ GHz; erg$\,$s$^{-1}\,$Hz$^{-1}$)", 
+            fontsize=10)
     #ax.set_title(
-    #        r"$\nu_\mathrm{obs} \gtrsim 100\,\mathrm{GHz}$", fontsize=10)
+    #        r"$\nu_\mathrm{obs} \gtrsim 100$ GHz", fontsize=10)
     ax.tick_params(axis='both', labelsize=10)
     ax.set_xlim(0.7, 300) 
     ax.set_ylim(1E25, 2E33)
@@ -375,8 +379,8 @@ if __name__=="__main__":
     ax.set_xlabel(r"$\Delta t_\mathrm{obs}$ (d)", fontsize=10)
 
     #plt.tight_layout()
-    plt.show()
-    # plt.savefig(
-    #         "mm_lc_100ghz.png", dpi=300, 
-    #         bbox_inches='tight', pad_inches=0.1)
-    # plt.close()
+    #plt.show()
+    plt.savefig(
+            "mm_lc_100ghz.eps", dpi=300, 
+            bbox_inches='tight', pad_inches=0)
+    plt.close()
