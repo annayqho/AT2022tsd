@@ -17,7 +17,7 @@ tcol = 'k'
 
 def get_host_phot_ps1(imsize):
     """ Get host photometry from PS1 """
-    ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/host/ps1/"
+    ddir = "../../data/host/ps1/"
     # Position of the transient in the host galaxy
     ra = vals.ra
     dec = vals.dec
@@ -52,7 +52,7 @@ def get_host_phot_lris(imsize):
     """ Get host photometry from LRIS """
 
     # Basic parameters
-    ddir = "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt/LRIS/imaging/"
+    ddir = "../../data/opt/LRIS/imaging/"
     ra = vals.ra
     dec = vals.dec
 
