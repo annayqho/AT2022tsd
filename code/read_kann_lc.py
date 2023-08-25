@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 
 
 def load_kann_lc():
-    inputf = open("./SAMPLE!!! with Galactic Extinction.csv", "r")
+    inputf = open(
+            "../../data/opt/SAMPLE!!! with Galactic Extinction.csv", "r")
     raw = np.array(inputf.readlines())
     inputf.close()
 
