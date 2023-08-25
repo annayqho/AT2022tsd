@@ -91,7 +91,7 @@ def full_lc(ax):
     ax.set_ylabel("$L_X$ ($10^{43}$ erg s$^{-1}$)")
 
 
-if __name__=="__main__":
+def panel_a():
     fig,ax= plt.subplots(1,1,figsize=(4,2.5))
     full_lc(ax)
     plt.tight_layout()
@@ -99,13 +99,16 @@ if __name__=="__main__":
     #plt.savefig("xray_fit.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
     #plt.close()
 
-    # Maybe plot them separately and just put them together in LaTeX
-    #fig,axarr = plt.subplots(4,2,figsize=(8,6))
 
+def panel_b():
     # Plot the flares
-    #plot_flares(axarr)
-
-    #plt.tight_layout()
+    plot_flares(axarr)
+    plt.tight_layout()
     #plt.show()
-    #plt.savefig("xray_flares.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    plt.savefig("xray_flares.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.close()
+
+
+if __name__=="__main__":
+    panel_a()
+    panel_b()
