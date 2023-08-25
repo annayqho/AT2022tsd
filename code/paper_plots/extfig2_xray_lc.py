@@ -102,6 +102,7 @@ def panel_a():
 
 def panel_b():
     # Plot the flares
+    fig,axarr = plt.subplots(4,2,figsize=(8,6))
     plot_flares(axarr)
     plt.tight_layout()
     #plt.show()

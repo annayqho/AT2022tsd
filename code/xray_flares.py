@@ -12,7 +12,8 @@ from opt_xray_flare import *
 
 
 def plot_flares(axarr):
-    dd = "../data/xray"
+    print(axarr)
+    dd = "../../data/xray"
 
     # Load the Chandra data
     df = load_chandra()
@@ -26,8 +27,8 @@ def plot_flares(axarr):
     # Load the light curves of the simultaneous flare observations
     oid_use,xo,exo,yo,eyo,xx,exx,yx,eyx = flare_lc()
 
-    for i,oid in enumerate(oids):
-        ax = axarr.flatten()[i]
+    for i,ax in enumerate(axarr.flatten()[0:-1]):
+        oid = oids[i]
         ff = dd + "/" + oid + "/repro/xray_flare_lc.txt"
         bf = dd + "/" + oid + "/repro/xray_bkg_lc.txt"
         ff2 = dd + "/" + oid + "/repro/xray_src_offset_lc.txt"

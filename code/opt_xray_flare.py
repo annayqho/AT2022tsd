@@ -27,7 +27,7 @@ def flare_lc():
             obsid = dat['OBSID'].values[i]
 
     # From the header of the repro_evt2.fits file, get the t0 in MJD and MET
-    dd = "..//data/xray"
+    dd = "../../data/xray"
     head = pyfits.open(dd + "/%s/repro/acisf27643_repro_evt2.fits" %obsid)[0].header
     t0_mjd = Time(head['DATE-OBS'], format='isot').mjd
 
