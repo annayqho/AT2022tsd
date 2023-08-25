@@ -21,7 +21,7 @@ if __name__=="__main__":
     fig,ax = plt.subplots(1,1,figsize=(4,4))
 
     # Plot the Taggart sample (scraped from 20xnd paper)
-    dat = np.loadtxt("taggart_sample.txt", delimiter=',')
+    dat = np.loadtxt("../../data/taggart_sample.txt", delimiter=',')
     ax.scatter(dat[:,0], dat[:,1], marker='>', c=vals.sn_col, s=10, label='CCSN')
     dat = np.loadtxt("taggart_lgrb.txt", delimiter=',')
     ax.scatter(dat[:,0], dat[:,1], marker='+', c=vals.lgrb_col, s=40, label='LGRB')
