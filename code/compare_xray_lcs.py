@@ -345,7 +345,7 @@ def create_xray_panel(ax):
     ax.set_xlim(1,600)
     ax.set_ylim(1E39,1E48)
 
-    ax.text(5, 1.5E43, 'AT2018cow', c=cow_col, ha='right', fontsize=8)
-    ax.text(45, 0.8E41, 'AT2020xnd', c=cow_col, ha='right', fontsize=8)
-    ax.text(600, 0.3E43, 'AT2020mrf', c=cow_col, ha='right', fontsize=8)
+    ax.text(7, 1.5E43, 'AT2018cow', c=cow_col, ha='right', fontsize=7)
+    ax.text(45, 0.8E41, 'AT2020xnd', c=cow_col, ha='right', fontsize=7)
+    ax.text(600, 0.3E43, 'AT2020mrf', c=cow_col, ha='right', fontsize=7)
     ax.text(60, 0.6E44, 'AT2022tsd', c=cow_col, ha='left', fontsize=8, fontweight='bold')
