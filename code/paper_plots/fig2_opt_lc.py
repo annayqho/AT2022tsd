@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import sys
 import matplotlib.patches as patches
 plt.rcParams["font.family"] = "sans-serif"
-plt.rcParams["pdf.fonttype"] = 42
+#plt.rcParams["pdf.fonttype"] = 42
 from astropy.time import Time
 sys.path.append("..")
 from get_opt import *
@@ -133,8 +133,11 @@ if __name__=="__main__":
     tsplit = 20
 
     # Initialize
+    figwidth_mm = 183 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
     fig,axarr = plt.subplots(
-            1,2,figsize=(7,3),sharey=True,gridspec_kw={'width_ratios': [1.5,3]})
+            1,2,figsize=(figwidth_in,figwidth_in*(3/7)),
+            sharey=True,gridspec_kw={'width_ratios': [1.5,3]})
 
     # AT2022tsd in both panels
     for ax in axarr:
@@ -230,6 +233,6 @@ if __name__=="__main__":
     ax2.yaxis.tick_right()
 
     fig.subplots_adjust(wspace=0)
-    plt.show()
-    #plt.savefig("opt_lc.png", dpi=300, bbox_inches='tight', pad_inches=0.05)
-    #plt.close()
+    #plt.show()
+    plt.savefig("opt_lc.eps", dpi=300, bbox_inches='tight', pad_inches=0)
+    plt.close()
