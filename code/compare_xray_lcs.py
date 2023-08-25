@@ -3,9 +3,6 @@
 
 # # Figure 2: X-ray LC compilation (original code from Yuhan Yao) 
 
-# In[1]:
-
-
 import numpy as np
 import pandas as pd
 
@@ -32,27 +29,23 @@ from matplotlib import rcParams
 rcParams['font.family'] = 'sans-serif'
 
 
-# In[2]:
 
 
 from fbot_xdata import cow_xrt_lc, add_SNeIbn_xlc, add_tde_lcs
 
 
-# In[3]:
 
 
 from load_grb_xlc import add_grb_lcs, add_SNeIIn_xlc, add_xlc_sn1998bw, add_xlc_sn2010dh, \
                         add_xlc_sn2006aj, add_xlc_sn2003dh, add_SLSNe_xlc #add_grb111209A_lc
 
 
-# In[4]:
 
 
 cols = cmr.take_cmap_colors(
         'cmr.rainforest', 5, cmap_range=(0.0, 0.85), return_fmt='hex')
 
 
-# In[5]:
 
 
 def add_cow(ax, color = "k"):
@@ -245,7 +238,6 @@ def add_2020mrf(ax, color = "tab:red", ms=9):
     ax.plot([ts[3],ts[4]], [Ls[3],Ls[4]],ls='-',color=color)
 
 
-# In[6]:
 
 
 def add_at2022cmc(ax, color = "tab:darkgrey", ms=9):
@@ -256,7 +248,6 @@ def add_at2022cmc(ax, color = "tab:darkgrey", ms=9):
     ax.plot(a['x']*(1+z), a['L'], color=color, zorder=10, label='TDE')
 
 
-# In[7]:
 
 
 def add_afterglows(ax, color='k', ms=9):
@@ -285,7 +276,6 @@ def add_afterglows(ax, color='k', ms=9):
     ax.scatter(3.80,1.1E46,c=color,marker='v', zorder=2)
 
 
-# In[8]:
 
 
 from get_xray import load_swift, load_chandra, load_both
@@ -300,7 +290,6 @@ def add_22tsd(ax, color = "red"):
             markeredgecolor = "k", lw=0.5, zorder=200)     
 
 
-# In[9]:
 
 
 def create_xray_panel(ax):
@@ -312,7 +301,7 @@ def create_xray_panel(ax):
     tde_col = vals.tde_col
     sn_col = vals.sn_col
     llgrb_col = vals.llgrb_col
-    lgrb_col = vals.lgrb_col
+    lgrb_col = 'bisque'
     cow_col = vals.cow_col
 
     add_at2022cmc(ax, color=tde_col)
@@ -360,40 +349,3 @@ def create_xray_panel(ax):
     ax.text(45, 0.8E41, 'AT2020xnd', c=cow_col, ha='right', fontsize=8)
     ax.text(600, 0.3E43, 'AT2020mrf', c=cow_col, ha='right', fontsize=8)
     ax.text(60, 0.6E44, 'AT2022tsd', c=cow_col, ha='left', fontsize=8, fontweight='bold')
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-

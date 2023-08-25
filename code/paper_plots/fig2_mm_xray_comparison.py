@@ -16,7 +16,7 @@ import vals
 from get_radio import *
 from scale_fluxes import sma_lc
 from read_table import *
-from fig2_compare_xray_lcs import create_xray_panel
+from compare_xray_lcs import create_xray_panel
 
     
 
@@ -364,7 +364,7 @@ def run(ax):
 if __name__=="__main__":
     figwidth_mm = 183 # Nature standard
     figwidth_in = (figwidth_mm/10)/2.54 # in inches
-    fig,axarr = plt.subplots(1,2,figsize=(figwidth_in,89))
+    fig,axarr = plt.subplots(1,2,figsize=(figwidth_in,figwidth_in/2))
 
     # mm panel
     ax = axarr[0]
@@ -387,6 +387,7 @@ if __name__=="__main__":
 
     #plt.tight_layout()
     #plt.show()
+    fig.subplots_adjust(wspace=0.3)
     plt.savefig(
             "mm_lc_100ghz.eps", dpi=300, 
             bbox_inches='tight', pad_inches=0)
