@@ -362,9 +362,12 @@ def run(ax):
 
 
 if __name__=="__main__":
-    figwidth_mm = 89 # Nature standard
+    figwidth_mm = 183 # Nature standard
     figwidth_in = (figwidth_mm/10)/2.54 # in inches
-    fig,ax = plt.subplots(1,1,figsize=(figwidth_in,figwidth_in))
+    fig,axarr = plt.subplots(1,2,figsize=(figwidth_in,89))
+
+    # mm panel
+    ax = axarr[0]
     run(ax)
     # Formatting
     ax.set_ylabel(
@@ -378,6 +381,9 @@ if __name__=="__main__":
     ax.set_xscale('log')
     ax.set_yscale('log')
     ax.set_xlabel(r"$\Delta t_\mathrm{obs}$ (d)", fontsize=10)
+
+    # xray panel
+    create_xray_panel(axarr[1])
 
     #plt.tight_layout()
     #plt.show()
