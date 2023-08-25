@@ -1,6 +1,9 @@
 """ Plot the Keck/LRIS spectra """
 
 import pandas as pd
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.size'] = 7 # The maximum allowed for ED figures
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from scipy.optimize import curve_fit
@@ -22,8 +25,8 @@ def gauss(x, sigma, A, b):
 
 def main_spec(ax, wl, flam, eflam, wl2, flam2, eflam2):
     """ The main spectrum panel """
-    labels = ['Keck+LRIS Sept. 23 ($\Delta t_\mathrm{rest}=13\,$d)',
-              'Keck+LRIS Oct. 6 ($\Delta t_\mathrm{rest}=23\,$d)']
+    labels = ['Keck+LRIS Sept. 23 ($\Delta t_\mathrm{rest}=13$ d)',
+              'Keck+LRIS Oct. 6 ($\Delta t_\mathrm{rest}=23$ d)']
     label_offsets = [0.00, 0.03]
     offsets = [2, 1]
     x = [wl, wl2]
@@ -87,7 +90,10 @@ def fig_for_paper():
     wl_lines = get_rest_wl()
 
     # Initialize figure
-    fig = plt.figure(figsize=(6,7))
+    figwidth_mm = 183 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
+    
+    fig = plt.figure(figsize=(figwidth_in,figwidth_in*(7/6)))
     gs = gridspec.GridSpec(3, 3, height_ratios=(1,2,1))
 
     ax = fig.add_subplot(gs[1, :])
@@ -96,25 +102,25 @@ def fig_for_paper():
     # Regions of the rest-frame lines
     ax.axvspan(
             3700*(1+vals.z), 3760*(1+vals.z), 
-            alpha=0.2, color=vals.cow_col, lw=0)
+            color='bisque', lw=0, zorder=0)
     ax.axvspan(
             4800*(1+vals.z), 5050*(1+vals.z), 
-            alpha=0.2, color=vals.cow_col, lw=0)
+            alpha=0.2, color='bisque', lw=0)
     ax.axvspan(
             6510*(1+vals.z), 6770*(1+vals.z), 
-            alpha=0.2, color=vals.cow_col, lw=0)
+            alpha=0.2, color='bisque', lw=0)
 
     # Regions of the obs-frame lines
     for l in [6560, 5876, 4868]:
         ax.axvspan(l-single_width, l+single_width, 
-                   alpha=0.2, color=vals.tde_col, lw=0)
+                   alpha=0.2, color='lavender', lw=0)
 
     # Zoom-in of the OII (left-most) doublet
     ax = fig.add_subplot(gs[0, 0])
     panels(ax, [3725-single_width, 3725+single_width], wl, flam, 0)
     panels(ax, [3725-single_width, 3725+single_width], wl2, flam2, 1)
     plot_lines(ax, 'oii', vals.gc)
-    ax.text(0.05, 0.95, '[O II]', ha='left', va='top', 
+    ax.text(0.38, 0.98, '[O II]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.gc)
     ax.set_xlabel("$\lambda_\mathrm{rest}$ $(\AA)$")
 
@@ -122,11 +128,11 @@ def fig_for_paper():
     ax = fig.add_subplot(gs[0, 1])
     panels(ax, [4930-multi_width, 4930+multi_width], wl, flam, 0)
     panels(ax, [4930-multi_width, 4930+multi_width], wl2, flam2, 1)
-    plot_lines(ax, 'oiii', vals.gc)
-    ax.text(0.35, 0.95, '[O III]', ha='left', va='top', 
+    plot_lines(ax, 'oiii', vals.gc, lw=1)
+    ax.text(0.45, 0.95, '[O III]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.gc)
-    plot_lines(ax, 'hb', vals.rc, lw=2)
-    ax.text(0.00, 0.95, r'H$\beta$', ha='left', va='top', 
+    plot_lines(ax, 'hb', vals.rc, lw=0.3)
+    ax.text(0.15, 0.98, r'H$\beta$', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
     ax.set_xlabel("$\lambda_\mathrm{rest}$ $(\AA)$")
 
@@ -134,14 +140,14 @@ def fig_for_paper():
     ax = fig.add_subplot(gs[0, 2])
     panels(ax, [6640-multi_width, 6640+multi_width], wl, flam, 0)
     panels(ax, [6640-multi_width, 6640+multi_width], wl2, flam2, 1)
-    plot_lines(ax, 'ha', vals.rc, lw=2)
-    ax.text(0.01, 0.9, r'H$\alpha$', ha='left', va='top', 
+    plot_lines(ax, 'ha', vals.rc, lw=0.4)
+    ax.text(0.21, 0.98, r'H$\alpha$', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
-    plot_lines(ax, 'nii', vals.gc)
+    plot_lines(ax, 'nii', vals.gc, lw=1)
     ax.text(0.3, 0.95, r'[N II]', ha='left', va='top', 
             transform=ax.transAxes, color=vals.gc)
-    plot_lines(ax, 'sii', 'grey', lw=3)
-    ax.text(6725, 0.85, r'[S II]', ha='center', va='top', color='grey')
+    plot_lines(ax, 'sii', 'grey', lw=1)
+    ax.text(6725, 0.95, r'[S II]', ha='center', va='top', color='grey')
     ax.set_xlabel("$\lambda_\mathrm{rest}$ $(\AA)$")
 
     # Get data assuming z=0
@@ -154,7 +160,7 @@ def fig_for_paper():
     panels(ax, [6560-single_width, 6560+single_width], wl, flam, 0)
     panels(ax, [6560-single_width, 6560+single_width], wl2, flam2, 1)
     plot_lines(ax, 'ha', vals.rc)
-    ax.text(0.05, 0.95, r'H$\alpha$', ha='left', va='top', 
+    ax.text(0.47, 0.95, r'H$\alpha$', ha='left', va='top', 
             transform=ax.transAxes, color=vals.rc)
     #ax.set_xticks([6520, 6550, 6580])
     #ax.set_xticklabels([6520, 6550, 6580])
@@ -165,8 +171,8 @@ def fig_for_paper():
     panels(ax, [5876-single_width, 5876+single_width], wl, flam, 0)
     panels(ax, [5876-single_width, 5876+single_width], wl2, flam2, 1)
     plot_lines(ax, 'hei', vals.rc)
-    ax.text(0.01, 0.98, r'He I 5876', ha='left', va='top', 
-            transform=ax.transAxes, color=vals.rc, fontsize=9)
+    ax.text(0.38, 0.98, r'He I 5876', ha='center', va='top', 
+            transform=ax.transAxes, color=vals.rc)
     ax.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
     #ax.set_xticks([5400, 5700, 6200])
     #ax.set_xticklabels([5400, 5700, 6200])
@@ -183,17 +189,17 @@ def fig_for_paper():
     for l in wl_lines['oii']:
         ax.axvline(l*(1+vals.z), lw=1, ymin=0, ymax=0.1, color=vals.gc)
     ax.text(0.25, 0.01, r'[O II]', ha='left', va='bottom', 
-            transform=ax.transAxes, color=vals.gc, fontsize=8)
+            transform=ax.transAxes, color=vals.gc)
     
-    ax.text(0.01, 0.98, r'He II 4686', ha='left', va='top', 
-            transform=ax.transAxes, color=vals.rc, fontsize=9)
+    ax.text(0.36, 0.98, r'He II 4686', ha='center', va='top', 
+            transform=ax.transAxes, color=vals.rc)
     ax.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
     #ax.set_xticks([4660, 4680, 4700, 4720])
     #ax.set_xticklabels([4660, 4680, 4700, 4720])
 
     plt.tight_layout()
     #plt.show()
-    plt.savefig("spec.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
+    plt.savefig("spec.eps", dpi=300, bbox_inches='tight', pad_inches=0)
     plt.close()
 
 
