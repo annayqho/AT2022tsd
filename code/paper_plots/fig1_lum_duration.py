@@ -468,7 +468,7 @@ def iib_first_peak(ax):
 
 def plot_bts(ax):
     """ Plot the BTS sample with consistent coloring """
-    dat = pd.read_csv("bts.csv")
+    dat = pd.read_csv("../../data/bts.csv")
     dur = dat['duration'].values
     Mpk = dat['peakabs'].values
     cl = dat['type'].values
