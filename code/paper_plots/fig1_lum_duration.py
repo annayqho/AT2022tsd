@@ -63,8 +63,8 @@ def plot_ztf(ax, background=False, shrink=1, text=True):
     """ Plot the ZTF sample """
 
     # Read table
-    a = pd.read_csv("basic_info.csv")
-    b = pd.read_csv("timescales.txt")
+    a = pd.read_csv("../../data/basic_info.csv")
+    b = pd.read_csv("../../data/timescales.txt")
 
     # Get basic info
     names = a['Name'].values
