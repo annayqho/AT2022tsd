@@ -113,7 +113,8 @@ def grb030329(ax, col, legend):
     # HIGH FREQUENCY
 
     # Sheth
-    dat = np.loadtxt("030329_dat.txt", delimiter=',', dtype=str)
+    dat = np.loadtxt(
+            "../../data/radio/030329_dat.txt", delimiter=',', dtype=str)
     freq = 100E9
     t = dat[:,0].astype(float)
     lum = dat[:,1].astype(float) * 1E-3 * 1E-23 * 4 * np.pi * d**2
