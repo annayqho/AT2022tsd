@@ -2,6 +2,8 @@
 as well as the position of the host galaxy in the M*-SFR plane """
 
 import numpy as np
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
 import matplotlib.pyplot as plt
 from astropy.wcs import WCS
 from reproject import reproject_interp, reproject_adaptive
@@ -80,8 +82,11 @@ def get_host_phot_lris(imsize):
 
 
 if __name__=="__main__":
+    figwidth_mm = 89 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
+
     # Initiate figure
-    fig,ax = plt.subplots(1,1,figsize=(4,4))
+    fig,ax = plt.subplots(1,1,figsize=(figwidth_in,figwidth_in))
 
     # Plot host galaxy
     imsize = 50
@@ -132,6 +137,6 @@ if __name__=="__main__":
             verticalalignment='top', horizontalalignment='center')
 
     plt.tight_layout()
-    plt.show()
-    #plt.savefig("host_galaxy.png", dpi=300)
-    #plt.close()
+    #plt.show()
+    plt.savefig("host_galaxy.eps", dpi=300, bbox_inches='tight', pad_inches=0)
+    plt.close()
