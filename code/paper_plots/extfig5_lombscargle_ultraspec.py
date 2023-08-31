@@ -10,6 +10,9 @@ sys.path.append("..")
 import vals
 from get_opt import *
 #from opt_lc import plot_det, plot_lim
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.size'] = 7 # The maximum allowed for ED figures
 
 
 def get_gband_flare():
@@ -118,12 +121,15 @@ def plot_ls(ax, x, y, ey, c='k', lab=""):
     period_m = period_d*24*60
     ax.plot(period_m, power, c=c, label=lab)
     level = ls.false_alarm_level(0.025, method='bootstrap')
-    ax.axhline(y=level, c=c, ls='--', lw=2)
+    ax.axhline(y=level, c=c, ls='--', lw=1)
     
 
 if __name__=="__main__":
+    figwidth_mm = 183 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
+
     # Initialize figure
-    fig,axarr = plt.subplots(1,2,figsize=(8,3.5))
+    fig,axarr = plt.subplots(1,2,figsize=(figwidth_in,figwidth_in*3.5/8))
 
     # First panel: r-band flare
     ax = axarr[0]
@@ -138,7 +144,7 @@ if __name__=="__main__":
     ax.set_xscale('log')
     ax.set_ylim(0, 0.19)
     ax.set_xlim(0.2, 48) # 48 min = 1/dt
-    ax.legend(loc='upper left', fontsize=8)
+    ax.legend(loc='upper left')
 
     # First panel: g-band flare
     ax = axarr[1]
@@ -153,9 +159,11 @@ if __name__=="__main__":
     ax.set_xscale('log')
     ax.set_ylim(0, 0.19)
     ax.set_xlim(0.2, 48)
-    ax.legend(loc='upper left', fontsize=8)
+    ax.legend(loc='upper left')
 
     plt.tight_layout()
-    plt.savefig("lomb_scargle_periodogram.png", dpi=300)
+    plt.savefig(
+            "lomb_scargle_periodogram.eps", dpi=300, 
+            pad_inches=0, bbox_inches='tight')
     plt.close()
     #plt.show()
