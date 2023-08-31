@@ -1,5 +1,8 @@
 """ Plot the Chandra X-ray flares """
 
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.size'] = 7 # The maximum allowed for ED figures
 import numpy as np
 import pandas as pd
 from astropy.io import fits as pyfits
@@ -59,17 +62,16 @@ def plot_flares(axarr):
                     lw=2, label=None, zorder=0)
 
         if i==0:
-            ax.legend(loc='upper left', fontsize=8)
+            ax.legend(loc='upper left')
 
         dat = r"$\Delta t_\mathrm{rest}=%s$" %np.round(dates[i], 1)
         if np.logical_or(i==0, i==2):
             ax.text(
-                    0.88, 0.95, dat, ha='right', va='top', 
-                    fontsize=8, transform=ax.transAxes)
+                0.88, 0.95, dat, ha='right', va='top', transform=ax.transAxes)
         else:
             ax.text(
                     0.98, 0.95, dat, ha='right', va='top', 
-                    fontsize=8, transform=ax.transAxes)
+                    transform=ax.transAxes)
 
         # For the panel with the LRIS observation,
         if int(oid)==int(oid_use):
@@ -81,7 +83,7 @@ def plot_flares(axarr):
             # Now, plot the optical LC
             ax.errorbar((xo-t0)*24*60, yo/250, xerr=(exo/2)*60, yerr=eyo/250,
                         fmt='D', color=vals.ic, ms=4, label='LRIS $i$-band ($\mu$Jy/250)')
-            ax.legend(loc='upper left', fontsize=8, handletextpad=0.1)
+            ax.legend(loc='upper left', handletextpad=0.1)
 
         tstr = Time(t[i], format='mjd').isot
         ax.set_xlabel("Minutes since %s" %tstr.split('.')[0].replace('T', ' '))

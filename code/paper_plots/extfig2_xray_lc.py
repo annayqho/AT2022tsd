@@ -2,6 +2,9 @@
 Plot the best-fit power law
 Also plot the Chandra flares """
 
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.size'] = 7 # The maximum allowed for ED figures
 import sys
 sys.path.append("..")
 import cmasher as cmr
@@ -92,21 +95,26 @@ def full_lc(ax):
 
 
 def panel_a():
-    fig,ax= plt.subplots(1,1,figsize=(4,2.5))
+    figwidth_mm = 89 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
+
+    fig,ax= plt.subplots(1,1,figsize=(figwidth_in, figwidth_in/1.6))
     full_lc(ax)
     plt.tight_layout()
-    plt.show()
-    #plt.savefig("xray_fit.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    #plt.show()
+    plt.savefig("xray_fit.eps", dpi=300, bbox_inches='tight', pad_inches=0)
+    plt.close()
 
 
 def panel_b():
+    figwidth_mm = 183 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
     # Plot the flares
-    fig,axarr = plt.subplots(4,2,figsize=(8,6))
+    fig,axarr = plt.subplots(4,2,figsize=(figwidth_in, figwidth_in*(6/8)))
     plot_flares(axarr)
     plt.tight_layout()
     #plt.show()
-    plt.savefig("xray_flares.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.savefig("xray_flares.eps",dpi=300,bbox_inches='tight',pad_inches=0)
     plt.close()
 
 

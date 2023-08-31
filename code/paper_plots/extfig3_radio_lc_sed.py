@@ -1,6 +1,9 @@
 """ Plot showing the radio SED evolution with time """
 
 import numpy as np
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.size'] = 7 # The maximum allowed for ED figures
 import cmasher as cmr
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -83,14 +86,14 @@ def plot_seds(dat, ax):
     y0 = 0.3
     yvals = y0*(xvals/x0)**alpha
     ax.plot(xvals,yvals,lw=0.5,c='grey')
-    ax.text(35,0.15,r'$f_\nu\propto\nu^{5/2}$',c='grey',ha='right',fontsize=8)
+    ax.text(35,0.15,r'$f_\nu\propto\nu^{5/2}$',c='grey',ha='right')
 
     alpha = 1
     x0 = 30
     y0 = 0.06
     yvals = y0*(xvals/x0)**alpha
     ax.plot(xvals,yvals,lw=1,c='grey',ls=':')
-    ax.text(300,0.5,r'$f_\nu\propto\nu^{1}$',c='grey',ha='left',fontsize=8)
+    ax.text(300,0.5,r'$f_\nu\propto\nu^{1}$',c='grey',ha='left')
 
     # Formatting
     ax.set_xscale('log')
@@ -102,9 +105,8 @@ def plot_seds(dat, ax):
     #ax.set_ylabel(r"$f_{\nu}$ (mJy)", fontsize=10)
     ax.set_ylim(0.02,0.7)
     ax.set_xlim(10,600)
-    ax.legend(loc='upper left', fontsize=8, handletextpad=0.4,
-              labelspacing=0.1)
-    ax.set_xlabel(r"$\nu_\mathrm{rest}$ (GHz)", fontsize=10)
+    ax.legend(loc='upper left', handletextpad=0.4,labelspacing=0.1)
+    ax.set_xlabel(r"$\nu_\mathrm{rest}$ (GHz)")
 
 def plot_lc(dat,ax):
     """ Plot the LCs """
@@ -131,16 +133,16 @@ def plot_lc(dat,ax):
 
         if val==134:
             ax.text(x[0]/1.02, y[0], str(val) + 'GHz',
-                    ha='right', va='top',fontsize=8,color=cols[i])
+                    ha='right', va='top',color=cols[i])
         elif val==15:
             ax.text(x[0]*1.02, y[0], str(val) + 'GHz',
-                    ha='left', va='top',fontsize=8,color=cols[i])
+                    ha='left', va='top',color=cols[i])
         elif val==77:
             ax.text(x[-1], ey[-1]*3*1.02, str(val) + 'GHz',
-                    ha='right', va='bottom',fontsize=8,color=cols[i])
+                    ha='right', va='bottom',color=cols[i])
         else:
             ax.text(x[0]/1.02, y[0], str(val) + 'GHz',
-                    ha='right', va='center',fontsize=8,color=cols[i])
+                    ha='right', va='center',color=cols[i])
 
         # Plot the non-detection
         nondet = ~isdet
@@ -160,8 +162,8 @@ def plot_lc(dat,ax):
     cols = cmr.take_cmap_colors('cmr.ember', len(mins), 
             cmap_range=(0.1, 0.9), return_fmt='hex')[::-1]
     for i,m in enumerate(mins):
-        ax.axvspan(m,maxs[i],color=cols[i], alpha=0.2, lw=0)
-    ax.axvspan(163,167,color='k',alpha=0.2,lw=0)
+        ax.axvspan(m,maxs[i],color='lightgrey', lw=0, zorder=0)
+    ax.axvspan(163,167,color='lightgrey',lw=0, zorder=0)
 
     ax.set_xlabel(r"$\Delta t_\mathrm{rest}$ (d)")
     ax.set_xscale('log')
@@ -171,13 +173,16 @@ def plot_lc(dat,ax):
     ax.set_xticklabels([20,30,40,60,80,120,180])
     ax.set_yticks([0.02,0.05,0.1, 0.2, 0.5])
     ax.set_yticklabels([0.02,0.05,0.1, 0.2, 0.5])
-    ax.set_ylabel(r"$f_{\nu}$ (mJy)", fontsize=10)
+    ax.set_ylabel(r"$f_{\nu}$ (mJy)")
      
 
 if __name__=="__main__":
     dat = get_data()
 
-    fig,axarr = plt.subplots(1,2, figsize=(8,4))
+    figwidth_mm = 183 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
+
+    fig,axarr = plt.subplots(1,2, figsize=(figwidth_in,figwidth_in/2))
     ax = axarr[0]
     plot_lc(dat,ax)
     ax = axarr[1]
@@ -201,11 +206,11 @@ if __name__=="__main__":
     y0 = 0.15
     yvals = y0*(xvals/x0)**alpha
     axins.plot(xvals,yvals,lw=0.5,c='grey')
-    axins.text(70,0.06,r'$f_\nu\propto\nu^{-0.7}$',c='grey',ha='right',fontsize=8)
+    axins.text(70,0.06,r'$f_\nu\propto\nu^{-0.7}$',c='grey',ha='right')
     axins.set_ylim(0.025,0.4)
     axins.set_xlim(0.8,100)
     axins.text(0,0.95,'$\Delta t=$163-167d',
-               transform=axins.transAxes,fontsize=8,
+               transform=axins.transAxes,
                ha='left', va='top')
     alpha = 1
     axins.set_yscale('log')
@@ -214,9 +219,9 @@ if __name__=="__main__":
     axins.set_xticklabels([1,10,100])
     axins.set_yticklabels([0.03, 0.06, 0.1, 0.2])
     axins.set_yticks([0.03, 0.06, 0.1, 0.2])
-    axins.tick_params(axis='both', labelsize=8)
+    axins.tick_params(axis='both')
     axins.minorticks_off()
 
     #plt.show()
-    plt.savefig("radio.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.savefig("radio.eps", dpi=300, bbox_inches='tight', pad_inches=0)
     plt.close()
