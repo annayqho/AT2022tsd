@@ -99,56 +99,100 @@ def fig_for_paper():
     ax = fig.add_subplot(gs[1, :])
     main_spec(ax, wl, flam, eflam, wl2, flam2, eflam2)
 
-    # Regions of the rest-frame lines
-    ax.axvspan(
-            3700*(1+vals.z), 3760*(1+vals.z), 
-            color='bisque', lw=0, zorder=0)
-    ax.axvspan(
-            4800*(1+vals.z), 5050*(1+vals.z), 
-            alpha=0.2, color='bisque', lw=0)
-    ax.axvspan(
-            6510*(1+vals.z), 6770*(1+vals.z), 
-            alpha=0.2, color='bisque', lw=0)
+    # Get the corners of the main box
+    xlim_ax = ax.get_xlim()
+    ylim_ax = ax.get_ylim()
 
     # Regions of the obs-frame lines
-    for l in [6560, 5876, 4868]:
-        ax.axvspan(l-single_width, l+single_width, 
-                   alpha=0.2, color='lavender', lw=0)
+    ls = [4868, 5876, 6560]
+    for l in ls:
+        ax.axvspan(l-single_width, l+single_width, color='lavender', lw=0)
 
     # Zoom-in of the OII (left-most) doublet
-    ax = fig.add_subplot(gs[0, 0])
-    panels(ax, [3725-single_width, 3725+single_width], wl, flam, 0)
-    panels(ax, [3725-single_width, 3725+single_width], wl2, flam2, 1)
-    plot_lines(ax, 'oii', vals.gc)
-    ax.text(0.38, 0.98, '[O II]', ha='left', va='top', 
-            transform=ax.transAxes, color=vals.gc)
-    ax.set_xlabel("$\lambda_\mathrm{rest}$ $(\AA)$")
+    ax2 = fig.add_subplot(gs[0, 0])
+    panels(ax2, [3725-single_width, 3725+single_width], wl, flam, 0)
+    panels(ax2, [3725-single_width, 3725+single_width], wl2, flam2, 1)
+    plot_lines(ax2, 'oii', vals.gc)
+    ax2.text(0.38, 0.98, '[O II]', ha='left', va='top', 
+            transform=ax2.transAxes, color=vals.gc)
+    ax2.set_xlabel("$\lambda_\mathrm{rest}$ $(\AA)$")
+
+    # Get the corners of the panel
+    xlim_ax2 = ax2.get_xlim()
+    ylim_ax2 = ax2.get_ylim()
+
+    # Regions of the rest-frame lines
+    xmins = np.array([3700, 4800, 6510])*(1+vals.z)
+    xmaxs = np.array([3760, 5050, 6770])*(1+vals.z)
+    for i in np.arange(len(xmins)):
+        ax.axvspan(xmins[i], xmaxs[i], color='bisque', lw=0, zorder=0)
+
+    # Connect the corners of the axvspan to the corners of the panel
+    line1 = patches.ConnectionPatch((xmins[0], ylim_ax[1]),
+            (xlim_ax2[0], ylim_ax2[0]), coordsA='data', coordsB='data', 
+            axesA=ax, axesB=ax2, arrowstyle='-', color='bisque', lw=0.5)
+    ax.add_artist(line1)
+
+    line1 = patches.ConnectionPatch((xmaxs[0], ylim_ax[1]),
+            (xlim_ax2[1], ylim_ax2[0]), coordsA='data', coordsB='data', 
+            axesA=ax, axesB=ax2, arrowstyle='-', color='bisque', lw=0.5)
+    ax.add_artist(line1)
 
     # Zoom-in of the middle lines
-    ax = fig.add_subplot(gs[0, 1])
-    panels(ax, [4930-multi_width, 4930+multi_width], wl, flam, 0)
-    panels(ax, [4930-multi_width, 4930+multi_width], wl2, flam2, 1)
-    plot_lines(ax, 'oiii', vals.gc, lw=1)
-    ax.text(0.45, 0.95, '[O III]', ha='left', va='top', 
-            transform=ax.transAxes, color=vals.gc)
-    plot_lines(ax, 'hb', vals.rc, lw=0.3)
-    ax.text(0.15, 0.98, r'H$\beta$', ha='left', va='top', 
-            transform=ax.transAxes, color=vals.rc)
-    ax.set_xlabel("$\lambda_\mathrm{rest}$ $(\AA)$")
+    ax2 = fig.add_subplot(gs[0, 1])
+    panels(ax2, [4930-multi_width, 4930+multi_width], wl, flam, 0)
+    panels(ax2, [4930-multi_width, 4930+multi_width], wl2, flam2, 1)
+    plot_lines(ax2, 'oiii', vals.gc, lw=1)
+    ax2.text(0.45, 0.95, '[O III]', ha='left', va='top', 
+            transform=ax2.transAxes, color=vals.gc)
+    plot_lines(ax2, 'hb', vals.rc, lw=0.3)
+    ax2.text(0.15, 0.98, r'H$\beta$', ha='left', va='top', 
+            transform=ax2.transAxes, color=vals.rc)
+    ax2.set_xlabel("$\lambda_\mathrm{rest}$ $(\AA)$")
+
+    # Get the corners of the panel
+    xlim_ax2 = ax2.get_xlim()
+    ylim_ax2 = ax2.get_ylim()
+
+    # Connect the corners of the axvspan to the corners of the panel
+    line1 = patches.ConnectionPatch((xmins[1], ylim_ax[1]),
+            (xlim_ax2[0], ylim_ax2[0]), coordsA='data', coordsB='data', 
+            axesA=ax, axesB=ax2, arrowstyle='-', color='bisque', lw=0.5)
+    ax.add_artist(line1)
+
+    line1 = patches.ConnectionPatch((xmaxs[1], ylim_ax[1]),
+            (xlim_ax2[1], ylim_ax2[0]), coordsA='data', coordsB='data', 
+            axesA=ax, axesB=ax2, arrowstyle='-', color='bisque', lw=0.5)
+    ax.add_artist(line1)
 
     # Zoom-in of the right lines
-    ax = fig.add_subplot(gs[0, 2])
-    panels(ax, [6640-multi_width, 6640+multi_width], wl, flam, 0)
-    panels(ax, [6640-multi_width, 6640+multi_width], wl2, flam2, 1)
-    plot_lines(ax, 'ha', vals.rc, lw=0.4)
-    ax.text(0.21, 0.98, r'H$\alpha$', ha='left', va='top', 
-            transform=ax.transAxes, color=vals.rc)
-    plot_lines(ax, 'nii', vals.gc, lw=1)
-    ax.text(0.3, 0.95, r'[N II]', ha='left', va='top', 
-            transform=ax.transAxes, color=vals.gc)
-    plot_lines(ax, 'sii', 'grey', lw=1)
-    ax.text(6725, 0.95, r'[S II]', ha='center', va='top', color='grey')
-    ax.set_xlabel("$\lambda_\mathrm{rest}$ $(\AA)$")
+    ax2 = fig.add_subplot(gs[0, 2])
+    panels(ax2, [6640-multi_width, 6640+multi_width], wl, flam, 0)
+    panels(ax2, [6640-multi_width, 6640+multi_width], wl2, flam2, 1)
+    plot_lines(ax2, 'ha', vals.rc, lw=0.4)
+    ax2.text(0.21, 0.98, r'H$\alpha$', ha='left', va='top', 
+            transform=ax2.transAxes, color=vals.rc)
+    plot_lines(ax2, 'nii', vals.gc, lw=1)
+    ax2.text(0.3, 0.95, r'[N II]', ha='left', va='top', 
+            transform=ax2.transAxes, color=vals.gc)
+    plot_lines(ax2, 'sii', 'grey', lw=1)
+    ax2.text(6725, 0.95, r'[S II]', ha='center', va='top', color='grey')
+    ax2.set_xlabel("$\lambda_\mathrm{rest}$ $(\AA)$")
+
+    # Get the corners of the panel
+    xlim_ax2 = ax2.get_xlim()
+    ylim_ax2 = ax2.get_ylim()
+
+    # Connect the corners of the axvspan to the corners of the panel
+    line1 = patches.ConnectionPatch((xmins[2], ylim_ax[1]),
+            (xlim_ax2[0], ylim_ax2[0]), coordsA='data', coordsB='data', 
+            axesA=ax, axesB=ax2, arrowstyle='-', color='bisque', lw=0.5)
+    ax.add_artist(line1)
+
+    line1 = patches.ConnectionPatch((xmaxs[2], ylim_ax[1]),
+            (xlim_ax2[1], ylim_ax2[0]), coordsA='data', coordsB='data', 
+            axesA=ax, axesB=ax2, arrowstyle='-', color='bisque', lw=0.5)
+    ax.add_artist(line1)
 
     # Get data assuming z=0
     wl, flam, eflam = load_spec_1()
@@ -156,47 +200,91 @@ def fig_for_paper():
     wl_lines = get_rest_wl()
 
     # Zoom-in of H-alpha at z=0 (6563 AA)
-    ax = fig.add_subplot(gs[2, 0])
-    panels(ax, [6560-single_width, 6560+single_width], wl, flam, 0)
-    panels(ax, [6560-single_width, 6560+single_width], wl2, flam2, 1)
-    plot_lines(ax, 'ha', vals.rc)
-    ax.text(0.47, 0.95, r'H$\alpha$', ha='left', va='top', 
-            transform=ax.transAxes, color=vals.rc)
+    ax2 = fig.add_subplot(gs[2, 0])
+    panels(ax2, [6560-single_width, 6560+single_width], wl, flam, 0)
+    panels(ax2, [6560-single_width, 6560+single_width], wl2, flam2, 1)
+    plot_lines(ax2, 'ha', vals.rc)
+    ax2.text(0.47, 0.95, r'H$\alpha$', ha='left', va='top', 
+            transform=ax2.transAxes, color=vals.rc)
     #ax.set_xticks([6520, 6550, 6580])
     #ax.set_xticklabels([6520, 6550, 6580])
-    ax.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
+    ax2.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
+
+    # Get the corners of the panel
+    xlim_ax2 = ax2.get_xlim()
+    ylim_ax2 = ax2.get_ylim()
+
+    # Connect the corners of the axvspan to the corners of the panel
+    line1 = patches.ConnectionPatch((ls[0]-single_width, ylim_ax[0]),
+            (xlim_ax2[0], ylim_ax2[1]), coordsA='data', coordsB='data', 
+            axesA=ax, axesB=ax2, arrowstyle='-', color='lavender', lw=0.5)
+    ax.add_artist(line1)
+
+    line1 = patches.ConnectionPatch((ls[0]+single_width, ylim_ax[0]),
+            (xlim_ax2[1], ylim_ax2[1]), coordsA='data', coordsB='data', 
+            axesA=ax, axesB=ax2, arrowstyle='-', color='lavender', lw=0.5)
+    ax.add_artist(line1)
 
     # Zoom-in of He I 5876
-    ax = fig.add_subplot(gs[2, 1])
-    panels(ax, [5876-single_width, 5876+single_width], wl, flam, 0)
-    panels(ax, [5876-single_width, 5876+single_width], wl2, flam2, 1)
-    plot_lines(ax, 'hei', vals.rc)
-    ax.text(0.38, 0.98, r'He I 5876', ha='center', va='top', 
-            transform=ax.transAxes, color=vals.rc)
-    ax.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
+    ax2 = fig.add_subplot(gs[2, 1])
+    panels(ax2, [5876-single_width, 5876+single_width], wl, flam, 0)
+    panels(ax2, [5876-single_width, 5876+single_width], wl2, flam2, 1)
+    plot_lines(ax2, 'hei', vals.rc)
+    ax2.text(0.38, 0.98, r'He I 5876', ha='center', va='top', 
+            transform=ax2.transAxes, color=vals.rc)
+    ax2.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
     #ax.set_xticks([5400, 5700, 6200])
     #ax.set_xticklabels([5400, 5700, 6200])
 
-    #plt.tight_layout()
+    # Get the corners of the panel
+    xlim_ax2 = ax2.get_xlim()
+    ylim_ax2 = ax2.get_ylim()
+
+    # Connect the corners of the axvspan to the corners of the panel
+    line1 = patches.ConnectionPatch((ls[1]-single_width, ylim_ax[0]),
+            (xlim_ax2[0], ylim_ax2[1]), coordsA='data', coordsB='data', 
+            axesA=ax, axesB=ax2, arrowstyle='-', color='lavender', lw=0.5)
+    ax.add_artist(line1)
+
+    line1 = patches.ConnectionPatch((ls[1]+single_width, ylim_ax[0]),
+            (xlim_ax2[1], ylim_ax2[1]), coordsA='data', coordsB='data', 
+            axesA=ax, axesB=ax2, arrowstyle='-', color='lavender', lw=0.5)
+    ax.add_artist(line1)
 
     # Zoom-in of He II 4686
-    ax = fig.add_subplot(gs[2, 2])
-    panels(ax, [4686-single_width, 4686+single_width], wl, flam, 0)
-    panels(ax, [4686-single_width, 4686+single_width], wl2, flam2, 1)
-    plot_lines(ax, 'heii', vals.rc)
+    ax2 = fig.add_subplot(gs[2, 2])
+    panels(ax2, [4686-single_width, 4686+single_width], wl, flam, 0)
+    panels(ax2, [4686-single_width, 4686+single_width], wl2, flam2, 1)
+    plot_lines(ax2, 'heii', vals.rc)
 
     # Plot O II in the observer frame
     for l in wl_lines['oii']:
-        ax.axvline(l*(1+vals.z), lw=1, ymin=0, ymax=0.1, color=vals.gc)
-    ax.text(0.25, 0.01, r'[O II]', ha='left', va='bottom', 
-            transform=ax.transAxes, color=vals.gc)
+        ax2.axvline(l*(1+vals.z), lw=1, ymin=0, ymax=0.1, color=vals.gc)
+    ax2.text(0.25, 0.01, r'[O II]', ha='left', va='bottom', 
+            transform=ax2.transAxes, color=vals.gc)
     
-    ax.text(0.36, 0.98, r'He II 4686', ha='center', va='top', 
-            transform=ax.transAxes, color=vals.rc)
-    ax.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
+    ax2.text(0.36, 0.98, r'He II 4686', ha='center', va='top', 
+            transform=ax2.transAxes, color=vals.rc)
+    ax2.set_xlabel("$\lambda_\mathrm{obs}$ ($\AA$)")
     #ax.set_xticks([4660, 4680, 4700, 4720])
     #ax.set_xticklabels([4660, 4680, 4700, 4720])
 
+    # Get the corners of the panel
+    xlim_ax2 = ax2.get_xlim()
+    ylim_ax2 = ax2.get_ylim()
+
+    # Connect the corners of the axvspan to the corners of the panel
+    line1 = patches.ConnectionPatch((ls[2]-single_width, ylim_ax[0]),
+            (xlim_ax2[0], ylim_ax2[1]), coordsA='data', coordsB='data', 
+            axesA=ax, axesB=ax2, arrowstyle='-', color='lavender', lw=0.5)
+    ax.add_artist(line1)
+
+    line1 = patches.ConnectionPatch((ls[2]+single_width, ylim_ax[0]),
+            (xlim_ax2[1], ylim_ax2[1]), coordsA='data', coordsB='data', 
+            axesA=ax, axesB=ax2, arrowstyle='-', color='lavender', lw=0.5)
+    ax.add_artist(line1)
+
+    # Zoom-in of He II 4686
     plt.tight_layout()
     #plt.show()
     plt.savefig("spec.eps", dpi=300, bbox_inches='tight', pad_inches=0)
