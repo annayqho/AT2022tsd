@@ -8,12 +8,11 @@ import numpy as np
 from astropy.table import Table
 from astropy.cosmology import Planck15
 import vals
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.size'] = 5 # 5-7 is the allowed range for ED figures
 
 cow_col = vals.cow_col
-
-smallsize=8
-medsize=10
-bigsize=12
 
 squaresize = 50
 
@@ -41,7 +40,7 @@ def vel_lines(ax, x, v):
     rotangle = 65
     ax.text(
             x, 2E28, "$R/\Delta t = %sc$" %v, 
-            fontsize=smallsize, rotation=rotangle,
+            rotation=rotangle,
             horizontalalignment='center', verticalalignment='top', c='grey')
     return yvals
 
@@ -62,10 +61,9 @@ def mdot_curves(ax, x, y, mdotv, label=True):
     rotangle = 84
     if label:
         ax.text(
-                x, y, 
-                "$\dot{M}/v = 10^{%s}$" %int(np.log10(mdotv)), 
-                fontsize=smallsize, rotation=rotangle,
-                horizontalalignment='left', verticalalignment='top', c='grey')
+            x, y, "$\dot{M}/v = 10^{%s}$" %int(np.log10(mdotv)), 
+            rotation=rotangle, horizontalalignment='left', 
+            verticalalignment='top', c='grey')
     return yvals
 
 
@@ -85,7 +83,7 @@ def density_curves(ax, x, ne):
     rotangle = 75 
     ax.text(
             x, 5E29, "$n_e = 10^{%s} \mathrm{cm}^{-3}$" %int(np.log10(ne)), 
-            fontsize=smallsize, rotation=rotangle,
+            rotation=rotangle,
             horizontalalignment='left', verticalalignment='top')
     return yvals
 
@@ -105,7 +103,7 @@ def typeii(ax):
                 tnuval, lpeak[i], marker='o', edgecolor=vals.sn_col, 
                 facecolor='white', s=100, label=label)
         ax.text(
-                tnuval*1.1, lpeak[i]*1.1, names[i], fontsize=smallsize,
+                tnuval*1.1, lpeak[i]*1.1, names[i], 
                 verticalalignment='bottom',
                 horizontalalignment='left', color=vals.sn_col)
 
@@ -116,7 +114,7 @@ def first(ax):
     dcm = Planck15.luminosity_distance(z=0.01957).cgs.value
     lpeak = 2.25*1E-3*1E-23*4*np.pi*dcm**2
     ax.scatter(tnu, lpeak, marker='X', c='k', s=50, label="RT")
-    ax.text(tnu, lpeak*1.2, 'FIRST J1419', fontsize=smallsize,
+    ax.text(tnu, lpeak*1.2, 'FIRST J1419', 
             verticalalignment='bottom',
             horizontalalignment='center')
 
@@ -125,7 +123,7 @@ def first(ax):
     dcm = Planck15.luminosity_distance(z=0.03470).cgs.value
     lpeak = 7*1E-3*1E-23*4*np.pi*dcm**2
     ax.scatter(tnu, lpeak, marker='X', c='k', s=50)
-    ax.text(tnu/1.3, lpeak*1.1, 'VT 1210+4956', fontsize=smallsize,
+    ax.text(tnu/1.3, lpeak*1.1, 'VT 1210+4956', 
             verticalalignment='bottom',
             horizontalalignment='center')
 
@@ -138,8 +136,7 @@ def ibc(ax):
             tnu, lpeak, marker='+', c=vals.sn_col, s=100,
             label="SNe Ibc")
     ax.text(
-            tnu, lpeak/1.2, "2003L", fontsize=smallsize,
-            verticalalignment='top',
+            tnu, lpeak/1.2, "2003L", verticalalignment='top',
             horizontalalignment='center', color=vals.sn_col)
 
     # 11qcj
@@ -149,8 +146,7 @@ def ibc(ax):
             tnu, lpeak, marker='+', c=vals.sn_col, s=100,
             label=None)
     ax.text(
-            tnu/1.2, lpeak, "11qcj", fontsize=smallsize,
-            verticalalignment='center',
+            tnu/1.2, lpeak, "11qcj", verticalalignment='center',
             horizontalalignment='right', color=vals.sn_col)
 
     # 2007bg
@@ -185,15 +181,13 @@ def lfbot(ax):
     ax.scatter(tnu, lpeak, marker=m, c=col, s=s)
     ax.plot(tnu, lpeak, color=col, ls='-')
     ax.text(
-            tnu[0]/1.2, lpeak[0], "$\Delta t$=64d", fontsize=smallsize,
-            verticalalignment='center',
+            tnu[0]/1.2, lpeak[0], "$\Delta t$=64d",verticalalignment='center',
             horizontalalignment='right', c=col)
     ax.text(
-            tnu[1]*1.2, lpeak[1], "$\Delta t$=343d", fontsize=smallsize,
-            verticalalignment='center',
+            tnu[1]*1.2, lpeak[1], "$\Delta t$=343d",verticalalignment='center',
             horizontalalignment='left', c=col)
-    ax.text(tnu[0], lpeak[0]*1.2, "AT2018lug", fontsize=smallsize,
-            horizontalalignment='right', c=col)
+    ax.text(
+            tnu[0],lpeak[0]*1.2,"AT2018lug",horizontalalignment='right',c=col)
 
     # CSS 161010
     tnu = np.array([69*(5.6/5), 357*0.63/5])/1.033
@@ -202,16 +196,15 @@ def lfbot(ax):
     lpeak = np.array([8.8E-3, 1.2E-3])*1E-23*4*np.pi*dcm**2
     ax.scatter(
             tnu, lpeak, marker=m, c=col, s=s, label="_none")
-    ax.text(tnu[0], lpeak[0]*1.2, "CSS161010", fontsize=smallsize,
+    ax.text(tnu[0], lpeak[0]*1.2, "CSS161010", 
             horizontalalignment='right', color=col,
             verticalalignment='bottom')
     ax.plot(tnu, lpeak, color=col, ls='-')
     ax.text(
-            tnu[0]/1.2, lpeak[0], "$\Delta t$=69d", fontsize=smallsize,
-            verticalalignment='center',
-            horizontalalignment='right', c=col)
+            tnu[0]/1.2, lpeak[0], "$\Delta t$=69d", 
+            verticalalignment='center',horizontalalignment='right', c=col)
     ax.text(
-            tnu[-1], lpeak[-1]/1.2, "$\Delta t$=357d", fontsize=smallsize,
+            tnu[-1], lpeak[-1]/1.2, "$\Delta t$=357d", 
             verticalalignment='top',
             horizontalalignment='center', c=col)
 
@@ -222,11 +215,11 @@ def lfbot(ax):
     ax.scatter(
             x1, y1, marker=m, s=s, facecolors=col, edgecolors=col)
     ax.text(
-            x1, y1/1.2, "$\Delta t$=22d", fontsize=smallsize, 
+            x1, y1/1.2, "$\Delta t$=22d", 
             verticalalignment='top',
             horizontalalignment='center', c=col)
     ax.text(
-            x1, y1*1.1, "AT2020xnd", fontsize=smallsize, 
+            x1, y1*1.1, "AT2020xnd", 
             verticalalignment='bottom',
             horizontalalignment='center', color=col)
 
@@ -236,11 +229,11 @@ def lfbot(ax):
     ax.scatter(
             x1, y1, marker=m, s=s, facecolors=col, edgecolors=col)
     ax.text(
-            x1*1.1, y1, "$\Delta t$=261d", fontsize=smallsize, 
+            x1*1.1, y1, "$\Delta t$=261d", 
             verticalalignment='center',
             horizontalalignment='left', c=col)
     ax.text(
-            x1/1.2, y1*1.1, "AT2020mrf", fontsize=smallsize, 
+            x1/1.2, y1*1.1, "AT2020mrf", 
             verticalalignment='bottom',
             horizontalalignment='left', color=col)
 
@@ -252,11 +245,11 @@ def lfbot(ax):
     ax.scatter(x, y, marker=m, c=col, s=s*2, edgecolors='k',
                facecolors=col)
     ax.text(
-            x[0]*1.2, y[0], "$\Delta t$=40d", fontsize=smallsize, 
+            x[0]*1.2, y[0], "$\Delta t$=40d", 
             verticalalignment='center',
             horizontalalignment='left', c=col)
     ax.text(
-            x[0]*1.1, y[0]*1.2,"AT2022tsd",fontsize=medsize, 
+            x[0]*1.1, y[0]*1.2,"AT2022tsd",
             fontweight='bold',verticalalignment='bottom',
             horizontalalignment='center', color=col)
 
@@ -267,11 +260,11 @@ def lfbot(ax):
             x1, y1, marker=m, s=s, 
             facecolors=col, edgecolors=col)
     ax.text(
-            x1*1.2, y1, "AT2018cow", fontsize=smallsize, 
+            x1*1.2, y1, "AT2018cow", 
             verticalalignment='center',
             horizontalalignment='left', color=col)
     ax.text(
-            x1, y1/1.2, "$\Delta t$=22d", fontsize=smallsize, 
+            x1, y1/1.2, "$\Delta t$=22d", 
             verticalalignment='top',
             horizontalalignment='left', c=col)
     x2 = 91*10/5
@@ -279,7 +272,7 @@ def lfbot(ax):
     ax.scatter(x2, y2, marker=m, s=s, facecolors=col, edgecolors=col,
                label='LFBOT')
     ax.text(
-            x2*1.1, y2*1, "$\Delta t$=91d", fontsize=smallsize,
+            x2*1.1, y2*1, "$\Delta t$=91d", 
             verticalalignment='bottom',
             horizontalalignment='left', c=col)
     plt.arrow(x1,y1,x2-x1,y2-y1, color=col)
@@ -294,7 +287,7 @@ def tde(ax):
             facecolor=vals.tde_col, s=100,
             label='TDE')
     ax.text(
-            tnu*1.2, lpeak/1.3, "ASASSN14li", fontsize=smallsize,
+            tnu*1.2, lpeak/1.3, "ASASSN14li", 
             verticalalignment='top',
             horizontalalignment='center', color=vals.tde_col)
 
@@ -307,7 +300,7 @@ def llgrb(ax):
             tnu, lpeak, marker='s', edgecolor=vals.llgrb_col, s=squaresize,
             facecolor=vals.llgrb_col, label="LLGRB-SN")
     ax.text(
-            tnu, lpeak*1.2, "1998bw", fontsize=smallsize,
+            tnu, lpeak*1.2, "1998bw", 
             verticalalignment='bottom',
             horizontalalignment='center', color=vals.llgrb_col)
 
@@ -320,7 +313,7 @@ def llgrb(ax):
             tnu, lpeak, marker='s', edgecolor=vals.llgrb_col, s=squaresize,
             facecolor=vals.llgrb_col, label=None)
     ax.text(
-            tnu, lpeak*1.2, "2017iuk", fontsize=smallsize,
+            tnu, lpeak*1.2, "2017iuk", 
             verticalalignment='bottom',
             horizontalalignment='center', color=vals.llgrb_col)
 
@@ -331,7 +324,7 @@ def llgrb(ax):
             tnu, lpeak, marker='s', edgecolor=vals.llgrb_col, s=squaresize,
             facecolor=vals.llgrb_col, label=None)
     ax.text(
-            tnu, lpeak/1.3, "2006aj", fontsize=smallsize,
+            tnu, lpeak/1.3, "2006aj", 
             verticalalignment='top',
             horizontalalignment='center', color=vals.llgrb_col)
 
@@ -342,17 +335,17 @@ def llgrb(ax):
             tnu, lpeak, marker='s', edgecolor=vals.llgrb_col, s=squaresize,
             facecolor=vals.llgrb_col, label=None)
     ax.text(
-            tnu/1.1, lpeak/1.3, "2010bh", fontsize=smallsize,
+            tnu/1.1, lpeak/1.3, "2010bh", 
             verticalalignment='top',
             horizontalalignment='center', color=vals.llgrb_col)
 
 
-
-
-
 if __name__=="__main__":
+    figwidth_mm = 89 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
+
     # initialize figure
-    fig,ax = plt.subplots(1,1, figsize=(5,4.4))
+    fig,ax = plt.subplots(1,1, figsize=(figwidth_in,figwidth_in*(4.8/5)))
 
     # Plot each class
     typeii(ax)
@@ -374,21 +367,19 @@ if __name__=="__main__":
 
     # Add a legend
     ax.legend(bbox_to_anchor=(-0.2, 1.1), loc='upper left',
-            ncol=6, fontsize=medsize, handletextpad=0.1,
+            ncol=6, handletextpad=0.1, fontsize=7,
             columnspacing=0.5, borderpad=0.3)
 
     # Formatting
     ax.set_ylabel(
-        r"$L_{\mathrm{radio, peak}}$ (erg s$^{-1}$ Hz$^{-1}}$)",
-        fontsize=medsize)
+        r"$L_{\mathrm{radio, peak}}$ (erg s$^{-1}$ Hz$^{-1}}$)", fontsize=7)
     ax.set_xlim(2, 3000)
     ax.set_ylim(3E27, 3E30)
     ax.set_xscale('log')
     ax.set_yscale('log')
-    ax.tick_params(axis='both', labelsize=medsize)
+    ax.tick_params(axis='both', labelsize=7)
     ax.set_xlabel(
-        "$(\Delta t/1\,\mathrm{day})(\\nu_p/5\,\mathrm{GHz})$",
-        fontsize=medsize)
+        "$(\Delta t/1$ day)($\\nu_p/5$ GHz)", fontsize=7)
 
     # make a twin axis
     # ax2 = ax.twinx()
@@ -405,5 +396,5 @@ if __name__=="__main__":
 
     plt.tight_layout()
     #plt.show()
-    plt.savefig("lum_tnu.png", dpi=300, bbox_inches='tight', pad_inches=0.1)
+    plt.savefig("lum_tnu.eps", dpi=300, bbox_inches='tight', pad_inches=0)
     plt.close()

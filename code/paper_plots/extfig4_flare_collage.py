@@ -5,8 +5,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import sys
 import matplotlib.patches as patches
-plt.rcParams["font.family"] = "sans-serif"
-plt.rcParams["pdf.fonttype"] = 42
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.size'] = 7 # The maximum allowed for ED figures
 from astropy.time import Time
 sys.path.append("..")
 from get_opt import *
@@ -66,11 +67,11 @@ def plot_ultraspec_panel(ax, dat, t0, filt, m, col, plot_binned=False, y2=False)
         ax2.set_ylim((y_f(ymin), y_f(ymax)))
         ax2.plot([],[])
         #ax2.set_yscale('log')
-        ax2.tick_params(axis='both', labelsize=9)
+        ax2.tick_params(axis='both')
         ax2.set_ylabel(
-                r"$\nu L_\nu$ ($10^{43}$ erg s$^{-1}$)", fontsize=9, 
+                r"$\nu L_\nu$ ($10^{43}$ erg s$^{-1}$)", 
                 rotation=270, labelpad=15.0)
-    ax.tick_params(axis='both', labelsize=9)
+    ax.tick_params(axis='both')
 
 
 def plot_ultracam_kp84_panel(ax, dat, t0, plot_binned=False, y2=False):
@@ -108,11 +109,12 @@ def plot_ultracam_kp84_panel(ax, dat, t0, plot_binned=False, y2=False):
 
         # Plot detections
         ax.errorbar(
-                dt[det], y[det], ey[det], c=col[i], fmt=m[i], ms=ms[i],lw=0.5)
+                dt[det], y[det], ey[det], 
+                c=col[i], fmt=m[i], ms=ms[i],lw=0.5, zorder=1)
 
         # Plot the non-detections
-        ax.errorbar(dt[~det], y[~det], ey[~det], lw=l, mec=col[i], 
-                    fmt=m[i], ms=ms[i], alpha=0.3, mfc='white', c=col[i])
+        ax.errorbar(dt[~det], y[~det], ey[~det], lw=l, mec=col[i], fmt=m[i], 
+                    ms=ms[i], alpha=0.3, mfc='white', c=col[i], zorder=0)
 
         # Bin the light curve...group by five points
         if plot_binned:
@@ -133,7 +135,7 @@ def plot_ultracam_kp84_panel(ax, dat, t0, plot_binned=False, y2=False):
             #bindet = biny[order] / biney[order] >= 5
             #ax.errorbar(binx[order][bindet], biny[order][bindet], 
             #            biney[order][bindet], fmt=m[i], c=col[i], ms=1)
-            ax.plot(binx[order], biny[order], c=col[i])
+            ax.plot(binx[order], biny[order], c=col[i], zorder=10)
             #ax.plot(binx[order][~bindet], biny[order][~bindet], c=col[i], alpha=0.2)
             #ax.errorbar(binx[order][~bindet], biny[order][~bindet], 
             #            biney[order][~bindet], mec=col[i], alpha=0.2, 
@@ -150,11 +152,11 @@ def plot_ultracam_kp84_panel(ax, dat, t0, plot_binned=False, y2=False):
         ax2.set_ylim((y_f(ymin), y_f(ymax)))
         ax2.plot([],[])
         #ax2.set_yscale('log')
-        ax2.tick_params(axis='both', labelsize=9)
+        ax2.tick_params(axis='both')
         ax2.set_ylabel(
-                r"$\nu L_\nu$ ($10^{43}$ erg s$^{-1}$)", fontsize=9, 
+                r"$\nu L_\nu$ ($10^{43}$ erg s$^{-1}$)", 
                 rotation=270, labelpad=15.0)
-    ax.tick_params(axis='both', labelsize=9)
+    ax.tick_params(axis='both')
 
 
 def plot_flare(ax, tab, mjd, window=1, unit='Days'):
@@ -206,8 +208,11 @@ def plot_flare(ax, tab, mjd, window=1, unit='Days'):
 
 
 if __name__=="__main__":
+    figwidth_mm = 183 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
+
     # Initialize figure
-    fig,axarr = plt.subplots(figsize=(7,8.0))
+    fig,axarr = plt.subplots(figsize=(figwidth_in,figwidth_in*(8/7)))
 
     # Get the optical photometry
     tab = get_full_opt()
@@ -238,15 +243,15 @@ if __name__=="__main__":
             t0_str,tel_str = plot_flare(ax, tab, night, window=windows[i],
                                         unit=units[i])
             if i in [0,3]:
-                ax.text(0.01, 0.95, tel_str, ha='left', va='top', fontsize=8,
+                ax.text(0.01, 0.95, tel_str, ha='left', va='top', 
                         transform=ax.transAxes)
             else:
-                ax.text(0.99, 0.95, tel_str, ha='right', va='top', fontsize=8,
+                ax.text(0.99, 0.95, tel_str, ha='right', va='top', 
                         transform=ax.transAxes)
             unit_str = units[i]
             if unit_str=='Minutes':
                 unit_str='Min.'
-            ax.set_xlabel("%s since %s" %(unit_str,t0_str[5:]), fontsize=8,
+            ax.set_xlabel("%s since %s" %(unit_str,t0_str[5:]), 
                           labelpad=0.5)
             #ax.set_xlabel("Minutes", fontsize=9)
 
@@ -255,14 +260,14 @@ if __name__=="__main__":
                 t0_str,tel_str = plot_flare(axins, tab, night, window=0.2)
                 axins.set_yticks([])
                 axins.set_xticks([])
-                axins.set_xlabel("15 min", fontsize=8, labelpad=1)
+                axins.set_xlabel("15 min", labelpad=1)
                 ax.indicate_inset_zoom(axins, edgecolor="grey")
                 ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
             if ind in [1, 7, 8, 9]:
                 ax.axhline(y=0, c='grey', lw=0.5)
             if np.logical_or.reduce((ind==1, ind==4, ind==7)):
                 ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
-            ax.tick_params(axis='both', labelsize=9, pad=0.5)
+            ax.tick_params(axis='both', pad=0.5)
 
             # Make a second axis
             scale_y2 = 42
@@ -277,10 +282,10 @@ if __name__=="__main__":
             ax2.set_ylim((y_f(ymin), y_f(ymax)))
             ax2.plot([],[])
             #ax2.set_yscale('log')
-            ax2.tick_params(axis='both', labelsize=9)
+            ax2.tick_params(axis='both')
             if np.logical_or.reduce((ind==3, ind==6, ind==9)):
                 ax2.set_ylabel(
-                        r"$\nu L_\nu$ ($10^{%s}$ erg s$^{-1}$)" %scale_y2, fontsize=8,
+                        r"$\nu L_\nu$ ($10^{%s}$ erg s$^{-1}$)" %scale_y2, 
                         rotation=270, labelpad=15.0)
 
             if ind==2:
@@ -296,19 +301,19 @@ if __name__=="__main__":
     ax = plt.subplot(6,1,4)
     t0 = Time("2022-12-19T15:00:00", format='isot').mjd
     plot_ultraspec_panel(ax, tab, t0, 'r', 'o', vals.rc, y2=True)
-    ax.set_xlabel("Hours since 12-19 15:00", fontsize=8, labelpad=0.5)
+    ax.set_xlabel("Hours since 12-19 15:00", labelpad=0.5)
     #ax.set_xlabel("Hours", fontsize=9)
     ax.text(0.02, 0.95, 'ULTRASPEC $r$-band', transform=ax.transAxes,
-            ha='left', va='top', fontsize=8)
+            ha='left', va='top')
     ax.set_xlim(-0.6, 4.3)
     ax.set_ylim(-10, 60)
     ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
-    ax.tick_params(axis='both', labelsize=9, pad=0.5)
+    ax.tick_params(axis='both', pad=0.5)
 
     # Zoom-in to r-band flare
     axins = ax.inset_axes([0.5, 0.54, 0.48, 0.45])
     plot_ultraspec_panel(axins, tab, t0, 'r', 'o', vals.rc)
-    axins.tick_params(axis='both', labelsize=8, pad=0.5)
+    axins.tick_params(axis='both', pad=0.5)
     axins.set_ylabel("")
     axins.set_xlim(0.6,1.1)
     axins.set_ylim(-1,59)
@@ -320,17 +325,17 @@ if __name__=="__main__":
     mjd = tab['mjdstart'].values
     choose = np.logical_and(mjd>t0-0.3, mjd<t0+0.3)
     plot_ultracam_kp84_panel(ax, tab[choose], t0, y2=True)
-    ax.set_xlabel("Hours since 12-20 01:00", fontsize=8, labelpad=0.5)
+    ax.set_xlabel("Hours since 12-20 01:00", labelpad=0.5)
     ax.set_xlim(0.1,7.4)
     ax.set_ylim(-10,35)
     ax.text(0.02, 0.95, 'ULTRACAM + KP84', transform=ax.transAxes,
-            ha='left', va='top', fontsize=8)
+            ha='left', va='top')
     ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
 
     # Zoom in to the ULTRACAM flare
     axins = ax.inset_axes([0.5, 0.35, 0.2, 0.6])
     plot_ultracam_kp84_panel(axins, tab[choose], t0, plot_binned=True)
-    axins.tick_params(axis='both', labelsize=8, pad=0.5)
+    axins.tick_params(axis='both', pad=0.5)
     axins.set_ylabel("")
     axins.set_xlim(0.8,1.2)
     axins.set_ylim(-1, 15)
@@ -344,8 +349,8 @@ if __name__=="__main__":
     plot_ultraspec_panel(ax, tab[tab['#instrument']=='TNT/ULTRASPEC'], 
                          t0, 'g', 's', vals.gc, y2=True)
     ax.text(0.02, 0.95, 'ULTRASPEC $g$-band', transform=ax.transAxes,
-            ha='left', va='top', fontsize=8)
-    ax.set_xlabel("Hours since 12-20 15:00", fontsize=8, labelpad=0.5)
+            ha='left', va='top')
+    ax.set_xlabel("Hours since 12-20 15:00", labelpad=0.5)
     #ax.set_xlabel("Hours", fontsize=9)
     ax.set_ylabel(r"$f_\nu$ ($\mu$Jy)")
     ax.set_xlim(0.2, 4.3)
@@ -355,7 +360,7 @@ if __name__=="__main__":
     axins = ax.inset_axes([0.01, 0.35, 0.4, 0.42])
     plot_ultraspec_panel(axins, tab[tab['#instrument']=='TNT/ULTRASPEC'], 
                          t0, 'g', 's', vals.gc, plot_binned=True)
-    axins.tick_params(axis='both', labelsize=8, pad=0.5)
+    axins.tick_params(axis='both', pad=0.5)
     axins.set_ylabel("")
     axins.set_xlim(2.5,4.2)
     axins.set_ylim(-3,50)
@@ -369,11 +374,10 @@ if __name__=="__main__":
     ax.scatter(0,0,marker='o',c=vals.rc,label='$r$')
     ax.scatter(0,0,marker='D',c=vals.ic,label='$i$')
     ax.scatter(0,0,marker='<',c=vals.wc,label='$w$ or clear')
-    fig.legend(fontsize=8, bbox_to_anchor=(0.5,0.93), loc='upper center',
+    fig.legend(bbox_to_anchor=(0.5,0.93), loc='upper center',
                ncol=5, handletextpad=0.1)
 
     plt.subplots_adjust(wspace=0.4, hspace=0.5)
     #plt.show()
-    plt.savefig("flares.png", dpi=300, 
-                bbox_inches='tight', pad_inches=0.1)
+    plt.savefig("flares.eps", dpi=300, bbox_inches='tight', pad_inches=0)
     plt.close()
