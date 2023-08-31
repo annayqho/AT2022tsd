@@ -4,6 +4,9 @@ sys.path.append("..")
 import numpy as np
 from astropy.timeseries import LombScargle
 from get_xray import *
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.size'] = 7 # The maximum allowed for ED figures
 
 
 def all():
@@ -54,9 +57,12 @@ def per_obsid():
 
 
 if __name__=="__main__":
-    fig, ax = plt.subplots(1,1,figsize=(8,3.5))
+    figwidth_mm = 183 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
+
+    fig, ax = plt.subplots(1,1,figsize=(figwidth_in,figwidth_in*3.5/8))
     period, power, level = all()
-    ax.axhline(y=level, c='k', ls='-', lw=2)
+    ax.axhline(y=level, c='k', ls='-', lw=1)
     for n in np.arange(1,9):
         ax.axvline(x=8.333333/n, c='k', ls='--', lw=0.5, zorder=2)
     ax.plot(period, power, c='grey', zorder=0)
@@ -64,6 +70,6 @@ if __name__=="__main__":
     ax.set_ylabel("Lomb-Scargle Power")
     ax.set_xscale('log')
     plt.tight_layout()
-    #plt.savefig("lomb_scargle_xray.png", dpi=300)
-    plt.show()
-    #plt.close()
+    #plt.show()
+    plt.savefig("lomb_scargle_xray.eps", dpi=300, bbox_inches='tight', pad_inches=0)
+    plt.close()

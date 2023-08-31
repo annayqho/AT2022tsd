@@ -11,14 +11,20 @@ from astropy.visualization import make_lupton_rgb
 import sys
 sys.path.append("..")
 import vals
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.size'] = 7 # The maximum allowed for ED figures
 
 tcol = vals.lgrb_col
 tcol = 'k'
 
 
 if __name__=="__main__":
+    figwidth_mm = 89 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
+
     # Initiate figure
-    fig,ax = plt.subplots(1,1,figsize=(4,4))
+    fig,ax = plt.subplots(1,1,figsize=(figwidth_in,figwidth_in))
 
     # Plot the Taggart sample (scraped from 20xnd paper)
     dat = np.loadtxt("../../data/taggart_sample.txt", delimiter=',')
@@ -92,14 +98,14 @@ if __name__=="__main__":
     ax.hlines(y, xbot, xtop, color=vals.cow_col)
     ax.vlines(x, ybot, ytop, color=vals.cow_col)
     ax.text(x*1.1, y/1.1, 'AT2022tsd', c=vals.cow_col, ha='left',
-            va='top', fontsize=8, fontweight='bold')
+            va='top', fontweight='bold')
 
     ax.set_xscale('log')
     ax.set_yscale('log')
     ax.set_xlabel(r"Stellar Mass ($M_\odot$)")
-    ax.set_ylabel(r"Star formation rate ($M_\odot\,\mathrm{yr}^{-1}$)")
-    ax.legend(loc='lower right', fontsize=8)
+    ax.set_ylabel(r"Star formation rate ($M_\odot$ yr${}^{-1}$)")
+    ax.legend(loc='lower right')
     plt.tight_layout()
-    plt.show()
-    #plt.savefig("host_galaxy.png", dpi=300)
-    #plt.close()
+    #plt.show()
+    plt.savefig("host_galaxy.eps", dpi=300, bbox_inches='tight', pad_inches=0)
+    plt.close()
