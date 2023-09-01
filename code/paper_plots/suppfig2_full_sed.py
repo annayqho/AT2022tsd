@@ -2,6 +2,9 @@
 Currently the only good date for this is 27-28d.
 """
 
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.size'] = 7 # The maximum allowed for ED figures
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -37,7 +40,7 @@ def plot_xray(ax, flux):
     yplot = A*(xplot/nu0)**(-alpha)
     y = xplot*yplot
     ax.plot(xplot, y, c='k', ls='-')
-    ax.text(xplot[150], y[0]/1.2, 'Swift/XRT', fontsize=8, ha='center', va='top')
+    ax.text(xplot[150], y[0]/1.2, 'Swift/XRT', ha='center', va='top')
 
 
 def quiescent_sed(ax):
@@ -55,14 +58,15 @@ def quiescent_sed(ax):
     # Add the radio to the plot
     dat = get_radio()
     dt =  Time(dat['Date'].values.astype(str), format='isot').jd-vals.t0
+    f = dat['Flux'].values
     # There's only one radio detection before 28d...
-    choose = np.logical_and(dt>start_time, dt<end_time) 
+    choose = np.logical_and.reduce((dt>start_time, dt<end_time, f!=99))
     x = dat['Freq_Obs'][choose].values *1E9
     y = dat['Flux'][choose].values*1E-3*1E-23*4*np.pi*(vals.dL_cm)**2 * x 
     ey = dat['eFlux'][choose].values*1E-3*1E-23*4*np.pi*(vals.dL_cm)**2 * x
     ax.errorbar(x, y, ey, fmt='o', c='k')
-    ax.text(x[0]*1.5, y[0], 'VLA', ha='left', va='center', fontsize=8)
-    ax.text(x[-1]*1.8, y[-1], 'NOEMA', ha='left', va='center', fontsize=8)
+    ax.text(x[0]*1.5, y[0], 'VLA', ha='left', va='center')
+    ax.text(x[-1]*1.8, y[-1], 'NOEMA', ha='left', va='center')
 
     # Add the optical to the plot 
     dat = get_full_opt()
@@ -86,7 +90,7 @@ def quiescent_sed(ax):
     y = y*fac
     ey = dat['unc'][choose].values*1E-6*1E-23*4*np.pi*(vals.dL_cm)**2 * freq * fac
     ax.errorbar(freq, y, ey, fmt='o', c='k', lw=0.2)
-    ax.text(freq[-1]*1.8, y[-1], 'NOT', fontsize=8, ha='left', va='center')
+    ax.text(freq[-1]*1.8, y[-1], 'NOT', ha='left', va='center')
 
     # Add the X-ray to the plot
     # The first Swift data is at dt=28 days
@@ -123,18 +127,20 @@ def quiescent_sed(ax):
 
 
 if __name__=="__main__":
-    fig, ax= plt.subplots(1,1,figsize=(4,2.5))
+    figwidth_mm = 89 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
+
+    fig, ax= plt.subplots(1,1,figsize=(figwidth_in, figwidth_in*2.5/4))
     quiescent_sed(ax)
 
     ax.set_xlabel(
-            r"$\nu_\mathrm{obs}$ (Hz)",fontsize=11,
+            r"$\nu_\mathrm{obs}$ (Hz)",
             fontname='sans-serif')
 
-    ax.tick_params(axis='both', labelsize=11)
-    ax.set_ylabel(r"$\nu L_\nu$ (erg s$^{-1}$)", fontsize=11,
-            fontname='sans-serif')
+    ax.tick_params(axis='both')
+    ax.set_ylabel(r"$\nu L_\nu$ (erg s$^{-1}$)")
     plt.tight_layout()
-    plt.show()
+    #plt.show()
 
-    #plt.savefig("sed.png", dpi=200, bbox_inches='tight', pad_inches=0.1)
-    #plt.close()
+    plt.savefig("sed.eps", dpi=300, bbox_inches='tight', pad_inches=0)
+    plt.close()

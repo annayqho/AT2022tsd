@@ -138,5 +138,6 @@ if __name__=="__main__":
 
     plt.tight_layout()
     #plt.show()
-    plt.savefig("host_galaxy.eps", dpi=300, bbox_inches='tight', pad_inches=0)
+    plt.savefig(
+            "host_galaxy_image.eps",dpi=300,bbox_inches='tight',pad_inches=0)
     plt.close()
