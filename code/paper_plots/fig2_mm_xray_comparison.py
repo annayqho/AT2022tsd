@@ -14,7 +14,6 @@ import sys
 sys.path.append("..")
 import vals
 from get_radio import *
-from scale_fluxes import sma_lc
 from read_table import *
 from compare_xray_lcs import create_xray_panel
 
@@ -264,8 +263,10 @@ def sn2020bvc(ax, col, legend):
 def at2018cow(ax, col, legend):
     """ 230 GHz values """
     dcm = Planck15.luminosity_distance(z=0.0141).cgs.value
-    a, b, c = sma_lc()
-    dt, f, ef = b
+    df = pd.read_csv("../../data/radio/at2018cow_sma.csv")
+    dt = df['dt']
+    f = df['f']
+    ef = df['ef']
     ef_comb = np.sqrt(ef**2 + (0.15*f)**2)
     nu = 231.5E9
     lum = f * 1E-3 * 1E-23 * 4 * np.pi * dcm**2
