@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 
-DATA_DIREC = "/Users/annaho/Dropbox/astro/projects_proto/IcBL/old/data/radio_compilations"
+DATA_DIREC = "../../data/radio/radio_compilations"
 
 
 def zauderer():
