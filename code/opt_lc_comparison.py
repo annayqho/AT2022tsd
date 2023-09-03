@@ -73,7 +73,7 @@ def plot_22tsd(ax, show='absolute'):
 
 def plot_18cow(ax, show='absolute', offset=0, single_col=False):
     """ Plot the optical LC of AT2018cow """
-    dat = pd.read_fwf("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt/at2018cow_photometry_table.dat")
+    dat = pd.read_fwf("../../data/opt/at2018cow_photometry_table.dat")
     t0 = 58286
     x = Time(dat['MJD'].values.astype('float'), format='mjd').value
     dat['Emag'][dat['Emag']=='-']=99
@@ -96,7 +96,7 @@ def plot_18cow(ax, show='absolute', offset=0, single_col=False):
 
 def plot_20xnd(ax, show='absolute', offset=0, single_col=False):
     """ Plot the extinction-corrected light curve of AT2020xnd """
-    dat = pd.read_fwf("/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt/at2020xnd_photometry_table.dat")
+    dat = pd.read_fwf("../../data/opt/at2020xnd_photometry_table.dat")
     mjd = dat['#MJD']
     mag = dat['mABc']
     emag = dat['merr']
@@ -116,9 +116,7 @@ def plot_20xnd(ax, show='absolute', offset=0, single_col=False):
 
 def plot_98bw(ax, show='absolute', offset=0):
     """ Plot the LC of SN1998bw """
-    dat = pd.read_csv(
-            "/Users/annaho/Dropbox/astro/papers/papers_active/AT2022tsd/data/opt/sn1998bw.dat",
-            delimiter=';')
+    dat = pd.read_csv("../../data/opt/sn1998bw.dat", delimiter=';')
     dm = Planck18.distmod(z=0.0085).value
     jd = dat['JD'].values
     rband = dat['Rcmag'].values
@@ -142,7 +140,7 @@ def plot_sn2011kl(ax, show='absolute', offset=0):
     Values are given in Table 1
     """
     z = 0.677
-    dat = pd.read_csv("../sn2011kl.txt")
+    dat = pd.read_csv("../../data/opt/sn2011kl.txt")
     t = dat['dt']/86400
     m = dat['obsg']
     dm = Planck18.distmod(z=z).value
@@ -155,7 +153,7 @@ def plot_at2020mrf(ax, show='absolute', offset=0):
     """ Plot the LC of the AT2020mrf g-band LC 
     It's already in the rest frame """
     z = 0.1353
-    dat = np.loadtxt("../at2020mrf.txt", delimiter=',')
+    dat = np.loadtxt("../../data/opt/at2020mrf.txt", delimiter=',')
     t = dat[:,0]
     m = dat[:,1]
     dm = Planck18.distmod(z=z).value
@@ -166,7 +164,7 @@ def plot_at2020mrf(ax, show='absolute', offset=0):
 
 
 def plot_cvs(ax):
-    dat = pd.read_csv("bts_cv.txt")
+    dat = pd.read_csv("../../data/opt/bts_cv.txt")
 
     # Get rid of things with bad measurements
     rise = dat['rise'].values
@@ -197,7 +195,7 @@ def plot_cvs(ax):
 
 
 def plot_novae(ax):
-    dat = pd.read_csv("bts_novae.txt")
+    dat = pd.read_csv("../../data/opt/bts_novae.txt")
 
     # Get rid of things with bad measurements
     rise = dat['rise'].values

@@ -40,3 +40,8 @@ brainstorming.txt
 *.gllc
 *.lc
 *README
+*.ps
+*.tex
+*flux
+*gc
+*bst
