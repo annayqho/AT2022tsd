@@ -262,7 +262,7 @@ def append_060729_xdeep(df0):
 
 
 def add_grb_lcs(ax, dobin = True, color = "lightskyblue"):
-    tb = asci.read("lGRB_sample.dat")
+    tb = asci.read("../../data/lGRB_xray_sample.dat")
     for i in range(len(tb)):
         grb = "GRB"+tb["GRB"].data[i]
         z = tb["z"].data[i]
