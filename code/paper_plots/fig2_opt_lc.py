@@ -132,13 +132,6 @@ if __name__=="__main__":
     # Get the time where you split the axes
     tsplit = 20
 
-    # Initialize
-    figwidth_mm = 183 # Nature standard
-    figwidth_in = (figwidth_mm/10)/2.54 # in inches
-    fig,axarr = plt.subplots(
-            1,2,figsize=(figwidth_in,figwidth_in*(3/7)),
-            sharey=True,gridspec_kw={'width_ratios': [1.5,3]})
-
     # AT2022tsd in both panels
     for ax in axarr:
         plot_22tsd(ax, show='apparent')
