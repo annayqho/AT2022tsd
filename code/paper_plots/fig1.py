@@ -3,6 +3,8 @@
 Final part of Nature editorial process...
 """
 
+from matplotlib import rcParams
+rcParams['font.family'] = 'sans-serif'
 import matplotlib.gridspec as gridspec
 from fig1_host_galaxy import *
 from fig1_lum_duration import *
@@ -104,6 +106,11 @@ ax.text((x2+x)/2, y/1.1, "(21 kpc)", color=markcol, fontsize=12,
 
 # Turn off final panel
 axs[1,1].set_visible(False)
+
+axs[0,0].text(1.15, 1.15, 'a', transform=ax.transAxes,
+      fontsize=11, fontweight='bold', va='top', ha='right')
+axs[1,0].text(1.05, 1.0, 'b', transform=ax.transAxes,
+      fontsize=11, fontweight='bold', va='top', ha='right')
 
 # Save
 #fig.subplots_adjust(wspace=0.5, hspace=0.5)
