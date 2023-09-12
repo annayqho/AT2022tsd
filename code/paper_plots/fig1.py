@@ -9,7 +9,7 @@ from fig1_lum_duration import *
 
 figwidth_mm = 183 # Nature standard
 figwidth_in = (figwidth_mm/10)/2.54 # in inches
-fig,axs = plt.subplots(2,2,figsize=(figwidth_in,figwidth_in))
+fig,axs = plt.subplots(2,2,figsize=(figwidth_in,figwidth_in/1.2))
 
 # Luminosity-duration panels
 axarr = axs[0,:]
@@ -47,8 +47,8 @@ line1 = patches.ConnectionPatch(
         arrowstyle='-', color='grey', lw=0.5)
 axarr[0].add_artist(line1)
 
-fig.legend(loc='upper center', fontsize=10, handletextpad=0.1,
-      bbox_to_anchor=(0.52, 1.00),
+fig.legend(loc='upper center', fontsize=10, handletextpad=0.05,
+      bbox_to_anchor=(0.51, 1.00), 
       ncol=7, fancybox=True, columnspacing=0.4)
 
 # Plot the host galaxy
@@ -88,7 +88,7 @@ ax.text(
         horizontalalignment='right', verticalalignment='center')
 ax.axis('off')
 
-ax.text(0.01, 0.99,"Keck/LRIS $ugI$",fontsize=15,transform=ax.transAxes,
+ax.text(0.01, 0.99,"Keck/LRIS $ugI$",fontsize=12,transform=ax.transAxes,
     horizontalalignment='left', va='top', color='white')
 
 # Mark image scale : 0.25 arcsec per pixel
@@ -96,13 +96,19 @@ x = 7
 y = 10
 x2 = x + 5/0.25
 ax.plot((x,x2), (y,y), color=markcol, lw=2)
-ax.text((x2+x)/2, y*1.1, "5''", color=markcol, fontsize=16,
+ax.text((x2+x)/2, y*1.1, "5''", color=markcol, fontsize=12,
         verticalalignment='bottom', horizontalalignment='center')
-ax.text((x2+x)/2, y/1.1, "(21 kpc)", color=markcol, fontsize=16,
+ax.text((x2+x)/2, y/1.1, "(21 kpc)", color=markcol, fontsize=12,
         verticalalignment='top', horizontalalignment='center')
 
 
 # Turn off final panel
 axs[1,1].set_visible(False)
+
+# Save
+#fig.subplots_adjust(wspace=0.5, hspace=0.5)
 plt.tight_layout()
-plt.show()
+fig.subplots_adjust(top=0.93, wspace=0.4)
+plt.savefig("fig1.eps", dpi=300, bbox_inches='tight', pad_inches=0)
+plt.close()
+#plt.show()

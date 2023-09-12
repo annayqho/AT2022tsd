@@ -295,8 +295,8 @@ def plot_AT2019pim(ax):
     y = 1.8E45
     x = 0.36
     ax.scatter(x, y, marker='*', s=40, edgecolor=lgrb_col, facecolor='white')
-    ax.text(x/1.3, y*2, 'Orphan', fontsize=8, c=lgrb_col, ha='right')
-    ax.text(x/1.2, y, '(AT2019pim)', fontsize=8, c=lgrb_col, ha='right')
+    ax.text(x/1.3, y*2, 'Orphan', fontsize=7, c=lgrb_col, ha='right')
+    ax.text(x/1.2, y, '(AT2019pim)', fontsize=7, c=lgrb_col, ha='right')
 
 
 def plot_snls(ax):
@@ -653,8 +653,8 @@ def plot_panel(ax, zoom=False):
     #ax2.scatter(10, 1E43, marker='*', edgecolor='grey', facecolor='white')
     
     if zoom==False:
-        ax2.text(160, 2.8E46, 'S5 1803+784', fontsize=8, c='grey', ha='right')
-        ax2.text(160, 1.5E46, 'Blazar Flare', fontsize=8, c='grey', ha='right')
+        ax2.text(160, 3.0E46, 'S5 1803+784', fontsize=7, c='grey', ha='right')
+        ax2.text(160, 1.5E46, 'Blazar Flare', fontsize=7, c='grey', ha='right')
         ax.text(x/1.1,Mpeak*1.01,'AT2022cmc',c=vals.tde_col,
                 ha='left',va='bottom',fontsize=7)
         #ax2.text(160, 2.8E46, 'ASASSN-14ko', fontsize=8, c='grey', ha='right')
