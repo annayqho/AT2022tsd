@@ -50,3 +50,59 @@ axarr[0].add_artist(line1)
 fig.legend(loc='upper center', fontsize=10, handletextpad=0.1,
       bbox_to_anchor=(0.52, 1.00),
       ncol=7, fancybox=True, columnspacing=0.4)
+
+# Plot the host galaxy
+ax = axs[1,0]
+
+imsize = 50
+i,g,u = get_host_phot_lris(imsize)
+r = (i+g)/2  # max: 1000
+# max for g: 600, 650
+b = (g*1.5+u)/2  # max for b: 500, 550
+
+#r,g,b = get_host_phot_ps1(imsize) # r:0-1000; g:0-500
+#rgb = make_lupton_rgb(r/1.8, g/1.1, b, stretch=100, Q=5, minimum=13)
+
+# Try gri
+#rgb = make_lupton_rgb(i/2.5, r/1.9, b, stretch=100, Q=4, minimum=10)
+rgb = make_lupton_rgb(i/2.5, r/1.9, b, stretch=100, Q=5, minimum=10)
+ax.imshow(rgb, origin='lower')
+
+markcol = 'white'
+
+# Mark position of transient
+ax.plot([imsize, imsize], [imsize, imsize-8], c=markcol, lw=1)
+ax.plot([imsize, imsize+8], [imsize, imsize], c=markcol, lw=1)
+ax.text(imsize+1, imsize-2, 'AT2022tsd', ha='left', va='top', fontsize=10,
+        color=markcol)
+
+# Mark compass
+imsize = 100
+ax.plot((imsize-10,imsize-10), (imsize-10,imsize-20), color=markcol, lw=2)
+ax.text(
+        imsize-10, imsize-23, "S", color=markcol, fontsize=16,
+        horizontalalignment='center', verticalalignment='top')
+ax.plot((imsize-10,imsize-20), (imsize-10,imsize-10), color=markcol, lw=2)
+ax.text(
+        imsize-23, imsize-10, "E", color=markcol, fontsize=16,
+        horizontalalignment='right', verticalalignment='center')
+ax.axis('off')
+
+ax.text(0.01, 0.99,"Keck/LRIS $ugI$",fontsize=15,transform=ax.transAxes,
+    horizontalalignment='left', va='top', color='white')
+
+# Mark image scale : 0.25 arcsec per pixel
+x = 7
+y = 10
+x2 = x + 5/0.25
+ax.plot((x,x2), (y,y), color=markcol, lw=2)
+ax.text((x2+x)/2, y*1.1, "5''", color=markcol, fontsize=16,
+        verticalalignment='bottom', horizontalalignment='center')
+ax.text((x2+x)/2, y/1.1, "(21 kpc)", color=markcol, fontsize=16,
+        verticalalignment='top', horizontalalignment='center')
+
+
+# Turn off final panel
+axs[1,1].set_visible(False)
+plt.tight_layout()
+plt.show()
