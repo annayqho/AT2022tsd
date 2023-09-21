@@ -4,6 +4,7 @@ as well as the position of the host galaxy in the M*-SFR plane """
 import numpy as np
 from matplotlib import rcParams
 rcParams['font.family'] = 'sans-serif'
+rcParams['pdf.fonttype']=42
 import matplotlib.pyplot as plt
 from astropy.wcs import WCS
 from reproject import reproject_interp, reproject_adaptive
