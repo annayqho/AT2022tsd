@@ -4,7 +4,7 @@ Final part of Nature editorial process...
 """
 
 from matplotlib import rcParams
-rcParams['font.family'] = 'sans-serif'
+rcParams['font.family'] = 'Arial'
 rcParams['pdf.fonttype']=42
 import matplotlib.gridspec as gridspec
 from fig1_host_galaxy import *
@@ -13,7 +13,6 @@ from fig1_lum_duration import *
 
 def top_panel(axarr):
     # Luminosity-duration panels
-    axarr = axs[0,:]
     ax = axarr[0]
     plot_panel(ax)
     ax = axarr[1]
@@ -54,9 +53,8 @@ def top_panel(axarr):
 
 
 def bottom_panel(ax):
+    """ host galaxy panel """
     # Plot the host galaxy
-    ax = axs[1,0]
-
     imsize = 50
     i,g,u = get_host_phot_lris(imsize)
     r = (i+g)/2  # max: 1000
@@ -91,7 +89,7 @@ def bottom_panel(ax):
             horizontalalignment='right', verticalalignment='center')
     ax.axis('off')
 
-    ax.text(0.01, 0.99,"Keck/LRIS $ugI$",fontsize=12,transform=ax.transAxes,
+    ax.text(0.01, 0.99,"Keck/LRIS $ugI$",fontsize=10,transform=ax.transAxes,
         horizontalalignment='left', va='top', color='white')
 
     # Mark image scale : 0.25 arcsec per pixel
@@ -99,30 +97,50 @@ def bottom_panel(ax):
     y = 10
     x2 = x + 5/0.25
     ax.plot((x,x2), (y,y), color=markcol, lw=2)
-    ax.text((x2+x)/2, y*1.1, "5''", color=markcol, fontsize=12,
+    ax.text((x2+x)/2, y*1.1, "5''", color=markcol, fontsize=10,
             verticalalignment='bottom', horizontalalignment='center')
-    ax.text((x2+x)/2, y/1.1, "(21 kpc)", color=markcol, fontsize=12,
+    ax.text((x2+x)/2, y/1.1, "(21 kpc)", color=markcol, fontsize=10,
             verticalalignment='top', horizontalalignment='center')
 
 
-# Turn off final panel
-axs[1,1].set_visible(False)
-
-axs[0,0].text(1.15, 1.15, 'a', transform=ax.transAxes,
-      fontsize=11, fontweight='bold', va='top', ha='right')
-axs[1,0].text(1.05, 1.0, 'b', transform=ax.transAxes,
-      fontsize=11, fontweight='bold', va='top', ha='right')
-
-# Save
-#fig.subplots_adjust(wspace=0.5, hspace=0.5)
-plt.tight_layout()
-fig.subplots_adjust(top=0.93, wspace=0.4)
-plt.savefig("fig1.eps", dpi=300, bbox_inches='tight', pad_inches=0)
-plt.close()
-#plt.show()
-
-if __name__=="__main__":
+def plot_single_figure():
     figwidth_mm = 183 # Nature standard
     figwidth_in = (figwidth_mm/10)/2.54 # in inches
     fig,axs = plt.subplots(2,2,figsize=(figwidth_in,figwidth_in/1.2))
+    axarr = axs[0,:]
+    top_panel(axarr)
+    ax = axs[1,0]
+    bottom_panel(ax)
+    # Turn off final panel
+    axs[1,1].set_visible(False)
+    axs[0,0].text(1.15, 1.15, 'a', transform=ax.transAxes,
+          fontsize=11, fontweight='bold', va='top', ha='right')
+    axs[1,0].text(1.05, 1.0, 'b', transform=ax.transAxes,
+          fontsize=11, fontweight='bold', va='top', ha='right')
+    # Save
+    #fig.subplots_adjust(wspace=0.5, hspace=0.5)
+    plt.tight_layout()
+    fig.subplots_adjust(top=0.93, wspace=0.4)
+    plt.savefig("fig1.eps", dpi=300, bbox_inches='tight', pad_inches=0)
+    plt.close()
+    #plt.show()
 
+
+if __name__=="__main__":
+    # Plot them separately
+    # top panel:
+    figwidth_mm = 183 # Nature standard
+    figwidth_in = (figwidth_mm/10)/2.54 # in inches
+    fig,axarr = plt.subplots(1,2,figsize=(figwidth_in,figwidth_in/2.2))
+    top_panel(axarr)
+    fig.subplots_adjust(top=0.88, wspace=0.4)
+    plt.savefig("fig1_lum_duration.eps", dpi=300, bbox_inches='tight', pad_inches=0)
+    plt.close()
+
+    # bottom panel:
+    # figwidth_mm = 136 # Nature standard
+    # figwidth_in = (figwidth_mm/10)/2.54 # in inches
+    # fig,ax = plt.subplots(1,1,figsize=(figwidth_in,figwidth_in/2.2))
+    # bottom_panel(ax)
+    # plt.savefig("host_galaxy_image.eps", dpi=300, bbox_inches='tight', pad_inches=0)
+    # plt.close()
