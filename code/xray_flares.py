@@ -64,7 +64,7 @@ def plot_flares(axarr):
         if i==0:
             ax.legend(loc='upper left')
 
-        dat = r"$\Delta t_\mathrm{rest}=%s$" %np.round(dates[i], 1)
+        dat = r"$\Delta t_\mathrm{rest}=%s$d" %np.round(dates[i], 1)
         if np.logical_or(i==0, i==2):
             ax.text(
                 0.88, 0.95, dat, ha='right', va='top', transform=ax.transAxes)
