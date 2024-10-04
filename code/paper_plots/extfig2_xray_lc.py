@@ -31,8 +31,8 @@ def full_lc(ax):
     # Load the Swift data
     df = load_swift()
     t = Time(df['!MJD    '].values, format='mjd')
-    dt = (t.jd-vals.t0)/(1+vals.z)
-    et = (df['T_+ve   '].values)/(1+vals.z)
+    dt = (t.jd-vals.t0)#/(1+vals.z)
+    et = (df['T_+ve   '].values)#/(1+vals.z)
     L = df['L'].values/1E43
     eL = df['Lpos'].values/1E43
 
@@ -55,8 +55,8 @@ def full_lc(ax):
     df = load_chandra()
     t = Time(df['MJD'].values, format='mjd')
     exp = (df['Exp'].values*1000)/86400 # days
-    dt_start = (t.jd-vals.t0)/(1+vals.z)
-    dt_dur = exp/(1+vals.z)
+    dt_start = (t.jd-vals.t0)#/(1+vals.z)
+    dt_dur = exp#/(1+vals.z)
     dt_ch = dt_start + dt_dur/2 # halfway through
     e_dt_ch = dt_dur/2 # half the exposure
     L_ch = 1.77*df['L'].values/1E43
@@ -78,7 +78,7 @@ def full_lc(ax):
     # Fit 
     popt,pcov = curve_fit(func, dt, L, p0=[10,20,-2], 
                           sigma=eL, absolute_sigma=True)
-    xvals = np.linspace(22,270)
+    xvals = np.linspace(22,330)
     yvals = popt[0]*(xvals/popt[1])**(popt[2])
     print(popt[2],np.sqrt(pcov[2,2]))
     alpha = np.round(popt[2], 1)
@@ -86,11 +86,11 @@ def full_lc(ax):
 
     ax.legend()
     ax.set_xscale('log')
-    ax.set_xlim(20,270)
+    ax.set_xlim(20,330)
     plt.yscale('log')
-    ax.set_xticks([20, 40, 70, 140, 270])
-    ax.set_xticklabels([20, 40, 70, 140, 270])
-    ax.set_xlabel("$\Delta t$ (rest-frame days)")
+    ax.set_xticks([20, 40, 70, 140, 300])
+    ax.set_xticklabels([20, 40, 70, 140, 300])
+    ax.set_xlabel("$\Delta t$ (observer-frame days)")
     ax.set_ylabel("$L_X$ ($10^{43}$ erg s$^{-1}$)")
 
 
@@ -120,4 +120,4 @@ def panel_b():
 
 if __name__=="__main__":
     panel_a()
-    panel_b()
+    #panel_b()
